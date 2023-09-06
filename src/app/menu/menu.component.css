@@ -1,0 +1,30 @@
+nav {
+  background-color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  display: block;
+  padding: 12px 0;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.button:hover {
+  color: #ffd700;
+}
+
+.activebutton {
+  background-color: #8b0000;
+}
