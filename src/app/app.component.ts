@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   isLoggedIn(): boolean {
-    // return this.authService.isLogged();
-    return true;
+    return this.authService.isLogged();
   }
 }
