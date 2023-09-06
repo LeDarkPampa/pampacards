@@ -11,9 +11,9 @@ export class AppComponent implements OnInit {
 
   clans: String[] = [];
 
-  constructor(private http: HttpClient,
-    private cd: ChangeDetectorRef
-  ) {}
+  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
+    this.getAllClans();
+  }
 
   ngOnInit() {
     this.cd.detectChanges();
