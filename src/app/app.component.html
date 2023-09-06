@@ -1,4 +1,7 @@
 <app-menu></app-menu>
 
 Clans :
-{{clans}}
+
+<ul>
+  <li *ngFor="let clan of clans">{{ clan }}</li>
+</ul>
