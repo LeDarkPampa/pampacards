@@ -1,0 +1,19 @@
+<div>
+  <h3>{{demande.joueurUnPseudo}} vous propose un combat !</h3>
+
+  Format : {{demande.nomFormat}}
+
+  <div *ngIf="!hasValidDeck">
+    Aucun deck valide pour le format proposé.
+  </div>
+  <div *ngIf="hasValidDeck">
+    <div>
+      Veuillez sélectionner votre deck si vous souhaitez accepter.
+      <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
+    </div>
+  </div>
+  <br/>
+
+  <button *ngIf="hasValidDeck" pButton type="button" label="Accepter" (click)="accepter()" [disabled]="!selectedDeck" class="p-button-success"></button>
+  <button pButton type="button" label="Refuser" (click)="refuser()" class="p-button-danger"></button>
+</div>

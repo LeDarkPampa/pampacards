@@ -1,0 +1,179 @@
+.screen {
+  display: flex;
+  flex-direction: row;
+  max-height: calc(100vh - 20px);
+}
+
+.game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  max-height: 100%;
+  background-color: #58A4B0;
+}
+
+.player-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  text-align: center;
+  width: 95%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.player-container-dark {
+  background-color: rgba(200, 200, 200, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  text-align: center;
+  width: 95%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ligne {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ligneCenter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-container {
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #000;
+  font-size: 15px;
+  height: 70px;
+  line-height: 70px;
+  position: relative;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  width: 60px;
+}
+
+.card:before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to bottom, #ccc, #fff);
+  border-radius: 5px;
+}
+
+.card:after {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 50px;
+  background: linear-gradient(to bottom, #fff, #ccc);
+  border-radius: 5px;
+}
+
+/** Chat **/
+
+.bandeau-droite {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.chat-container {
+  flex: 1;
+  max-height: calc(65vh - 30px); /* Limite la hauteur du chat à 100% de la vue en hauteur moins 20px de marge */
+  background-color: #f7f7f7;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  word-wrap: break-word; /* Permet aux mots longs de se retourner à la ligne */
+}
+
+.card-visualiser {
+  margin-top: auto;
+}
+
+.card-visualiser img {
+  max-width: 95%;
+}
+
+.chat-messages {
+  margin-bottom: 10px;
+}
+
+.chat-message {
+  margin-bottom: 5px;
+}
+
+.sender {
+  font-weight: bold;
+}
+
+.content {
+  margin-left: 5px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.chat-input button {
+  padding: 5px 10px;
+  background-color: #58A4B0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Styles supplémentaires pour la version responsive */
+
+@media only screen and (max-width: 768px) {
+  .screen {
+    flex-direction: column;
+  }
+
+  .game-container {
+    width: 100%;
+  }
+
+  .chat-container {
+    flex-basis: 100%;
+  }
+}

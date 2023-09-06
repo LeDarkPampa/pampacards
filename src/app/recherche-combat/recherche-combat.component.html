@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="column left">
+    <div class="search-panel">
+      <h3>Recherche d'adversaire :</h3>
+      <button pButton type="button" label="On" (click)="startSearch()" [disabled]="searching" class="p-button-success"></button>
+      <button pButton type="button" label="Off" (click)="stopSearch()" [disabled]="!searching" class="p-button-danger"></button>
+    </div>
+
+    <div class="send-challenge-panel">
+      <h3>Envoyer une demande de combat :</h3>
+      <div class="format-select">
+        Choisir un format :
+        <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
+      </div>
+      <div *ngIf="selectedFormat" class="deck-select">
+        Choisir un deck :
+        <p-dropdown [options]="filteredDecks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
+      </div>
+      <div *ngIf="selectedDeck" class="opponent-select">
+        Choisir un adversaire :
+        <ul>
+          <ng-container *ngIf="opponentList && opponentList.length">
+            <div *ngFor="let opponent of opponentList">
+              <div *ngIf="opponent.id !== userId">
+                {{opponent.pseudo}}
+                <button pButton type="button" label="Proposer un combat" (click)="challengeOpponent(opponent)"></button>
+              </div>
+            </div>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="column middle">
+    <div class="column right">
+      <div class="received-requests-panel">
+        <h3>Demandes envoyées :</h3>
+        <p-table [value]="tableauDemandesEnvoyees">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Nom de l'adversaire</th>
+              <th>Format du deck</th>
+              <th>Deck sélectionné</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td>{{ rowData.joueurDeuxPseudo }}</td>
+              <td>{{ rowData.nomFormat }}</td>
+              <td>{{ rowData.nomDeckUn }}</td>
+              <td>{{ rowData.status }}</td>
+              <td>
+                <button class="round-btn" aria-label="Supprimer" (click)="deleteDemande(rowData)"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+  </div>
+
+  <div class="column right">
+    <div class="received-requests-panel">
+      <h3>Demandes reçues :</h3>
+      <p-table [value]="tableauDemandesRecues">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nom de l'adversaire</th>
+            <th>Format du deck</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td>{{ rowData.joueurUnPseudo }}</td>
+            <td>{{ rowData.nomFormat }}</td>
+            <td>{{ rowData.status }}</td>
+            <td>
+              <button class="round-btn" aria-label="Voir" (click)="voirDemande(rowData)"><i class="fa fa-search"></i></button>
+              <button class="round-btn" aria-label="Supprimer" (click)="refuserDemande(rowData)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

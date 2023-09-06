@@ -1,0 +1,147 @@
+import {Component, OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ICarte } from '../interfaces/ICarte';
+import {IClan} from "../interfaces/IClan";
+import {IType} from "../interfaces/IType";
+import {ICollection} from "../interfaces/ICollection";
+import {AuthentificationService} from "../services/authentification.service";
+
+@Component({
+  selector: 'app-collection',
+  templateUrl: './collection.component.html',
+  styleUrls: ['./collection.component.css']
+})
+export class CollectionComponent implements OnInit{
+
+  collection: ICollection | undefined;
+  cartes: ICarte[];
+  cartesFiltrees: ICarte[] = [];
+
+
+  private errorMessage: any;
+
+  // Filtres
+  selectedClans: string[] = [];
+  selectedTypes: string[] = [];
+  selectedRaretes: number[] = [];
+  clans: String[] = [];
+  types: String[] = [];
+  raretes: number[] = [1, 2, 3, 4];
+
+  constructor(private http: HttpClient, private authService: AuthentificationService) {
+    this.cartes = [];
+
+    this.getAllClans();
+    this.getAllTypes();
+    this.getAllCollection();
+  }
+
+  ngOnInit() {
+    this.getUserCollection(this.authService.userId);
+  }
+
+  getAllCollection() {
+    this.http.get<ICarte[]>('http://localhost:8080/backend/api/cartes').subscribe({
+      next: data => {
+        this.cartes = data;
+        this.cartesFiltrees = data;
+      },
+      error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    })
+  }
+
+  getUserCollection(userId: number) {
+    const url = `http://localhost:8080/backend/api/collection?userId=${userId}`;
+
+    this.http.get<ICollection>(url).subscribe({
+      next: data => {
+        this.collection = data;
+      },
+      error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    });
+  }
+  getAllClans() {
+    this.http.get<IClan[]>('http://localhost:8080/backend/api/clans').subscribe({
+      next: data => {
+        data.forEach(clan => this.clans.push(clan.nom));
+      },
+      error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    })
+  }
+
+  private getAllTypes() {
+    this.http.get<IType[]>('http://localhost:8080/backend/api/types').subscribe({
+      next: data => {
+        data.forEach(type => this.types.push(type.nom));
+      },
+      error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    })
+  }
+  isInCollection(carte: ICarte) {
+    return this.collection?.cartes.some(card => card.id === carte.id);
+  }
+
+  countNumberInUserCollection(carte: ICarte): number {
+    return this.collection ? this.collection?.cartes.filter(card => card.id === carte.id).length : 0;
+  }
+
+  applyFilters() {
+    this.cartesFiltrees = this.cartes.filter((carte: ICarte) => {
+      if (this.selectedClans && this.selectedClans.length > 0 && this.selectedClans.indexOf(carte.clan.nom) == -1) {
+        return false;
+      }
+
+      if (this.selectedTypes && this.selectedTypes.length > 0 && this.selectedTypes.indexOf(carte.type.nom) == -1) {
+        return false;
+      }
+
+      if (this.selectedRaretes && this.selectedRaretes.length > 0 && this.selectedRaretes.indexOf(carte.rarete) == -1) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  sort(critere: string) {
+    this.cartesFiltrees.sort((carteA, carteB) => {
+      let value1;
+      let value2;
+      if (critere === 'nom') {
+        value1 = carteA.nom;
+        value2 = carteB.nom;
+      } else if (critere === 'rarete') {
+        value1 = carteA.rarete;
+        value2 = carteB.rarete;
+      } else {
+        value1 = carteA.nom;
+        value2 = carteB.nom;
+      }
+      if (value1 < value2) {
+        return -1;
+      }
+      if (value1 > value2) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  resetFilters() {
+    this.selectedClans = [];
+    this.selectedTypes = [];
+    this.selectedRaretes = [];
+    this.applyFilters();
+  }
+}

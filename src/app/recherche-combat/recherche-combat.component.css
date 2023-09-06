@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.middle,
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-panel,
+.send-challenge-panel,
+.sent-requests-panel,
+.received-requests-panel {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.search-panel h3,
+.send-challenge-panel h3,
+.sent-requests-panel h3,
+.received-requests-panel h3 {
+  margin-top: 0;
+}
+
+.format-select,
+.deck-select,
+.opponent-select {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.format-select label,
+.deck-select label,
+.opponent-select label {
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+}
+
+.round-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  margin-left: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.round-btn:hover {
+  background-color: #ccc;
+}
+
+.round-btn:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+.round-btn i {
+  font-size: 16px;
+  color: #666;
+}
