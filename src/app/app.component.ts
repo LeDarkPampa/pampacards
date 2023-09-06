@@ -11,12 +11,11 @@ export class AppComponent implements OnInit {
 
   clans: String[] = [];
 
-  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
+  constructor(private http: HttpClient) {
     this.getAllClans();
   }
 
   ngOnInit() {
-    this.cd.detectChanges();
   }
 
   getAllClans() {
