@@ -1,8 +1,0 @@
-<div class="card-selection-dialog">
-  <ul class="card-list">
-    <li *ngFor="let carte of cartes" [ngClass]="{'selected': carteSelectionnee === carte}" (click)="onCarteClick(carte)">
-      <img src="assets/cartes/{{carte.image_path}}" alt="{{carte.nom}}"/>
-    </li>
-  </ul>
-  <button pButton type="button" label="Sélectionner" (click)="selectionner()" [disabled]="!carteSelectionnee"></button>
-</div>

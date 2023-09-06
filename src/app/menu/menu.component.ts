@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {AuthentificationService} from '../services/authentification.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,11 +7,8 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
 
-  constructor(private authService: AuthentificationService) {
+  constructor() {
 
   }
 
-  logOut() {
-    this.authService.logout();
-  }
 }
