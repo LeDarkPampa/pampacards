@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {IClan} from "./interfaces/IClan";
-import {HttpClient} from "@angular/common/http";
+import { AuthentificationService } from './services/authentification.service';
 
 @Component({
   selector: 'app-root',
@@ -9,25 +8,16 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent implements OnInit {
 
-  clans: String[] = [];
-
-  constructor(private http: HttpClient) {
-    this.getAllClans();
-  }
+  constructor(
+    private cd: ChangeDetectorRef,
+    private authService: AuthentificationService
+  ) {}
 
   ngOnInit() {
-    this.getAllClans();
+    this.cd.detectChanges();
   }
 
-  getAllClans() {
-    this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
-      next: data => {
-        data.forEach(clan => this.clans.push(clan.nom));
-      },
-      error: error => {
-        this.clans.push("Erreur sur la récupération des clans")
-        console.error('There was an error!', error);
-      }
-    })
+  isLoggedIn(): boolean {
+    return this.authService.isLogged();
   }
 }

@@ -1,0 +1,61 @@
+<div *ngIf="!isLoggedIn()">
+  <app-login></app-login>
+</div>
+<div *ngIf="isLoggedIn()">
+  <div class="home-container">
+    <h1 class="title">Les Pampa Cards sont en ligne !</h1>
+
+    <div class="news-container">
+      <div class="main-news">
+        <div class="news-image">
+          <img src="https://images.pexels.com/photos/6255296/pexels-photo-6255296.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Image de la news principale">
+          <div class="news-overlay">
+            <h2 class="news-title">Deux formats jouables</h2>
+            <p class="news-content">
+              Pour le moment, deux formats de jeu sont jouables : le standard qui cherche à équilibrer au mieux les cartes existantes et le NO LIMIT qui n'a aucune règle !
+            </p>
+            <p class="news-content">
+              Vous pouvez retrouver les limitations du format standard à la création de deck en choisissant ce format.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="small-news">
+        <div class="small-new">
+          <div class="small-news-image">
+            <img src="https://images.pexels.com/photos/7412013/pexels-photo-7412013.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Image de la news 1">
+            <div class="news-overlay">
+              <h2 class="news-title">Des boosters en folie</h2>
+              <p class="news-content">
+                Combien de boosters différents seront disponibles à l'achat avec points de chaines ? Venez donner votre avis sur le discord !
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="small-new">
+          <div class="small-news-image">
+            <img src="https://images.pexels.com/photos/6254944/pexels-photo-6254944.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Image de la news 2">
+            <div class="news-overlay">
+              <h2 class="news-title">Des decks de base ?</h2>
+              <p class="news-content">
+                Il y aura bientôt plus de nouvelles sur les decks de base qui seront proposés. Lequel sera le votre ?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="small-new">
+          <div class="small-news-image">
+            <img src="https://images.pexels.com/photos/7221581/pexels-photo-7221581.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Image de la news 3">
+            <div class="news-overlay">
+              <h2 class="news-title">Refonte des demandes de combat</h2>
+              <p class="news-content">
+                Les demandes de combat ont eu le droit à un petit rafraichissement. Allez voir cela et donnez-nous votre avis !
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
