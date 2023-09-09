@@ -21,7 +21,7 @@
     <div class="player-container-dark">
       <div class="ligneCenter">
         <div *ngFor="let carte of adversaire.main">
-          <app-carte-main-adv [carte]="carte" [estJoueurActif]="estJoueurActif"></app-carte-main-adv>
+          <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
         <div class="board-container">
           <div class="ligneCenter">
             <div *ngFor="let carte of adversaire.terrain">
-              <app-carte-terrain-adv [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain-adv>
+              <app-carte-terrain [carte]="carte"></app-carte-terrain>
             </div>
           </div>
         </div>

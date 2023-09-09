@@ -10,7 +10,4 @@ export class CarteMainAdvComponent {
   // @ts-ignore
   @Input() carte: ICarte;
 
-  // @ts-ignore
-  @Input() estJoueurActif: boolean;
-
 }
