@@ -38,9 +38,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   selectedFormat: IFormat;
   // @ts-ignore
   formats: IFormat[] = [];
-
   tableauDemandesRecues: IDemandeCombat[] = [];
-
   tableauDemandesEnvoyees: IDemandeCombat[] = [];
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,

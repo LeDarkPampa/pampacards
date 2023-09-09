@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe(
       () => {
-        // L'authentification a réussi, rediriger vers la page principale
         this.router.navigate(['/']);
       },
       (error) => {

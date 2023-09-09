@@ -8,13 +8,10 @@ import {AuthentificationService} from "../services/authentification.service";
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.scss']
 })
-export class AccueilComponent implements OnInit {
+export class AccueilComponent {
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
 
-  }
-
-  ngOnInit() {
   }
 
   isLoggedIn(): boolean {

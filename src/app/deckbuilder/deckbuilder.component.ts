@@ -353,11 +353,7 @@ export class DeckbuilderComponent implements OnInit {
     });
   }
 
-  /**
-   * Retire une carte de la collection du joueur
-   * @param carte
-   * @private
-   */
+
   private removeSelectedCardFromUserCollection(carte: ICarte) {
     let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
     if (indexCarte >= 0) {
@@ -369,11 +365,6 @@ export class DeckbuilderComponent implements OnInit {
     }
   }
 
-  /**
-   * Remet une carte dans la collection du joueur
-   * @param carte
-   * @private
-   */
   private addSelectedCardToUserCollection(carte: ICarte) {
     let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
     if (indexCarte >= 0) {

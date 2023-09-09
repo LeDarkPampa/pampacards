@@ -20,7 +20,6 @@ export class CollectionComponent implements OnInit{
 
   private errorMessage: any;
 
-  // Filtres
   selectedClans: string[] = [];
   selectedTypes: string[] = [];
   selectedRaretes: number[] = [];
@@ -30,7 +29,6 @@ export class CollectionComponent implements OnInit{
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
     this.cartes = [];
-
     this.getAllClans();
     this.getAllTypes();
     this.getAllCollection();
@@ -102,11 +100,9 @@ export class CollectionComponent implements OnInit{
       if (this.selectedClans && this.selectedClans.length > 0 && this.selectedClans.indexOf(carte.clan.nom) == -1) {
         return false;
       }
-
       if (this.selectedTypes && this.selectedTypes.length > 0 && this.selectedTypes.indexOf(carte.type.nom) == -1) {
         return false;
       }
-
       if (this.selectedRaretes && this.selectedRaretes.length > 0 && this.selectedRaretes.indexOf(carte.rarete) == -1) {
         return false;
       }

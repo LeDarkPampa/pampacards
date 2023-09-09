@@ -8,9 +8,7 @@ import { AuthentificationService } from './services/authentification.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private authService: AuthentificationService
+  constructor(private cd: ChangeDetectorRef, private authService: AuthentificationService
   ) {}
 
   ngOnInit() {

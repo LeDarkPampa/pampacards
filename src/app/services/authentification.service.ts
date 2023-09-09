@@ -45,7 +45,6 @@ export class AuthentificationService {
   }
 
   logout(): void {
-    // supprimez les informations de connexion de l'utilisateur
     this.isLoggedIn = false;
     this.userId = 0;
     this.router.navigate(['/']);
