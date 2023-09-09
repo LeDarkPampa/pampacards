@@ -40,9 +40,7 @@ export class CarteMainComponent implements OnInit {
   }
 
   ouvrirCadre(carte: ICarte) {
-    this.clickedCarte.emit(carte.image_path);
     this.cadreOuvert = true;
-
   }
 
   jouerCarte() {

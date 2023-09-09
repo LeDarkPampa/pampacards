@@ -55,10 +55,10 @@
       </div>
     </div>
     <ul class="cartes">
-      <li *ngFor="let carte of collectionJoueur">
-        <div *ngIf="carte.carte.image_path !== null"><img src="assets/cartes/{{carte.carte.image_path}}" alt="{{carte.carte.nom}}" (click)="addCarte(carte.carte)"/></div>
-        <div *ngIf="carte.carte.image_path == null">Pas d'image pour cette carte {{carte.carte.nom}}.</div>
-        <div class="numberOfElements">(x{{carte.quantity}})</div>
+      <li *ngFor="let carteWithQuantity of collectionJoueur">
+      <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+        <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
+        <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
       </li>
     </ul>
   </div>

@@ -21,12 +21,12 @@
 <ul class="cartes">
   <li *ngFor="let carte of cartesFiltrees">
     <div *ngIf="isInCollection(carte)">
-      <img src="assets/cartes/{{carte.image_path}}" alt="{{carte.nom}}"/>
+      <app-carte-terrain [carte]="carte"></app-carte-terrain>
       <div *ngIf="carte.image_path == null">Pas d'image pour cette carte {{carte.nom}}.</div>
       <div class="numberOfElements">(x{{countNumberInUserCollection(carte)}})</div>
     </div>
     <div *ngIf="!isInCollection(carte)" class="non-possede">
-      <img src="assets/cartes/{{carte.image_path}}" alt="{{carte.nom}}"/>
+      <app-carte-terrain [carte]="carte"></app-carte-terrain>
       <div *ngIf="carte.image_path == null">Pas d'image pour cette carte {{carte.nom}}.</div>
     </div>
   </li>

@@ -99,8 +99,5 @@
       <input type="text" pInputText [(ngModel)]="message" placeholder="Votre message"/>
       <button type="button" (click)="sendMessage()">Envoyer</button>
     </div>
-    <div *ngIf="clickedCartePath != ''" class="card-visualiser">
-      <img class="carte" src="assets/cartes/{{clickedCartePath}}" alt="Image" />
-    </div>
   </div>
 </div>

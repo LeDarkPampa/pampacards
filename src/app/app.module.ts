@@ -33,7 +33,6 @@ import { CarteMainComponent } from './partie/carte-main/carte-main.component';
 import { CarteTerrainComponent } from './partie/carte-terrain/carte-terrain.component';
 import { PiocheComponent } from './partie/pioche/pioche.component';
 import { DefausseComponent } from './partie/defausse/defausse.component';
-import { CarteTerrainAdvComponent } from './partie/carte-terrain-adv/carte-terrain-adv.component';
 import { CarteMainAdvComponent } from './partie/carte-main-adv/carte-main-adv.component';
 import { SelectionCarteDialogComponent } from './partie/selection-carte-dialog/selection-carte-dialog.component';
 import {VisionCartesDialogComponent} from "./partie/vision-cartes-dialog/vision-cartes-dialog.component";
@@ -63,7 +62,6 @@ import {DialogModule} from "primeng/dialog";
     CarteTerrainComponent,
     PiocheComponent,
     DefausseComponent,
-    CarteTerrainAdvComponent,
     CarteMainAdvComponent,
     SelectionCarteDialogComponent,
     VisionCartesDialogComponent,
