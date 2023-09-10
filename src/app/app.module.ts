@@ -24,6 +24,7 @@ import { SortCardsByNamePipe } from './pipes/sort-cards-by-name.pipe';
 import {SseService} from "./services/sse.service";
 import {ConfirmationService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {MatIconModule} from '@angular/material/icon'
 import {DropdownModule} from "primeng/dropdown";
 import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
 import { DemandeCombatDialogComponent } from './demande-combat-dialog/demande-combat-dialog.component';
@@ -93,7 +94,8 @@ import {DialogModule} from "primeng/dialog";
     DynamicDialogModule,
     MessagesModule,
     TableModule,
-    DialogModule
+    DialogModule,
+    MatIconModule
   ],
   providers: [
     AuthGuard,

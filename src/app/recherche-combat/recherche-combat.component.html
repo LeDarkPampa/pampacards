@@ -53,7 +53,7 @@
               <td>{{ rowData.nomDeckUn }}</td>
               <td>{{ rowData.status }}</td>
               <td>
-                <button class="round-btn" aria-label="Supprimer" (click)="deleteDemande(rowData)"><i class="fa fa-trash"></i></button>
+                <button class="round-btn" aria-label="Supprimer" (click)="deleteDemande(rowData)"><mat-icon>delete</mat-icon></button>
               </td>
             </tr>
           </ng-template>
@@ -78,8 +78,8 @@
             <td>{{ rowData.nomFormat }}</td>
             <td>{{ rowData.status }}</td>
             <td>
-              <button class="round-btn" aria-label="Voir" (click)="voirDemande(rowData)"><i class="fa fa-search"></i></button>
-              <button class="round-btn" aria-label="Supprimer" (click)="refuserDemande(rowData)"><i class="fa fa-trash"></i></button>
+              <button class="round-btn" aria-label="Voir" (click)="voirDemande(rowData)"><mat-icon>check</mat-icon></button>
+              <button class="round-btn" aria-label="Supprimer" (click)="refuserDemande(rowData)"><mat-icon>close</mat-icon></button>
             </td>
           </tr>
         </ng-template>
