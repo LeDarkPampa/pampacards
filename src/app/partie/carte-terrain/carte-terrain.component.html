@@ -28,7 +28,12 @@
         <h4>Puissance: <span class="small">{{ getPuissanceTotale(carte) }}</span></h4>
       </div>
       <div class="card-description">
-        <p class="small">{{ carte.effet?.description }}</p>
+        <p class="small">
+          <div *ngIf="carte.effet.continu">
+            <span>(C) </span>
+          </div>
+          {{ carte.effet?.description }}
+        </p>
       </div>
     </div>
   </div>
