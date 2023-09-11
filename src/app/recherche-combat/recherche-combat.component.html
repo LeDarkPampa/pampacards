@@ -53,7 +53,7 @@
               <td>{{ rowData.nomDeckUn }}</td>
               <td>{{ rowData.status }}</td>
               <td>
-                <button mat-icon-button aria-label="Supprimer">
+                <button mat-icon-button aria-label="Supprimer" (click)="deleteDemande(rowData)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
