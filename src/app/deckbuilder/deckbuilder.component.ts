@@ -65,7 +65,6 @@ export class DeckbuilderComponent implements OnInit {
   selectDeck(deck: IDeck) {
     this.selectedDeck = deck;
     this.selectedFormat = deck.format;
-    this.getUserCollection(this.authService.userId);
     this.resetFilters();
   }
 
