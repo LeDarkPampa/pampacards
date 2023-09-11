@@ -41,6 +41,7 @@ import {MessagesModule} from "primeng/messages";
 import {TableModule} from "primeng/table";
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {DialogModule} from "primeng/dialog";
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,7 +96,8 @@ import {DialogModule} from "primeng/dialog";
     MessagesModule,
     TableModule,
     DialogModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     AuthGuard,
