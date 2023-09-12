@@ -108,7 +108,7 @@
 
 .chat-container {
   flex: 1;
-  max-height: calc(65vh - 30px); /* Limite la hauteur du chat à 100% de la vue en hauteur moins 20px de marge */
+  max-height: calc(100vh - 30px); /* Limite la hauteur du chat à 100% de la vue en hauteur moins 30px de marge */
   background-color: #f7f7f7;
   padding: 10px;
   box-sizing: border-box;
