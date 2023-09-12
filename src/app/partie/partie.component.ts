@@ -45,6 +45,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   chatMessages: IChatPartieMessage[] = [];
   message: string = '';
   clickedCartePath: string = '';
+  tourAffiche = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -72,6 +73,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     this.estJoueurActif = lastEvent.joueurActifId == this.userId;
+    this.tourAffiche = Math.ceil(lastEvent.tour / 2);
+
 
     if (this.lastEvent.joueurActifId != this.joueur.id || this.lastEvent.status != "TOUR_EN_COURS") {
       if (this.partie.joueurUn.id == this.userId) {

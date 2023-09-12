@@ -4,6 +4,7 @@
       Fin de la partie ! Victoire de {{vainqueur}}
     </div>
     <div class="ligneCenter">
+      Tour {{tourAffiche}} :
       <div *ngIf="userId == lastEvent.joueurActifId && !finDePartie">
         A votre tour de jouer
         <button pButton type="button" label="Fin de tour" (click)="finDeTour()"></button>
