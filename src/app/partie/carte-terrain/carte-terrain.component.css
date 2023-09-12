@@ -110,6 +110,7 @@
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 
 .card-power h4 {
