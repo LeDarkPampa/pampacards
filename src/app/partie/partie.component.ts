@@ -1071,14 +1071,20 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (joueurHasProtecteurForet) {
-        carte.bouclier = true;
+        let protectrice = this.joueur.terrain.find(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET);
+        if (protectrice && this.memeTypeOuClan(protectrice, carte)) {
+          carte.bouclier = true;
+        }
       }
     }
     for (let carte of this.adversaire.terrain) {
       carte.diffPuissanceContinue = 0;
 
       if (adversaireHasProtecteurForet) {
-        carte.bouclier = true;
+        let protectrice = this.adversaire.terrain.find(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET);
+        if (protectrice && this.memeTypeOuClan(protectrice, carte)) {
+          carte.bouclier = true;
+        }
       }
     }
 
