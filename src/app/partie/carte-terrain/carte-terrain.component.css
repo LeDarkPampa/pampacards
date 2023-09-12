@@ -91,6 +91,7 @@
   flex-direction: column;
   align-items: center;
   padding: 3px;
+  width: 100%;
 }
 
 .card-details h4 {
