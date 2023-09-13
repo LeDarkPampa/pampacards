@@ -1,5 +1,13 @@
 <h2>Gestion des cartes</h2>
 <div class="container">
+  <div>
+    <button (click)="selectedSort = 'clan'; sortDirection = 1; sortCards()">Trier par Clan (Ascendant)</button>
+    <button (click)="selectedSort = 'clan'; sortDirection = -1; sortCards()">Trier par Clan (Descendant)</button>
+    <button (click)="selectedSort = 'type'; sortDirection = 1; sortCards()">Trier par Type (Ascendant)</button>
+    <button (click)="selectedSort = 'type'; sortDirection = -1; sortCards()">Trier par Type (Descendant)</button>
+    <button (click)="selectedSort = 'nom'; sortDirection = 1; sortCards()">Trier par Nom (Ascendant)</button>
+    <button (click)="selectedSort = 'nom'; sortDirection = -1; sortCards()">Trier par Nom (Descendant)</button>
+  </div>
   <table class="table">
     <thead>
     <tr>
@@ -9,6 +17,7 @@
       <th>Rareté</th>
       <th>Puissance</th>
       <th>Effet</th>
+      <th>Effet continu</th>
     </tr>
     </thead>
     <tbody>
@@ -19,10 +28,11 @@
       <td><input type="number" [(ngModel)]="cartes[i].rarete"></td>
       <td><input type="number" [(ngModel)]="cartes[i].puissance"></td>
       <td>
-        <select [(ngModel)]="cartes[i].effet">
-          <option *ngFor="let effet of effets" [value]="effet">{{ effet.description }}</option>
+        <select [(ngModel)]="cartes[i].effet" [compareWith]="compareEffets">
+          <option *ngFor="let effet of effets" [ngValue]="effet">{{effet.code}} : {{effet.description }}</option>
         </select>
       </td>
+      <td>{{ getContinuValue(carte) }}</td>
     </tr>
     </tbody>
   </table>

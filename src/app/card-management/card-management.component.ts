@@ -15,20 +15,31 @@ export class CardManagementComponent {
   clans: IClan[] = [];
   types: IType[] = [];
   effets: IEffet[] = [];
+  selectedSort: string = 'clan';
+  sortDirection: number = 1;
 
   constructor(private http: HttpClient) {
     this.getAllCollection();
+    this.sortCards();
   }
 
   saveChanges() {
-    // Enregistrez les modifications dans la base de données ou effectuez toute autre action nécessaire.
-    // Vous pouvez envoyer les données mises à jour au backend ici.
+    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateCartes', this.cartes).subscribe({
+      next: () => {
+        alert('Cartes mises à jour');
+      },
+      error: error => {
+        console.error('There was an error!', error);
+        alert('Erreur lors de la sauvegarde');
+      }
+    });
   }
 
   getAllCollection() {
     this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
       next: (data: ICarte[]) => {
         this.cartes = data;
+        this.sortCards();
       },
       error: error => {
         console.error('Erreur lors de la récupération des cartes', error);
@@ -61,5 +72,57 @@ export class CardManagementComponent {
         console.error('Erreur lors de la récupération des effets', error);
       }
     });
+  }
+
+  compareEffets(effet1: IEffet, effet2: IEffet): boolean {
+    if (!effet1 && !effet2) {
+      return true;
+    } else if (!effet1 || !effet2) {
+      return false;
+    } else {
+      return effet1.id === effet2.id;
+    }
+  }
+
+  sortCards() {
+    this.cartes.sort((a, b) => {
+      let compareValueA, compareValueB;
+
+      switch (this.selectedSort) {
+        case 'clan':
+          compareValueA = a.clan.nom;
+          compareValueB = b.clan.nom;
+          break;
+        case 'type':
+          compareValueA = a.type.nom;
+          compareValueB = b.type.nom;
+          break;
+        case 'nom':
+          compareValueA = a.nom;
+          compareValueB = b.nom;
+          break;
+        default:
+          // Par défaut, tri par clan
+          compareValueA = a.clan.nom;
+          compareValueB = b.clan.nom;
+          break;
+      }
+
+      if (compareValueA < compareValueB) {
+        return -this.sortDirection;
+      } else if (compareValueA > compareValueB) {
+        return this.sortDirection;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  getContinuValue(carte: ICarte): string {
+    if (carte.effet && carte.effet.continu) {
+      return "Oui";
+    } else {
+      return "Non";
+    }
   }
 }
