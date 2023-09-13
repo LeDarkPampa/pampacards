@@ -15,13 +15,18 @@ export class CreateAccountComponent {
 
   // @ts-ignore
   selectedUser: IUtilisateur;
+  selectedUserName: string = '';
   newPassword: string = '';
   utilisateurs: IUtilisateur[] = [];
+  pseudosUtilisateurs: string[] = [];
 
   constructor(private http: HttpClient) {
     this.http.get<IUtilisateur[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/users').subscribe({
       next: data => {
-        data.forEach(user => this.utilisateurs.push(user));
+        data.forEach(user => {
+          this.utilisateurs.push(user);
+          this.pseudosUtilisateurs.push(user.pseudo);
+        });
       },
       error: error => {
         console.error('There was an error!', error);
@@ -49,26 +54,28 @@ export class CreateAccountComponent {
   }
 
   onChangePassword() {
+    const selectedUserObject = this.utilisateurs.find(user => user.pseudo === this.selectedUserName);
 
-    this.selectedUser.password = this.newPassword;
+    if (selectedUserObject) {
+      this.selectedUser = selectedUserObject;
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updatePassword', this.selectedUser).subscribe({
-      next: response => {
-        alert('Mot de passe modifié');
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la modification');
-      }
-    });
+      this.selectedUser.password = this.newPassword;
 
-    // Réinitialisation du formulaire après soumission
-    this.user = {
-      pseudo: '',
-      password: ''
-    };
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updatePassword', this.selectedUser).subscribe({
+        next: response => {
+          alert('Mot de passe modifié');
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          alert('Erreur lors de la modification');
+        }
+      });
 
-    // Réinitialisation du formulaire après soumission
-    this.newPassword = '';
+      // Réinitialisation du formulaire après soumission
+      this.newPassword = '';
+    } else {
+      // Gérer le cas où l'utilisateur sélectionné n'est pas trouvé (s'il y a une erreur)
+      console.error('Utilisateur non trouvé');
+    }
   }
 }
