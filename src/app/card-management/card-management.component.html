@@ -29,6 +29,7 @@
       <td><input type="number" [(ngModel)]="cartes[i].puissance"></td>
       <td>
         <select [(ngModel)]="cartes[i].effet" [compareWith]="compareEffets">
+          <option [ngValue]="null">Aucun effet</option>
           <option *ngFor="let effet of effets" [ngValue]="effet">{{effet.code}} : {{effet.description }}</option>
         </select>
       </td>
