@@ -42,6 +42,11 @@ import {TableModule} from "primeng/table";
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {DialogModule} from "primeng/dialog";
 import {MatButtonModule} from '@angular/material/button';
+import { CommonModule } from "@angular/common";
+import { AdministrationComponent } from './administration/administration.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import { CardManagementComponent } from './card-management/card-management.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +72,10 @@ import {MatButtonModule} from '@angular/material/button';
     CarteMainAdvComponent,
     SelectionCarteDialogComponent,
     VisionCartesDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AdministrationComponent,
+    CreateAccountComponent,
+    CardManagementComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -80,6 +88,9 @@ import {MatButtonModule} from '@angular/material/button';
       {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
       {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
       {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
+      {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
+      {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
+      {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
       {path: 'deconnexion', component: DeconnexionComponent},
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent}
@@ -97,7 +108,8 @@ import {MatButtonModule} from '@angular/material/button';
     TableModule,
     DialogModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule
   ],
   providers: [
     AuthGuard,

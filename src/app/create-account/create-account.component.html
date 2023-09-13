@@ -1,0 +1,16 @@
+<div class="background">
+  <div class="create-account-container">
+    <h2>Créer un compte</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" id="login" name="login" [(ngModel)]="user.login" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
+      </div>
+      <button type="submit">Créer le compte</button>
+    </form>
+  </div>
+</div>

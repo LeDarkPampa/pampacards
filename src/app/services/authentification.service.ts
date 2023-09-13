@@ -44,6 +44,10 @@ export class AuthentificationService {
     return this.isLoggedIn;
   }
 
+  isAdmin() {
+    return this.user && this.user.pseudo == "Pampa";
+  }
+
   logout(): void {
     this.isLoggedIn = false;
     this.userId = 0;

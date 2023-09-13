@@ -13,6 +13,10 @@ export class MenuComponent {
 
   }
 
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
   logOut() {
     this.authService.logout();
   }
