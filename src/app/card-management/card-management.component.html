@@ -1,1 +1,30 @@
-<p>card-management works!</p>
+<h2>Gestion des cartes</h2>
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Clan</th>
+      <th>Type</th>
+      <th>Rareté</th>
+      <th>Puissance</th>
+      <th>Effet</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let carte of cartes; let i = index">
+      <td><input type="text" [(ngModel)]="cartes[i].nom"></td>
+      <td><span>{{ cartes[i].clan.nom }}</span></td>
+      <td><span>{{ cartes[i].type.nom }}</span></td>
+      <td><input type="number" [(ngModel)]="cartes[i].rarete"></td>
+      <td><input type="number" [(ngModel)]="cartes[i].puissance"></td>
+      <td>
+        <select [(ngModel)]="cartes[i].effet">
+          <option *ngFor="let effet of effets" [value]="effet">{{ effet.description }}</option>
+        </select>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button (click)="saveChanges()">Enregistrer</button>
+</div>
