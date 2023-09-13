@@ -217,7 +217,7 @@ export class DeckbuilderComponent implements OnInit {
 
         if (data && data.cartes && data.cartes.length > 0) {
           data.cartes.forEach(carte => {
-            let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
+            let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id === carte.id);
             if (indexCarte >= 0) {
               this.collectionJoueur[indexCarte].quantity = this.collectionJoueur[indexCarte].quantity + 1;
             } else {
