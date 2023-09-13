@@ -13,4 +13,22 @@
       <button type="submit">Créer le compte</button>
     </form>
   </div>
+
+  <div class="change-password-container">
+    <h2>Modifier le mot de passe</h2>
+    <form (ngSubmit)="onChangePassword()">
+      <div class="form-group">
+        <label for="user">Utilisateur à modifier</label>
+        <select id="user" name="user" [(ngModel)]="selectedUser">
+          <option value="utilisateur1">Utilisateur 1</option>
+          <option value="utilisateur2">Utilisateur 2</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="newPassword">Nouveau mot de passe</label>
+        <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required autocomplete="off">
+      </div>
+      <button type="submit">Modifier le mot de passe</button>
+    </form>
+  </div>
 </div>
