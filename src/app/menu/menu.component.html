@@ -4,9 +4,7 @@
     <a class="button" routerLink="/collection" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Ma collection</a>
     <a class="button" routerLink="/deckbuilder" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Deckbuilder</a>
     <a class="button" routerLink="/recherche-combat" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Trouver un adversaire</a>
-    <div *ngIf="isAdmin()">
-      <a class="button" routerLink="/administration" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Administration</a>
-    </div>
+    <a class="button" *ngIf="isAdmin()" routerLink="/administration" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Administration</a>
     <!--
     <a class="button" routerLink="/boutique" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Boutique</a>
     <a class="button" routerLink="/tournois" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Tournois</a>
