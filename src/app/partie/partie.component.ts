@@ -1071,8 +1071,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (joueurHasProtecteurForet) {
-        let protectrice: ICarte | undefined = this.joueur.terrain.find(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET);
-        if (protectrice && this.memeTypeOuClan(protectrice, carte)) {
+        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
           carte.bouclier = true;
         }
       }
@@ -1081,8 +1080,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (adversaireHasProtecteurForet) {
-        let protectrice: ICarte | undefined = this.adversaire.terrain.find(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET);
-        if (protectrice && this.memeTypeOuClan(protectrice, carte)) {
+        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
           carte.bouclier = true;
         }
       }
