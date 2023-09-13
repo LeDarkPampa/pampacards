@@ -69,7 +69,6 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   newDeck() {
-    this.getUserCollection(this.authService.userId);
     const standardFormat = this.formats.find(format => format.nom === 'STANDARD');
 
     // Assigner le format "STANDARD" au nouveau deck
