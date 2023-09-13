@@ -18,12 +18,10 @@
     <h2>Modifier le mot de passe</h2>
     <form (ngSubmit)="onChangePassword()">
       <div class="form-group">
-        <label>Utilisateur à modifier</label>
-        <p-multiSelect [options]="pseudosUtilisateurs" [(ngModel)]="selectedUserName" [showHeader]="false">
-          <ng-template let-user pTemplate="item">
-            {{ user.pseudo }}
-          </ng-template>
-        </p-multiSelect>
+        <label for="selectedUser">Utilisateur à modifier</label>
+        <select id="selectedUser" name="selectedUser" [(ngModel)]="selectedUserName">
+          <option *ngFor="let pseudo of pseudosUtilisateurs" [value]="pseudo">{{ pseudo }}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="newPassword">Nouveau mot de passe</label>
