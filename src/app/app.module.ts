@@ -46,6 +46,7 @@ import { CommonModule } from "@angular/common";
 import { AdministrationComponent } from './administration/administration.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { CardManagementComponent } from './card-management/card-management.component';
+import { AttributionDeckComponent } from './attribution-deck/attribution-deck.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { CardManagementComponent } from './card-management/card-management.compo
     ConfirmationDialogComponent,
     AdministrationComponent,
     CreateAccountComponent,
-    CardManagementComponent
+    CardManagementComponent,
+    AttributionDeckComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -91,6 +93,7 @@ import { CardManagementComponent } from './card-management/card-management.compo
       {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
       {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
+      {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
       {path: 'deconnexion', component: DeconnexionComponent},
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent}

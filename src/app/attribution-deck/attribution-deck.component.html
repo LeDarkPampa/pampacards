@@ -1,0 +1,30 @@
+<div class="background">
+  <div class="gestion-utilisateurs-container">
+    <h1>Attribution des decks de base</h1>
+
+    <div class="form-group">
+      <label for="selectedUser">Utilisateur à modifier</label>
+      <select id="selectedUser" name="selectedUser" [(ngModel)]="selectedUserName">
+        <option *ngFor="let pseudo of pseudosUtilisateurs" [value]="pseudo">{{ pseudo }}</option>
+      </select>
+    </div>
+
+    <div class="button-grid">
+      <div *ngFor="let deck of decksDeBase">
+        <button (click)="selectionnerDeck(deck)">{{ deck.nom }}</button>
+      </div>
+    </div>
+
+    <div *ngIf="deckSelectionne">
+      <h3>Deck sélectionné: {{ deckSelectionne?.nom }}</h3>
+
+      <ul class="carte-grid">
+        <li *ngFor="let carte of deckSelectionne?.cartes">
+          <app-carte-terrain [carte]="carte"></app-carte-terrain>
+        </li>
+      </ul>
+
+      <button (click)="ajouterCartesAuDeck()">Attribuer ce deck</button>
+    <div>
+  </div>
+</div>

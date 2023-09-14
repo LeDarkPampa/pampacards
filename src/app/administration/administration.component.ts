@@ -15,6 +15,10 @@ export class AdministrationComponent {
     this.router.navigate(['/create-account']);
   }
 
+  goToDeckAttribution() {
+    this.router.navigate(['/attribution-deck']);
+  }
+
   goToDataManagement() {
     // Rediriger vers l'écran d'administration des données
     this.router.navigate(['/card-management']);
