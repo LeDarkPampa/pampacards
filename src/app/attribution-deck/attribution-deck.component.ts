@@ -59,7 +59,7 @@ export class AttributionDeckComponent implements OnInit {
 
       userPseudoAndCards.cartes.push(...this.deckSelectionne.cartes);
 
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateCartes', userPseudoAndCards).subscribe({
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addCartesToCollection', userPseudoAndCards).subscribe({
         next: () => {
           alert('Cartes ajoutées à la collection');
         },
