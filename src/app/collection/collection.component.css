@@ -99,3 +99,7 @@ affichage quantité d'une carte
   text-align: center;
   width: 100%;
 }
+
+.grise-image {
+  filter: grayscale(100%);
+}

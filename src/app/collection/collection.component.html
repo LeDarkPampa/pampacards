@@ -26,7 +26,7 @@
       <div class="numberOfElements">(x{{countNumberInUserCollection(carte)}})</div>
     </div>
     <div *ngIf="!isInCollection(carte)" class="non-possede">
-      <app-carte-terrain [carte]="carte"></app-carte-terrain>
+      <app-carte-terrain [carte]="carte" [ngClass]="{'grise-image': true}"></app-carte-terrain>
       <div *ngIf="carte.image_path == null">Pas d'image pour cette carte {{carte.nom}}.</div>
     </div>
   </li>
