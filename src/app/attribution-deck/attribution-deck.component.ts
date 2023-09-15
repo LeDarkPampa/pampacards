@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {IDeck} from "../interfaces/IDeck";
 import {HttpClient} from "@angular/common/http";
+import {IUserPseudoAndCards} from "../interfaces/IUserPseudoAndCards";
 @Component({
   selector: 'app-attribution-deck',
   templateUrl: './attribution-deck.component.html',
@@ -52,6 +53,23 @@ export class AttributionDeckComponent implements OnInit {
   }
 
   ajouterCartesAuDeck() {
-    // Ajoutez les cartes du deck sélectionné à l'utilisateur sélectionné.
+    if (this.utilisateurSelectionne) {
+      let userPseudoAndCards: IUserPseudoAndCards = {
+        pseudo: this.utilisateurSelectionne.pseudo,
+        cartes: [],
+      };
+
+      userPseudoAndCards.cartes.push(...this.deckSelectionne.cartes);
+
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateCartes', userPseudoAndCards).subscribe({
+        next: () => {
+          alert('Cartes ajoutées à la collection');
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          alert('Erreur lors de la sauvegarde');
+        }
+      });
+    }
   }
 }
