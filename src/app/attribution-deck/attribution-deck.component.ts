@@ -13,8 +13,6 @@ export class AttributionDeckComponent implements OnInit {
   decksDeBase: IDeck[] = [];
   selectedUserName: string = '';
   pseudosUtilisateurs: string[] = [];
-  // @ts-ignore
-  utilisateurSelectionne: IUtilisateur;
 
   // @ts-ignore
   deckSelectionne: IDeck;
@@ -53,9 +51,9 @@ export class AttributionDeckComponent implements OnInit {
   }
 
   ajouterCartesAuDeck() {
-    if (this.utilisateurSelectionne) {
+    if (this.selectedUserName) {
       let userPseudoAndCards: IUserPseudoAndCards = {
-        pseudo: this.utilisateurSelectionne.pseudo,
+        pseudo: this.selectedUserName,
         cartes: [],
       };
 

@@ -13,7 +13,7 @@ export class CreateAccountComponent {
     password: ''
   };
 
-  selectedUserName: string = ''; // Stocke le pseudonyme sélectionné
+  selectedUserName: string = '';
   newPassword: string = '';
   utilisateurs: IUtilisateur[] = [];
   pseudosUtilisateurs: string[] = [];
