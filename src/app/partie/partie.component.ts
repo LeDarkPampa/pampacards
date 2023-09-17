@@ -484,7 +484,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private async playInstantEffect(carte: ICarte) {
-    if (carte.effet && carte.effet.code) {
+    if (carte && carte.effet && carte.effet.code) {
       switch(carte.effet.code) {
         case EffetEnum.HEROISME: {
           let atLeastOne = false;
@@ -1341,7 +1341,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     let result = false;
 
     for (let carte of joueur.terrain) {
-      if (carte.effet.code == EffetEnum.CITADELLE) {
+      if (carte.effet && carte.effet.code == EffetEnum.CITADELLE) {
         result = true;
       }
     }
@@ -1353,7 +1353,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     let result = false;
 
     for (let carte of joueur.terrain) {
-      if (carte.effet.code == EffetEnum.CRYPTE) {
+      if (carte.effet && carte.effet.code == EffetEnum.CRYPTE) {
         result = true;
       }
     }
@@ -1365,7 +1365,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     let result = false;
 
     for (let carte of joueur.terrain) {
-      if (carte.effet.code == EffetEnum.PALISSADE) {
+      if (carte.effet && carte.effet.code == EffetEnum.PALISSADE) {
         result = true;
       }
     }
