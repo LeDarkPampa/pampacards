@@ -220,6 +220,10 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.joueur.defausse.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
+        if (carte.effet.code && carte.effet.code == EffetEnum.SURVIVANT) {
+          carte.diffPuissanceInstant += 2;
+        }
+
         this.playInstantEffect(carte).then(r => {
             this.joueur.terrain.push(carte);
           }
@@ -502,6 +506,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           carte.bouclier = true;
           break;
         }
+        case EffetEnum.INSENSIBLE: {
+          carte.bouclier = true;
+          carte.insensible = true;
+          break;
+        }
         case EffetEnum.SACRIFICE: {
           // @ts-ignore
           let carteSacrifiee = this.joueur.deck.shift();
@@ -598,11 +607,6 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
-        case EffetEnum.INSENSIBLE: {
-          carte.bouclier = true;
-          carte.insensible = true;
-          break;
-        }
         case EffetEnum.SERVIABLE: {
           if (this.joueur.terrain.filter(c => !c.insensible && !c.prison && this.memeTypeOuClan(c, carte)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
@@ -651,9 +655,15 @@ export class PartieComponent implements OnInit, OnDestroy {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
+
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-                    this.joueur.deck.push(this.joueur.defausse[indexCarte]);
+                    let carteSelectionnee = this.joueur.defausse[indexCarte];
+                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
+                      && carteSelectionnee.effet.code == EffetEnum.SURVIVANT) {
+                      carteSelectionnee.diffPuissanceInstant += 2;
+                    }
+                    this.joueur.deck.push(carteSelectionnee);
                     this.joueur.defausse.splice(indexCarte, 1);
                   }
                   this.updateEffetsContinusAndScores();
@@ -744,7 +754,13 @@ export class PartieComponent implements OnInit, OnDestroy {
                   if (selectedCarte != null) {
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-                    this.joueur.main.push(this.joueur.defausse[indexCarte]);
+                    let carteSelectionnee = this.joueur.defausse[indexCarte];
+                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
+                      && carteSelectionnee.effet.code == EffetEnum.SURVIVANT) {
+                      carteSelectionnee.diffPuissanceInstant += 2;
+                    }
+
+                    this.joueur.main.push(carteSelectionnee);
                     this.joueur.defausse.splice(indexCarte, 1);
                   }
                   this.updateEffetsContinusAndScores();
