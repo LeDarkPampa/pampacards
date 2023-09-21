@@ -9,6 +9,7 @@ import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
 import {ILimitationCarte} from "../interfaces/ILimitationCarte";
+import {IUtilisateur} from "../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -188,14 +189,24 @@ export class DeckbuilderComponent implements OnInit {
       this.error = [
         { severity: 'error', summary: 'Error', detail: 'Le deck doit comporter 20 cartes' },
       ];
+    } else if (!this.selectedFormat) {
+      this.error = [
+        { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans format' },
+      ];
+    } else if (this.hasExceededLimitation) {
+      this.error = [
+        { severity: 'error', summary: 'Error', detail: 'Ce deck n\'est pas valide pour ce format.' },
+      ];
     } else {
-      let duplicatedDeck = {
+      let duplicatedDeck: IDeck = {
         id: 0,
         nom: deck.nom,
         cartes: [],
         utilisateur: this.authService.user,
+        format: this.selectedFormat,
         dateCreation: new Date(Date.now())
-      };
+        }
+      ;
 
       deck.cartes.forEach(carte => {
         // @ts-ignore
