@@ -76,7 +76,7 @@ export class CreateAccountComponent {
   }
 
   onReinitUser() {
-    const selectedUserPseudo = this.selectedUserName;
+    const selectedUserPseudo = this.selectedUserNameReinit;
 
     if (selectedUserPseudo) {
       this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/reinituser', selectedUserPseudo).subscribe({
