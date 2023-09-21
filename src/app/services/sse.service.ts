@@ -55,12 +55,10 @@ export class SseService implements OnDestroy {
       this.BACKEND_URL + '/api/flux-utilisateurs'
     );
     this.userListEventSource.onopen = (event) =>
-      // console.log(event);
     this.userListEventSource.onerror = (error) => {
       console.error('SSE error:', error);
     };
     this.userListEventSource.onmessage = (event) => {
-      // console.log('RechercheAdversaire SSE message received:', event);
       const utilisateurs = JSON.parse(event.data);
       this.utilisateursSource.next(utilisateurs);
     };
@@ -75,7 +73,6 @@ export class SseService implements OnDestroy {
       console.error('SSE error:', error);
     };
     this.demandeCombatEventSource.onmessage = (event) => {
-      // console.log('User list SSE message received:', event);
       const demandesCombats = JSON.parse(event.data);
       this.demandeCombatSource.next(demandesCombats);
     };
@@ -86,7 +83,6 @@ export class SseService implements OnDestroy {
       this.BACKEND_URL + '/api/flux-partieEvents?partieId=' + partieId
     );
     this.evenementsPartieEventSource.onopen = (event) => {
-      console.log('Connexion getEvenementsPartieFlux ouverte : ' + event);
     }
     this.evenementsPartieEventSource.onerror = (error) => {
       console.error('SSE error:', error);
@@ -102,7 +98,6 @@ export class SseService implements OnDestroy {
       this.BACKEND_URL + '/api/flux-chatMessages?partieId=' + partieId
     );
     this.chatMessagesEventSource.onopen = (event) => {
-      console.log('Connexion getChatMessagesFlux ouverte : ' + event);
     }
     this.chatMessagesEventSource.onerror = (error) => {
       console.error('SSE error:', error);

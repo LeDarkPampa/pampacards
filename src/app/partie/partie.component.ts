@@ -221,9 +221,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.joueur.defausse.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
-          console.log('carte survivant récupérée');
           carte.diffPuissanceInstant += 2;
-          console.log('carte.diffPuissanceInstant = ' + carte.diffPuissanceInstant);
         }
 
         this.playInstantEffect(carte).then(r => {
@@ -244,9 +242,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.joueur.defausse.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
-          console.log('carte survivant récupérée');
           carte.diffPuissanceInstant += 2;
-          console.log('carte.diffPuissanceInstant = ' + carte.diffPuissanceInstant);
         }
         this.joueur.main.push(carte);
       } else {
@@ -263,9 +259,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.joueur.defausse.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
-          console.log('carte survivant récupérée');
           carte.diffPuissanceInstant += 2;
-          console.log('carte.diffPuissanceInstant = ' + carte.diffPuissanceInstant);
         }
         this.joueur.deck.push(carte);
       } else {
@@ -696,8 +690,6 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-
-                    console.log('this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte])');
                     this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
                   }
                   this.updateEffetsContinusAndScores();
@@ -787,8 +779,6 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-
-                    console.log('this.recupererCarteEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);');
                     this.recupererCarteEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
                   }
                   this.updateEffetsContinusAndScores();

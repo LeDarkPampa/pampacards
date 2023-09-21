@@ -93,7 +93,6 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   updateDemandeCombat(demandeCombat: IDemandeCombat) {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateDemandeCombat', demandeCombat).subscribe({
       next: response => {
-        // console.log(response);
       },
       error: error => {
         console.error('There was an error!', error);
