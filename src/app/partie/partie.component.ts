@@ -659,9 +659,9 @@ export class PartieComponent implements OnInit, OnDestroy {
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
                     let carteSelectionnee = this.joueur.defausse[indexCarte];
-                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
-                      && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
+                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
                       carteSelectionnee.diffPuissanceInstant += 2;
+                      console.log('carteSelectionnee.diffPuissanceInstant =' + carteSelectionnee.diffPuissanceInstant);
                     }
                     this.joueur.deck.push(carteSelectionnee);
                     this.joueur.defausse.splice(indexCarte, 1);
@@ -755,9 +755,9 @@ export class PartieComponent implements OnInit, OnDestroy {
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
                     let carteSelectionnee = this.joueur.defausse[indexCarte];
-                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
-                      && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
+                    if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
                       carteSelectionnee.diffPuissanceInstant += 2;
+                      console.log('carteSelectionnee.diffPuissanceInstant =' + carteSelectionnee.diffPuissanceInstant);
                     }
 
                     this.joueur.main.push(carteSelectionnee);
