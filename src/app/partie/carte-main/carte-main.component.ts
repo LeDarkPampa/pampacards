@@ -57,4 +57,8 @@ export class CarteMainComponent implements OnInit {
     return Array(rarete).fill(0);
   }
 
+  getPuissanceTotale(carte: ICarte) {
+    return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
+  }
+
 }

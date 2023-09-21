@@ -154,3 +154,24 @@
 .card:hover h4 {
   font-size: 13px;
 }
+
+.silence {
+  filter: grayscale(100%);
+}
+
+.bouclier {
+  border: 3px solid black;
+}
+
+.insensible {
+  border: 4px solid grey;
+  filter: opacity(30%);
+}
+
+.corrompu {
+  filter: invert(20%);
+}
+
+.prison {
+  filter: blur(5px);
+}

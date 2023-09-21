@@ -1,32 +1,38 @@
 <div class="card" (click)="ouvrirCadre(carte)">
   <div class="card-content">
     <div class="card-header">
-      <h3 class="card-title">{{carte.nom}}</h3>
+      <h3 class="card-title">{{ carte.nom }}</h3>
       <div class="bandeau">
         <div class="icone">
-          <img src="assets/clans/{{carte.clan.nom}}.png" alt="{{carte.clan.nom}}" />
+          <img src="assets/clans/{{ carte.clan.nom }}.png" alt="{{ carte.clan.nom }}" />
         </div>
         <div class="stars">
           <span class="star" *ngFor="let star of generateStars(carte.rarete)">*</span>
         </div>
         <div class="icone">
-          <img src="assets/types/{{carte.type.nom}}.png" alt="{{carte.type.nom}}" />
+          <img src="assets/types/{{ carte.type.nom }}.png" alt="{{ carte.type.nom }}" />
         </div>
       </div>
     </div>
     <div class="card-image" *ngIf="carte.image_path !== null">
-      <img class="carte" src="assets/cartes/{{carte.image_path}}" alt="{{carte.nom}}" />
+      <img class="carte" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
+        'silence': carte.silence,
+        'bouclier': carte.bouclier,
+        'insensible': carte.insensible,
+        'corrompu': carte.corrompu,
+        'prison': carte.prison
+      }" />
     </div>
     <div class="card-details">
       <div class="card-power">
-        <h4>Puissance: <span class="small">{{carte.puissance}}</span></h4>
+        <h4>Puissance: <span class="small">{{ getPuissanceTotale(carte) }}</span></h4>
       </div>
       <div class="card-description">
         <div class="small">
           <div *ngIf="carte.effet && carte.effet.continu">
             <span>(C) </span>
           </div>
-          {{carte.effet?.description}}
+          {{ carte.effet?.description }}
         </div>
       </div>
     </div>
