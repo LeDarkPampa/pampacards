@@ -92,7 +92,6 @@ export class SseService implements OnDestroy {
       console.error('SSE error:', error);
     };
     this.evenementsPartieEventSource.onmessage = (event) => {
-      console.log('Events Partie SSE message received:', event);
       const evenementsPartie = JSON.parse(event.data);
       this.evenementsPartieSource.next(evenementsPartie);
     };
@@ -109,7 +108,6 @@ export class SseService implements OnDestroy {
       console.error('SSE error:', error);
     };
     this.chatMessagesEventSource.onmessage = (event) => {
-      console.log('Chat SSE message received:', event);
       const chatMessages = JSON.parse(event.data);
       this.evenementsChatSource.next(chatMessages);
     };
