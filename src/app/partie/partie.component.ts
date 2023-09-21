@@ -220,7 +220,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.joueur.defausse.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
-        if (carte.effet.code && carte.effet.code == EffetEnum.SURVIVANT) {
+        if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
 
@@ -660,7 +660,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
                     let carteSelectionnee = this.joueur.defausse[indexCarte];
                     if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
-                      && carteSelectionnee.effet.code == EffetEnum.SURVIVANT) {
+                      && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
                       carteSelectionnee.diffPuissanceInstant += 2;
                     }
                     this.joueur.deck.push(carteSelectionnee);
@@ -756,7 +756,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
                     let carteSelectionnee = this.joueur.defausse[indexCarte];
                     if (carteSelectionnee && carteSelectionnee.effet && carteSelectionnee.effet.code
-                      && carteSelectionnee.effet.code == EffetEnum.SURVIVANT) {
+                      && carteSelectionnee.effet.code === EffetEnum.SURVIVANT) {
                       carteSelectionnee.diffPuissanceInstant += 2;
                     }
 
