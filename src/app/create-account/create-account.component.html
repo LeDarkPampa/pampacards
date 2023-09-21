@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="create-account-container">
+  <div class="container">
     <h2>Créer un compte</h2>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -14,7 +14,7 @@
     </form>
   </div>
 
-  <div class="change-password-container">
+  <div class="container">
     <h2>Modifier le mot de passe</h2>
     <form (ngSubmit)="onChangePassword()">
       <div class="form-group">
@@ -28,6 +28,19 @@
         <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required autocomplete="off">
       </div>
       <button type="submit">Modifier le mot de passe</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>Réinitialiser un utilisateur</h2>
+    <form (ngSubmit)="onReinitUser()">
+      <div class="form-group">
+        <label for="selectedUserReinit">Utilisateur à réinitialiser</label>
+        <select id="selectedUserReinit" name="selectedUser" [(ngModel)]="selectedUserNameReinit">
+          <option *ngFor="let pseudo of pseudosUtilisateurs" [value]="pseudo">{{ pseudo }}</option>
+        </select>
+      </div>
+      <button type="submit">Réinitialiser</button>
     </form>
   </div>
 </div>

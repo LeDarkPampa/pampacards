@@ -14,6 +14,7 @@ export class CreateAccountComponent {
   };
 
   selectedUserName: string = '';
+  selectedUserNameReinit: string = '';
   newPassword: string = '';
   utilisateurs: IUtilisateur[] = [];
   pseudosUtilisateurs: string[] = [];
@@ -70,7 +71,25 @@ export class CreateAccountComponent {
       // Réinitialisation du formulaire après soumission
       this.newPassword = '';
     } else {
-      // Gérer le cas où l'utilisateur sélectionné n'est pas trouvé (s'il y a une erreur)
+      console.error('Utilisateur non trouvé');
+    }
+  }
+
+  onReinitUser() {
+    const selectedUserPseudo = this.selectedUserName;
+
+    if (selectedUserPseudo) {
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/reinituser', selectedUserPseudo).subscribe({
+        next: response => {
+          alert('Utilisateur réinitialisé');
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          alert('Erreur lors de la réinitialisation');
+        }
+      });
+
+    } else {
       console.error('Utilisateur non trouvé');
     }
   }

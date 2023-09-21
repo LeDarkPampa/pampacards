@@ -4,14 +4,7 @@
   background-color: #f4f4f4;
 }
 
-.create-account-container {
-  text-align: center;
-  padding: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.change-password-container {
+.container {
   text-align: center;
   padding: 20px;
   max-width: 400px;
