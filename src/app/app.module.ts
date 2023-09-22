@@ -14,7 +14,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import { BoutiqueComponent } from './boutique/boutique.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
@@ -61,7 +60,6 @@ import { AttributionDeckComponent } from './attribution-deck/attribution-deck.co
     DeconnexionComponent,
     PageNotFoundComponent,
     LoginComponent,
-    BoutiqueComponent,
     MenuComponent,
     SortCardsByNamePipe,
     DemandeCombatDialogComponent,
@@ -84,7 +82,6 @@ import { AttributionDeckComponent } from './attribution-deck/attribution-deck.co
       {path: 'accueil', component: AccueilComponent},
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
-      {path: 'boutique', component: BoutiqueComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
