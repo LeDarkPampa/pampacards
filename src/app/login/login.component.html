@@ -1,8 +1,6 @@
 <div class="login-container">
-  <div class="card-header">
-    <h1>Connexion aux Pampa Cards</h1>
-  </div>
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <h1>Connexion</h1>
     <div class="input-container">
       <label for="username">Nom d'utilisateur</label>
       <input type="text" id="username" name="username" [(ngModel)]="username" required>
