@@ -1,6 +1,8 @@
 <div class="card-container">
-  <div>{{ carte.nom }}</div>
-  <div class="remove-button" (click)="removeCard()">X</div>
+  <div class="p-card-title">
+    <div>{{ carte.nom }}</div>
+    <div class="remove-button" (click)="removeCard()">X</div>
+  </div>
   <div class="card-details">
     <div>{{ carte.effet?.description }}</div>
   </div>
