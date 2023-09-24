@@ -31,12 +31,12 @@
 
 .remove-button {
   color: white;
-  background-color: #B47978;
+  background-color: #d55d50;
   border: none;
   border-radius: 50%;
   padding: 5px;
   font-size: 1em;
   cursor: pointer;
-  width: 21px;
+  width: 22px;
   text-align:right;
 }
