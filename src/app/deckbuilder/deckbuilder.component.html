@@ -65,7 +65,7 @@
   <div class="cadredeck">
     Nombre de cartes : {{ selectedDeck.cartes.length }}/20
     <div *ngFor="let card of selectedDeck.cartes | sortCardsByName">
-      <app-deck-card (clickedCarte)="removeCard(card)"></app-deck-card>
+      <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
     </div>
   </div>
 </div>
