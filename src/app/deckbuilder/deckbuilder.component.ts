@@ -50,6 +50,7 @@ export class DeckbuilderComponent implements OnInit {
   error: Message[];
   // @ts-ignore
   hasExceededLimitation: Boolean;
+  hoveredCard: ICarte | null = null;
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
     this.collectionJoueur = [];
@@ -436,5 +437,9 @@ export class DeckbuilderComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  setHoveredCard(card: ICarte | null) {
+    this.hoveredCard = card;
   }
 }

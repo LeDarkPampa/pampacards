@@ -56,17 +56,27 @@
     </div>
     <ul class="cartes">
       <li *ngFor="let carteWithQuantity of collectionJoueur">
-      <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+        <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
         <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
         <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
       </li>
     </ul>
   </div>
   <div class="cadredeck">
-    Nombre de cartes : {{selectedDeck.cartes.length}}/20
-    <div class="card-container" [ngClass]="{ cadreRouge: isCarteExceedsLimitation(card.id) }" *ngFor="let card of selectedDeck.cartes|sortCardsByName">
-      <div>{{ card.nom }}</div>
-      <div class="remove-button" (click)="removeCard(card)">X</div>
+    Nombre de cartes : {{ selectedDeck.cartes.length }}/20
+    <div class="card-container" *ngFor="let card of selectedDeck.cartes | sortCardsByName">
+      <div class="card" (mouseenter)="setHoveredCard(card)" (mouseleave)="setHoveredCard(null)">
+        <div class="card-header">
+          <div>{{ card.nom }}</div>
+          <div class="remove-button" (click)="removeCard(card)">X</div>
+        </div>
+        <div class="card-details">
+          <div *ngIf="hoveredCard === card">
+            <div>Puissance : {{ card.puissance }}</div>
+            <div>Effet : {{ card.effet?.description }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
