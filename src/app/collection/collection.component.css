@@ -12,6 +12,10 @@
   margin: 20px 0 20px 0;
 }
 
+.cadre-carte {
+  padding-bottom: 10px;
+}
+
 li {
   display: flex;
   flex-direction: column;
