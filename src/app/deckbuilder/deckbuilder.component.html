@@ -66,10 +66,8 @@
     Nombre de cartes : {{ selectedDeck.cartes.length }}/20
     <div class="card-container" *ngFor="let card of selectedDeck.cartes | sortCardsByName">
       <div class="card" (mouseenter)="setHoveredCard(card)" (mouseleave)="setHoveredCard(null)">
-        <div class="card-header">
-          <div>{{ card.nom }}</div>
-          <div class="remove-button" (click)="removeCard(card)">X</div>
-        </div>
+        <div>{{ card.nom }}</div>
+        <div class="remove-button" (click)="removeCard(card)">X</div>
         <div class="card-details">
           <div *ngIf="hoveredCard === card">
             <div>Puissance : {{ card.puissance }}</div>
