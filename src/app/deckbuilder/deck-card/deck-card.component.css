@@ -32,12 +32,12 @@
 
 .remove-button {
   color: white;
-  background-color: #A4A9AD;
+  background-color: #B47978;
   border: none;
   border-radius: 50%;
   padding: 5px;
   font-size: 1em;
   cursor: pointer;
-  width: 22px;
-  text-align:right;
+  position: fixed;
+  right: 0;
 }
