@@ -16,6 +16,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  width: 100%;
 }
 
 .card-details {
@@ -32,7 +33,7 @@
 
 .remove-button {
   color: white;
-  background-color: #d55d50;
+  background-color: #A4A9AD;
   border: none;
   border-radius: 50%;
   padding: 5px;
