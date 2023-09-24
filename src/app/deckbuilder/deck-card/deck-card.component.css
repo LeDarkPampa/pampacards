@@ -31,6 +31,6 @@
   padding: 5px;
   font-size: 1em;
   cursor: pointer;
-  position: relative;
-  right: 0;
+  width: 21px;
+  text-align:right;
 }
