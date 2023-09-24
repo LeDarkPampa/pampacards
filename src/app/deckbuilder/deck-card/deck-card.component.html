@@ -3,8 +3,7 @@
     <div>{{ carte.nom }}</div>
     <div class="remove-button" (click)="removeCard()">X</div>
     <div class="card-details">
-      <div>Puissance : {{ carte.puissance }}</div>
-      <div>Effet : {{ carte.effet?.description }}</div>
+      <div>{{ carte.effet?.description }}</div>
     </div>
   </div>
 </div>
