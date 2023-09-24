@@ -46,6 +46,7 @@ import { AdministrationComponent } from './administration/administration.compone
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { CardManagementComponent } from './card-management/card-management.component';
 import { AttributionDeckComponent } from './attribution-deck/attribution-deck.component';
+import { DeckCardComponent } from './deckbuilder/deck-card/deck-card.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { AttributionDeckComponent } from './attribution-deck/attribution-deck.co
     AdministrationComponent,
     CreateAccountComponent,
     CardManagementComponent,
-    AttributionDeckComponent
+    AttributionDeckComponent,
+    DeckCardComponent
   ],
   imports: [
     RouterModule.forRoot([

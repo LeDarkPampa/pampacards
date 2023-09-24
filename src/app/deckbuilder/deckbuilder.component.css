@@ -46,43 +46,6 @@
   border-radius: 5px;
 }
 
-.card-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  border: 2px solid black;
-  border-radius: 5px;
-  margin: 5px;
-  padding: 10px;
-  cursor: pointer;
-  width: 250px;
-}
-
-.card-details {
-  display: none;
-  width: 100%;
-  padding-top: 10px;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.card-container:hover .card-details {
-  display: block;
-  opacity: 1;
-}
-
-.remove-button {
-  color: white;
-  background-color: #B47978;
-  border: none;
-  border-radius: 50%;
-  padding: 5px;
-  font-size: 1em;
-  cursor: pointer;
-  position: fixed;
-  right: 0;
-}
-
 .cadreRouge {
   border: 2px solid red;
 }

@@ -50,7 +50,6 @@ export class DeckbuilderComponent implements OnInit {
   error: Message[];
   // @ts-ignore
   hasExceededLimitation: Boolean;
-  hoveredCard: ICarte | null = null;
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
     this.collectionJoueur = [];
@@ -424,22 +423,5 @@ export class DeckbuilderComponent implements OnInit {
         }
       });
     }
-  }
-
-  isCarteExceedsLimitation(carteId: number): boolean {
-    if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
-      const limitation = this.selectedFormat.limitationCartes.find(limitation => limitation.carte.id === carteId);
-      const carteQuantity = this.selectedDeck.cartes.filter(carte => carte.id === carteId).length;
-      if (limitation) {
-        return carteQuantity > limitation.limite;
-      } else if (this.selectedFormat.nom != 'NO LIMIT') {
-        return carteQuantity > 3;
-      }
-    }
-    return false;
-  }
-
-  setHoveredCard(card: ICarte | null) {
-    this.hoveredCard = card;
   }
 }
