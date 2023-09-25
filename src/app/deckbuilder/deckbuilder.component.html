@@ -1,72 +1,74 @@
-<div class="background">
-  <div class="bandeaudecks">
-    <div class="decktemplate" (click)="newDeck()">
-      <div>NEW</div>
+<div class="deckbuilder-container">
+  <div class="background">
+    <div class="bandeaudecks">
+      <div class="decktemplate" (click)="newDeck()">
+        <div>NEW</div>
+      </div>
+      <div class="decktemplate" *ngFor="let deck of decks" [class.selected]="deck?.id === selectedDeck?.id" (click)="selectDeck(deck)">
+        <div>{{ deck.nom }}</div>
+        <div>{{ deck.format.nom }}</div>
+      </div>
     </div>
-    <div class="decktemplate" *ngFor="let deck of decks" [class.selected]="deck?.id === selectedDeck?.id" (click)="selectDeck(deck)">
-      <div>{{ deck.nom }}</div>
-      <div>{{ deck.format.nom }}</div>
-    </div>
-  </div>
-  <div class="creationdeck" *ngIf="selectedDeck">
-    <div class="cadrecollection">
-      <div class="filtres">
+    <div class="creationdeck" *ngIf="selectedDeck">
+      <div class="cadrecollection">
+        <div class="filtres">
       <span class="p-float-label">
         Nom du deck :
         <input type="text" pInputText [(ngModel)]="selectedDeck.nom"/>
       </span>
-        <div>
-          <p-multiSelect [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
-          </p-multiSelect>
+          <div>
+            <p-multiSelect [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
+            </p-multiSelect>
+          </div>
+          <div>
+            <p-multiSelect [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
+            </p-multiSelect>
+          </div>
+          <div>
+            <p-multiSelect [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
+            </p-multiSelect>
+          </div>
+          <button pButton type="button" label="Réinitialiser" (click)="resetFilters()" class="p-button-secondary"></button>
+          <button pButton type="button" label="Trier par nom" (click)="sort('nom')" class="p-button-secondary"></button>
+          <button pButton type="button" label="Trier par rareté" (click)="sort('rarete')" class="p-button-secondary"></button>
         </div>
-        <div>
-          <p-multiSelect [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
-          </p-multiSelect>
-        </div>
-        <div>
-          <p-multiSelect [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
-          </p-multiSelect>
-        </div>
-        <button pButton type="button" label="Réinitialiser" (click)="resetFilters()" class="p-button-secondary"></button>
-        <button pButton type="button" label="Trier par nom" (click)="sort('nom')" class="p-button-secondary"></button>
-        <button pButton type="button" label="Trier par rareté" (click)="sort('rarete')" class="p-button-secondary"></button>
-      </div>
-      <p-messages [(value)]="error" [enableService]="false"></p-messages>
-      Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
+        <p-messages [(value)]="error" [enableService]="false"></p-messages>
+        Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
 
-      <button pButton type="button" label="Sauvegarde" (click)="saveDeck(selectedDeck)"></button>
-      <button pButton type="button" label="Dupliquer" (click)="duplicateDeck(selectedDeck)"></button>
-      <button pButton type="button" label="Supprimer" (click)="delete(selectedDeck)" class="p-button-danger"></button>
-      <div class="format-restrictions" *ngIf="this.selectedFormat">
-        <div class="restrictions-title">Restrictions du format :</div>
-        <div class="restrictions-list">
-          <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
-            <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">
-              <div class="card-name">{{limitationCarte.carte.nom}}</div>
-              <div class="card-limit">Limitation : {{limitationCarte.limite}}</div>
-            </div>
-            <div class="restriction-item">
-              <div class="card-name">Autres cartes</div>
-              <div class="card-limit">Limitation : 3</div>
-            </div>
-          </ng-container>
-          <ng-template #noLimitation>
-            <div class="no-limitation">Aucune limitation</div>
-          </ng-template>
+        <button pButton type="button" label="Sauvegarde" (click)="saveDeck(selectedDeck)"></button>
+        <button pButton type="button" label="Dupliquer" (click)="duplicateDeck(selectedDeck)"></button>
+        <button pButton type="button" label="Supprimer" (click)="delete(selectedDeck)" class="p-button-danger"></button>
+        <div class="format-restrictions" *ngIf="this.selectedFormat">
+          <div class="restrictions-title">Restrictions du format :</div>
+          <div class="restrictions-list">
+            <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
+              <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">
+                <div class="card-name">{{limitationCarte.carte.nom}}</div>
+                <div class="card-limit">Limitation : {{limitationCarte.limite}}</div>
+              </div>
+              <div class="restriction-item">
+                <div class="card-name">Autres cartes</div>
+                <div class="card-limit">Limitation : 3</div>
+              </div>
+            </ng-container>
+            <ng-template #noLimitation>
+              <div class="no-limitation">Aucune limitation</div>
+            </ng-template>
+          </div>
         </div>
+        <ul class="cartes">
+          <li *ngFor="let carteWithQuantity of collectionJoueur">
+            <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+            <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
+            <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
+          </li>
+        </ul>
       </div>
-      <ul class="cartes">
-        <li *ngFor="let carteWithQuantity of collectionJoueur">
-          <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
-          <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
-          <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
-        </li>
-      </ul>
-    </div>
-    <div class="cadredeck">
-      Nombre de cartes : {{ selectedDeck.cartes.length }}/20
-      <div *ngFor="let card of selectedDeck.cartes | sortCardsByName">
-        <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
+      <div class="cadredeck">
+        Nombre de cartes : {{ selectedDeck.cartes.length }}/20
+        <div *ngFor="let card of selectedDeck.cartes | sortCardsByName">
+          <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
+        </div>
       </div>
     </div>
   </div>

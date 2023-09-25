@@ -1,8 +1,10 @@
-.background {
+.deckbuilder-container {
   height: 100%;
-  width: 100%;
-  background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(28,28,28,1) 50%, rgba(0,0,0,1) 100%);
+}
+
+.background {
+  width: 100%;
   color: white;
 }
 
