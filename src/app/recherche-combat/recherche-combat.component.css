@@ -1,6 +1,6 @@
 .container {
   height: calc(100vh - 40px);
-  background-color: #070707;
+  background: linear-gradient(#000000, #1d1d1d);
   display: flex;
   gap: 20px;
 }
