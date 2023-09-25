@@ -3,7 +3,7 @@
   margin-right: 5px;
   width: 150px;
   height: 200px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(64, 67, 78, 0.9);
   border: solid black 1px;
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -18,7 +18,7 @@
 }
 
 .card:hover {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(64, 67, 78, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
@@ -39,7 +39,7 @@
 .card-header h3 {
   font-size: 12px;
   margin: 0;
-  color: black;
+  color: white;
   text-align: center;
   letter-spacing: 1px;
   white-space: nowrap;
@@ -68,7 +68,7 @@
 }
 
 .star {
-  color: black;
+  color: white;
 }
 
 .card-image {

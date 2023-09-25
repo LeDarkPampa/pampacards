@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 2px solid black;
+  border: 2px solid #8C1C13;
   border-radius: 5px;
   margin: 5px;
   padding: 10px;
@@ -32,7 +32,7 @@
 
 .remove-button {
   color: white;
-  background-color: #B47978;
+  background-color: #B42318;
   border: none;
   border-radius: 50%;
   padding: 5px;

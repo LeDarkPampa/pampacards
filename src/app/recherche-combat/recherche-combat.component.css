@@ -1,7 +1,7 @@
 .container {
-  height: 100%;
+  height: calc(100vh - 40px);
+  background-color: #070707;
   display: flex;
-  background-color: #f5f5f5;
   gap: 20px;
 }
 

@@ -1,9 +1,11 @@
 nav {
   background-color: #333;
   font-family: 'Arial', sans-serif;
+  height: 40px;
 }
 
 ul {
+  height: 40px;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -13,6 +15,7 @@ ul {
 
 .button {
   display: block;
+  height: 40px;
   padding: 12px 0;
   color: #fff;
   text-decoration: none;
@@ -26,5 +29,5 @@ ul {
 }
 
 .activebutton {
-  background-color: #8b0000;
+  background-color: #8C1C13;
 }
