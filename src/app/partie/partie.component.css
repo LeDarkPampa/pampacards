@@ -1,7 +1,9 @@
 .screen {
   display: flex;
   flex-direction: row;
-  max-height: calc(100vh - 20px);
+  height: calc(100vh - 40px);
+  background: linear-gradient(#000000, #1d1d1d);
+  color: white;
 }
 
 .game-container {
@@ -12,7 +14,7 @@
   align-items: center;
   width: 85%;
   max-height: 100%;
-  background-color: #58A4B0;
+  background-color: #1d1d1d;
 }
 
 .player-container {
@@ -108,8 +110,8 @@
 
 .chat-container {
   flex: 1;
-  max-height: calc(100vh - 30px); /* Limite la hauteur du chat à 100% de la vue en hauteur moins 30px de marge */
-  background-color: #f7f7f7;
+  max-height: calc(100vh - 40px); /* Limite la hauteur du chat à 100% de la vue en hauteur moins 30px de marge */
+  background-color: rgba(0, 0, 0, 0.3);
   padding: 10px;
   box-sizing: border-box;
   overflow-y: auto;
