@@ -47,6 +47,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { CardManagementComponent } from './card-management/card-management.component';
 import { AttributionDeckComponent } from './attribution-deck/attribution-deck.component';
 import { DeckCardComponent } from './deckbuilder/deck-card/deck-card.component';
+import { PampaButtonComponent } from './composants/pampa-button/pampa-button.component';
+import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pampa-submit-button.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { DeckCardComponent } from './deckbuilder/deck-card/deck-card.component';
     CreateAccountComponent,
     CardManagementComponent,
     AttributionDeckComponent,
-    DeckCardComponent
+    DeckCardComponent,
+    PampaButtonComponent,
+    PampaSubmitButtonComponent
   ],
   imports: [
     RouterModule.forRoot([

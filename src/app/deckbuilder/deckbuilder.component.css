@@ -83,9 +83,19 @@ img {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 20px 0 20px 0;
+  padding: 20px;
   background: rgba(64, 67, 78, 0.9);
   z-index: 1;
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
 }
 
 .filtres select {
@@ -149,3 +159,61 @@ img {
   font-style: italic;
   color: white;
 }
+
+:host ::ng-deep .clan-ms .p-multiselect-label {
+  width: 200px !important;
+  color: black;
+}
+
+:host ::ng-deep .clan-ms .p-multiselect-item {
+  font-weight: bold;
+}
+
+:host ::ng-deep .clan-ms .p-multiselect-trigger {
+  font-weight: bold;
+}
+
+:host ::ng-deep .type-ms .p-multiselect-label {
+  width: 200px !important;
+  color: black;
+}
+
+:host ::ng-deep .type-ms .p-multiselect-item {
+  font-weight: bold;
+}
+
+:host ::ng-deep .type-ms .p-multiselect-trigger {
+  font-weight: bold;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect {
+  width: 100px !important;
+  min-width: 0 !important;
+  color: black;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect-label-container {
+  width: 100px !important;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect-label {
+  width: 100px !important;
+  color: black;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect-filter-container {
+  width: 100px !important;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect-panel {
+  width: 100px !important;
+}
+
+:host ::ng-deep .rarete-ms p-multiselect-items {
+  width: 100px !important;
+}
+
+:host ::ng-deep .rarete-ms .p-multiselect-trigger {
+  font-weight: bold;
+}
+
