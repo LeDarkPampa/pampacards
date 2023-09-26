@@ -1,1 +1,1 @@
-<button [ngClass]="couleur" (click)="clicked()"><i class="icon ion-md-lock"></i>Connexion</button>
+<button [ngClass]="[couleur, taille]" (click)="clicked()"><i class="icon ion-md-lock"></i>{{texte}}</button>

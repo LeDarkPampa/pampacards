@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {IUtilisateur} from "../interfaces/IUtilisateur";
-import {IDeck} from "../interfaces/IDeck";
+import {IUtilisateur} from "../../interfaces/IUtilisateur";
+import {IDeck} from "../../interfaces/IDeck";
 import {HttpClient} from "@angular/common/http";
-import {IUserPseudoAndCards} from "../interfaces/IUserPseudoAndCards";
+import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
 @Component({
   selector: 'app-attribution-deck',
   templateUrl: './attribution-deck.component.html',
@@ -16,8 +16,6 @@ export class AttributionDeckComponent implements OnInit {
 
   // @ts-ignore
   deckSelectionne: IDeck;
-
-
 
   constructor(private http: HttpClient) {
     this.http.get<IUtilisateur[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/users').subscribe({

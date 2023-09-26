@@ -1,10 +1,13 @@
 .background {
   height: calc(100vh - 40px);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+
   width: 100%;
 }
 
 .container {
   text-align: center;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   padding: 20px;
   max-width: 400px;
   margin: 0 auto;

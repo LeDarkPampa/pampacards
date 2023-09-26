@@ -155,7 +155,8 @@ export class DeckbuilderComponent implements OnInit {
     });
   }
 
-  saveDeck(deck: IDeck) {
+  saveDeck() {
+    let deck = this.selectedDeck;
     if (!deck.nom) {
       this.error = [
         { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans nom' },
@@ -180,7 +181,8 @@ export class DeckbuilderComponent implements OnInit {
     }
   }
 
-  duplicateDeck(deck: IDeck) {
+  duplicateDeck() {
+    let deck = this.selectedDeck;
     if (!deck.nom) {
       this.error = [
         { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans nom' },
@@ -347,7 +349,8 @@ export class DeckbuilderComponent implements OnInit {
     })
   }
 
-  delete(selectedDeck: IDeck) {
+  delete() {
+    let selectedDeck = this.selectedDeck;
     this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', {body: selectedDeck}).subscribe({
       next: data => {
         this.getAllPlayerDecks();

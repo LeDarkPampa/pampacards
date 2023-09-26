@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ICarte } from '../interfaces/ICarte';
-import { IClan } from '../interfaces/IClan';
-import { IType } from '../interfaces/IType';
+import { ICarte } from '../../interfaces/ICarte';
+import { IClan } from '../../interfaces/IClan';
+import { IType } from '../../interfaces/IType';
 import { HttpClient } from '@angular/common/http';
-import { IEffet } from '../interfaces/IEffet'; // Assurez-vous d'importer IEffet
+import { IEffet } from '../../interfaces/IEffet';
 
 @Component({
   selector: 'app-card-management',

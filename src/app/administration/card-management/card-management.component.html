@@ -1,5 +1,5 @@
-<h2>Gestion des cartes</h2>
 <div class="container">
+  <h2>Gestion des cartes</h2>
   <div>
     <button (click)="selectedSort = 'clan'; sortDirection = 1; sortCards()">Trier par Clan (Ascendant)</button>
     <button (click)="selectedSort = 'clan'; sortDirection = -1; sortCards()">Trier par Clan (Descendant)</button>
@@ -37,5 +37,5 @@
     </tr>
     </tbody>
   </table>
-  <button (click)="saveChanges()">Enregistrer</button>
+  <app-pampa-button [texte]="'Enregistrer'" [couleur]="'bleu'" [taille]="'petit'" (click)="saveChanges()"></app-pampa-button>
 </div>

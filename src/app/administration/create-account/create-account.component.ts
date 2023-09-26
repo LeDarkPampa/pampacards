@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { IUtilisateur } from "../interfaces/IUtilisateur";
+import { IUtilisateur } from "../../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-create-account',

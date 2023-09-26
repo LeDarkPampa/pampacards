@@ -39,11 +39,13 @@
           </div>
         </div>
         <p-messages [(value)]="error" [enableService]="false"></p-messages>
-        Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
+        <div class="actions">
+          Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
 
-        <button pButton type="button" label="Sauvegarde" (click)="saveDeck(selectedDeck)"></button>
-        <button pButton type="button" label="Dupliquer" (click)="duplicateDeck(selectedDeck)"></button>
-        <button pButton type="button" label="Supprimer" (click)="delete(selectedDeck)" class="p-button-danger"></button>
+          <app-pampa-button [texte]="'Sauvegarde'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="saveDeck()"></app-pampa-button>
+          <app-pampa-button [texte]="'Dupliquer'" [couleur]="'violet'" [taille]="'trespetit'" (clickBouton)="duplicateDeck()"></app-pampa-button>
+          <app-pampa-button [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="delete()"></app-pampa-button>
+        </div>
         <div class="format-restrictions" *ngIf="this.selectedFormat">
           <div class="restrictions-title">Restrictions du format :</div>
           <div class="restrictions-list">

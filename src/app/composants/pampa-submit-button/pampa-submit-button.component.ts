@@ -8,5 +8,7 @@ import {ICarte} from "../../interfaces/ICarte";
 })
 export class PampaSubmitButtonComponent {
 
-  @Input() texte: String = '';
+  @Input() texte: string = '';
+  @Input() couleur: string = 'noir';
+  @Input() taille: string = 'base';
 }

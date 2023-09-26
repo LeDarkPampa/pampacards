@@ -7,12 +7,12 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class PampaButtonComponent {
   @Input() texte: string = '';
-
   @Input() couleur: string = 'rouge';
+  @Input() taille: string = 'petit';
 
-  @Output() click = new EventEmitter();
+  @Output() clickBouton = new EventEmitter();
 
   clicked() {
-    this.click.emit();
+    this.clickBouton.emit();
   }
 }
