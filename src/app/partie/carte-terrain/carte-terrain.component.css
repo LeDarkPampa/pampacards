@@ -15,6 +15,7 @@
   overflow: hidden;
   position: relative;
   align-items: flex-start;
+  box-shadow: -5px -5px 20px #141414, 5px 5px 20px #0a0a0a;
 }
 
 .card:hover {
