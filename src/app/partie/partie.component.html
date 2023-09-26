@@ -8,13 +8,12 @@
       <div *ngIf="userId == lastEvent.joueurActifId && !finDePartie">
         A votre tour de jouer
         <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="finDeTour()"></app-pampa-button>
-        <button pButton type="button" label="Fin de tour" ></button>
       </div>
       <div *ngIf="userId != lastEvent.joueurActifId && !finDePartie">
         A votre adversaire de jouer
       </div>
       <div class="ligneCenter" *ngIf="!finDePartie">
-        <app-pampa-button [texte]="'Fin de tour'" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="confirmAbandon()"></app-pampa-button>
+        <app-pampa-button [texte]="'Abandonner'" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="confirmAbandon()"></app-pampa-button>
       </div>
     </div>
     <div class="ligneCenter">
