@@ -9,7 +9,6 @@
   text-align: center;
   margin: 20px;
   padding: 20px;
-  width: 70%;
 }
 
 .selectUser {
@@ -70,6 +69,7 @@ ul.carte-grid {
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
   justify-items: center;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
 }
 
 li {
