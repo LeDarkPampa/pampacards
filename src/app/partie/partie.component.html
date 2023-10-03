@@ -1,8 +1,5 @@
 <div class="screen">
   <div class="infos-adv">
-    <div class="ligneCenter" *ngIf="finDePartie">
-      Fin de la partie ! Victoire de {{vainqueur}}
-    </div>
     {{adversaire.nom}} - Score : {{adversaire.score}}
   </div>
   <div class="main-adv">
@@ -90,6 +87,9 @@
     </div>
   </div>
   <div class="actions">
+    <div class="ligneCenter" *ngIf="finDePartie">
+      Fin de la partie ! Victoire de {{vainqueur}}
+    </div>
     <div *ngIf="userId == lastEvent.joueurActifId && !finDePartie">
       A votre tour de jouer
       <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="finDeTour()"></app-pampa-button>
