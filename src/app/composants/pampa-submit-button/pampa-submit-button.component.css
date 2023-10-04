@@ -6,7 +6,7 @@ button {
   font-size: 16px;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: -0.2px;
-  padding: 16px;
+  padding: 10px;
   background-color: #272727;
   color: #feeeee;
   border-radius: 320px;
@@ -25,6 +25,11 @@ button:hover {
 
 button:active {
   box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
+}
+
+.mini {
+  width: 100px;
+  padding: 6px;
 }
 
 .trespetit {

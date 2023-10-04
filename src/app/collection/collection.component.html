@@ -13,9 +13,9 @@
         <p-multiSelect [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
         </p-multiSelect>
       </div>
-      <button pButton type="button" label="Réinitialiser" (click)="resetFilters()" class="p-button-secondary"></button>
-      <button pButton type="button" label="Trier par nom" (click)="sort('nom')" class="p-button-secondary"></button>
-      <button pButton type="button" label="Trier par rareté" (click)="sort('rarete')" class="p-button-secondary"></button>
+      <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'noir'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
+      <app-pampa-button [texte]="'Trier par nom'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('nom')"></app-pampa-button>
+      <app-pampa-button [texte]="'Trier par rareté'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('rarete')"></app-pampa-button>
     </div>
 
     <ul class="cartes">

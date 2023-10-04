@@ -83,10 +83,8 @@ img {
 .filtres {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 20px;
-  background: rgba(64, 67, 78, 0.9);
-  z-index: 1;
 }
 
 .filters-container {
@@ -132,7 +130,7 @@ img {
 .format-restrictions {
   background-color: #84889A;
   color: black;
-  margin: 20px;
+  margin: 2px;
 }
 
 .restrictions-title {

@@ -11,35 +11,11 @@
     </div>
     <div class="creationdeck" *ngIf="selectedDeck">
       <div class="cadrecollection">
-        <div class="filtres">
-          <span class="p-float-label">
-            Nom du deck :
-            <input type="text" pInputText [(ngModel)]="selectedDeck.nom"/>
-          </span>
-          <div class="filters-container">
-            <div class="sortdiv">
-              <p-multiSelect class="clan-ms" [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
-              </p-multiSelect>
-            </div>
-            <div class="sortdiv">
-              <p-multiSelect class="type-ms" [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
-              </p-multiSelect>
-            </div>
-            <div class="sortdiv">
-              <p-multiSelect class="rarete-ms"  [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
-              </p-multiSelect>
-            </div>
-            <div class="sortdiv">
-              <button pButton type="button" label="Réinitialiser" (click)="resetFilters()" class="p-button-secondary"></button>
-            </div>
-          </div>
-          <div class="sort-container">
-            <button pButton type="button" label="Trier par nom" (click)="sort('nom')" class="p-button-secondary"></button>
-            <button pButton type="button" label="Trier par rareté" (click)="sort('rarete')" class="p-button-secondary"></button>
-          </div>
-        </div>
         <p-messages [(value)]="error" [enableService]="false"></p-messages>
+
         <div class="actions">
+          Nom du deck :
+          <input type="text" pInputText [(ngModel)]="selectedDeck.nom"/>
           Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
 
           <app-pampa-button [texte]="'Sauvegarde'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="saveDeck()"></app-pampa-button>
@@ -62,6 +38,19 @@
             <ng-template #noLimitation>
               <div class="no-limitation">Aucune limitation</div>
             </ng-template>
+          </div>
+        </div>
+        <div class="filtres">
+          <div class="filters-container">
+            <p-multiSelect class="clan-ms" [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
+            </p-multiSelect>
+            <p-multiSelect class="type-ms" [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
+            </p-multiSelect>
+            <p-multiSelect class="rarete-ms"  [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
+            </p-multiSelect>
+            <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'noir'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
+            <app-pampa-button [texte]="'Trier par nom'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('nom')"></app-pampa-button>
+            <app-pampa-button [texte]="'Trier par rareté'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('rarete')"></app-pampa-button>
           </div>
         </div>
         <ul class="cartes">

@@ -6,7 +6,7 @@ button {
   font-size: 16px;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: -0.2px;
-  padding: 16px;
+  padding: 10px;
   background-color: #272727;
   color: #feeeee;
   border-radius: 320px;
@@ -50,6 +50,12 @@ button:active {
 
 .tresgrand {
   width: 500px;
+}
+
+.noir {
+  background-color: #272727;
+  text-shadow: 1px 1px 0 #212121;
+  color: #ffffff;
 }
 
 .bleu {
