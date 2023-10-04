@@ -71,37 +71,20 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
 
     if (this.lastEvent.joueurActifId != this.joueur.id || this.lastEvent.status != "TOUR_EN_COURS") {
-      if (this.partie.joueurUn.id == this.userId) {
-        this.joueur.id = this.partie.joueurUn.id;
-        this.adversaire.id = this.partie.joueurDeux.id;
+      this.joueur.id = this.partie.joueurUn.id;
+      this.adversaire.id = this.partie.joueurDeux.id;
 
-        this.joueur.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
-        this.adversaire.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
+      this.joueur.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
+      this.adversaire.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
 
-        this.joueur.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
-        this.adversaire.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
+      this.joueur.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
+      this.adversaire.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
 
-        this.joueur.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
-        this.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
+      this.joueur.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
+      this.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
 
-        this.joueur.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
-        this.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
-      } else if (this.partie.joueurDeux.id == this.userId) {
-        this.joueur.id = this.partie.joueurDeux.id;
-        this.adversaire.id = this.partie.joueurUn.id;
-
-        this.adversaire.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
-        this.joueur.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
-
-        this.adversaire.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
-        this.joueur.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
-
-        this.adversaire.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
-        this.joueur.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
-
-        this.adversaire.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
-        this.joueur.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
-      }
+      this.joueur.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
+      this.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
     }
 
     if (lastEvent.status == "DEBUT_PARTIE") {
