@@ -159,19 +159,19 @@ export class DeckbuilderComponent implements OnInit {
     let deck = this.selectedDeck;
     if (!deck.nom) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans nom' },
+        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
     } else if (!(deck.cartes.length == 20)) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Le deck doit comporter 20 cartes' },
+        { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
     } else if (!this.selectedFormat) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans format' },
+        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
     } else if (this.hasExceededLimitation) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Ce deck n\'est pas valide pour ce format.' },
+        { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
       deck.format = this.selectedFormat;
@@ -185,19 +185,19 @@ export class DeckbuilderComponent implements OnInit {
     let deck = this.selectedDeck;
     if (!deck.nom) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans nom' },
+        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
     } else if (!(deck.cartes.length == 20)) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Le deck doit comporter 20 cartes' },
+        { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
     } else if (!this.selectedFormat) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Impossible de sauvegarder un deck sans format' },
+        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
     } else if (this.hasExceededLimitation) {
       this.error = [
-        { severity: 'error', summary: 'Error', detail: 'Ce deck n\'est pas valide pour ce format.' },
+        { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
       let duplicatedDeck: IDeck = {

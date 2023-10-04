@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   errorMessage: string;
+  // @ts-ignore
+  error: Message[];
 
   constructor(private authService: AuthentificationService, private router: Router) {
     this.username = '';
@@ -32,6 +34,9 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         console.error(error);
+        this.error = [
+          { severity: 'error', summary: 'Erreur', detail: 'Erreur lors de la connexion' },
+        ];
       }
     );
   }
