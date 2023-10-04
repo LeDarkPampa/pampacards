@@ -27,6 +27,6 @@ export class AdministrationPartiesComponent {
   }
 
   observerPartie(partieId: number) {
-    this.router.navigate(['/partie', partieId]);
+    this.router.navigate(['/partie-obs', partieId]);
   }
 }

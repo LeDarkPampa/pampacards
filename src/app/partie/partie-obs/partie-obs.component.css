@@ -1,0 +1,197 @@
+.screen {
+  height: calc(100vh - 40px);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+  color: white;
+  display: grid;
+  grid-template-columns: 10% auto 10% 15%;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-areas: "infos-adv main-adv infos-tours bandeau-chat"
+"deck-adv terrain-adv defausse-adv bandeau-chat"
+"deck-joueur terrain-joueur defausse-joueur bandeau-chat"
+"infos-joueur main-joueur actions bandeau-chat";
+  grid-gap: 0;
+}
+
+.infos-adv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.main-adv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.infos-tour {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bandeau-chat {
+  grid-area: bandeau-chat;
+}
+
+.deck-adv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.terrain-adv {
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.defausse-adv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+.deck-joueur {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.terrain-joueur {
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.defausse-joueur {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.infos-joueur {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.main-joueur {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: red;
+}
+
+.chat-container {
+  height: 100%;
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  word-wrap: break-word; /* Permet aux mots longs de se retourner à la ligne */
+}
+
+
+.player-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  text-align: center;
+  width: 95%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ligneCenter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-container {
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+
+.card-visualiser {
+  margin-top: auto;
+}
+
+.card-visualiser img {
+  max-width: 95%;
+}
+
+.chat-messages {
+  height: 95%;
+}
+
+.chat-message {
+  margin-bottom: 5px;
+}
+
+.sender {
+  font-weight: bold;
+}
+
+.content {
+  margin-left: 5px;
+}
+
+.chat-input {
+  height: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.chat-input button {
+  padding: 5px 10px;
+  background-color: #58A4B0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

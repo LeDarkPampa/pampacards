@@ -50,6 +50,7 @@ import { DeckCardComponent } from './deckbuilder/deck-card/deck-card.component';
 import { PampaButtonComponent } from './composants/pampa-button/pampa-button.component';
 import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pampa-submit-button.component';
 import { AdministrationPartiesComponent } from './administration/administration-parties/administration-parties.component';
+import { PartieObsComponent } from './partie/partie-obs/partie-obs.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { AdministrationPartiesComponent } from './administration/administration-
     DeckCardComponent,
     PampaButtonComponent,
     PampaSubmitButtonComponent,
-    AdministrationPartiesComponent
+    AdministrationPartiesComponent,
+    PartieObsComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -92,6 +94,7 @@ import { AdministrationPartiesComponent } from './administration/administration-
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
+      {path: 'partie-obs/:id', component: PartieObsComponent, canActivate: [AuthGuard]},
       {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
       {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
       {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
