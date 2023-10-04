@@ -1,12 +1,9 @@
 <div class="deckbuilder-container">
   <div class="background">
     <div class="bandeaudecks">
-      <div class="decktemplate" (click)="newDeck()">
-        <div>NEW</div>
-      </div>
-      <div class="decktemplate" *ngFor="let deck of decks" [class.selected]="deck?.id === selectedDeck?.id" (click)="selectDeck(deck)">
-        <div>{{ deck.nom }}</div>
-        <div>{{ deck.format.nom }}</div>
+      <app-pampa-button [texte]="'NEW'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="newDeck()"></app-pampa-button>
+      <div *ngFor="let deck of decks">
+        <app-pampa-button [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button>
       </div>
     </div>
     <div class="creationdeck" *ngIf="selectedDeck">
@@ -48,7 +45,7 @@
             </p-multiSelect>
             <p-multiSelect class="rarete-ms"  [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
             </p-multiSelect>
-            <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'noir'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
+            <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'gris'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
             <app-pampa-button [texte]="'Trier par nom'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('nom')"></app-pampa-button>
             <app-pampa-button [texte]="'Trier par rareté'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('rarete')"></app-pampa-button>
           </div>
