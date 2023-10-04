@@ -27,6 +27,11 @@ button:active {
   box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
 }
 
+.mini {
+  width: 100px;
+  padding: 6px;
+}
+
 .trespetit {
   width: 150px;
 }

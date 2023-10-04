@@ -20,7 +20,11 @@ export class AdministrationComponent {
   }
 
   goToDataManagement() {
-    // Rediriger vers l'écran d'administration des données
     this.router.navigate(['/card-management']);
+  }
+
+  goToPartiesManagement() {
+    // Rediriger vers l'écran d'administration des données
+    this.router.navigate(['/parties-management']);
   }
 }

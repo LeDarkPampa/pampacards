@@ -49,6 +49,7 @@ import { AttributionDeckComponent } from './administration/attribution-deck/attr
 import { DeckCardComponent } from './deckbuilder/deck-card/deck-card.component';
 import { PampaButtonComponent } from './composants/pampa-button/pampa-button.component';
 import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pampa-submit-button.component';
+import { AdministrationPartiesComponent } from './administration/administration-parties/administration-parties.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pam
     AttributionDeckComponent,
     DeckCardComponent,
     PampaButtonComponent,
-    PampaSubmitButtonComponent
+    PampaSubmitButtonComponent,
+    AdministrationPartiesComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -96,6 +98,7 @@ import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pam
       {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
       {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
+      {path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard]},
       {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
       {path: 'deconnexion', component: DeconnexionComponent},
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},

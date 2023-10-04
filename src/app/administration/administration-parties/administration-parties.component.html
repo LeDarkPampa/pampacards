@@ -1,0 +1,23 @@
+<div class="background">
+  <div class="container">
+    <div class="parties-en-cours">
+      <h1>Parties en cours</h1>
+      <table border="1">
+        <tr>
+          <th>ID de la Partie</th>
+          <th>Nom du Joueur 1</th>
+          <th>Nom du Joueur 2</th>
+        </tr>
+        <tr *ngFor="let partie of parties">
+          <td>{{ partie.id }}</td>
+          <td>{{ partie.joueurUn?.pseudo }}</td>
+          <td>{{ partie.joueurDeux?.pseudo }}</td>
+          <td><app-pampa-button [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (clickBouton)="observerPartie(partie.id)"></app-pampa-button></td>
+        </tr>
+      </table>
+    </div>
+    <div class="parties-terminees">
+      <h1>Parties terminées</h1>
+    </div>
+  </div>
+</div>
