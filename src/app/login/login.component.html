@@ -1,3 +1,5 @@
+<p-messages [(value)]="error" [enableService]="false"></p-messages>
+
 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
   <div class="segment">
     <h1>Pampa Cards</h1>
@@ -10,6 +12,4 @@
     <input placeholder="Mot de passe" class="input" id="password" name="password" type="password" [(ngModel)]="password" required>
   </label>
   <app-pampa-submit-button [texte]="'Connexion'"></app-pampa-submit-button>
-
-  <p-messages [(value)]="error" [enableService]="false"></p-messages>
 </form>
