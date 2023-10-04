@@ -62,7 +62,7 @@
   <div class="terrain-joueur">
     <div class="ligneCenter">
       <div *ngFor="let carte of joueur.terrain">
-        <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
+        <app-carte-terrain [carte]="carte" [estJoueurActif]="false"></app-carte-terrain>
       </div>
     </div>
   </div>
