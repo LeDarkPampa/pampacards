@@ -294,8 +294,6 @@ export class DeckbuilderComponent implements OnInit {
 
         this.removeCartesCollectionDuSelectedDeck();
 
-        this.sort('nom');
-
         this.collectionJoueur = this.collectionJoueur.filter((carte: ICarteAndQuantity) => {
           if (this.selectedClans && this.selectedClans.length > 0 && this.selectedClans.indexOf(carte.carte.clan.nom) == -1) {
             return false;

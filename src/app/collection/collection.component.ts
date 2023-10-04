@@ -43,7 +43,6 @@ export class CollectionComponent implements OnInit{
       next: data => {
         this.cartes = data;
         this.cartesFiltrees = data;
-        this.sort('nom');
       },
       error: error => {
         this.errorMessage = error.message;
