@@ -21,8 +21,6 @@ import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmatio
   styleUrls: ['./partie-obs.component.css']
 })
 export class PartieObsComponent  implements OnInit, OnDestroy {
-
-  userId = 0;
   // @ts-ignore
   joueur: IPlayerState;
   // @ts-ignore
@@ -37,7 +35,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   // @ts-ignore
   lastEvent: IEvenementPartie;
   lastEventId: number = 0;
-  estJoueurActif = false;
   carteSelectionneeSubject = new Subject<ICarte>();
   vainqueur = "";
   chatMessages: IChatPartieMessage[] = [];
@@ -48,7 +45,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
               private sseService: SseService, private cd: ChangeDetectorRef) {
-    this.userId = authService.userId;
+
   }
 
   ngOnInit() {
@@ -65,9 +62,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
-
     this.tourAffiche = Math.ceil(lastEvent.tour / 2);
-
 
     this.joueur.id = this.partie.joueurUn.id;
     this.adversaire.id = this.partie.joueurDeux.id;
@@ -97,17 +92,10 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     let nomAdversaire = '';
     let idJoueur = 0;
     let idAdversaire = 0;
-    if (this.partie.joueurUn.id == this.userId) {
-      nomJoueur = this.partie.joueurUn.pseudo;
-      idJoueur = this.partie.joueurUn.id;
-      nomAdversaire = this.partie.joueurDeux.pseudo;
-      idAdversaire = this.partie.joueurDeux.id;
-    } else if (this.partie.joueurDeux.id == this.userId) {
-      nomJoueur = this.partie.joueurDeux.pseudo;
-      idJoueur = this.partie.joueurDeux.id;
-      nomAdversaire = this.partie.joueurUn.pseudo;
-      idAdversaire = this.partie.joueurUn.id;
-    }
+    nomJoueur = this.partie.joueurUn.pseudo;
+    idJoueur = this.partie.joueurUn.id;
+    nomAdversaire = this.partie.joueurDeux.pseudo;
+    idAdversaire = this.partie.joueurDeux.id;
     this.joueur = {
       id: idJoueur,
       nom: nomJoueur,
