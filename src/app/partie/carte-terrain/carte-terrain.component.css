@@ -18,8 +18,8 @@
 
 @media (max-height: 600px) {
   .card {
-    width: 105px;
     height: 140px;
+    aspect-ratio: 3 / 4;
   }
 
   .icone img {
@@ -34,8 +34,8 @@
 
 @media (min-height: 600px) and (max-height: 850px) {
   .card {
-    width: 120px;
     height: 160px;
+    aspect-ratio: 3 / 4;
   }
 
   .icone img {
@@ -50,8 +50,8 @@
 
 @media (min-height: 850px) {
   .card {
-    width: 135px;
     height: 180px;
+    aspect-ratio: 3 / 4;
   }
 
   .icone img {
