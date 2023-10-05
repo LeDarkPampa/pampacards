@@ -4,7 +4,7 @@
   color: white;
   display: grid;
   grid-template-columns: 10% auto 10% 15%;
-  grid-template-rows: 16% 28% 28% 28%;
+  grid-template-rows: 16% 26% 26% 32%;
   grid-template-areas: "infos-adv main-adv infos-tours bandeau-chat"
 "deck-adv terrain-adv defausse-adv bandeau-chat"
 "deck-joueur terrain-joueur defausse-joueur bandeau-chat"
