@@ -1,6 +1,6 @@
 <div class="background">
   <div class="container">
-    <h2>Créer un compte</h2>
+    <h3>Créer un compte</h3>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="login">Login</label>
@@ -12,8 +12,9 @@
       </div>
       <app-pampa-submit-button [texte]="'Créer le compte'" [couleur]="'vert'" [taille]="'moyen'"></app-pampa-submit-button>
     </form>
-
-    <h2>Modifier le mot de passe</h2>
+  </div>
+  <div class="container">
+    <h3>Modifier le mot de passe</h3>
     <form (ngSubmit)="onChangePassword()">
       <div class="form-group">
         <label for="selectedUser">Utilisateur à modifier</label>
@@ -27,8 +28,9 @@
       </div>
       <app-pampa-submit-button [texte]="'Modifier le mot de passe'" [couleur]="'bleu'" [taille]="'moyen'"></app-pampa-submit-button>
     </form>
-
-    <h2>Réinitialiser un utilisateur</h2>
+  </div>
+  <div class="container">
+    <h3>Réinitialiser un utilisateur</h3>
     <form (ngSubmit)="onReinitUser()">
       <div class="form-group">
         <label for="selectedUserReinit">Utilisateur à réinitialiser</label>

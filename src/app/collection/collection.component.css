@@ -16,11 +16,6 @@
   align-items: center;
   list-style: none;
   padding: 0;
-  margin: 20px 0 20px 0;
-}
-
-.cadre-carte {
-  padding-bottom: 10px;
 }
 
 li {
@@ -46,10 +41,12 @@ img {
 }
 
 .filtres {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  flex-wrap: wrap;
+  padding-top: 15px;
 }
 
 .filtres select {
@@ -80,12 +77,6 @@ img {
   color: #fff;
 }
 
-/*
-
-CSS Filtres
-
- */
-
 :host ::ng-deep .p-multiselect {
   min-width: 15rem;
 }
@@ -94,18 +85,12 @@ CSS Filtres
   min-width: 20rem;
 }
 
-/**
-  Style images
- */
 .non-possede img {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
   opacity: 0.6;
 }
 
-/**
-affichage quantité d'une carte
- */
 .numberOfElements {
   text-align: center;
   width: 100%;

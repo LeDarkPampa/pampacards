@@ -1,7 +1,7 @@
 <div class="background">
   <div class="container">
     <h2>Modifier le mot de passe</h2>
-    <form (ngSubmit)="onChangePassword()">
+    <form class="password-form" (ngSubmit)="onChangePassword()">
       <div class="form-group">
         <label for="newPassword">Nouveau mot de passe</label>
         <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required autocomplete="off">

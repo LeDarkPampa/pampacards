@@ -12,6 +12,13 @@
   align-items: center;
 }
 
+.password-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 h2 {
   font-size: 24px;
   margin-bottom: 20px;

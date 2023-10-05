@@ -84,22 +84,22 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
 }
 
-.filters-container {
+.ligne-centree {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.sort-container {
+.ligne-centree-repartie {
   display: flex;
   align-items: center;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .filtres select {

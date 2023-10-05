@@ -53,8 +53,13 @@ table select {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Style for the active sorting button */
 .sort-buttons button.active {
   background: linear-gradient(180deg, #0041a8, #00369d);
   box-shadow: none;
+}
+
+.ligne-centree {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

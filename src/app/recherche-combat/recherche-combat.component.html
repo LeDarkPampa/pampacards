@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="column left">
+  <div class="left">
     <div class="search-panel">
       <h3>Recherche d'adversaire :</h3>
       <button pButton type="button" label="On" (click)="startSearch()" [disabled]="searching" class="p-button-success"></button>
@@ -32,8 +32,8 @@
     </div>
   </div>
 
-  <div class="column middle">
-    <div class="column right">
+  <div class="middle">
+    <div class="right">
       <div class="received-requests-panel">
         <h3>Demandes envoyées :</h3>
         <p-table [value]="tableauDemandesEnvoyees">
@@ -62,7 +62,7 @@
         </p-table>
   </div>
 
-  <div class="column right">
+  <div class="right">
     <div class="received-requests-panel">
       <h3>Demandes reçues :</h3>
       <p-table [value]="tableauDemandesRecues">

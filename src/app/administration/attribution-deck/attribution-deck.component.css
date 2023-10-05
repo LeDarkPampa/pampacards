@@ -1,5 +1,4 @@
 .background {
-  height: calc(100vh - 40px);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -34,30 +33,12 @@ label {
   color: white;
 }
 
-select,
-button {
+select {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-button {
-  margin-top: 15px;
-  width: 20%;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #8C1C13;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #6C150F;
 }
 
 ul {
@@ -70,7 +51,6 @@ ul.carte-grid {
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
   justify-items: center;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
 }
 
 li {
@@ -91,5 +71,10 @@ li {
 }
 
 .decklist {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+}
+
+.ligne-centree {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

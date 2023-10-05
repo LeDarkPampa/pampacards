@@ -11,7 +11,7 @@
 
     <div class="button-grid">
       <div *ngFor="let deck of decksDeBase">
-        <button (click)="selectionnerDeck(deck)">{{ deck.nom }}</button>
+        <app-pampa-button-carre [texte]="deck.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerDeck(deck)"></app-pampa-button-carre>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
         </li>
       </ul>
 
-      <button (click)="ajouterCartesAuDeck()">Attribuer ce deck</button>
+      <div class="ligne-centree"><app-pampa-button [texte]="'Attribuer ce deck'" [couleur]="'bleu'" [taille]="'petit'" (click)="ajouterCartesAuDeck()"></app-pampa-button></div>
     </div>
   </div>
 </div>
