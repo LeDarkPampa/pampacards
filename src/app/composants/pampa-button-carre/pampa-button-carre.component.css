@@ -1,0 +1,112 @@
+button {
+  margin: 10px;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.2px;
+  padding: 10px;
+  background-color: #272727;
+  color: #feeeee;
+  border-radius: 5px;
+  text-shadow: 1px 1px 0 #212121;
+  box-shadow: -5px -5px 20px #212121, 5px 5px 20px #0a0a0a;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  display: block;
+  width: 250px;
+}
+
+button:hover {
+  box-shadow: -2px -2px 5px #212121, 2px 2px 5px #141414;
+}
+
+button:active {
+  box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
+}
+
+.mini {
+  width: 100px;
+  padding: 6px;
+}
+
+.trespetit {
+  width: 150px;
+}
+
+.petit {
+  width: 200px;
+}
+
+.moyen {
+  width: 300px;
+}
+
+.grand {
+  width: 400px;
+}
+
+.tresgrand {
+  width: 500px;
+}
+
+.noir {
+  background-color: #272727;
+  text-shadow: 1px 1px 0 #212121;
+  color: #ffffff;
+}
+
+.bleu {
+  background-color: #1e4f6c;
+  text-shadow: 1px 1px 0 #1a425d;
+  color: #ffffff;
+}
+
+.rouge {
+  background-color: #8c1b16;
+  text-shadow: 1px 1px 0 #751310;
+  color: #ffffff;
+}
+
+.vert {
+  background-color: #1b7043;
+  text-shadow: 1px 1px 0 #165632;
+  color: #ffffff;
+}
+
+.orange {
+  background-color: #ff8c00;
+  text-shadow: 1px 1px 0 #cc7000;
+  color: #ffffff;
+}
+
+.violet {
+  background-color: #8a2be2;
+  text-shadow: 1px 1px 0 #7a249c;
+  color: #ffffff;
+}
+
+.rose {
+  background-color: #ff69b4;
+  text-shadow: 1px 1px 0 #ff4499;
+  color: #ffffff;
+}
+
+.bordeaux {
+  background-color: #800000;
+  text-shadow: 1px 1px 0 #600000;
+  color: #ffffff;
+}
+
+.gris {
+  background-color: #808080;
+  text-shadow: 1px 1px 0 #666666;
+  color: #ffffff;
+}
+
+.marron {
+  background-color: #8b4513;
+  text-shadow: 1px 1px 0 #753b0f;
+  color: #ffffff;
+}

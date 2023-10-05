@@ -3,7 +3,7 @@
     <div class="bandeaudecks">
       <app-pampa-button [texte]="'NEW'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="newDeck()"></app-pampa-button>
       <div *ngFor="let deck of decks">
-        <app-pampa-button [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button>
+        <app-pampa-button-carre [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button-carre>
       </div>
     </div>
     <div class="creationdeck" *ngIf="selectedDeck">
@@ -19,22 +19,30 @@
           <app-pampa-button [texte]="'Dupliquer'" [couleur]="'violet'" [taille]="'trespetit'" (clickBouton)="duplicateDeck()"></app-pampa-button>
           <app-pampa-button [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="delete()"></app-pampa-button>
         </div>
-        <div class="format-restrictions" *ngIf="this.selectedFormat">
-          <div class="restrictions-title">Restrictions du format :</div>
-          <div class="restrictions-list">
-            <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
-              <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">
-                <div class="card-name">{{limitationCarte.carte.nom}}</div>
-                <div class="card-limit">Limitation : {{limitationCarte.limite}}</div>
+        <div class="wrapper">
+          <div class="card-w">
+            <div class="card active">
+              <div class="card__text">
+                <div class="format-restrictions" *ngIf="this.selectedFormat">
+                  <div class="restrictions-title">Restrictions du format :</div>
+                  <div class="restrictions-list">
+                    <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
+                      <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">
+                        <div class="card-name">{{limitationCarte.carte.nom}}</div>
+                        <div class="card-limit">Limitation : {{limitationCarte.limite}}</div>
+                      </div>
+                      <div class="restriction-item">
+                        <div class="card-name">Autres cartes</div>
+                        <div class="card-limit">Limitation : 3</div>
+                      </div>
+                    </ng-container>
+                    <ng-template #noLimitation>
+                      <div class="no-limitation">Aucune limitation</div>
+                    </ng-template>
+                  </div>
+                </div>
               </div>
-              <div class="restriction-item">
-                <div class="card-name">Autres cartes</div>
-                <div class="card-limit">Limitation : 3</div>
-              </div>
-            </ng-container>
-            <ng-template #noLimitation>
-              <div class="no-limitation">Aucune limitation</div>
-            </ng-template>
+            </div>
           </div>
         </div>
         <div class="filtres">
