@@ -41,7 +41,7 @@ export class CollectionComponent implements OnInit{
   getAllCollection() {
     this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
       next: data => {
-        this.cartes = data;
+        this.cartes = data.filter(carte => carte.released);
         this.cartesFiltrees = data;
       },
       error: error => {
@@ -56,6 +56,7 @@ export class CollectionComponent implements OnInit{
 
     this.http.get<ICollection>(url).subscribe({
       next: data => {
+        data.cartes = data.cartes.filter(carte => carte.released);
         this.collection = data;
       },
       error: error => {

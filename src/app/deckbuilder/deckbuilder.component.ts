@@ -220,33 +220,6 @@ export class DeckbuilderComponent implements OnInit {
       })
     }
   }
-
-  getUserCollection(userId: number) {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${userId}`;
-    this.collectionJoueur = [];
-    this.http.get<ICollection>(url).subscribe({
-      next: data => {
-
-        if (data && data.cartes && data.cartes.length > 0) {
-          data.cartes.forEach(carte => {
-            let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id === carte.id);
-            if (indexCarte >= 0) {
-              this.collectionJoueur[indexCarte].quantity = this.collectionJoueur[indexCarte].quantity + 1;
-            } else {
-              this.collectionJoueur.push({carte: carte, quantity: 1});
-            }
-          });
-        }
-
-        this.removeCartesCollectionDuSelectedDeck();
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    });
-  }
-
   applyFilters() {
     this.getUserCollectionFiltered(this.authService.userId);
   }
@@ -280,8 +253,8 @@ export class DeckbuilderComponent implements OnInit {
     this.collectionJoueur = [];
     this.http.get<ICollection>(url).subscribe({
       next: data => {
-
         if (data && data.cartes && data.cartes.length > 0) {
+          data.cartes = data.cartes.filter(carte => carte.released);
           data.cartes.forEach(carte => {
             let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
             if (indexCarte >= 0) {

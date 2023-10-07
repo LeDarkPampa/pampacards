@@ -18,4 +18,5 @@ export interface ICarte {
   prison: boolean;
   diffPuissanceInstant: number;
   diffPuissanceContinue: number;
+  released: boolean;
 }
