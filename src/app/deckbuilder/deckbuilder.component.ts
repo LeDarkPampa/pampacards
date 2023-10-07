@@ -254,7 +254,7 @@ export class DeckbuilderComponent implements OnInit {
     this.http.get<ICollection>(url).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
-          if (!this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+          if (!(this.authService.user.testeur && this.propertiesService.isTestModeOn())) {
             data.cartes = data.cartes.filter(carte => carte.released);
           }
 

@@ -81,7 +81,7 @@ export class CollectionComponent implements OnInit{
 
     this.http.get<ICollection>(url).subscribe({
       next: data => {
-        if (!this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+        if (!(this.authService.user.testeur && this.propertiesService.isTestModeOn())) {
           data.cartes = data.cartes.filter(carte => carte.released);
         }
         this.collection = data;
