@@ -9,6 +9,7 @@ import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
 import {ILimitationCarte} from "../interfaces/ILimitationCarte";
+import {PropertiesService} from "../services/properties.service";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -50,7 +51,7 @@ export class DeckbuilderComponent implements OnInit {
   // @ts-ignore
   hasExceededLimitation: Boolean;
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService, private propertiesService: PropertiesService) {
     this.collectionJoueur = [];
     this.getAllClans();
     this.getAllTypes();

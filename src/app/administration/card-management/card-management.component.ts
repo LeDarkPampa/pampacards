@@ -5,6 +5,7 @@ import { IType } from '../../interfaces/IType';
 import { HttpClient } from '@angular/common/http';
 import { IEffet } from '../../interfaces/IEffet';
 import {AuthentificationService} from "../../services/authentification.service";
+import {PropertiesService} from "../../services/properties.service";
 
 @Component({
   selector: 'app-card-management',
@@ -19,7 +20,7 @@ export class CardManagementComponent {
   selectedSort: string = 'clan';
   sortDirection: number = 1;
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService, private propertiesService: PropertiesService) {
     this.getAllCollection();
     this.sortCards();
   }
