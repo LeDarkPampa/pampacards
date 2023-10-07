@@ -9,7 +9,6 @@ import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
 import {ILimitationCarte} from "../interfaces/ILimitationCarte";
-import {IUtilisateur} from "../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -254,7 +253,10 @@ export class DeckbuilderComponent implements OnInit {
     this.http.get<ICollection>(url).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
-          data.cartes = data.cartes.filter(carte => carte.released);
+          if (!this.authService.user.testeur) {
+            data.cartes = data.cartes.filter(carte => carte.released);
+          }
+
           data.cartes.forEach(carte => {
             let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
             if (indexCarte >= 0) {

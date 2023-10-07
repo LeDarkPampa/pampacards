@@ -3,5 +3,6 @@ export interface IUtilisateur {
   pseudo: string;
   email: string;
   password: string;
+  testeur: boolean;
 
 }
