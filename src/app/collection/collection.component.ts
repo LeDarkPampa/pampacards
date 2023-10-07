@@ -39,21 +39,39 @@ export class CollectionComponent implements OnInit{
   }
 
   getAllCollection() {
-    this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
-      next: data => {
-        if (this.authService.user.testeur) {
-          this.cartes = data;
-        } else {
-          this.cartes = data.filter(carte => carte.released);
-        }
+    if (this.authService.user.testeur) {
+      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
+        next: data => {
+          if (this.authService.user.testeur) {
+            this.cartes = data;
+          } else {
+            this.cartes = data.filter(carte => carte.released);
+          }
 
-        this.cartesFiltrees = data;
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    })
+          this.cartesFiltrees = data;
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    } else {
+      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
+        next: data => {
+          if (this.authService.user.testeur) {
+            this.cartes = data;
+          } else {
+            this.cartes = data.filter(carte => carte.released);
+          }
+
+          this.cartesFiltrees = data;
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    }
   }
 
   getUserCollection(userId: number) {
@@ -73,28 +91,53 @@ export class CollectionComponent implements OnInit{
     });
   }
   getAllClans() {
-    this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
-      next: data => {
-        data.forEach(clan => this.clans.push(clan.nom));
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    })
+    if (this.authService.user.testeur) {
+      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
+        next: data => {
+          data.forEach(clan => this.clans.push(clan.nom));
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    } else {
+      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
+        next: data => {
+          data.forEach(clan => this.clans.push(clan.nom));
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    }
   }
 
   private getAllTypes() {
-    this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
-      next: data => {
-        data.forEach(type => this.types.push(type.nom));
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    })
+    if (this.authService.user.testeur) {
+      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
+        next: data => {
+          data.forEach(type => this.types.push(type.nom));
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    } else {
+      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
+        next: data => {
+          data.forEach(type => this.types.push(type.nom));
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      })
+    }
   }
+
   isInCollection(carte: ICarte) {
     return this.collection?.cartes.some(card => card.id === carte.id);
   }

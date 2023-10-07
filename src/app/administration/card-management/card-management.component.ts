@@ -4,6 +4,7 @@ import { IClan } from '../../interfaces/IClan';
 import { IType } from '../../interfaces/IType';
 import { HttpClient } from '@angular/common/http';
 import { IEffet } from '../../interfaces/IEffet';
+import {AuthentificationService} from "../../services/authentification.service";
 
 @Component({
   selector: 'app-card-management',
@@ -18,7 +19,7 @@ export class CardManagementComponent {
   selectedSort: string = 'clan';
   sortDirection: number = 1;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthentificationService) {
     this.getAllCollection();
     this.sortCards();
   }
@@ -36,33 +37,63 @@ export class CardManagementComponent {
   }
 
   getAllCollection() {
-    this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
-      next: (data: ICarte[]) => {
-        this.cartes = data;
-        this.sortCards();
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération des cartes', error);
-      }
-    });
+    if (this.authService.user.testeur) {
+      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
+        next: (data: ICarte[]) => {
+          this.cartes = data;
+          this.sortCards();
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des cartes', error);
+        }
+      });
 
-    this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
-      next: (data: IClan[]) => {
-        this.clans = data;
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération des clans', error);
-      }
-    });
+      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
+        next: (data: IClan[]) => {
+          this.clans = data;
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des clans', error);
+        }
+      });
 
-    this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
-      next: (data: IType[]) => {
-        this.types = data;
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération des types', error);
-      }
-    });
+      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
+        next: (data: IType[]) => {
+          this.types = data;
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des types', error);
+        }
+      });
+    } else {
+      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
+        next: (data: ICarte[]) => {
+          this.cartes = data;
+          this.sortCards();
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des cartes', error);
+        }
+      });
+
+      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
+        next: (data: IClan[]) => {
+          this.clans = data;
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des clans', error);
+        }
+      });
+
+      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
+        next: (data: IType[]) => {
+          this.types = data;
+        },
+        error: error => {
+          console.error('Erreur lors de la récupération des types', error);
+        }
+      });
+    }
 
     this.http.get<IEffet[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/effets').subscribe({
       next: (data: IEffet[]) => {
