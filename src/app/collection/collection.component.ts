@@ -5,6 +5,7 @@ import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
 import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
+import {PropertiesService} from "../services/properties.service";
 
 @Component({
   selector: 'app-collection',
@@ -27,7 +28,8 @@ export class CollectionComponent implements OnInit{
   types: String[] = [];
   raretes: number[] = [1, 2, 3, 4];
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService,
+              private propertiesService: PropertiesService) {
     this.cartes = [];
     this.getAllClans();
     this.getAllTypes();
@@ -39,10 +41,10 @@ export class CollectionComponent implements OnInit{
   }
 
   getAllCollection() {
-    if (this.authService.user.testeur) {
+    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
         next: data => {
-          if (this.authService.user.testeur) {
+          if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
             this.cartes = data;
           } else {
             this.cartes = data.filter(carte => carte.released);
@@ -58,7 +60,7 @@ export class CollectionComponent implements OnInit{
     } else {
       this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
         next: data => {
-          if (this.authService.user.testeur) {
+          if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
             this.cartes = data;
           } else {
             this.cartes = data.filter(carte => carte.released);
@@ -79,7 +81,7 @@ export class CollectionComponent implements OnInit{
 
     this.http.get<ICollection>(url).subscribe({
       next: data => {
-        if (!this.authService.user.testeur) {
+        if (!this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
           data.cartes = data.cartes.filter(carte => carte.released);
         }
         this.collection = data;
@@ -91,7 +93,7 @@ export class CollectionComponent implements OnInit{
     });
   }
   getAllClans() {
-    if (this.authService.user.testeur) {
+    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
         next: data => {
           data.forEach(clan => this.clans.push(clan.nom));
@@ -115,7 +117,7 @@ export class CollectionComponent implements OnInit{
   }
 
   private getAllTypes() {
-    if (this.authService.user.testeur) {
+    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
         next: data => {
           data.forEach(type => this.types.push(type.nom));

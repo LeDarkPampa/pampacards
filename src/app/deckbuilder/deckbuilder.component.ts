@@ -253,7 +253,7 @@ export class DeckbuilderComponent implements OnInit {
     this.http.get<ICollection>(url).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
-          if (!this.authService.user.testeur) {
+          if (!this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
             data.cartes = data.cartes.filter(carte => carte.released);
           }
 
@@ -289,7 +289,7 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   getAllClans() {
-    if (this.authService.user.testeur) {
+    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
         next: data => {
           data.forEach(clan => this.clans.push(clan.nom));
@@ -313,7 +313,7 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   private getAllTypes() {
-    if (this.authService.user.testeur) {
+    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
         next: data => {
           data.forEach(type => this.types.push(type.nom));

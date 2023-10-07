@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 import {Router} from "@angular/router";
+import {PropertiesService} from "../services/properties.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   // @ts-ignore
   error: Message[];
 
-  constructor(private authService: AuthentificationService, private router: Router) {
+  constructor(private authService: AuthentificationService, private propertiesService: PropertiesService,
+              private router: Router) {
     this.username = '';
     this.password = '';
     this.errorMessage = '';
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe(
       () => {
+        this.propertiesService.loadProperties();
         this.router.navigate(['/']);
       },
       (error) => {

@@ -52,6 +52,7 @@ import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pam
 import { AdministrationPartiesComponent } from './administration/administration-parties/administration-parties.component';
 import { PartieObsComponent } from './partie/partie-obs/partie-obs.component';
 import { PampaButtonCarreComponent } from './composants/pampa-button-carre/pampa-button-carre.component';
+import {PropertiesService} from "./services/properties.service";
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { PampaButtonCarreComponent } from './composants/pampa-button-carre/pampa
     SseService,
     ConfirmationService,
     DialogService,
+    PropertiesService,
     DeckService
   ],
   bootstrap: [AppComponent]
