@@ -69,11 +69,13 @@
 }
 
 .terrain-adv-premier {
-  background-color: #406E8E;
+  background-color: rgb(64, 110, 142, 0.5);
+  border: 10px solid rgb(64, 110, 142, 0.7);
 }
 
 .terrain-adv-autre {
-  background-color: #E34F56;
+  background-color: rgb(227, 79, 86, 0.5);
+  border: 10px solid rgb(227, 79, 86, 0.7);
 }
 
 .terrain-joueur {
@@ -87,11 +89,13 @@
 }
 
 .terrain-joueur-premier {
-  background-color: #406E8E;
+  background-color: rgb(64, 110, 142, 0.5);
+  border: 10px solid rgb(64, 110, 142, 0.7);
 }
 
 .terrain-joueur-autre {
-  background-color: #E34F56;
+  background-color: rgb(227, 79, 86, 0.5);
+  border: 10px solid rgb(227, 79, 86, 0.7);
 }
 
 .defausse-joueur {
