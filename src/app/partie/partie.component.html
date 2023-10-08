@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="infos-tour">
-    Tour {{tourAffiche}}
+    <app-pampa-tour-animation [estPremierJoueur]="partie.joueurUn.id === userId" [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
   </div>
   <div class="bandeau-chat">
     <div class="chat-container">

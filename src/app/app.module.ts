@@ -53,6 +53,7 @@ import { AdministrationPartiesComponent } from './administration/administration-
 import { PartieObsComponent } from './partie/partie-obs/partie-obs.component';
 import { PampaButtonCarreComponent } from './composants/pampa-button-carre/pampa-button-carre.component';
 import {PropertiesService} from "./services/properties.service";
+import { PampaTourAnimationComponent } from './composants/pampa-tour-animation/pampa-tour-animation.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {PropertiesService} from "./services/properties.service";
     PampaSubmitButtonComponent,
     AdministrationPartiesComponent,
     PartieObsComponent,
-    PampaButtonCarreComponent
+    PampaButtonCarreComponent,
+    PampaTourAnimationComponent
   ],
   imports: [
     RouterModule.forRoot([
