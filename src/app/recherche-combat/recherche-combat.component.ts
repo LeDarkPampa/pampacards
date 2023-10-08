@@ -40,6 +40,10 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   formats: IFormat[] = [];
   tableauDemandesRecues: IDemandeCombat[] = [];
   tableauDemandesEnvoyees: IDemandeCombat[] = [];
+  chooseFirstPlayer: boolean = false;
+  firstPlayerChoices = ['Vous', 'Votre adversaire'];
+  // @ts-ignore
+  selectedFirstPlayer: string;
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
@@ -53,6 +57,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.subscribeToUserStream();
     this.subscribeToDemandeCombatFlux()
     this.getAllFormats();
+    this.chooseFirstPlayer = false;
 
     this.searching = true;
     this.startSearch();
@@ -101,10 +106,20 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   challengeOpponent(opponent: IUtilisateur) {
+
+    let firstPlayerId;
+
+    if (this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
+      firstPlayerId = this.userId;
+    } else if (this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
+      firstPlayerId = opponent.id;
+    }
+
     const data = {
       joueurUnId: this.userId,
       joueurDeuxId: opponent.id,
       deckUnId: this.selectedDeck.id,
+      firstPlayerId: firstPlayerId,
       message: 'message'
     };
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createChallenge', data).subscribe({

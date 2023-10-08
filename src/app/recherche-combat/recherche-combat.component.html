@@ -16,6 +16,21 @@
         Choisir un deck :
         <p-dropdown [options]="filteredDecks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
       </div>
+      <div *ngIf="selectedDeck" class="firstPlayerChoice">
+        Choisir le premier joueur ?
+        <label class="toggle-switch">
+          <input type="checkbox" [(ngModel)]="chooseFirstPlayer">
+          <div class="toggle-switch-background">
+            <div class="toggle-switch-handle"></div>
+          </div>
+        </label>
+
+        <div *ngIf="chooseFirstPlayer">
+          Choix du premier joueur
+          <p-dropdown [options]="firstPlayerChoices" [(ngModel)]="selectedFirstPlayer" placeholder="Selectionnez le premier joueur"></p-dropdown>
+        </div>
+
+      </div>
       <div *ngIf="selectedDeck" class="opponent-select">
         Choisir un adversaire :
         <ul>
