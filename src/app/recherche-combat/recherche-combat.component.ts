@@ -43,7 +43,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   chooseFirstPlayer: boolean = false;
   firstPlayerChoices = ['Vous', 'Votre adversaire'];
   // @ts-ignore
-  selectedFirstPlayer: string;
+  selectedFirstPlayer: string = 'Vous';
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
@@ -109,9 +109,9 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
 
     let firstPlayerId;
 
-    if (this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
+    if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
       firstPlayerId = this.userId;
-    } else if (this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
+    } else if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
       firstPlayerId = opponent.id;
     }
 
