@@ -44,17 +44,6 @@
   text-align: center;
 }
 
-.terrain-adv {
-  overflow: auto;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .defausse-adv {
   display: flex;
   justify-content: center;
@@ -69,15 +58,40 @@
   text-align: center;
 }
 
-.terrain-joueur {
+.terrain-adv {
   overflow: auto;
-  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.terrain-adv-premier {
+  background-color: #406E8E;
+}
+
+.terrain-adv-autre {
+  background-color: #E34F56;
+}
+
+.terrain-joueur {
+  overflow: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.terrain-joueur-premier {
+  background-color: #406E8E;
+}
+
+.terrain-joueur-autre {
+  background-color: #E34F56;
 }
 
 .defausse-joueur {

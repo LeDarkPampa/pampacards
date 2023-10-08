@@ -6,7 +6,6 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
   styleUrls: ['./pampa-tour-animation.component.css']
 })
 export class PampaTourAnimationComponent implements OnChanges {
-  @Input() estPremierJoueur: boolean = false;
   @Input() tour: number = 1;
   tourAffiche = 0;
   positions: number[][] = [

@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="infos-tour">
-    <app-pampa-tour-animation [estPremierJoueur]="partie.joueurUn.id === userId" [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
+    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
   </div>
   <div class="bandeau-chat">
     <div class="chat-container">
@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="terrain-adv">
+  <div  [class]="getAdvColorClass()" class="terrain-adv">
     <div class="ligneCenter">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </div>
-  <div class="terrain-joueur">
+  <div [class]="getJoueurColorClass()" class="terrain-joueur">
     <div class="ligneCenter">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>

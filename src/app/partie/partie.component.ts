@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {last, Subject, Subscription} from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {HttpClient} from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
@@ -37,6 +37,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   lastEvent: IEvenementPartie;
   lastEventId: number = 0;
   estJoueurActif = false;
+  estPremierJoueur: boolean = false;
   carteSelectionneeSubject = new Subject<ICarte>();
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   vainqueur = "";
@@ -164,6 +165,8 @@ export class PartieComponent implements OnInit, OnDestroy {
       defausse: [],
       score: 0
     };
+
+    this.estPremierJoueur = this.partie.joueurUn.id === this.userId;
   }
 
   piocherCarte() {
@@ -1486,6 +1489,18 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
+  clickedCarte(cardPath: string) {
+    this.clickedCartePath = cardPath;
+  }
+
+  getJoueurColorClass(): string {
+    return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
+  }
+
+  getAdvColorClass(): string {
+    return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+  }
+
   ngOnDestroy() {
     if (this.evenementsPartieSubscription) {
       this.evenementsPartieSubscription.unsubscribe();
@@ -1493,9 +1508,5 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.sseService.closeEvenementsPartieEventSource();
     this.sseService.closeEvenementsChatEventSource();
-  }
-
-  clickedCarte(cardPath: string) {
-    this.clickedCartePath = cardPath;
   }
 }
