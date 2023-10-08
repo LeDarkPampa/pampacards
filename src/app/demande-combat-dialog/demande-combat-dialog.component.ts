@@ -3,6 +3,7 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import {IDemandeCombat} from "../interfaces/IDemandeCombat";
 import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
 import {IDeck} from "../interfaces/IDeck";
+import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
   selector: 'app-demande-combat-dialog',
@@ -17,8 +18,12 @@ export class DemandeCombatDialogComponent implements OnInit {
   // @ts-ignore
   selectedDeck: IDeck;
   hasValidDeck: boolean = true;
+  userId = 0;
 
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {}
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
+              private authService: AuthentificationService) {
+    this.userId = authService.userId;
+  }
 
   ngOnInit(): void {
     this.demande = this.config.data.demande;

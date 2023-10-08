@@ -10,6 +10,7 @@ export interface IDemandeCombat {
   nomFormat: string;
   partieId: number;
   message: string;
+  firstPlayerId: number;
   erreur: string;
   status: string;
 

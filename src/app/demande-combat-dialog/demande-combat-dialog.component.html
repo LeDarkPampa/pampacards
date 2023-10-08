@@ -3,6 +3,18 @@
 
   Format : {{demande.nomFormat}}
 
+  <div *ngIf="!demande.firstPlayerId">
+    Premier joueur choisit aléatoirement
+  </div>
+
+  <div *ngIf="demande.firstPlayerId && demande.firstPlayerId == userId">
+    Vous jouez en premier
+  </div>
+
+  <div *ngIf="demande.firstPlayerId && demande.firstPlayerId !== userId">
+    Votre adversaire joue en premier
+  </div>
+
   <div *ngIf="!hasValidDeck">
     Aucun deck valide pour le format proposé.
   </div>
