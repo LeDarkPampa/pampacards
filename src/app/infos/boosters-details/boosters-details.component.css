@@ -1,0 +1,53 @@
+.background {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+}
+
+.boosters-container {
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.carte-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+}
+
+li {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.button-grid {
+  display: flex;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+}
+
+.button-grid button {
+  width: 100%;
+}
+
+.ligne-centree {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

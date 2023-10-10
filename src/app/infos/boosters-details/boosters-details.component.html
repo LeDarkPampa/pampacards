@@ -1,0 +1,23 @@
+<div class="background">
+  <div class="boosters-container">
+    <h1>Détail des boosters</h1>
+
+    Cliquez sur un booster pour voir les cartes que vous pouvez trouver dedans.
+
+    <div class="button-grid">
+      <div *ngFor="let booster of boosters">
+        <app-pampa-button-carre [texte]="booster.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerBooster(booster)"></app-pampa-button-carre>
+      </div>
+    </div>
+
+    <div class="decklist" *ngIf="boosterSelectionne">
+
+      <ul class="carte-grid">
+        <li *ngFor="let carte of boosterSelectionne?.cartes">
+          <app-carte-terrain [carte]="carte"></app-carte-terrain>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

@@ -54,6 +54,7 @@ import { PartieObsComponent } from './partie/partie-obs/partie-obs.component';
 import { PampaButtonCarreComponent } from './composants/pampa-button-carre/pampa-button-carre.component';
 import {PropertiesService} from "./services/properties.service";
 import { PampaTourAnimationComponent } from './composants/pampa-tour-animation/pampa-tour-animation.component';
+import { BoostersDetailsComponent } from './infos/boosters-details/boosters-details.component';
 
 @NgModule({
   declarations: [
@@ -90,13 +91,15 @@ import { PampaTourAnimationComponent } from './composants/pampa-tour-animation/p
     AdministrationPartiesComponent,
     PartieObsComponent,
     PampaButtonCarreComponent,
-    PampaTourAnimationComponent
+    PampaTourAnimationComponent,
+    BoostersDetailsComponent
   ],
   imports: [
     RouterModule.forRoot([
       {path: 'accueil', component: AccueilComponent},
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
+      {path: 'boostes-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       {path: 'partie-obs/:id', component: PartieObsComponent, canActivate: [AuthGuard]},
