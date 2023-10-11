@@ -99,7 +99,7 @@ import { BoostersDetailsComponent } from './infos/boosters-details/boosters-deta
       {path: 'accueil', component: AccueilComponent},
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
-      {path: 'boostes-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       {path: 'partie-obs/:id', component: PartieObsComponent, canActivate: [AuthGuard]},
