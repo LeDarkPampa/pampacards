@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Router} from "@angular/router";
-import {IPartie} from "../interfaces/IPartie";
+import { HttpClient } from '@angular/common/http';
 import {IPropertie} from "../interfaces/IPropertie";
 
 @Injectable({

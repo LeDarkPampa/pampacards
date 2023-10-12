@@ -529,8 +529,4 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     this.sseService.closeEvenementsPartieEventSource();
     this.sseService.closeEvenementsChatEventSource();
   }
-
-  clickedCarte(cardPath: string) {
-    this.clickedCartePath = cardPath;
-  }
 }

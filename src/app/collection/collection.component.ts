@@ -6,6 +6,8 @@ import {IType} from "../interfaces/IType";
 import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {PropertiesService} from "../services/properties.service";
+import {ClanService} from "../services/clan.service";
+import {TypeService} from "../services/type.service";
 
 @Component({
   selector: 'app-collection',
@@ -28,11 +30,25 @@ export class CollectionComponent implements OnInit{
   types: string[] = [];
   raretes: number[] = [1, 2, 3, 4];
 
-  constructor(private http: HttpClient, private authService: AuthentificationService,
-              private propertiesService: PropertiesService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
+              private typeService: TypeService, private propertiesService: PropertiesService) {
     this.cartes = [];
-    this.getAllClans();
-    this.getAllTypes();
+    this.clanService.getAllClans().subscribe(
+      (clans: IClan[]) => {
+        clans.forEach((clan: IClan) => this.clans.push(clan.nom));
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
+    this.typeService.getAllTypes().subscribe(
+      (types: IType[]) => {
+        types.forEach((type: IType) => this.types.push(type.nom));
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
     this.getAllCollection();
   }
 
@@ -91,53 +107,6 @@ export class CollectionComponent implements OnInit{
         console.error('There was an error!', error);
       }
     });
-  }
-  getAllClans() {
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
-      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
-        next: data => {
-          data.forEach(clan => this.clans.push(clan.nom));
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    } else {
-      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
-        next: data => {
-          data.forEach(clan => this.clans.push(clan.nom));
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    }
-  }
-
-  private getAllTypes() {
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
-      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
-        next: data => {
-          data.forEach(type => this.types.push(type.nom));
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    } else {
-      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
-        next: data => {
-          data.forEach(type => this.types.push(type.nom));
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    }
   }
 
   isInCollection(carte: ICarte) {
