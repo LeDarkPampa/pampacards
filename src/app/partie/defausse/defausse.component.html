@@ -1,1 +1,3 @@
-<p>defausse works!</p>
+<div *ngIf="cartes.length > 0">
+  <app-carte-terrain [taille]="'defausse'" [carte]="cartes[cartes.length - 1]"></app-carte-terrain>
+</div>

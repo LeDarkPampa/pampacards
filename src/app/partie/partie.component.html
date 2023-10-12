@@ -47,7 +47,7 @@
     <div class="deck-container">
       <h4>Défausse : {{adversaire.defausse.length}}</h4>
       <div class="card-container" *ngIf="adversaire.defausse.length > 0">
-        <app-carte-main-adv (click)="voirDefausse(this.adversaire.defausse)"></app-carte-main-adv>
+        <app-defausse [cartes]="this.adversaire.defausse" (click)="voirDefausse(this.adversaire.defausse)"></app-defausse>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@
     <div class="deck-container">
       <h4>Défausse : {{joueur.defausse.length}}</h4>
       <div class="card-container" *ngIf="joueur.defausse.length > 0">
-        <app-carte-main-adv (click)="voirDefausse(this.joueur.defausse)"></app-carte-main-adv>
+        <app-defausse [cartes]="this.joueur.defausse" (click)="voirDefausse(this.joueur.defausse)"></app-defausse>
       </div>
     </div>
   </div>

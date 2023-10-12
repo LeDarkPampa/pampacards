@@ -26,6 +26,10 @@
     height: 170px;
   }
 
+  .defausse {
+    height: 120px;
+  }
+
   .icone img {
     height: 11px;
   }
@@ -43,6 +47,10 @@
 
   .collection {
     height: 190px;
+  }
+
+  .defausse {
+    height: 140px;
   }
 
   .icone img {
@@ -64,6 +72,10 @@
     height: 210px;
   }
 
+  .defausse {
+    height: 160px;
+  }
+
   .icone img {
     height: 15px;
   }
@@ -74,7 +86,7 @@
   }
 }
 
-.card:hover {
+.card.terrain:hover, .card.collection:hover {
   background: rgba(64, 67, 78, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
@@ -184,22 +196,22 @@
   text-overflow: ellipsis;
 }
 
-.card:hover .card-details {
+.card.terrain:hover .card-details, .card.collection:hover .card-details {
   max-height: 80%;
   transition: max-height 0.5s ease-in-out;
 }
 
-.card:hover .card-image {
+.card.terrain:hover .card-image, .card.collection:hover .card-image {
   height: 0;
   opacity: 0;
   transition: height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-.card:hover .small {
+.card.terrain:hover .small, .card.collection:hover .small {
   font-size: 13px;
 }
 
-.card:hover h4 {
+.card.terrain:hover h4, .card.collection:hover h4 {
   font-size: 13px;
 }
 
