@@ -35,7 +35,7 @@
             <div *ngFor="let opponent of opponentList">
               <div *ngIf="opponent.id !== userId">
                 {{opponent.pseudo}}
-                <app-pampa-button [texte]="'Proposer un combat'" [couleur]="'bleu'" [taille]="'petit'" (click)="challengeOpponent(opponent)"></app-pampa-button>
+                <app-pampa-button [texte]="'Défier'" [couleur]="'bleu'" [taille]="'mini'" (click)="challengeOpponent(opponent)"></app-pampa-button>
               </div>
             </div>
           </ng-container>
