@@ -22,7 +22,7 @@
           </div>
         </label>
 
-        <div *ngIf="chooseFirstPlayer">
+        <div *ngIf="chooseFirstPlayer" class="firstPlayerChoice">
           Choix du premier joueur
           <p-dropdown [options]="firstPlayerChoices" [(ngModel)]="selectedFirstPlayer" placeholder="Selectionnez le premier joueur"></p-dropdown>
         </div>
@@ -35,7 +35,7 @@
             <div *ngFor="let opponent of opponentList">
               <div *ngIf="opponent.id !== userId">
                 {{opponent.pseudo}}
-                <button pButton type="button" label="Proposer un combat" (click)="challengeOpponent(opponent)"></button>
+                <app-pampa-button [texte]="'Proposer un combat'" [couleur]="'bleu'" [taille]="'petit'" (click)="challengeOpponent(opponent)"></app-pampa-button>
               </div>
             </div>
           </ng-container>
