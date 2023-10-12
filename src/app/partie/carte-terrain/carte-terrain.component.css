@@ -27,10 +27,18 @@
   }
 
   .defausse {
-    height: 120px;
+    height: 100px;
   }
 
-  .icone img {
+  .defausse .icone img {
+    height: 6px;
+  }
+
+  .terrain .icone img {
+    height: 11px;
+  }
+
+  .collection .icone img {
     height: 11px;
   }
 
@@ -50,10 +58,18 @@
   }
 
   .defausse {
-    height: 140px;
+    height: 120px;
   }
 
-  .icone img {
+  .defausse .icone img {
+    height: 8px;
+  }
+
+  .terrain .icone img {
+    height: 13px;
+  }
+
+  .collection .icone img {
     height: 13px;
   }
 
@@ -73,10 +89,18 @@
   }
 
   .defausse {
-    height: 160px;
+    height: 140px;
   }
 
-  .icone img {
+  .defausse .icone img {
+    height: 10px;
+  }
+
+  .terrain .icone img {
+    height: 15px;
+  }
+
+  .collection .icone img {
     height: 15px;
   }
 

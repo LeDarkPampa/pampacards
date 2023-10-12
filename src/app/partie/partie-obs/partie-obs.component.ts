@@ -13,7 +13,6 @@ import {SseService} from "../../services/sse.service";
 import {EffetEnum} from "../../interfaces/EffetEnum";
 import {SelectionCarteDialogComponent} from "../selection-carte-dialog/selection-carte-dialog.component";
 import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes-dialog.component";
-import {ConfirmationDialogComponent} from "../../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-partie-obs',
