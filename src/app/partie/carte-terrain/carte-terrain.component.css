@@ -4,6 +4,7 @@
   background: rgba(64, 67, 78, 0.9);
   border: solid black 1px;
   border-radius: 12px;
+  aspect-ratio: 3 / 4;
   backdrop-filter: blur(10px);
   padding: 5px;
   display: flex;
@@ -17,9 +18,12 @@
 }
 
 @media (max-height: 600px) {
-  .card {
+  .terrain {
     height: 140px;
-    aspect-ratio: 3 / 4;
+  }
+
+  .collection {
+    height: 170px;
   }
 
   .icone img {
@@ -33,9 +37,12 @@
 }
 
 @media (min-height: 600px) and (max-height: 850px) {
-  .card {
+  .terrain {
     height: 160px;
-    aspect-ratio: 3 / 4;
+  }
+
+  .collection {
+    height: 190px;
   }
 
   .icone img {
@@ -49,9 +56,12 @@
 }
 
 @media (min-height: 850px) {
-  .card {
+  .terrain {
     height: 180px;
-    aspect-ratio: 3 / 4;
+  }
+
+  .collection {
+    height: 210px;
   }
 
   .icone img {

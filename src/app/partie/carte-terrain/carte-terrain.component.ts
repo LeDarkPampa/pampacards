@@ -12,6 +12,7 @@ export class CarteTerrainComponent {
   @Input() carte: ICarte;
   // @ts-ignore
   @Input() estJoueurActif: boolean;
+  @Input() taille: string = 'terrain';
   @Output() clickedCarte = new EventEmitter();
 
   getPuissanceTotale(carte: ICarte) {
