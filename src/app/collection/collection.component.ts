@@ -20,7 +20,6 @@ export class CollectionComponent implements OnInit{
   cartes: ICarte[];
   cartesFiltrees: ICarte[] = [];
 
-
   private errorMessage: any;
 
   selectedClans: string[] = [];
@@ -125,11 +124,7 @@ export class CollectionComponent implements OnInit{
       if (this.selectedTypes && this.selectedTypes.length > 0 && this.selectedTypes.indexOf(carte.type.nom) == -1) {
         return false;
       }
-      if (this.selectedRaretes && this.selectedRaretes.length > 0 && this.selectedRaretes.indexOf(carte.rarete) == -1) {
-        return false;
-      }
-
-      return true;
+      return !(this.selectedRaretes && this.selectedRaretes.length > 0 && this.selectedRaretes.indexOf(carte.rarete) == -1);
     });
   }
 

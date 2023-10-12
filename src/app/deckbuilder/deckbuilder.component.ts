@@ -22,9 +22,7 @@ export class DeckbuilderComponent implements OnInit {
 
   private errorMessage: any;
   collectionJoueur: ICarteAndQuantity[];
-
   decks: IDeck[] = [];
-
   formats: IFormat[] = [];
 
   // @ts-ignore

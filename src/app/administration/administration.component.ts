@@ -11,7 +11,6 @@ export class AdministrationComponent {
   constructor(private router: Router) {}
 
   goToCreateAccount() {
-    // Rediriger vers l'écran de création de compte
     this.router.navigate(['/create-account']);
   }
 
@@ -24,7 +23,6 @@ export class AdministrationComponent {
   }
 
   goToPartiesManagement() {
-    // Rediriger vers l'écran d'administration des données
     this.router.navigate(['/parties-management']);
   }
 }

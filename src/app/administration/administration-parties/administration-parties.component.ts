@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {IPartie} from "../../interfaces/IPartie";
 import {HttpClient} from "@angular/common/http";
-import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {Router} from "@angular/router";
 
 @Component({
