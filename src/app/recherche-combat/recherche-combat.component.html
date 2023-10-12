@@ -1,11 +1,8 @@
 <div class="container">
   <div class="left">
-    <div class="search-panel">
-      <h3>Recherche d'adversaire :</h3>
-      <button pButton type="button" label="On" (click)="startSearch()" [disabled]="searching" class="p-button-success"></button>
-      <button pButton type="button" label="Off" (click)="stopSearch()" [disabled]="!searching" class="p-button-danger"></button>
+    <div class="ligne-centree">
+      <app-pampa-on-off (toggleChange)="onToggleChange($event)"></app-pampa-on-off>
     </div>
-
     <div class="send-challenge-panel">
       <h3>Envoyer une demande de combat :</h3>
       <div class="format-select">

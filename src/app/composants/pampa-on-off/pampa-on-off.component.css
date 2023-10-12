@@ -1,0 +1,56 @@
+/* Hide the default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+.checkmark {
+  position: relative;
+  height: 60px;
+  width: 60px;
+  border-radius: 10em;
+  background-color: #212121;
+  transition: 0.3s;
+  box-shadow: 6px 6px 10px #000000,
+  -6px -6px 10px #3c3c3c;
+}
+
+.checkmark svg {
+  width: 35px;
+  height: 35px;
+  margin-top: 11px;
+  margin-left: 12.5px;
+  fill: #264d39;
+  transition: 0.2s;
+}
+
+.checkmark:active {
+  box-shadow: 2px 2px 3px #000000,
+  -2px -2px 3px #3c3c3c;
+}
+
+/* When the checkbox is checked */
+.container input:checked ~ .checkmark {
+  box-shadow: 4px 4px 6px #000000,
+  -4px -4px 6px #3c3c3c;
+}
+
+.container input:checked ~ .checkmark svg {
+  fill: #00ff7b;
+}
+
+.container input:checked ~ .checkmark:active {
+  box-shadow: 2px 2px 3px #000000,
+  -2px -2px 3px #3c3c3c;
+}

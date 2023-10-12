@@ -70,6 +70,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     });
   }
 
+  onToggleChange(isChecked: boolean) {
+    if (isChecked) {
+      this.startSearch();
+    } else {
+      this.stopSearch();
+    }
+  }
+
   startSearch() {
     this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.userId).subscribe(data => {
     })

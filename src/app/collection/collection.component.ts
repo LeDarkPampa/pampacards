@@ -24,8 +24,8 @@ export class CollectionComponent implements OnInit{
   selectedClans: string[] = [];
   selectedTypes: string[] = [];
   selectedRaretes: number[] = [];
-  clans: String[] = [];
-  types: String[] = [];
+  clans: string[] = [];
+  types: string[] = [];
   raretes: number[] = [1, 2, 3, 4];
 
   constructor(private http: HttpClient, private authService: AuthentificationService,
