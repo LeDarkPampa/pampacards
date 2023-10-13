@@ -25,10 +25,10 @@
 
   <div>
     <div *ngIf="etatTriRarete === 'Tri descendant'">
-      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté<mat-icon>arrow_downward</mat-icon></button>
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté <mat-icon>arrow_upward</mat-icon></button>
     </div>
     <div *ngIf="etatTriRarete === 'Tri ascendant'">
-      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté<mat-icon>arrow_upward</mat-icon></button>
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté <mat-icon>arrow_downward</mat-icon></button>
     </div>
     <div *ngIf="etatTriRarete !== 'Tri descendant' && etatTriRarete !== 'Tri ascendant'">
       <button [ngClass]="['bleu', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté</button>
