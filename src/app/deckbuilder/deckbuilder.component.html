@@ -47,23 +47,9 @@
             </div>
           </div>
         </div>
-        <div class="filtres">
-          <div class="ligne-centree">
-            <p-multiSelect class="clan-ms" [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
-            </p-multiSelect>
-            <p-multiSelect class="type-ms" [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
-            </p-multiSelect>
-            <p-multiSelect class="rarete-ms"  [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
-            </p-multiSelect>
-          </div>
-          <div class="ligne-centree">
-            <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'gris'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
-            <app-pampa-button [texte]="'Trier par nom'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('nom')"></app-pampa-button>
-            <app-pampa-button [texte]="'Trier par rareté'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('rarete')"></app-pampa-button>
-          </div>
-        </div>
+        <app-bandeau-filtres-cartes [filtersAndSortsValues]="filtersAndSortsValues" (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
         <ul class="cartes">
-          <li *ngFor="let carteWithQuantity of collectionJoueur">
+          <li *ngFor="let carteWithQuantity of collectionJoueurFiltree">
             <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
             <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
             <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
