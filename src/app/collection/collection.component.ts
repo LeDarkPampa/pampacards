@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICarte } from '../interfaces/ICarte';
-import {IClan} from "../interfaces/IClan";
-import {IType} from "../interfaces/IType";
 import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {PropertiesService} from "../services/properties.service";
 import {ClanService} from "../services/clan.service";
 import {TypeService} from "../services/type.service";
+import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 
 @Component({
   selector: 'app-collection',
@@ -22,32 +21,9 @@ export class CollectionComponent implements OnInit{
 
   private errorMessage: any;
 
-  selectedClans: string[] = [];
-  selectedTypes: string[] = [];
-  selectedRaretes: number[] = [];
-  clans: string[] = [];
-  types: string[] = [];
-  raretes: number[] = [1, 2, 3, 4];
-
   constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
               private typeService: TypeService, private propertiesService: PropertiesService) {
     this.cartes = [];
-    this.clanService.getAllClans().subscribe(
-      (clans: IClan[]) => {
-        clans.forEach((clan: IClan) => this.clans.push(clan.nom));
-      },
-      (error) => {
-        this.errorMessage = error;
-      }
-    );
-    this.typeService.getAllTypes().subscribe(
-      (types: IType[]) => {
-        types.forEach((type: IType) => this.types.push(type.nom));
-      },
-      (error) => {
-        this.errorMessage = error;
-      }
-    );
     this.getAllCollection();
   }
 
@@ -116,45 +92,57 @@ export class CollectionComponent implements OnInit{
     return this.collection ? this.collection?.cartes.filter(card => card.id === carte.id).length : 0;
   }
 
-  applyFilters() {
+  applyFilters(filtersAndSortsValues: IFiltersAndSortsValues) {
     this.cartesFiltrees = this.cartes.filter((carte: ICarte) => {
-      if (this.selectedClans && this.selectedClans.length > 0 && this.selectedClans.indexOf(carte.clan.nom) == -1) {
+      if (filtersAndSortsValues.selectedClans && filtersAndSortsValues.selectedClans.length > 0
+        && filtersAndSortsValues.selectedClans.indexOf(carte.clan.nom) == -1) {
         return false;
       }
-      if (this.selectedTypes && this.selectedTypes.length > 0 && this.selectedTypes.indexOf(carte.type.nom) == -1) {
+      if (filtersAndSortsValues.selectedTypes && filtersAndSortsValues.selectedTypes.length > 0
+        && filtersAndSortsValues.selectedTypes.indexOf(carte.type.nom) == -1) {
         return false;
       }
-      return !(this.selectedRaretes && this.selectedRaretes.length > 0 && this.selectedRaretes.indexOf(carte.rarete) == -1);
+      return !(filtersAndSortsValues.selectedRaretes && filtersAndSortsValues.selectedRaretes.length > 0
+        && filtersAndSortsValues.selectedRaretes.indexOf(carte.rarete) == -1);
     });
+    this.sortCards(filtersAndSortsValues.sortValue);
   }
 
-  sort(critere: string) {
-    this.cartesFiltrees.sort((carteA, carteB) => {
-      let value1;
-      let value2;
-      if (critere === 'nom') {
-        value1 = carteA.nom;
-        value2 = carteB.nom;
-      } else if (critere === 'rarete') {
-        value1 = carteA.rarete;
-        value2 = carteB.rarete;
-      } else {
-        value1 = carteA.nom;
-        value2 = carteB.nom;
-      }
-      if (value1 < value2) {
-        return -1;
-      }
-      if (value1 > value2) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-  resetFilters() {
-    this.selectedClans = [];
-    this.selectedTypes = [];
-    this.selectedRaretes = [];
-    this.applyFilters();
+  sortCards(sortValue: string) {
+    if (sortValue != '' && sortValue != 'no') {
+      this.cartesFiltrees.sort((carteA, carteB) => {
+        let value1;
+        let value2;
+        if (sortValue === 'clan-asc') {
+          value1 = carteA.clan.nom;
+          value2 = carteB.clan.nom;
+        } else if (sortValue === 'clan-desc') {
+          value1 = carteB.clan.nom;
+          value2 = carteA.clan.nom;
+        } else if (sortValue === 'nom-asc') {
+          value1 = carteA.nom;
+          value2 = carteB.nom;
+        } else if (sortValue === 'nom-desc') {
+          value1 = carteB.nom;
+          value2 = carteA.nom;
+        } else if (sortValue === 'rarete-asc') {
+          value1 = carteA.rarete;
+          value2 = carteB.rarete;
+        } else if (sortValue === 'rarete-desc') {
+          value1 = carteB.rarete;
+          value2 = carteA.rarete;
+        } else {
+          value1 = carteA.nom;
+          value2 = carteB.nom;
+        }
+        if (value1 < value2) {
+          return -1;
+        }
+        if (value1 > value2) {
+          return 1;
+        }
+        return 0;
+      });
+    }
   }
 }

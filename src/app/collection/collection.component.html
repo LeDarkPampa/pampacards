@@ -1,23 +1,6 @@
 <div class="collection-container">
   <div class="background">
-    <div class="filtres">
-      <div>
-        <p-multiSelect [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFilters()">
-        </p-multiSelect>
-      </div>
-      <div>
-        <p-multiSelect [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFilters()">
-        </p-multiSelect>
-      </div>
-      <div>
-        <p-multiSelect [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFilters()">
-        </p-multiSelect>
-      </div>
-      <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'gris'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
-      <app-pampa-button [texte]="'Trier par nom'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('nom')"></app-pampa-button>
-      <app-pampa-button [texte]="'Trier par rareté'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="sort('rarete')"></app-pampa-button>
-    </div>
-
+    <app-bandeau-filtres-cartes (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
     <ul class="cartes">
       <li *ngFor="let carte of cartesFiltrees">
         <div *ngIf="isInCollection(carte)">

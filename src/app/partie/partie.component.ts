@@ -54,7 +54,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.route.params.subscribe(params => {
       this.partieId = params['id'];
       this.getPartie();

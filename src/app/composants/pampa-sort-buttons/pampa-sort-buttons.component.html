@@ -1,0 +1,37 @@
+<div class="ligne-buttons">
+  <div>
+    <div *ngIf="etatTriClan === 'Tri descendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortClan()"><i class="icon ion-md-lock"></i>Tri par clan<mat-icon>arrow_downward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriClan === 'Tri ascendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortClan()"><i class="icon ion-md-lock"></i>Tri par clan<mat-icon>arrow_upward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriClan !== 'Tri descendant' && etatTriClan !== 'Tri ascendant'">
+      <button [ngClass]="['bleu', 'trespetit']" (click)="sortClan()"><i class="icon ion-md-lock"></i>Tri par clan</button>
+    </div>
+  </div>
+
+  <div>
+    <div *ngIf="etatTriNom === 'Tri descendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortNom()"><i class="icon ion-md-lock"></i>Tri par nom<mat-icon>arrow_downward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriNom === 'Tri ascendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortNom()"><i class="icon ion-md-lock"></i>Tri par nom<mat-icon>arrow_upward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriNom !== 'Tri descendant' && etatTriNom !== 'Tri ascendant'">
+      <button [ngClass]="['bleu', 'trespetit']" (click)="sortNom()"><i class="icon ion-md-lock"></i>Tri par nom</button>
+    </div>
+  </div>
+
+  <div>
+    <div *ngIf="etatTriRarete === 'Tri descendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté<mat-icon>arrow_downward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriRarete === 'Tri ascendant'">
+      <button [ngClass]="['vert', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté<mat-icon>arrow_upward</mat-icon></button>
+    </div>
+    <div *ngIf="etatTriRarete !== 'Tri descendant' && etatTriRarete !== 'Tri ascendant'">
+      <button [ngClass]="['bleu', 'trespetit']" (click)="sortRarete()"><i class="icon ion-md-lock"></i>Tri par rareté</button>
+    </div>
+  </div>
+</div>

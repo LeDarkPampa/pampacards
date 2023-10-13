@@ -56,6 +56,8 @@ import {PropertiesService} from "./services/properties.service";
 import { PampaTourAnimationComponent } from './composants/pampa-tour-animation/pampa-tour-animation.component';
 import { BoostersDetailsComponent } from './infos/boosters-details/boosters-details.component';
 import { PampaOnOffComponent } from './composants/pampa-on-off/pampa-on-off.component';
+import { BandeauFiltresCartesComponent } from './bandeau-filtres-cartes/bandeau-filtres-cartes.component';
+import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa-sort-buttons.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { PampaOnOffComponent } from './composants/pampa-on-off/pampa-on-off.comp
     PampaButtonCarreComponent,
     PampaTourAnimationComponent,
     BoostersDetailsComponent,
-    PampaOnOffComponent
+    PampaOnOffComponent,
+    BandeauFiltresCartesComponent,
+    PampaSortButtonsComponent
   ],
   imports: [
     RouterModule.forRoot([

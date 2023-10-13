@@ -1,0 +1,16 @@
+<div class="filtres">
+  <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'gris'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
+  <div>
+    <p-multiSelect [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFiltersCards()">
+    </p-multiSelect>
+  </div>
+  <div>
+    <p-multiSelect [options]="types" [(ngModel)]="selectedTypes" defaultLabel="Filtrer par type" (onChange)="applyFiltersCards()">
+    </p-multiSelect>
+  </div>
+  <div>
+    <p-multiSelect [options]="raretes" [(ngModel)]="selectedRaretes" defaultLabel="Filtrer par rareté" (onChange)="applyFiltersCards()">
+    </p-multiSelect>
+  </div>
+  <app-pampa-sort-buttons [resetSort]="resetSort" (emitSortEvent)="emitSortEvent($event)"></app-pampa-sort-buttons>
+</div>

@@ -40,51 +40,6 @@ img {
   border-radius: 10px;
 }
 
-.filtres {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-top: 15px;
-}
-
-.filtres select {
-  width: 150px;
-  height: 30px;
-  font-size: 16px;
-}
-
-.tri {
-  display: flex;
-  align-items: center;
-}
-
-.tri button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.tri button:hover {
-  background-color: #333;
-  color: #fff;
-}
-
-:host ::ng-deep .p-multiselect {
-  min-width: 15rem;
-}
-
-:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
-  min-width: 20rem;
-}
-
 .non-possede img {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
