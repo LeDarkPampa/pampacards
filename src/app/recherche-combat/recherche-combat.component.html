@@ -33,7 +33,7 @@
         <ul>
           <ng-container *ngIf="opponentList && opponentList.length">
             <div *ngFor="let opponent of opponentList">
-              <div class="ligne-centree" *ngIf="opponent.id !== userId">
+              <div class="ligne-gauche" *ngIf="opponent.id !== userId">
                 {{opponent.pseudo}}
                 <app-pampa-button [texte]="'Défier'" [couleur]="'bleu'" [taille]="'mini'" (click)="challengeOpponent(opponent)"></app-pampa-button>
               </div>
