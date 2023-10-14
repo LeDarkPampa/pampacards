@@ -27,6 +27,12 @@ form {
   margin: 0 auto;
 }
 
+label {
+  display: block;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
 input {
   border: 0;
   outline: 0;
@@ -36,15 +42,6 @@ input {
   text-shadow: 1px 1px 0 #212121;
   color: #feeeee;
   border-radius: 320px;
-}
-
-label {
-  display: block;
-  margin-bottom: 24px;
-  width: 100%;
-}
-
-input {
   caret-color: #feeeee;
   margin-right: 8px;
   box-shadow: inset 2px 2px 5px black, inset -5px -5px 10px #0a0a0a;

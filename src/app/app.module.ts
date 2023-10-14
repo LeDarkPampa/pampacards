@@ -16,7 +16,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ButtonModule} from 'primeng/button';
 import { MenuComponent } from './menu/menu.component';
 import {AuthGuard} from "./auth.guard";
 import { SortCardsByNamePipe } from './pipes/sort-cards-by-name.pipe';
@@ -40,7 +39,6 @@ import {MessagesModule} from "primeng/messages";
 import {TableModule} from "primeng/table";
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {DialogModule} from "primeng/dialog";
-import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from "@angular/common";
 import { AdministrationComponent } from './administration/administration.component';
 import { CreateAccountComponent } from './administration/create-account/create-account.component';
@@ -58,6 +56,7 @@ import { BoostersDetailsComponent } from './infos/boosters-details/boosters-deta
 import { PampaOnOffComponent } from './composants/pampa-on-off/pampa-on-off.component';
 import { BandeauFiltresCartesComponent } from './bandeau-filtres-cartes/bandeau-filtres-cartes.component';
 import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa-sort-buttons.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -126,7 +125,6 @@ import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa
     MultiSelectModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ButtonModule,
     ConfirmDialogModule,
     DropdownModule,
     DynamicDialogModule,
@@ -134,8 +132,8 @@ import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa
     TableModule,
     DialogModule,
     MatIconModule,
-    MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   providers: [
     AuthGuard,

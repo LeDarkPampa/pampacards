@@ -1,7 +1,9 @@
 <div class="card-container">
   <div class="card-title">
     <div>{{ carte.nom }}</div>
-    <div class="remove-button" (click)="removeCard()">X</div>
+    <button class="icon" mat-mini-fab color="warn" aria-label="Supprimer" (click)="removeCard()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
   <div class="card-details">
     <div>{{ carte.effet?.description }}</div>

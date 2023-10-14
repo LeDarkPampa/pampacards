@@ -10,12 +10,23 @@
       <div class="cadrecollection">
         <p-messages [(value)]="error" [enableService]="false"></p-messages>
 
-        <div class="ligne-centree-repartie">
-          Nom du deck :
-          <input type="text" pInputText [(ngModel)]="selectedDeck.nom"/>
-          Format du deck : <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
+        <div class="ligne-centree">
+          <div class="ligne-centree espaces-autour">
+            <div class="label-champs">
+              Nom du deck :
+            </div>
+            <div class="cadre-nom">
+              <input type="text" pInputText [(ngModel)]="selectedDeck.nom"/>
+            </div>
+          </div>
+          <div class="ligne-centree espaces-autour">
+            <div class="label-champs">
+              Format du deck :
+            </div>
+            <p-dropdown [options]="formats" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()" placeholder="Selectionnez un format" optionLabel="nom"></p-dropdown>
+          </div>
 
-          <div class="ligne-centree">
+          <div class="ligne-centree espaces-autour">
             <app-pampa-button [texte]="'Sauvegarde'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="saveDeck()"></app-pampa-button>
             <app-pampa-button [texte]="'Dupliquer'" [couleur]="'violet'" [taille]="'trespetit'" (clickBouton)="duplicateDeck()"></app-pampa-button>
             <app-pampa-button [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="delete()"></app-pampa-button>
@@ -57,8 +68,10 @@
         </ul>
       </div>
       <div class="cadredeck">
-        Nombre de cartes : {{ selectedDeck.cartes.length }}/20
-        <div *ngFor="let card of selectedDeck.cartes | sortCardsByName">
+        <div class="ligne-centree">
+          <h4>Nombre de cartes : {{ selectedDeck.cartes.length }}/20</h4>
+        </div>
+        <div class="carte-deck ligne-centree" *ngFor="let card of selectedDeck.cartes | sortCardsByName">
           <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
         </div>
       </div>
