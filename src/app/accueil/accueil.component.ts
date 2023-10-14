@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {IType} from "../interfaces/IType";
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 
