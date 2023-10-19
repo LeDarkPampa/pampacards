@@ -411,7 +411,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
         console.error('There was an error!', error);
       }
     });
-
   }
 
   private subscribeToEvenementsPartieFlux() {

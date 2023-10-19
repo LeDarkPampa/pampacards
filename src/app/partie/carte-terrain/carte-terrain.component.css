@@ -110,6 +110,14 @@
   }
 }
 
+.terrain .card-description .small, .defausse .card-description .small {
+  font-size: 9px;
+}
+
+.collection .card-description .small {
+  font-size: 11px;
+}
+
 .card.terrain:hover, .card.collection:hover {
   background: rgba(64, 67, 78, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -189,7 +197,6 @@
 }
 
 .card-details p {
-  font-size: 9px;
   color: #fff;
   text-align: center;
   overflow: hidden;
@@ -213,7 +220,6 @@
 }
 
 .card-description {
-  font-size: 9px;
   color: #fff;
   text-align: center;
   overflow: hidden;

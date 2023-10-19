@@ -57,6 +57,7 @@ import { PampaOnOffComponent } from './composants/pampa-on-off/pampa-on-off.comp
 import { BandeauFiltresCartesComponent } from './bandeau-filtres-cartes/bandeau-filtres-cartes.component';
 import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa-sort-buttons.component';
 import {MatButtonModule} from "@angular/material/button";
+import { CardViewComponent } from './card-view/card-view.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {MatButtonModule} from "@angular/material/button";
     BoostersDetailsComponent,
     PampaOnOffComponent,
     BandeauFiltresCartesComponent,
-    PampaSortButtonsComponent
+    PampaSortButtonsComponent,
+    CardViewComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -116,6 +118,7 @@ import {MatButtonModule} from "@angular/material/button";
       {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
       {path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard]},
       {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
+      {path: 'card-view/:id', component: CardViewComponent},
       {path: 'deconnexion', component: DeconnexionComponent},
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent}
