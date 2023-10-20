@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-administration-parties',
   templateUrl: './administration-parties.component.html',
-  styleUrls: ['./administration-parties.component.css']
+  styleUrls: ['./administration-parties.component.css', '../../app.component.css']
 })
 export class AdministrationPartiesComponent {
 

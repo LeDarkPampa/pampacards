@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-pampa-sort-buttons',
   templateUrl: './pampa-sort-buttons.component.html',
-  styleUrls: ['./pampa-sort-buttons.component.css']
+  styleUrls: ['./pampa-sort-buttons.component.css', '../../app.component.css']
 })
 export class PampaSortButtonsComponent {
 

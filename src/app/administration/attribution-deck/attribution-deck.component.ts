@@ -6,7 +6,7 @@ import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
 @Component({
   selector: 'app-attribution-deck',
   templateUrl: './attribution-deck.component.html',
-  styleUrls: ['./attribution-deck.component.css']
+  styleUrls: ['./attribution-deck.component.css', '../../app.component.css']
 })
 export class AttributionDeckComponent implements OnInit {
   utilisateurs: IUtilisateur[] = [];

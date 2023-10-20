@@ -7,7 +7,7 @@ import {IPartie} from "../interfaces/IPartie";
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
-  styleUrls: ['./card-view.component.css']
+  styleUrls: ['./card-view.component.css', '../app.component.css']
 })
 export class CardViewComponent implements OnInit {
 

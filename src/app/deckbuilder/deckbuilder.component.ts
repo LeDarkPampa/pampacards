@@ -15,7 +15,7 @@ import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 @Component({
   selector: 'app-deckbuilder',
   templateUrl: './deckbuilder.component.html',
-  styleUrls: ['./deckbuilder.component.css']
+  styleUrls: ['./deckbuilder.component.css', '../app.component.css', '../app.component.css']
 })
 export class DeckbuilderComponent implements OnInit {
 

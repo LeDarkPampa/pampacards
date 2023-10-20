@@ -4,7 +4,7 @@ import {ICarte} from "../../interfaces/ICarte";
 @Component({
   selector: 'app-carte-terrain',
   templateUrl: './carte-terrain.component.html',
-  styleUrls: ['./carte-terrain.component.css']
+  styleUrls: ['./carte-terrain.component.css', '../../app.component.css']
 })
 export class CarteTerrainComponent {
 

@@ -6,7 +6,7 @@ import {AuthentificationService} from "../services/authentification.service";
 @Component({
   selector: 'app-mon-compte',
   templateUrl: './mon-compte.component.html',
-  styleUrls: ['./mon-compte.component.css']
+  styleUrls: ['./mon-compte.component.css', '../app.component.css']
 })
 export class MonCompteComponent {
   user = {

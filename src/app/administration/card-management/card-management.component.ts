@@ -10,7 +10,7 @@ import {PropertiesService} from "../../services/properties.service";
 @Component({
   selector: 'app-card-management',
   templateUrl: './card-management.component.html',
-  styleUrls: ['./card-management.component.css']
+  styleUrls: ['./card-management.component.css', '../../app.component.css']
 })
 export class CardManagementComponent {
   cartes: ICarte[] = [];

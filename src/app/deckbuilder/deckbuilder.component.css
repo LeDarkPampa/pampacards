@@ -91,13 +91,6 @@ img {
   width: 100%;
 }
 
-.ligne-centree {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .filtres select {
   width: 150px;
   height: 30px;

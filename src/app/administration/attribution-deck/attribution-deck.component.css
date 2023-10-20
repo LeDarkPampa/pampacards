@@ -72,9 +72,3 @@ li {
 
 .decklist {
 }
-
-.ligne-centree {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}

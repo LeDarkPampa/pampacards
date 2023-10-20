@@ -4,7 +4,7 @@ import {ICarte} from "../../interfaces/ICarte";
 @Component({
   selector: 'app-deck-card',
   templateUrl: './deck-card.component.html',
-  styleUrls: ['./deck-card.component.css']
+  styleUrls: ['./deck-card.component.css', '../../app.component.css']
 })
 export class DeckCardComponent {
 

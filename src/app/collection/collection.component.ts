@@ -11,7 +11,7 @@ import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
-  styleUrls: ['./collection.component.css']
+  styleUrls: ['./collection.component.css', '../app.component.css']
 })
 export class CollectionComponent implements OnInit{
 

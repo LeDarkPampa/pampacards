@@ -7,13 +7,6 @@
   gap: 20px;
 }
 
-.ligne-centree {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .ligne-space-evenly {
   display: flex;
   align-items: center;

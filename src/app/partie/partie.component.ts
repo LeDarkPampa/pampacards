@@ -17,7 +17,7 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 @Component({
   selector: 'app-partie',
   templateUrl: './partie.component.html',
-  styleUrls: ['./partie.component.css']
+  styleUrls: ['./partie.component.css', '../app.component.css']
 })
 export class PartieComponent implements OnInit, OnDestroy {
 

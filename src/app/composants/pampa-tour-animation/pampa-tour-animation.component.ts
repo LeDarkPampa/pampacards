@@ -3,7 +3,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 @Component({
   selector: 'app-pampa-tour-animation',
   templateUrl: './pampa-tour-animation.component.html',
-  styleUrls: ['./pampa-tour-animation.component.css']
+  styleUrls: ['./pampa-tour-animation.component.css', '../../app.component.css']
 })
 export class PampaTourAnimationComponent implements OnChanges {
   @Input() tour: number = 1;

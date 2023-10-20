@@ -18,7 +18,7 @@ import {IFormat} from "../interfaces/IFormat";
 @Component({
   selector: 'app-recherche-combat',
   templateUrl: './recherche-combat.component.html',
-  styleUrls: ['./recherche-combat.component.css']
+  styleUrls: ['./recherche-combat.component.css', '../app.component.css']
 })
 export class RechercheCombatComponent implements OnInit, OnDestroy {
   opponentList: IUtilisateur[] = [];

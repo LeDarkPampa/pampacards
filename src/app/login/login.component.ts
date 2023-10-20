@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 import {Router} from "@angular/router";
 import {PropertiesService} from "../services/properties.service";
@@ -7,7 +6,7 @@ import {PropertiesService} from "../services/properties.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../app.component.css']
 })
 export class LoginComponent implements OnInit {
   username: string;

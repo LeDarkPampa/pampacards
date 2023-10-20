@@ -4,7 +4,7 @@ import {IFormat} from "../../interfaces/IFormat";
 @Component({
   selector: 'app-limitations-deck',
   templateUrl: './limitations-deck.component.html',
-  styleUrls: ['./limitations-deck.component.css']
+  styleUrls: ['./limitations-deck.component.css', '../../app.component.css']
 })
 export class LimitationsDeckComponent {
 

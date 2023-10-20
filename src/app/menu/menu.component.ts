@@ -4,7 +4,7 @@ import {AuthentificationService} from '../services/authentification.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css', '../app.component.css']
 })
 export class MenuComponent {
 

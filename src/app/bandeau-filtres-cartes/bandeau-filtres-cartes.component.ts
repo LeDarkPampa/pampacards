@@ -16,7 +16,7 @@ import { IFiltersAndSortsValues } from "../interfaces/IFiltersAndSortsValues";
 @Component({
   selector: 'app-bandeau-filtres-cartes',
   templateUrl: './bandeau-filtres-cartes.component.html',
-  styleUrls: ['./bandeau-filtres-cartes.component.css']
+  styleUrls: ['./bandeau-filtres-cartes.component.css', '../app.component.css']
 })
 export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   @Input() filtersAndSortsValues: IFiltersAndSortsValues = {

@@ -4,7 +4,7 @@ import {ICarte} from "../../interfaces/ICarte";
 @Component({
   selector: 'app-pampa-submit-button',
   templateUrl: './pampa-submit-button.component.html',
-  styleUrls: ['./pampa-submit-button.component.css']
+  styleUrls: ['./pampa-submit-button.component.css', '../../app.component.css']
 })
 export class PampaSubmitButtonComponent {
 

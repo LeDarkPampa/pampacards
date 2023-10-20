@@ -5,7 +5,7 @@ import { IUtilisateur } from "../../interfaces/IUtilisateur";
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.css']
+  styleUrls: ['./create-account.component.css', '../../app.component.css']
 })
 export class CreateAccountComponent {
   user = {

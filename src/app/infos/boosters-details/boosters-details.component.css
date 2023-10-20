@@ -45,9 +45,3 @@ li {
 .button-grid button {
   width: 100%;
 }
-
-.ligne-centree {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}

@@ -4,7 +4,7 @@ import {ICarte} from "../../interfaces/ICarte";
 @Component({
   selector: 'app-carte-main-adv',
   templateUrl: './carte-main-adv.component.html',
-  styleUrls: ['./carte-main-adv.component.css']
+  styleUrls: ['./carte-main-adv.component.css', '../../app.component.css']
 })
 export class CarteMainAdvComponent {
   // @ts-ignore

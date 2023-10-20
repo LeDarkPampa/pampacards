@@ -4,7 +4,7 @@ import {ICarte} from "../../interfaces/ICarte";
 @Component({
   selector: 'app-carte-main',
   templateUrl: './carte-main.component.html',
-  styleUrls: ['./carte-main.component.css']
+  styleUrls: ['./carte-main.component.css', '../../app.component.css']
 })
 export class CarteMainComponent implements OnInit {
 

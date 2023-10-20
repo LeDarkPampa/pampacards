@@ -17,7 +17,7 @@ import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes
 @Component({
   selector: 'app-partie-obs',
   templateUrl: './partie-obs.component.html',
-  styleUrls: ['./partie-obs.component.css']
+  styleUrls: ['./partie-obs.component.css', '../../app.component.css']
 })
 export class PartieObsComponent  implements OnInit, OnDestroy {
   // @ts-ignore

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import {IBooster} from "../../interfaces/IBooster";
-import {IDeck} from "../../interfaces/IDeck";
 import {HttpClient} from "@angular/common/http";
-import {IUtilisateur} from "../../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-boosters-details',
   templateUrl: './boosters-details.component.html',
-  styleUrls: ['./boosters-details.component.css']
+  styleUrls: ['./boosters-details.component.css', '../../app.component.css']
 })
 export class BoostersDetailsComponent {
 

@@ -5,7 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-selection-carte-dialog',
   templateUrl: './selection-carte-dialog.component.html',
-  styleUrls: ['./selection-carte-dialog.component.css']
+  styleUrls: ['./selection-carte-dialog.component.css', '../../app.component.css']
 })
 export class SelectionCarteDialogComponent implements OnInit {
   // @ts-ignore
