@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="card-w">
+    <div class="card active">
+      <div class="card__text">
+        <div class="format-restrictions" *ngIf="this.selectedFormat">
+          <div class="restrictions-title">Restrictions du format :</div>
+          <div class="restrictions-list">
+            <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
+              <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">
+                <div class="card-name">{{limitationCarte.carte.nom}}</div>
+                <div class="card-limit">Limitation : {{limitationCarte.limite}}</div>
+              </div>
+              <div class="restriction-item">
+                <div class="card-name">Autres cartes</div>
+                <div class="card-limit">Limitation : 3</div>
+              </div>
+            </ng-container>
+            <ng-template #noLimitation>
+              <div class="no-limitation">Aucune limitation</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -58,6 +58,7 @@ import { BandeauFiltresCartesComponent } from './bandeau-filtres-cartes/bandeau-
 import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa-sort-buttons.component';
 import {MatButtonModule} from "@angular/material/button";
 import { CardViewComponent } from './card-view/card-view.component';
+import { LimitationsDeckComponent } from './deckbuilder/limitations-deck/limitations-deck.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { CardViewComponent } from './card-view/card-view.component';
     PampaOnOffComponent,
     BandeauFiltresCartesComponent,
     PampaSortButtonsComponent,
-    CardViewComponent
+    CardViewComponent,
+    LimitationsDeckComponent
   ],
   imports: [
     RouterModule.forRoot([
