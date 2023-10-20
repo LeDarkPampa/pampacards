@@ -59,6 +59,7 @@ import { PampaSortButtonsComponent } from './composants/pampa-sort-buttons/pampa
 import {MatButtonModule} from "@angular/material/button";
 import { CardViewComponent } from './card-view/card-view.component';
 import { LimitationsDeckComponent } from './deckbuilder/limitations-deck/limitations-deck.component';
+import { TchatComponent } from './composants/tchat/tchat.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { LimitationsDeckComponent } from './deckbuilder/limitations-deck/limitat
     BandeauFiltresCartesComponent,
     PampaSortButtonsComponent,
     CardViewComponent,
-    LimitationsDeckComponent
+    LimitationsDeckComponent,
+    TchatComponent
   ],
   imports: [
     RouterModule.forRoot([

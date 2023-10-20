@@ -128,19 +128,6 @@
   color: red;
 }
 
-.chat-container {
-  height: 100%;
-  flex: 1;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  word-wrap: break-word; /* Permet aux mots longs de se retourner à la ligne */
-}
-
-
 .player-container {
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
@@ -173,44 +160,4 @@
 
 .card-visualiser img {
   max-width: 95%;
-}
-
-.chat-messages {
-  height: 95%;
-}
-
-.chat-message {
-  margin-bottom: 5px;
-}
-
-.sender {
-  font-weight: bold;
-}
-
-.content {
-  margin-left: 5px;
-}
-
-.chat-input {
-  height: 5%;
-  width: 14%;
-  display: flex;
-  align-items: center;
-}
-
-.chat-input input[type="text"] {
-  flex: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 5px;
-}
-
-.chat-input button {
-  padding: 5px 10px;
-  background-color: #58A4B0;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }

@@ -13,7 +13,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {SelectionCarteDialogComponent} from "./selection-carte-dialog/selection-carte-dialog.component";
 import {VisionCartesDialogComponent} from "./vision-cartes-dialog/vision-cartes-dialog.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
-import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
+
 @Component({
   selector: 'app-partie',
   templateUrl: './partie.component.html',
@@ -43,8 +43,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   vainqueur = "";
   carteJouee = false;
   carteDefaussee = false;
-  chatMessages: IChatPartieMessage[] = [];
-  message: string = '';
   clickedCartePath: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
@@ -58,9 +56,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.partieId = params['id'];
       this.getPartie();
       this.getEventsPartie();
-      this.getChatPartieMessages();
       this.subscribeToEvenementsPartieFlux();
-      this.subscribeToChatMessagesFlux();
       this.cd.detectChanges();
     });
   }
@@ -1448,45 +1444,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendMessage() {
-    if (this.message && this.message != '') {
-      let message: IChatPartieMessage = {id: 0, partieId: this.partieId, auteur: this.joueur.nom, texte: this.message};
-
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages', message).subscribe({
-        next: () => {
-          this.getChatPartieMessages();
-        },
-        error: error => {
-          console.error('There was an error!', error);
-        }
-      });
-    }
-    this.message = '';
-  }
-
-  private subscribeToChatMessagesFlux() {
-    this.sseService.getChatMessagesFlux(this.partieId);
-    this.evenementsPartieSubscription = this.sseService.chatMessages$.subscribe(
-      (chatPartieMessages: IChatPartieMessage[]) => {
-        // @ts-ignore
-        this.chatMessages = chatPartieMessages;
-        this.cd.detectChanges();
-      },
-      (error: any) => console.error(error)
-    );
-  }
-
-  private getChatPartieMessages() {
-    this.http.get<IChatPartieMessage[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages?partieId=' + this.partieId).subscribe({
-      next: chatMessages => {
-        // @ts-ignore
-        this.chatMessages = chatMessages;
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
 
   clickedCarte(cardPath: string) {
     this.clickedCartePath = cardPath;
@@ -1506,6 +1463,5 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     this.sseService.closeEvenementsPartieEventSource();
-    this.sseService.closeEvenementsChatEventSource();
   }
 }

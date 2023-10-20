@@ -13,20 +13,7 @@
     <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
   </div>
   <div class="bandeau-chat">
-    <div class="chat-container">
-      <div class="chat-messages">
-        <div *ngFor="let message of chatMessages">
-          <div class="chat-message">
-            <span class="sender">{{message.auteur}}</span>
-            <span class="content">{{message.texte}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="chat-input">
-        <input type="text" pInputText [(ngModel)]="message" placeholder="Votre message"/>
-        <button type="button" (click)="sendMessage()">Envoyer</button>
-      </div>
-    </div>
+    <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
   <div class="deck-adv">
     <div class="deck-container">
