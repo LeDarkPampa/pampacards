@@ -1,5 +1,5 @@
 nav {
-  background-color: #333;
+  background-color: #333333;
   font-family: 'Arial', sans-serif;
   height: 40px;
 }
@@ -11,6 +11,12 @@ ul {
   padding: 0;
   display: flex;
   justify-content: space-between;
+}
+
+
+li {
+  height: 40px;
+  width: 11%;
 }
 
 .button {
@@ -25,9 +31,59 @@ ul {
 }
 
 .button:hover {
+  background-color: #474747;
   color: #ffd700;
 }
 
 .activebutton {
   background-color: #8C1C13;
+}
+
+.submenu {
+  width: 11%;
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.submenu li {
+  width: 100%;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submenu li :hover {
+  background-color: #474747;
+  color: #ffd700;
+}
+
+.submenu li a {
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+/* Lorsque l'élément parent est survolé, affichez le sous-menu */
+li:hover .submenu {
+  display: block;
+}
+
+.sous-menu {
+  width: 100%;
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: center;
 }
