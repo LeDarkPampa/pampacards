@@ -1394,7 +1394,9 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   getJoueurColorClass(): string {
-    if ( this.estJoueurActif && !this.finDePartie) {
+    if (this.finDePartie) {
+      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+    } else if (this.estJoueurActif) {
       return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
     } else {
       return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
@@ -1402,7 +1404,9 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   getAdvColorClass(): string {
-    if ( this.estJoueurActif && !this.finDePartie) {
+    if (this.finDePartie) {
+      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+    } else if (this.estJoueurActif) {
       return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else {
       return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
