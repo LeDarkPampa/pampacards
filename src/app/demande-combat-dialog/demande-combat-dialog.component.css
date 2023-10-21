@@ -1,4 +1,14 @@
-
-:host ::ng-deep .p-dropdown-panel .p-dropdown-items {
-  height: 22vh;
+@media (min-height: 850px) {
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+    height: 22vh;
+  }
 }
+
+@media (max-height: 850px) {
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+    height: 15vh;
+  }
+}
+
+
+
