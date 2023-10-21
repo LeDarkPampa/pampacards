@@ -1,3 +1,4 @@
-.p-dropdown-items {
-  height: 20vh;
+
+:host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+  height: 22vh;
 }
