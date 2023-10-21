@@ -1395,11 +1395,19 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   getJoueurColorClass(): string {
-    return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
+    if ( this.estJoueurActif) {
+      return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
+    } else {
+      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+    }
   }
 
   getAdvColorClass(): string {
-    return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+    if ( this.estJoueurActif) {
+      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+    } else {
+      return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+    }
   }
 
   ngOnDestroy() {

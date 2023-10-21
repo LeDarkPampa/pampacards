@@ -78,6 +78,16 @@
   border: 10px solid rgb(227, 79, 86, 0.7);
 }
 
+.terrain-adv-premier-dark {
+  background-color: rgb(64, 110, 142,0.1);
+  border: 10px solid rgb(64, 110, 142, 0.3);
+}
+
+.terrain-adv-autre-dark {
+  background-color: rgb(227, 79, 86, 0.1);
+  border: 10px solid rgb(227, 79, 86, 0.3);
+}
+
 .terrain-joueur {
   overflow: auto;
   border-radius: 10px;
@@ -125,7 +135,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: red;
 }
 
 .player-container {
