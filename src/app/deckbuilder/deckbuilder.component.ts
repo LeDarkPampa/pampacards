@@ -11,6 +11,7 @@ import {PropertiesService} from "../services/properties.service";
 import {ClanService} from "../services/clan.service";
 import {TypeService} from "../services/type.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
+import {DeckService} from "../services/deck.service";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -30,13 +31,6 @@ export class DeckbuilderComponent implements OnInit {
 
   // @ts-ignore
   selectedFormat: IFormat;
-
-  // Filtres
-  selectedClans: string[] = [];
-  selectedTypes: string[] = [];
-  selectedRaretes: number[] = [];
-
-  selectedClass = 'selected';
   nullFormat = {
       formatId: 0,
       nom: '',
@@ -54,7 +48,8 @@ export class DeckbuilderComponent implements OnInit {
   };
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
-              private typeService: TypeService, private propertiesService: PropertiesService) {
+              private typeService: TypeService, private propertiesService: PropertiesService,
+              private deckService: DeckService) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
   }
@@ -66,7 +61,9 @@ export class DeckbuilderComponent implements OnInit {
       selectedRaretes: [],
       sortValue: 'no'
     };
-    this.getAllPlayerDecks();
+    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+      this.decks = playerDecks;
+    });
     this.getAllFormats();
     this.getUserCollectionFiltered();
   }
@@ -147,22 +144,6 @@ export class DeckbuilderComponent implements OnInit {
     this.checkLimitationsFormat();
   }
 
-  getAllPlayerDecks() {
-    this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks?userId='+this.authService.userId).subscribe({
-      next: data => {
-        this.decks = data.sort(function(a, b){
-          const date1 = new Date(a.dateCreation);
-          const date2 = new Date(b.dateCreation);
-          return date1.valueOf() - date2.valueOf();
-        });
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    });
-  }
-
   saveDeck() {
     let deck = this.selectedDeck;
     if (!deck.nom) {
@@ -184,7 +165,9 @@ export class DeckbuilderComponent implements OnInit {
     } else {
       deck.format = this.selectedFormat;
       this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
-        this.getAllPlayerDecks();
+        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+          this.decks = playerDecks;
+        });
       })
     }
   }
@@ -224,7 +207,9 @@ export class DeckbuilderComponent implements OnInit {
       });
 
       this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', duplicatedDeck).subscribe(data => {
-        this.getAllPlayerDecks();
+        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+          this.decks = playerDecks;
+        });
       })
     }
   }
@@ -277,7 +262,9 @@ export class DeckbuilderComponent implements OnInit {
     let selectedDeck = this.selectedDeck;
     this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', {body: selectedDeck}).subscribe({
       next: data => {
-        this.getAllPlayerDecks();
+        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+          this.decks = playerDecks;
+        });
         // @ts-ignore
         this.selectedDeck = null;
         this.resetValues();

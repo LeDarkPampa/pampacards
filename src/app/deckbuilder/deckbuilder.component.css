@@ -24,16 +24,6 @@
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
 }
 
-.decktemplate {
-  background-color: #5C6070;
-  border: 2px solid white;
-  border-radius: 5px;
-  height: 70px;
-  padding: 10px;
-  margin: 4px;
-  cursor: pointer;
-}
-
 .creationdeck {
   width: 100%;
 }
@@ -72,100 +62,9 @@ li {
   position: relative;
 }
 
-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-:host ::ng-deep .p-multiselect {
-  min-width: 15rem;
-}
-
-:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
-  min-width: 20rem;
-}
-
-.selected {
-  background-color: #B20D30;
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
 .numberOfElements {
   text-align: center;
   width: 100%;
-}
-
-.card-name {
-  font-weight: bold;
-}
-
-.card-limit {
-  color: white;
-}
-
-.no-limitation {
-  font-style: italic;
-  color: white;
-}
-
-:host ::ng-deep .clan-ms .p-multiselect-label {
-  width: 200px !important;
-  color: black;
-}
-
-:host ::ng-deep .clan-ms .p-multiselect-item {
-  font-weight: bold;
-}
-
-:host ::ng-deep .clan-ms .p-multiselect-trigger {
-  font-weight: bold;
-}
-
-:host ::ng-deep .type-ms .p-multiselect-label {
-  width: 200px !important;
-  color: black;
-}
-
-:host ::ng-deep .type-ms .p-multiselect-item {
-  font-weight: bold;
-}
-
-:host ::ng-deep .type-ms .p-multiselect-trigger {
-  font-weight: bold;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect {
-  width: 100px !important;
-  min-width: 0 !important;
-  color: black;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect-label-container {
-  width: 100px !important;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect-label {
-  width: 100px !important;
-  color: black;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect-filter-container {
-  width: 100px !important;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect-panel {
-  width: 100px !important;
-}
-
-:host ::ng-deep .rarete-ms p-multiselect-items {
-  width: 100px !important;
-}
-
-:host ::ng-deep .rarete-ms .p-multiselect-trigger {
-  font-weight: bold;
 }
 
 /**
