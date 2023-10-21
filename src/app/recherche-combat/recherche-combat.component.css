@@ -1,5 +1,5 @@
 .container {
-  margin: 30px;
+  padding: 30px;
   height: calc(100vh - 40px);
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   display: flex;
