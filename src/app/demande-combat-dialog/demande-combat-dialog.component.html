@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h3>{{demande.joueurUnPseudo}} vous propose un combat !</h3>
 
   Format : {{demande.nomFormat}}
@@ -26,6 +26,8 @@
   </div>
   <br/>
 
-  <button *ngIf="hasValidDeck" pButton type="button" label="Accepter" (click)="accepter()" [disabled]="!selectedDeck" class="p-button-success"></button>
-  <button pButton type="button" label="Refuser" (click)="refuser()" class="p-button-danger"></button>
+  <div *ngIf="hasValidDeck && selectedDeck">
+    <app-pampa-button [texte]="'Accepter'" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="accepter()"></app-pampa-button>
+  </div>
+  <app-pampa-button [texte]="'Refuser'" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="refuser()"></app-pampa-button>
 </div>
