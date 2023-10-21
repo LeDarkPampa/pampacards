@@ -287,7 +287,6 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   finDeTour() {
     if (this.estJoueurActif) {
-      this.estJoueurActif = false;
       // @ts-ignore
       let event = this.createEndTurnEvent();
 
