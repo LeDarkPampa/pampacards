@@ -188,7 +188,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.zone.run(() => {
       const ref = this.dialogService.open(DemandeCombatDialogComponent, {
         header: demande.joueurUnPseudo + ' vous propose un combat !',
-        width: '50%',
+        width: '25%',
         height: '50vh',
         data: { demande : demande, decks: decks },
         closable: false
