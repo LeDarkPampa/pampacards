@@ -13,11 +13,11 @@
   </div>
 
   <div *ngIf="!hasValidDeck">
-    Aucun deck valide pour le format proposé.
+    Aucun deck valide pour le format proposé
   </div>
   <div *ngIf="hasValidDeck">
     <div>
-      Veuillez sélectionner votre deck si vous souhaitez accepter :
+      Choisis ton deck pour accepter :
       <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
     </div>
   </div>
