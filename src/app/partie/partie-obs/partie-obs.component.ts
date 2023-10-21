@@ -159,19 +159,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
-  showSelectionCarteDialog(cartes: ICarte[]): void {
-    const ref = this.dialogService.open(SelectionCarteDialogComponent, {
-      header: 'Sélectionnez une carte cible',
-      width: '50%',
-      data: { cartes },
-      closable: false
-    });
-
-    ref.onClose.subscribe(selectedCarte => {
-      this.carteSelectionneeSubject.next(selectedCarte);
-    });
-  }
-
   showVisionCartesDialog(cartes: ICarte[]): void {
     const ref = this.dialogService.open(VisionCartesDialogComponent, {
       header: '',
@@ -442,58 +429,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
         console.error('There was an error!', error);
       }
     });
-  }
-
-  private hasCitadelle(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.CITADELLE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
-  private hasCrypte(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.CRYPTE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
-  private hasPalissade(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.PALISSADE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
-  sendMessage() {
-    if (this.message && this.message != '') {
-      let message: IChatPartieMessage = {id: 0, partieId: this.partieId, auteur: this.joueur.nom, texte: this.message};
-
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages', message).subscribe({
-        next: () => {
-          this.getChatPartieMessages();
-        },
-        error: error => {
-          console.error('There was an error!', error);
-        }
-      });
-    }
-    this.message = '';
   }
 
   private subscribeToChatMessagesFlux() {

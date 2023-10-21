@@ -3,30 +3,17 @@
     {{adversaire.nom}} - Score : {{adversaire.score}}
   </div>
   <div class="main-adv">
-    <div class="ligneCenter">
+    <div class="ligne-centree">
       <div *ngFor="let carte of adversaire.main">
         <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
       </div>
     </div>
   </div>
   <div class="infos-tour">
-    Tour {{tourAffiche}}
+    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
   </div>
   <div class="bandeau-chat">
-    <div class="chat-container">
-      <div class="chat-messages">
-        <div *ngFor="let message of chatMessages">
-          <div class="chat-message">
-            <span class="sender">{{message.auteur}}</span>
-            <span class="content">{{message.texte}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="chat-input">
-        <input type="text" pInputText [(ngModel)]="message" placeholder="Votre message"/>
-        <button type="button" (click)="sendMessage()">Envoyer</button>
-      </div>
-    </div>
+    <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
   <div class="deck-adv">
     <div class="deck-container">
@@ -37,7 +24,7 @@
     </div>
   </div>
   <div class="terrain-adv">
-    <div class="ligneCenter">
+    <div class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
       </div>
@@ -45,9 +32,11 @@
   </div>
   <div class="defausse-adv">
     <div class="deck-container">
-      <h4>Défausse : {{adversaire.defausse.length}}</h4>
+      <div>
+        <h4>Défausse : {{adversaire.defausse.length}}</h4>
+      </div>
       <div class="card-container" *ngIf="adversaire.defausse.length > 0">
-        <app-carte-main-adv (click)="voirDefausse(this.adversaire.defausse)"></app-carte-main-adv>
+        <app-defausse [cartes]="this.adversaire.defausse" (click)="voirDefausse(this.adversaire.defausse)"></app-defausse>
       </div>
     </div>
   </div>
@@ -60,7 +49,7 @@
     </div>
   </div>
   <div class="terrain-joueur">
-    <div class="ligneCenter">
+    <div class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="false"></app-carte-terrain>
       </div>
@@ -68,9 +57,11 @@
   </div>
   <div class="defausse-joueur">
     <div class="deck-container">
-      <h4>Défausse : {{joueur.defausse.length}}</h4>
+      <div>
+        <h4>Défausse : {{joueur.defausse.length}}</h4>
+      </div>
       <div class="card-container" *ngIf="joueur.defausse.length > 0">
-        <app-carte-main-adv (click)="voirDefausse(this.joueur.defausse)"></app-carte-main-adv>
+        <app-defausse [cartes]="this.joueur.defausse" (click)="voirDefausse(this.joueur.defausse)"></app-defausse>
       </div>
     </div>
   </div>
@@ -78,14 +69,14 @@
     {{joueur.nom}} - Score : {{joueur.score}}
   </div>
   <div class="main-joueur">
-    <div class="ligneCenter">
+    <div class="ligne-centree">
       <div *ngFor="let carte of joueur.main">
         <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
       </div>
     </div>
   </div>
   <div class="actions">
-    <div class="ligneCenter" *ngIf="finDePartie">
+    <div class="ligne-centree" *ngIf="finDePartie">
       Fin de la partie ! Victoire de {{vainqueur}}
     </div>
   </div>
