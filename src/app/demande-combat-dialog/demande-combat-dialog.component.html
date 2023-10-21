@@ -6,7 +6,7 @@
     Aucun deck valide pour le format proposé
   </div>
   <div class="ligne-centree margin-bot" *ngIf="hasValidDeck">
-    <div class="margin-bot">
+    <div class="margin-bot margin-right">
       Choisis ton deck pour accepter :
     </div>
     <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
