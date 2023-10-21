@@ -8,6 +8,7 @@ import {AuthentificationService} from "../services/authentification.service";
 @Component({
   selector: 'app-demande-combat-dialog',
   templateUrl: './demande-combat-dialog.component.html',
+  styleUrls: ['./demande-combat-dialog.component.css', '../app.component.css']
 })
 export class DemandeCombatDialogComponent implements OnInit {
 

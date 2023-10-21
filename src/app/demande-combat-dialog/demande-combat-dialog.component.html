@@ -1,8 +1,5 @@
-<div class="container">
-  <h3>{{demande.joueurUnPseudo}} vous propose un combat !</h3>
-
+<div>
   Format : {{demande.nomFormat}}
-
   <div *ngIf="!demande.firstPlayerId">
     Premier joueur choisit aléatoirement
   </div>
@@ -20,14 +17,16 @@
   </div>
   <div *ngIf="hasValidDeck">
     <div>
-      Veuillez sélectionner votre deck si vous souhaitez accepter.
+      Veuillez sélectionner votre deck si vous souhaitez accepter :
       <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
     </div>
   </div>
   <br/>
 
-  <div *ngIf="hasValidDeck && selectedDeck">
-    <app-pampa-button [texte]="'Accepter'" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="accepter()"></app-pampa-button>
+  <div class="ligne-centree">
+    <div *ngIf="hasValidDeck && selectedDeck">
+      <app-pampa-button [texte]="'Accepter'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="accepter()"></app-pampa-button>
+    </div>
+    <app-pampa-button [texte]="'Refuser'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="refuser()"></app-pampa-button>
   </div>
-  <app-pampa-button [texte]="'Refuser'" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="refuser()"></app-pampa-button>
 </div>
