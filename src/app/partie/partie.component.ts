@@ -315,23 +315,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private createEndTurnEvent() {
-    let event: {
-      partie: IPartie;
-      tour: number;
-      joueurActifId: number;
-      premierJoueurId: number;
-      cartesDefausseJoueurUn: string;
-      cartesDeckJoueurDeux: string;
-      cartesMainJoueurUn: string;
-      cartesDeckJoueurUn: string;
-      cartesTerrainJoueurUn: string;
-      cartesDefausseJoueurDeux: string;
-      cartesTerrainJoueurDeux: string;
-      cartesMainJoueurDeux: string;
-      status: string
-    };
-
-    event = {
+    return {
       partie: this.partie,
       tour: this.lastEvent.tour,
       joueurActifId: this.lastEvent.joueurActifId,
@@ -343,31 +327,13 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesTerrainJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.terrain) : JSON.stringify(this.adversaire.terrain),
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
-      cartesDefausseJoueurUn:this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
     };
-
-    return event;
   }
 
   private createNextEvent() {
-    let event: {
-      partie: IPartie;
-      tour: number;
-      joueurActifId: number;
-      premierJoueurId: number;
-      cartesDefausseJoueurUn: string;
-      cartesDeckJoueurDeux: string;
-      cartesMainJoueurUn: string;
-      cartesDeckJoueurUn: string;
-      cartesTerrainJoueurUn: string;
-      cartesDefausseJoueurDeux: string;
-      cartesTerrainJoueurDeux: string;
-      cartesMainJoueurDeux: string;
-      status: string
-    };
-
-    event = {
+    return {
       partie: this.partie,
       tour: this.lastEvent.tour,
       joueurActifId: this.lastEvent.joueurActifId,
@@ -379,11 +345,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesTerrainJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.terrain) : JSON.stringify(this.adversaire.terrain),
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
-      cartesDefausseJoueurUn:this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
     };
-
-    return event;
   }
 
   private createEndEvent() {
@@ -422,23 +386,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private createAbandonPEvent() {
-    let event: {
-      partie: IPartie;
-      tour: number;
-      joueurActifId: number;
-      premierJoueurId: number;
-      cartesDefausseJoueurUn: string;
-      cartesDeckJoueurDeux: string;
-      cartesMainJoueurUn: string;
-      cartesDeckJoueurUn: string;
-      cartesTerrainJoueurUn: string;
-      cartesDefausseJoueurDeux: string;
-      cartesTerrainJoueurDeux: string;
-      cartesMainJoueurDeux: string;
-      status: string
-    };
-
-    event = {
+    return {
       partie: this.partie,
       tour: this.lastEvent.tour,
       joueurActifId: this.lastEvent.joueurActifId,
@@ -450,11 +398,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesTerrainJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.terrain) : JSON.stringify(this.adversaire.terrain),
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
-      cartesDefausseJoueurUn:this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
     };
-
-    return event;
   }
 
   private createAbandonResult() {
@@ -1092,10 +1038,10 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private updateEffetsContinusAndScores() {
-    // On remet à 0 les puissances continues avant de les recalculer
     let joueurHasProtecteurForet = this.joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
     let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
 
+    // On remet à 0 les puissances continues avant de les recalculer
     for (let carte of this.joueur.terrain) {
       carte.diffPuissanceContinue = 0;
 
@@ -1443,7 +1389,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
   clickedCarte(cardPath: string) {
     this.clickedCartePath = cardPath;

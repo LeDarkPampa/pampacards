@@ -141,12 +141,6 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.ligneCenter {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
-}
 
 .card-container {
   display: inline-block;

@@ -1,33 +1,7 @@
 .filtres {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
   padding-top: 15px;
   color: black;
-}
-
-.tri {
-  display: flex;
-  align-items: center;
-}
-
-.tri button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.tri button:hover {
-  background-color: #333;
-  color: #fff;
 }
 
 :host ::ng-deep .p-multiselect {
@@ -41,29 +15,4 @@
 div {
   text-align: center;
   padding: 10px;
-}
-
-span {
-  font-size: 24px;
-  margin-right: 10px;
-}
-
-button {
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Styles d'icône */
-.asc-icon::before {
-  content: "\f062"; /* Code d'icône Font Awesome pour la flèche vers le haut */
-  color: green; /* Couleur de l'icône pour le tri ascendant */
-}
-
-.desc-icon::before {
-  content: "\f063"; /* Code d'icône Font Awesome pour la flèche vers le bas */
-  color: red; /* Couleur de l'icône pour le tri descendant */
 }

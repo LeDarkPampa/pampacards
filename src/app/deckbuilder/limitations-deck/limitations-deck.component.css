@@ -5,20 +5,20 @@
 .card-w{
   display: flex;
   justify-content: center;
-.card{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 30px;
-  position: relative;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
+  .card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
 
-.card__text{
-  text-align: center;
-  margin: 15px;
-}
-}
+    .card__text{
+      text-align: center;
+      margin: 15px;
+    }
+  }
 }
 
 .card.active {

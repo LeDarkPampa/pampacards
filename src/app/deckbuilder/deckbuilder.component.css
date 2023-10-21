@@ -58,10 +58,6 @@
 }
 
 .cartes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   list-style: none;
   padding: 0;
 }
@@ -81,20 +77,6 @@ img {
   max-height: 100%;
   object-fit: cover;
   border-radius: 10px;
-}
-
-.filtres {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.filtres select {
-  width: 150px;
-  height: 30px;
-  font-size: 16px;
 }
 
 :host ::ng-deep .p-multiselect {

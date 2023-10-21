@@ -1,4 +1,4 @@
-<div class="filtres">
+<div class="filtres ligne-centree">
   <app-pampa-button [texte]="'Réinitialiser'" [couleur]="'gris'" [taille]="'trespetit'" (clickBouton)="resetFilters()"></app-pampa-button>
   <div>
     <p-multiSelect [options]="clans" [(ngModel)]="selectedClans" defaultLabel="Filtrer par clan" (onChange)="applyFiltersCards()">
