@@ -60,6 +60,8 @@ import {MatButtonModule} from "@angular/material/button";
 import { CardViewComponent } from './card-view/card-view.component';
 import { LimitationsDeckComponent } from './deckbuilder/limitations-deck/limitations-deck.component';
 import { TchatComponent } from './composants/tchat/tchat.component';
+import { InfosComponent } from './infos/infos.component';
+import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base-details.component';
 
 @NgModule({
   declarations: [
@@ -103,14 +105,18 @@ import { TchatComponent } from './composants/tchat/tchat.component';
     PampaSortButtonsComponent,
     CardViewComponent,
     LimitationsDeckComponent,
-    TchatComponent
+    TchatComponent,
+    InfosComponent,
+    DecksBaseDetailsComponent
   ],
   imports: [
     RouterModule.forRoot([
       {path: 'accueil', component: AccueilComponent},
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
-      {path: 'boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'infos', component: InfosComponent, canActivate: [AuthGuard]},
+      {path: 'infos/boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       {path: 'partie-obs/:id', component: PartieObsComponent, canActivate: [AuthGuard]},
