@@ -14,3 +14,11 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.colonne-centree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}

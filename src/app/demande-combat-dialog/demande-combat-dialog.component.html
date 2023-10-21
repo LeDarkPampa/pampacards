@@ -1,28 +1,25 @@
-<div>
-  Format : {{demande.nomFormat}}
-  <div *ngIf="!demande.firstPlayerId">
-    Premier joueur choisit aléatoirement
+<div class="colonne-centree app-background">
+  <div class="ligne-centree margin-bot">
+    Format : {{demande.nomFormat}}
   </div>
-
-  <div *ngIf="demande.firstPlayerId && demande.firstPlayerId == userId">
-    Vous jouez en premier
-  </div>
-
-  <div *ngIf="demande.firstPlayerId && demande.firstPlayerId !== userId">
-    Votre adversaire joue en premier
-  </div>
-
-  <div *ngIf="!hasValidDeck">
+  <div class="ligne-centree margin-bot" *ngIf="!hasValidDeck">
     Aucun deck valide pour le format proposé
   </div>
-  <div *ngIf="hasValidDeck">
-    <div>
+  <div class="ligne-centree margin-bot" *ngIf="hasValidDeck">
+    <div class="margin-bot">
       Choisis ton deck pour accepter :
-      <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
     </div>
+    <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
   </div>
-  <br/>
-
+  <div class="ligne-centree margin-bot" *ngIf="!demande.firstPlayerId">
+    Premier joueur choisit aléatoirement
+  </div>
+  <div class="ligne-centree margin-bot" *ngIf="demande.firstPlayerId && demande.firstPlayerId == userId">
+    Vous jouez en premier
+  </div>
+  <div class="ligne-centree margin-bot" *ngIf="demande.firstPlayerId && demande.firstPlayerId !== userId">
+    Votre adversaire joue en premier
+  </div>
   <div class="ligne-centree">
     <div *ngIf="hasValidDeck && selectedDeck">
       <app-pampa-button [texte]="'Accepter'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="accepter()"></app-pampa-button>
