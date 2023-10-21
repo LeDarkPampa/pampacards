@@ -1,17 +1,10 @@
 .container {
-  padding: 20px;
+  margin: 30px;
   height: calc(100vh - 40px);
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   display: flex;
   justify-content: space-around;
   gap: 20px;
-}
-
-.ligne-space-evenly {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 
 .ligne-gauche {
@@ -35,7 +28,6 @@
 }
 
 .search-panel,
-.send-challenge-panel,
 .sent-requests-panel,
 .received-requests-panel {
   padding: 10px;
@@ -43,7 +35,6 @@
 }
 
 .search-panel h3,
-.send-challenge-panel h3,
 .sent-requests-panel h3,
 .received-requests-panel h3 {
   margin-top: 0;

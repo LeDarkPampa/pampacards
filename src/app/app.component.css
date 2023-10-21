@@ -22,3 +22,11 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.margin-bot {
+  margin-bottom: 10px;
+}

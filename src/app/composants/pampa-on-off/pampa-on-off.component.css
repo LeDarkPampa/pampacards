@@ -17,8 +17,8 @@
 
 .checkmark {
   position: relative;
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   border-radius: 10em;
   background-color: #212121;
   transition: 0.3s;
@@ -26,12 +26,12 @@
   -6px -6px 10px #3c3c3c;
 }
 
-.checkmark svg {
+.checkmark .mat-icon {
   width: 35px;
   height: 35px;
-  margin-top: 11px;
-  margin-left: 12.5px;
-  fill: #264d39;
+  margin-top: 8px;
+  margin-left: 8px;
+  color: #264d39;
   transition: 0.2s;
 }
 
@@ -46,8 +46,8 @@
   -4px -4px 6px #3c3c3c;
 }
 
-.container input:checked ~ .checkmark svg {
-  fill: #00ff7b;
+.container input:checked ~ .checkmark .mat-icon {
+  color: #00ff7b;
 }
 
 .container input:checked ~ .checkmark:active {
