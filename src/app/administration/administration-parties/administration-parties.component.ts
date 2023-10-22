@@ -27,9 +27,9 @@ export class AdministrationPartiesComponent {
       }
     });
 
-    this.http.get<IPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/resultatsPartiesTerminees').subscribe({
+    this.http.get<IResultatPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/resultatsPartiesTerminees').subscribe({
       next: data => {
-        this.partiesEnCours = data;
+        this.resultatsParties = data;
       },
       error: error => {
         console.error('There was an error!', error);
