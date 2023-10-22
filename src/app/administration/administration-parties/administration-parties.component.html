@@ -24,20 +24,16 @@
           <th>Vainqueur</th>
           <th>Joueur un</th>
           <th>Score</th>
-          <th>Deck</th>
           <th>Joueur deux</th>
           <th>Score</th>
-          <th>Deck</th>
         </tr>
         <tr *ngFor="let resultat of resultatsParties">
           <td>{{ resultat.partieId }}</td>
           <td>{{ resultat.vainqueur }}</td>
           <td>{{ resultat.pseudoJoueurUn }}</td>
           <td>{{ resultat.scoreJoueurUn }}</td>
-          <td>{{ resultat.nomDeckJoueurUn }}</td>
           <td>{{ resultat.pseudoJoueurDeux }}</td>
           <td>{{ resultat.scoreJoueurDeux }}</td>
-          <td>{{ resultat.nomDeckJoueurDeux }}</td>
         </tr>
       </table>
     </div>
