@@ -11,6 +11,7 @@
     </div>
 
     <div class="decklist" *ngIf="boosterSelectionne">
+      <h3>{{ boosterSelectionne?.nom }}</h3>
 
       <ul class="carte-grid">
         <li *ngFor="let carte of boosterSelectionne?.cartes">
