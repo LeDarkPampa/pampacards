@@ -286,6 +286,28 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.filteredDecks = this.allDecks.filter(deck => deck.format.formatId == this.selectedFormat.formatId);
   }
 
+  getStatusLabel(status: string) {
+    switch (status) {
+      case DemandeCombatStatusEnum.DEMANDE_RECUE: {
+        return 'Reçue';
+      }
+      case DemandeCombatStatusEnum.DEMANDE_ACCEPTEE: {
+        return 'Acceptée';
+      }
+      case DemandeCombatStatusEnum.PARTIE_CREEE: {
+        return 'Créée';
+      }
+      case DemandeCombatStatusEnum.DEMANDE_REFUSEE: {
+        return 'Refusée';
+      }
+      case DemandeCombatStatusEnum.DEMANDE_CLOSE: {
+        return 'Close';
+      }
+      default:
+        return '';
+    }
+  }
+
   ngOnDestroy() {
     this.searching = false;
     this.stopSearch();
@@ -299,5 +321,6 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.sseService.closeUserListEventSource();
     this.sseService.closeDemandeCombatEventSource();
   }
+
 
 }

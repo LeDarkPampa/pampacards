@@ -63,7 +63,7 @@
               <td>{{ rowData.joueurDeuxPseudo }}</td>
               <td>{{ rowData.nomFormat }}</td>
               <td>{{ rowData.nomDeckUn }}</td>
-              <td>{{ rowData.status }}</td>
+              <td>{{ getStatusLabel(rowData.status) }}</td>
               <td>
                 <button mat-icon-button aria-label="Supprimer" (click)="deleteDemande(rowData)">
                   <mat-icon>delete</mat-icon>
@@ -90,7 +90,7 @@
           <tr>
             <td>{{ rowData.joueurUnPseudo }}</td>
             <td>{{ rowData.nomFormat }}</td>
-            <td>{{ rowData.status }}</td>
+            <td>{{ getStatusLabel(rowData.status) }}</td>
             <td>
               <button mat-icon-button aria-label="Voir" (click)="voirDemande(rowData)">
                   <mat-icon>check</mat-icon>
