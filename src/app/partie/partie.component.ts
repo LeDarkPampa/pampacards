@@ -62,9 +62,9 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
+
     if (this.lastEvent.status == "FIN_PARTIE" || this.lastEvent.status == "ABANDON") {
-      this.finDePartie = true;
-      this.updateScores();
+      this.terminerPartie();
     }
 
     this.estJoueurActif = lastEvent.joueurActifId == this.userId;
@@ -347,6 +347,41 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
     };
+  }
+
+  private createEndEvent() {
+    this.updateScores();
+    let scoreJoueur = this.joueur.score;
+    let scoreAdversaire = this.adversaire.score;
+    let vainqueurId = 0;
+    if (scoreJoueur > scoreAdversaire) {
+      this.vainqueur = this.joueur.nom;
+      vainqueurId = this.joueur.id;
+    } else if (scoreAdversaire > scoreJoueur) {
+      this.vainqueur = this.adversaire.nom;
+      vainqueurId = this.adversaire.id;
+    } else {
+      this.vainqueur = 'égalité';
+    }
+
+    let scoreJ1 = this.joueur.id == this.partie.joueurUn.id ? this.joueur.score : this.adversaire.score;
+    let scoreJ2 = this.joueur.id == this.partie.joueurDeux.id ? this.joueur.score : this.adversaire.score;
+
+    let event: {
+      partie: IPartie;
+      vainqueurId: number;
+      scoreJ1: number;
+      scoreJ2: number;
+    };
+
+    event = {
+      partie: this.partie,
+      vainqueurId: vainqueurId,
+      scoreJ1: scoreJ1,
+      scoreJ2: scoreJ2
+    };
+
+    return event;
   }
 
   private createAbandonPEvent() {
@@ -985,7 +1020,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
 
     ref.onClose.subscribe(selectedCarte => {
-      this.carteSelectionneeSubject.next();
+      this.carteSelectionneeSubject.next(selectedCarte);
     });
   }
 
@@ -1218,6 +1253,20 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.showVisionCartesDialog(defausse);
   }
 
+  private terminerPartie() {
+    this.finDePartie = true;
+
+    let event = this.createEndEvent();
+
+    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/enregistrerResultat', event).subscribe({
+      next: response => {
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+
   private getPartie() {
     this.http.get<IPartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + this.partieId).subscribe({
       next: partie => {
@@ -1321,7 +1370,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     let event = this.createAbandonPEvent();
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
-      next: () => {
+      next: response => {
         this.finDePartie = true;
 
         let event = this.createAbandonResult();
