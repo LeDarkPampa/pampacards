@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 @Component({
   selector: 'app-data-management',
   templateUrl: './data-management.component.html',
-  styleUrls: ['./data-management.component.css']
+  styleUrls: ['./data-management.component.css', '../../app.component.css']
 })
 export class DataManagementComponent {
 
