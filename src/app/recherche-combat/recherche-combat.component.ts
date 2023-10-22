@@ -270,7 +270,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
 
   refuserDemande(demande: IDemandeCombat) {
     demande.status = DemandeCombatStatusEnum.DEMANDE_REFUSEE;
-    this.demandesCombats.push(demande);
+    let index = this.demandesCombats.findIndex(d => d.id === demande.id);
+    if (index !== -1) {
+      this.demandesCombats.splice(index, 1);
+    }
+    index = this.demandesCombats.findIndex(d => d.id === demande.id);
+    if (index !== -1) {
+      this.demandesCombats.splice(index, 1);
+    }
     this.cd.detectChanges();
     this.updateDemandeCombat(demande);
   }
