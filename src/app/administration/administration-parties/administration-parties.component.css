@@ -6,8 +6,29 @@
 }
 
 .container {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+}
+
+.button-cell {
+  text-align: center;
 }
