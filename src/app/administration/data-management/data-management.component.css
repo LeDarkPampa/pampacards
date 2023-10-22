@@ -1,0 +1,13 @@
+.background {
+  height: calc(100vh - 40px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container {
+  max-width: 400px;
+}

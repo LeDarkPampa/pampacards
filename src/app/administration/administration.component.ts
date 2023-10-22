@@ -18,8 +18,12 @@ export class AdministrationComponent {
     this.router.navigate(['/attribution-deck']);
   }
 
-  goToDataManagement() {
+  goToCardManagement() {
     this.router.navigate(['/card-management']);
+  }
+
+  goToDataManagement() {
+    this.router.navigate(['/data-management']);
   }
 
   goToPartiesManagement() {

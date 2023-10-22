@@ -62,6 +62,7 @@ import { LimitationsDeckComponent } from './deckbuilder/limitations-deck/limitat
 import { TchatComponent } from './composants/tchat/tchat.component';
 import { InfosComponent } from './infos/infos.component';
 import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base-details.component';
+import { DataManagementComponent } from './administration/data-management/data-management.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base
     LimitationsDeckComponent,
     TchatComponent,
     InfosComponent,
-    DecksBaseDetailsComponent
+    DecksBaseDetailsComponent,
+    DataManagementComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -126,6 +128,7 @@ import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base
       {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
       {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
+      {path: 'data-management', component: DataManagementComponent, canActivate: [AuthGuard]},
       {path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard]},
       {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
       {path: 'card-view/:id', component: CardViewComponent},
