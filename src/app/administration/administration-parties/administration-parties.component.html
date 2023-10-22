@@ -2,13 +2,13 @@
   <div class="container">
     <div class="parties-en-cours">
       <h1>Parties en cours</h1>
-      <table border="1">
+      <table>
         <tr>
           <th>ID de la Partie</th>
           <th>Nom du Joueur 1</th>
           <th>Nom du Joueur 2</th>
         </tr>
-        <tr *ngFor="let partie of parties">
+        <tr *ngFor="let partie of partiesEnCours">
           <td>{{ partie.id }}</td>
           <td>{{ partie.joueurUn?.pseudo }}</td>
           <td>{{ partie.joueurDeux?.pseudo }}</td>
@@ -18,6 +18,28 @@
     </div>
     <div class="parties-terminees">
       <h1>Parties terminées</h1>
+      <table>
+        <tr>
+          <th>ID de la Partie</th>
+          <th>Vainqueur</th>
+          <th>Joueur un</th>
+          <th>Score</th>
+          <th>Deck</th>
+          <th>Joueur deux</th>
+          <th>Score</th>
+          <th>Deck</th>
+        </tr>
+        <tr *ngFor="let resultat of resultatsParties">
+          <td>{{ resultat.id }}</td>
+          <td>{{ resultat.vainqueur }}</td>
+          <td>{{ resultat.pseudoJoueurUn }}</td>
+          <td>{{ resultat.scoreJoueurUn }}</td>
+          <td>{{ resultat.nomDeckJoueurUn }}</td>
+          <td>{{ resultat.pseudoJoueurDeux }}</td>
+          <td>{{ resultat.scoreJoueurDeux }}</td>
+          <td>{{ resultat.nomDeckJoueurDeux }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
