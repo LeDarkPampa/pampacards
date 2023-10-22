@@ -162,7 +162,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
         for (let demande of demandes) {
           if (demande.joueurUnId == this.userId) {
             this.tableauDemandesEnvoyees.push(demande);
-          } else if (demande.joueurDeuxId == this.userId) {
+          } else if (demande.joueurDeuxId == this.userId && demande.status != DemandeCombatStatusEnum.DEMANDE_REFUSEE) {
             this.tableauDemandesRecues.push(demande);
           }
 
@@ -195,8 +195,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       });
 
       ref.onClose.subscribe((demandeCombat: IDemandeCombat) => {
-
-        this.updateDemandeCombat(demandeCombat);
+        this.demandesCombats.push(demandeCombat);
         if (demandeCombat.status === DemandeCombatStatusEnum.DEMANDE_ACCEPTEE) {
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createPartie', demandeCombat).subscribe({
             next: response => {
@@ -209,6 +208,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
               console.error('There was an error!', error);
             }
           });
+        } else {
+          this.updateDemandeCombat(demandeCombat);
         }
       });
     });
