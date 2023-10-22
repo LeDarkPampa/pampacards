@@ -105,7 +105,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
 
   updateDemandeCombat(demandeCombat: IDemandeCombat) {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateDemandeCombat', demandeCombat).subscribe({
-      next: response => {
+      next: () => {
       },
       error: error => {
         console.error('There was an error!', error);
@@ -227,7 +227,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
 
     this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/demandeCombat', {body: demandeCombat}).subscribe({
-      next: data => {
+      next: () => {
       },
       error: error => {
         console.error('There was an error!', error);
@@ -271,6 +271,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   refuserDemande(demande: IDemandeCombat) {
     demande.status = DemandeCombatStatusEnum.DEMANDE_REFUSEE;
     this.demandesCombats.push(demande);
+    this.cd.detectChanges();
     this.updateDemandeCombat(demande);
   }
 
