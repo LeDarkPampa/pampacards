@@ -18,12 +18,12 @@
 }
 
 @media (max-height: 600px) {
-  .terrain {
-    height: 140px;
-  }
-
   .collection {
     height: 170px;
+  }
+
+  .terrain {
+    height: 140px;
   }
 
   .defausse {
@@ -49,12 +49,12 @@
 }
 
 @media (min-height: 600px) and (max-height: 850px) {
-  .terrain {
-    height: 160px;
-  }
-
   .collection {
     height: 190px;
+  }
+
+  .terrain {
+    height: 160px;
   }
 
   .defausse {
@@ -80,12 +80,12 @@
 }
 
 @media (min-height: 850px) {
-  .terrain {
-    height: 180px;
-  }
-
   .collection {
     height: 210px;
+  }
+
+  .terrain {
+    height: 180px;
   }
 
   .defausse {

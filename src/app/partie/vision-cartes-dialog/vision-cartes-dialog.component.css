@@ -1,15 +1,17 @@
 .card-selection-dialog {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
+  padding: 10px;
 }
 
 .card-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,8 +19,6 @@
 }
 
 .card-list li {
-  width: 150px;
-  height: 200px;
   position: relative;
   cursor: pointer;
   transition: transform .2s ease-in-out;
@@ -50,7 +50,6 @@
 }
 
 button {
-  margin-top: 20px;
   width: 150px;
   height: 40px;
 }

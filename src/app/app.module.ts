@@ -63,6 +63,7 @@ import { TchatComponent } from './composants/tchat/tchat.component';
 import { InfosComponent } from './infos/infos.component';
 import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base-details.component';
 import { DataManagementComponent } from './administration/data-management/data-management.component';
+import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-icon-button.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { DataManagementComponent } from './administration/data-management/data-m
     TchatComponent,
     InfosComponent,
     DecksBaseDetailsComponent,
-    DataManagementComponent
+    DataManagementComponent,
+    PampaIconButtonComponent
   ],
   imports: [
     RouterModule.forRoot([

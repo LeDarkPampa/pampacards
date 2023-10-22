@@ -24,16 +24,20 @@
           <th>Vainqueur</th>
           <th>Joueur un</th>
           <th>Score</th>
+          <th>Deck</th>
           <th>Joueur deux</th>
           <th>Score</th>
+          <th>Deck</th>
         </tr>
         <tr *ngFor="let resultat of resultatsParties">
           <td>{{ resultat.partieId }}</td>
           <td>{{ resultat.vainqueur }}</td>
           <td>{{ resultat.pseudoJoueurUn }}</td>
           <td>{{ resultat.scoreJoueurUn }}</td>
+          <td><app-pampa-icon-button [icone]="'search'" [couleur]="'gris'" (clickBouton)="showDeck(resultat.jsonDeckJoueurUn)"></app-pampa-icon-button></td>
           <td>{{ resultat.pseudoJoueurDeux }}</td>
           <td>{{ resultat.scoreJoueurDeux }}</td>
+          <td><app-pampa-icon-button [icone]="'search'" [couleur]="'gris'" (clickBouton)="showDeck(resultat.jsonDeckJoueurDeux)"></app-pampa-icon-button></td>
         </tr>
       </table>
     </div>
