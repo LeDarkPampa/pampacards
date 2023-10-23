@@ -42,6 +42,20 @@ export class CollectionComponent implements OnInit{
           }
 
           this.cartesFiltrees = data;
+
+          this.cartesFiltrees.sort((carteA, carteB) => {
+            let value1;
+            let value2;
+            value1 = carteA.clan.nom;
+            value2 = carteB.clan.nom;
+            if (value1 < value2) {
+              return -1;
+            }
+            if (value1 > value2) {
+              return 1;
+            }
+            return 0;
+          });
         },
         error: error => {
           this.errorMessage = error.message;
@@ -58,6 +72,19 @@ export class CollectionComponent implements OnInit{
           }
 
           this.cartesFiltrees = data;
+          this.cartesFiltrees.sort((carteA, carteB) => {
+            let value1;
+            let value2;
+            value1 = carteA.clan.nom;
+            value2 = carteB.clan.nom;
+            if (value1 < value2) {
+              return -1;
+            }
+            if (value1 > value2) {
+              return 1;
+            }
+            return 0;
+          });
         },
         error: error => {
           this.errorMessage = error.message;
@@ -114,11 +141,19 @@ export class CollectionComponent implements OnInit{
         let value1;
         let value2;
         if (sortValue === 'clan-asc') {
-          value1 = carteA.clan.nom;
-          value2 = carteB.clan.nom;
+          const clanComparison = carteA.clan.nom.localeCompare(carteB.clan.nom);
+          if (clanComparison !== 0) {
+            return clanComparison;
+          } else {
+            return carteA.nom.localeCompare(carteB.nom);
+          }
         } else if (sortValue === 'clan-desc') {
-          value1 = carteB.clan.nom;
-          value2 = carteA.clan.nom;
+          const clanComparison = carteB.clan.nom.localeCompare(carteA.clan.nom);
+          if (clanComparison !== 0) {
+            return clanComparison;
+          } else {
+            return carteB.nom.localeCompare(carteA.nom);
+          }
         } else if (sortValue === 'nom-asc') {
           value1 = carteA.nom;
           value2 = carteB.nom;
@@ -126,9 +161,23 @@ export class CollectionComponent implements OnInit{
           value1 = carteB.nom;
           value2 = carteA.nom;
         } else if (sortValue === 'rarete-asc') {
+          const rareteComparison = carteA.rarete - carteB.rarete;
+          if (rareteComparison !== 0) {
+            return rareteComparison;
+          } else {
+            return carteA.nom.localeCompare(carteB.nom);
+          }
+        } else if (sortValue === 'rarete-desc') {
+          const rareteComparison = carteB.rarete - carteA.rarete;
+          if (rareteComparison !== 0) {
+            return rareteComparison;
+          } else {
+            return carteB.nom.localeCompare(carteA.nom);
+          }
+        } else if (sortValue === '') {
           value1 = carteA.rarete;
           value2 = carteB.rarete;
-        } else if (sortValue === 'rarete-desc') {
+        } else if (sortValue === '') {
           value1 = carteB.rarete;
           value2 = carteA.rarete;
         } else {

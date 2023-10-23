@@ -65,7 +65,7 @@ export class DeckbuilderComponent implements OnInit {
       this.decks = playerDecks;
     });
     this.getAllFormats();
-    this.getUserCollectionFiltered();
+    this.resetValues();
   }
 
   selectDeck(deck: IDeck) {
@@ -236,6 +236,13 @@ export class DeckbuilderComponent implements OnInit {
             this.collectionJoueurFiltree = this.collectionJoueur;
           });
         }
+        let filtersAndSortsValues = {
+          selectedClans: [],
+          selectedTypes: [],
+          selectedRaretes: [],
+          sortValue: 'clan-asc'
+        };
+        this.applyFilters(filtersAndSortsValues);
 
         this.removeCartesCollectionDuSelectedDeck();
       },
@@ -354,11 +361,19 @@ export class DeckbuilderComponent implements OnInit {
         let value1;
         let value2;
         if (sortValue === 'clan-asc') {
-          value1 = carteA.carte.clan.nom;
-          value2 = carteB.carte.clan.nom;
+          const clanComparison = carteA.carte.clan.nom.localeCompare(carteB.carte.clan.nom);
+          if (clanComparison !== 0) {
+            return clanComparison;
+          } else {
+            return carteA.carte.nom.localeCompare(carteB.carte.nom);
+          }
         } else if (sortValue === 'clan-desc') {
-          value1 = carteB.carte.clan.nom;
-          value2 = carteA.carte.clan.nom;
+          const clanComparison = carteB.carte.clan.nom.localeCompare(carteA.carte.clan.nom);
+          if (clanComparison !== 0) {
+            return clanComparison;
+          } else {
+            return carteB.carte.nom.localeCompare(carteA.carte.nom);
+          }
         } else if (sortValue === 'nom-asc') {
           value1 = carteA.carte.nom;
           value2 = carteB.carte.nom;
@@ -366,9 +381,23 @@ export class DeckbuilderComponent implements OnInit {
           value1 = carteB.carte.nom;
           value2 = carteA.carte.nom;
         } else if (sortValue === 'rarete-asc') {
+          const rareteComparison = carteA.carte.rarete - carteB.carte.rarete;
+          if (rareteComparison !== 0) {
+            return rareteComparison;
+          } else {
+            return carteA.carte.nom.localeCompare(carteB.carte.nom);
+          }
+        } else if (sortValue === 'rarete-desc') {
+          const rareteComparison = carteB.carte.rarete - carteA.carte.rarete;
+          if (rareteComparison !== 0) {
+            return rareteComparison;
+          } else {
+            return carteB.carte.nom.localeCompare(carteA.carte.nom);
+          }
+        } else if (sortValue === '') {
           value1 = carteA.carte.rarete;
           value2 = carteB.carte.rarete;
-        } else if (sortValue === 'rarete-desc') {
+        } else if (sortValue === '') {
           value1 = carteB.carte.rarete;
           value2 = carteA.carte.rarete;
         } else {
@@ -388,17 +417,5 @@ export class DeckbuilderComponent implements OnInit {
 
   private resetValues() {
     this.getUserCollectionFiltered();
-    this.filtersAndSortsValues = {
-      selectedClans: [],
-      selectedTypes: [],
-      selectedRaretes: [],
-      sortValue: 'no'
-    };
-    this.applyFilters({
-      selectedClans: [],
-      selectedTypes: [],
-      selectedRaretes: [],
-      sortValue: 'no'
-    });
   }
 }
