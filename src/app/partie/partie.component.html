@@ -70,11 +70,13 @@
   </div>
   <div class="main-joueur">
     <div class="ligne-centree">
-      <div *ngFor="let carte of joueur.main">
+      <div *ngFor="let carte of joueur.main; let i = index">
         <app-carte-main (jouer)="onJouerCarte($event)" (defausser)="onDefausserCarte($event)" [carte]="carte"
                         [estJoueurActif]="estJoueurActif" [carteJouee]="carteJouee"
-                        [carteDefaussee]="carteDefaussee" (clickedCarte)="clickedCarte($event)"></app-carte-main>
+                        [carteDefaussee]="carteDefaussee" (clickedCarte)="clickedCarte($event)"
+                        [index]="i"></app-carte-main>
       </div>
+
     </div>
   </div>
   <div class="actions">

@@ -16,6 +16,8 @@ export class CarteMainComponent implements OnInit {
   @Input() carteJouee: boolean;
   // @ts-ignore
   @Input() carteDefaussee: boolean;
+  // @ts-ignore
+  @Input() index: number;
   @Output() jouer = new EventEmitter();
   @Output() defausser = new EventEmitter();
   @Output() clickedCarte = new EventEmitter();
@@ -39,17 +41,17 @@ export class CarteMainComponent implements OnInit {
     }
   }
 
-  ouvrirCadre(carte: ICarte) {
+  ouvrirCadre() {
     this.cadreOuvert = true;
   }
 
   jouerCarte() {
-    this.jouer.emit(this.carte.id);
+    this.jouer.emit(this.index);
     this.cadreOuvert = false;
   }
 
   defausserCarte() {
-    this.defausser.emit(this.carte.id);
+    this.defausser.emit(this.index);
     this.cadreOuvert = false;
   }
 

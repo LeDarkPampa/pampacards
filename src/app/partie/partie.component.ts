@@ -173,8 +173,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.joueur.main.push(cartePiochee);
   }
 
-  onJouerCarte(carteId: number) {
-    const index = this.joueur.main.findIndex(c => c.id === carteId);
+  onJouerCarte(index: number) {
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
       this.carteJouee = true;
@@ -265,8 +264,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.updateEffetsContinusAndScores();
   }
 
-  onDefausserCarte(carteId: number) {
-    const index = this.joueur.main.findIndex(c => c.id === carteId);
+  onDefausserCarte(index: number) {
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
       this.carteDefaussee = true;
