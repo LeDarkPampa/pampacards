@@ -17,4 +17,8 @@ export class DeckCardComponent {
     this.clickedCarte.emit();
   }
 
+  generateStars(rarete: number): number[] {
+    return Array(rarete).fill(0);
+  }
+
 }
