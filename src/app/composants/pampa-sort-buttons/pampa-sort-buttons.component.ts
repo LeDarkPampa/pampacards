@@ -49,7 +49,11 @@ export class PampaSortButtonsComponent {
     this.etatTriNom = 'Aucun tri';
     this.etatTriRarete = 'Aucun tri';
 
-    this.emitSortEvent.emit('clan-' + this.sortValue);
+    if (this.sortValue !== 'no') {
+      this.emitSortEvent.emit('clan-' + this.sortValue);
+    } else {
+      this.emitSortEvent.emit(this.sortValue);
+    }
   }
 
   sortNom() {
@@ -66,7 +70,11 @@ export class PampaSortButtonsComponent {
     this.etatTriClan = 'Aucun tri';
     this.etatTriRarete = 'Aucun tri';
 
-    this.emitSortEvent.emit('nom-' + this.sortValue);
+    if (this.sortValue !== 'no') {
+      this.emitSortEvent.emit('nom-' + this.sortValue);
+    } else {
+      this.emitSortEvent.emit(this.sortValue);
+    }
   }
 
   sortRarete() {
@@ -83,6 +91,10 @@ export class PampaSortButtonsComponent {
     this.etatTriClan = 'Aucun tri';
     this.etatTriNom = 'Aucun tri';
 
-    this.emitSortEvent.emit('rarete-' + this.sortValue);
+    if (this.sortValue !== 'no') {
+      this.emitSortEvent.emit('rarete-' + this.sortValue);
+    } else {
+      this.emitSortEvent.emit(this.sortValue);
+    }
   }
 }
