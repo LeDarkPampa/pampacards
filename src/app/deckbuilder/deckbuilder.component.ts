@@ -413,12 +413,12 @@ export class DeckbuilderComponent implements OnInit {
         return 0;
       });
     } else {
-      this.cartesFiltrees.sort((carteA, carteB) => {
-        const clanComparison = carteA.clan.nom.localeCompare(carteB.clan.nom);
+      this.collectionJoueurFiltree.sort((carteA, carteB) => {
+        const clanComparison = carteA.carte.clan.nom.localeCompare(carteB.carte.clan.nom);
         if (clanComparison !== 0) {
           return clanComparison;
         } else {
-          return carteA.nom.localeCompare(carteB.nom);
+          return carteA.carte.nom.localeCompare(carteB.carte.nom);
         }
       });
     }
