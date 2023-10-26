@@ -13,6 +13,7 @@
 .chat-messages {
   height: 95%;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .chat-message {
