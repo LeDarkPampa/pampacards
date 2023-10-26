@@ -105,6 +105,9 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     if (this.lastEvent.status == "NOUVEAU_TOUR") {
+      this.sendBotMessage('-----');
+      this.sendBotMessage('TOUR ' + Math.ceil(lastEvent.tour / 2));
+      this.sendBotMessage('-----');
       if (this.estJoueurActif) {
         this.carteJouee = false;
         this.carteDefaussee = false;
