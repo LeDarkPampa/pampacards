@@ -580,6 +580,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -602,6 +604,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -624,6 +628,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -647,6 +653,8 @@ export class PartieComponent implements OnInit, OnDestroy {
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
               });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             }
           }
           break;
@@ -670,6 +678,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -695,6 +705,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -717,6 +729,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -740,6 +754,8 @@ export class PartieComponent implements OnInit, OnDestroy {
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
               });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             }
           }
           break;
@@ -773,7 +789,11 @@ export class PartieComponent implements OnInit, OnDestroy {
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
               });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             }
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -796,6 +816,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -820,7 +842,11 @@ export class PartieComponent implements OnInit, OnDestroy {
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
               });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             }
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -844,6 +870,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -871,6 +899,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -894,6 +924,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
@@ -916,6 +948,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
             });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
           }
           break;
         }
