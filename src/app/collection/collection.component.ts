@@ -192,6 +192,15 @@ export class CollectionComponent implements OnInit{
         }
         return 0;
       });
+    } else {
+      this.cartesFiltrees.sort((carteA, carteB) => {
+        const clanComparison = carteA.clan.nom.localeCompare(carteB.clan.nom);
+        if (clanComparison !== 0) {
+          return clanComparison;
+        } else {
+          return carteA.nom.localeCompare(carteB.nom);
+        }
+      });
     }
   }
 }
