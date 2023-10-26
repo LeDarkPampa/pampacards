@@ -23,4 +23,16 @@ export class DataManagementComponent {
       }
     });
   }
+
+  supprimerTchatParties() {
+    this.http.get<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deleteTchatParties').subscribe({
+      next: response => {
+        alert('Historique supprimé');
+      },
+      error: error => {
+        console.error('There was an error!', error);
+        alert('Erreur lors de la suppression');
+      }
+    });
+  }
 }
