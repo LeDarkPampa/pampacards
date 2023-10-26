@@ -13,6 +13,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {SelectionCarteDialogComponent} from "./selection-carte-dialog/selection-carte-dialog.component";
 import {VisionCartesDialogComponent} from "./vision-cartes-dialog/vision-cartes-dialog.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
 
 @Component({
   selector: 'app-partie',
@@ -177,6 +178,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
       this.carteJouee = true;
+      this.sendBotMessage(this.joueur.nom + ' joue la carte ' + carteJouee.nom);
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
             this.joueur.terrain.push(carteJouee);
@@ -267,6 +269,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   onDefausserCarte(index: number) {
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
+      this.sendBotMessage(this.joueur.nom + ' défausse la carte ' + carteJouee.nom);
       this.carteDefaussee = true;
       if (this.isFidelite(carteJouee)) {
         this.joueur.deck.push(carteJouee);
@@ -563,6 +566,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
                 }
@@ -584,6 +588,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
                 }
@@ -605,6 +610,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.joueur.terrain[indexCarte].bouclier = true;
                 }
@@ -627,6 +633,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                     this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
                   }
@@ -649,6 +656,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.adversaire.terrain[indexCarte].corrompu = true;
                 }
@@ -671,6 +679,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.joueur.terrain.push(this.adversaire.terrain[indexCarte]);
                   this.adversaire.terrain.splice(indexCarte, 1);
@@ -694,6 +703,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.adversaire.terrain[indexCarte].silence = true;
                 }
@@ -716,6 +726,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                     this.recupererCarteEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
                   }
@@ -739,6 +750,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                     const indexCarte = this.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                     const randomIndex = Math.floor(Math.random() * this.adversaire.main.length);
 
@@ -770,6 +782,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.adversaire.terrain[indexCarte].bouclier = false;
                 }
@@ -792,6 +805,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                     const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
                     this.jouerNouvelleCarteDepuisDefausse(this.joueur.defausse[indexCarte]);
@@ -815,6 +829,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
                   this.jouerNouvelleCarte(this.joueur.main[indexCarte]);
@@ -837,6 +852,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarteSelectionnee = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
                   carte.effet = this.joueur.terrain[indexCarteSelectionnee].effet;
@@ -863,6 +879,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.joueur.terrain[indexCarte].type = carte.type;
                   this.joueur.terrain[indexCarte].clan = carte.clan;
@@ -885,6 +902,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
                   this.adversaire.terrain[indexCarte].prison = true;
                 }
@@ -1410,6 +1428,21 @@ export class PartieComponent implements OnInit, OnDestroy {
       return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else {
       return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+    }
+  }
+
+  sendBotMessage(message: string) {
+    if (message && message != '') {
+      let messageTchat: IChatPartieMessage = {id: 0, partieId: this.partieId, auteur: 'PampaBot', texte: message};
+
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages', messageTchat).subscribe({
+        next: () => {
+
+        },
+        error: error => {
+          console.error('There was an error!', error);
+        }
+      });
     }
   }
 
