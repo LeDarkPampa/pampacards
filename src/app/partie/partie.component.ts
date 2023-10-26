@@ -110,7 +110,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
       // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
       if (this.lastEvent.joueurActifId == this.userId) {
-        while (this.joueur.main.length < 4) {
+        while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
           this.piocherCarte();
         }
       }
