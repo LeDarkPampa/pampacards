@@ -11,7 +11,6 @@ import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
 import {EffetEnum} from "../../interfaces/EffetEnum";
-import {SelectionCarteDialogComponent} from "../selection-carte-dialog/selection-carte-dialog.component";
 import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes-dialog.component";
 
 @Component({
@@ -28,11 +27,18 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   partie: IPartie;
   // @ts-ignore
   partieId: number;
+  // @ts-ignore
+  type: string;
   finDePartie = false;
   // @ts-ignore
   private evenementsPartieSubscription: Subscription;
   // @ts-ignore
   lastEvent: IEvenementPartie;
+  // @ts-ignore
+  private firstEvent: IEvenementPartie;
+  // @ts-ignore
+  actuaLEvent: IEvenementPartie;
+  listEvents: IEvenementPartie[] = [];
   lastEventId: number = 0;
   carteSelectionneeSubject = new Subject<ICarte>();
   vainqueur = "";
@@ -51,11 +57,8 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       this.partieId = params['id'];
+      this.type = params['type'];
       this.getPartie();
-      this.getEventsPartie();
-      this.getChatPartieMessages();
-      this.subscribeToEvenementsPartieFlux();
-      this.subscribeToChatMessagesFlux();
       this.cd.detectChanges();
     });
   }
@@ -393,6 +396,13 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       next: partie => {
         this.partie = partie;
         this.initValues();
+        this.getEventsPartie();
+
+        if (this.type === 'obs') {
+          this.getChatPartieMessages();
+          this.subscribeToEvenementsPartieFlux();
+          this.subscribeToChatMessagesFlux();
+        }
       },
       error: error => {
         console.error('There was an error!', error);
@@ -418,11 +428,20 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   private getEventsPartie() {
     this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
       next: evenementsPartie => {
-        // @ts-ignore
-        this.lastEvent = evenementsPartie.at(-1);
-        if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
-          this.lastEventId = this.lastEvent.id;
-          this.updateGameFromLastEvent(this.lastEvent);
+
+        if (this.type === 'obs') {
+          // @ts-ignore
+          this.lastEvent = evenementsPartie.at(-1);
+          if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
+            this.lastEventId = this.lastEvent.id;
+            this.updateGameFromLastEvent(this.lastEvent);
+          }
+        } else if (this.type === 'replay') {
+          this.listEvents = evenementsPartie;
+          // @ts-ignore
+          this.firstEvent = evenementsPartie.at(0);
+          this.actuaLEvent = this.firstEvent;
+          this.updateGameFromLastEvent(this.actuaLEvent);
         }
       },
       error: error => {
@@ -462,5 +481,35 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
     this.sseService.closeEvenementsPartieEventSource();
     this.sseService.closeEvenementsChatEventSource();
+  }
+
+  precedent() {
+    const currentIndex = this.listEvents.findIndex(event => event === this.actuaLEvent);
+    if (currentIndex > 0) {
+      this.actuaLEvent = this.listEvents[currentIndex - 1];
+      this.updateGameFromLastEvent(this.actuaLEvent);
+    } else {
+      console.log("Il n'y a pas d'événement précédent.");
+    }
+  }
+
+  suivant() {
+    const currentIndex = this.listEvents.findIndex(event => event === this.actuaLEvent);
+    if (currentIndex < this.listEvents.length - 1) {
+      this.actuaLEvent = this.listEvents[currentIndex + 1];
+      this.updateGameFromLastEvent(this.actuaLEvent);
+    } else {
+      console.log("Il n'y a pas d'événement suivant.");
+    }
+  }
+
+  premier () {
+    this.actuaLEvent = this.listEvents[0];
+    this.updateGameFromLastEvent(this.actuaLEvent);
+  }
+
+  dernier () {
+    this.actuaLEvent = this.listEvents[this.listEvents.length-1];
+    this.updateGameFromLastEvent(this.actuaLEvent);
   }
 }

@@ -28,6 +28,7 @@
           <th>Joueur deux</th>
           <th>Score</th>
           <th>Deck</th>
+          <th>Replay</th>
         </tr>
         <tr *ngFor="let resultat of resultatsParties">
           <td>{{ resultat.partieId }}</td>
@@ -38,6 +39,7 @@
           <td>{{ resultat.pseudoJoueurDeux }}</td>
           <td>{{ resultat.scoreJoueurDeux }}</td>
           <td><app-pampa-icon-button [icone]="'search'" [couleur]="'gris'" (clickBouton)="showDeck(resultat.jsonDeckJoueurDeux)"></app-pampa-icon-button></td>
+          <td><app-pampa-icon-button [icone]="'history'" [couleur]="'bleu'" (clickBouton)="openReplay(resultat.partieId)"></app-pampa-icon-button></td>
         </tr>
       </table>
     </div>

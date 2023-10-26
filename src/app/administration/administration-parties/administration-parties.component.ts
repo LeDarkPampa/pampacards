@@ -42,7 +42,7 @@ export class AdministrationPartiesComponent {
   }
 
   observerPartie(partieId: number) {
-    this.router.navigate(['/partie-obs', partieId]);
+    this.router.navigate(['/partie-obs', partieId, 'obs']);
   }
 
   showDeck(jsonDeck: string) {
@@ -62,5 +62,9 @@ export class AdministrationPartiesComponent {
 
     ref.onClose.subscribe(() => {
     });
+  }
+
+  openReplay(partieId: any) {
+    this.router.navigate(['/partie-obs', partieId, 'replay']);
   }
 }

@@ -123,7 +123,7 @@ import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-i
       {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
-      {path: 'partie-obs/:id', component: PartieObsComponent, canActivate: [AuthGuard]},
+      { path: 'partie-obs/:id/:type', component: PartieObsComponent, canActivate: [AuthGuard] },
       {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
       {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
       {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},

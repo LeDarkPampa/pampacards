@@ -1,21 +1,25 @@
 <div class="screen">
-  <div class="infos-adv">
-    {{adversaire.nom}} - Score : {{adversaire.score}}
+  <div class="infos-adv" *ngIf="adversaire">
+    {{adversaire?.nom}} - Score : {{adversaire?.score}}
   </div>
-  <div class="main-adv">
-    <div class="ligne-centree">
+  <div class="main-adv" *ngIf="adversaire">
+    <app-pampa-icon-button [icone]="'fast_rewind'" [couleur]="'gris'" (clickBouton)="premier()"></app-pampa-icon-button>
+    <app-pampa-icon-button [icone]="'navigate_before'" [couleur]="'gris'" (clickBouton)="precedent()"></app-pampa-icon-button>
+    <div class="ligne-centree main-width">
       <div *ngFor="let carte of adversaire.main">
         <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
       </div>
     </div>
+    <app-pampa-icon-button [icone]="'navigate_next'" [couleur]="'gris'" (clickBouton)="suivant()"></app-pampa-icon-button>
+    <app-pampa-icon-button [icone]="'fast_forward'" [couleur]="'gris'" (clickBouton)="dernier()"></app-pampa-icon-button>
   </div>
   <div class="infos-tour">
-    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
+    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : actuaLEvent ? actuaLEvent.tour : 0"></app-pampa-tour-animation>
   </div>
   <div class="bandeau-chat">
     <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
-  <div class="deck-adv">
+  <div class="deck-adv" *ngIf="adversaire">
     <div class="deck-container">
       <h4>Deck : {{adversaire.deck.length}}</h4>
       <div class="card-container" *ngIf="adversaire.deck.length > 0">
@@ -23,14 +27,14 @@
       </div>
     </div>
   </div>
-  <div class="terrain-adv">
+  <div class="terrain-adv" *ngIf="adversaire">
     <div class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-adv">
+  <div class="defausse-adv" *ngIf="adversaire">
     <div class="deck-container">
       <div>
         <h4>Défausse : {{adversaire.defausse.length}}</h4>
@@ -40,7 +44,7 @@
       </div>
     </div>
   </div>
-  <div class="deck-joueur">
+  <div class="deck-joueur" *ngIf="joueur">
     <div class="deck-container">
       <h4>Deck : {{joueur.deck.length}}</h4>
       <div class="card-container" *ngIf="joueur.deck.length > 0">
@@ -48,14 +52,14 @@
       </div>
     </div>
   </div>
-  <div class="terrain-joueur">
+  <div class="terrain-joueur" *ngIf="joueur">
     <div class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="false"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-joueur">
+  <div class="defausse-joueur" *ngIf="joueur">
     <div class="deck-container">
       <div>
         <h4>Défausse : {{joueur.defausse.length}}</h4>
@@ -65,10 +69,10 @@
       </div>
     </div>
   </div>
-  <div class="infos-joueur">
+  <div class="infos-joueur" *ngIf="joueur">
     {{joueur.nom}} - Score : {{joueur.score}}
   </div>
-  <div class="main-joueur">
+  <div class="main-joueur" *ngIf="joueur">
     <div class="ligne-centree">
       <div *ngFor="let carte of joueur.main">
         <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
