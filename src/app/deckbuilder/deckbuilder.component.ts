@@ -28,6 +28,7 @@ export class DeckbuilderComponent implements OnInit {
 
   // @ts-ignore
   selectedDeck: IDeck;
+  nomDeck: string = '';
 
   // @ts-ignore
   selectedFormat: IFormat;
@@ -70,6 +71,7 @@ export class DeckbuilderComponent implements OnInit {
 
   selectDeck(deck: IDeck) {
     this.selectedDeck = deck;
+    this.nomDeck = this.selectedDeck.nom;
     this.selectedFormat = deck.format;
     this.resetValues();
   }
@@ -95,6 +97,8 @@ export class DeckbuilderComponent implements OnInit {
       utilisateur: this.authService.user,
       dateCreation: new Date(Date.now())
     };
+
+    this.nomDeck = '';
     this.hasExceededLimitation = false;
     this.resetValues();
   }
@@ -151,10 +155,14 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   saveDeck() {
-    let deck = this.selectedDeck;
-    if (!deck.nom) {
+    let deck: IDeck = this.selectedDeck;
+    if (!this.nomDeck || this.nomDeck === '') {
       this.error = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
+      ];
+    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id !== deck.id)) {
+      this.error = [
+        { severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' },
       ];
     } else if (!(deck.cartes.length == 20)) {
       this.error = [
@@ -169,6 +177,7 @@ export class DeckbuilderComponent implements OnInit {
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
+      deck.nom = this.nomDeck;
       deck.format = this.selectedFormat;
       this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
         this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
