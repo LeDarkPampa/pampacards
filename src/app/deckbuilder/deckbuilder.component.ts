@@ -75,6 +75,12 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   newDeck() {
+    this.filtersAndSortsValues = {
+      selectedClans: [],
+      selectedTypes: [],
+      selectedRaretes: [],
+      sortValue: 'no'
+    };
     const standardFormat = this.formats.find(format => format.nom === 'STANDARD');
 
     // Assigner le format "STANDARD" au nouveau deck
