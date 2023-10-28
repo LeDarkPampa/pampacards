@@ -105,15 +105,14 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     if (this.lastEvent.status == "NOUVEAU_TOUR") {
-      this.sendBotMessage('-----');
-      this.sendBotMessage('TOUR ' + Math.ceil(lastEvent.tour / 2) + ' ' + this.joueur.nom);
-      this.sendBotMessage('-----');
       if (this.estJoueurActif) {
         this.carteJouee = false;
         this.carteDefaussee = false;
-      }
-      // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
-      if (this.lastEvent.joueurActifId == this.userId) {
+        this.sendBotMessage('-----');
+        this.sendBotMessage('TOUR ' + Math.ceil(lastEvent.tour / 2) + ' ' + this.joueur.nom);
+        this.sendBotMessage('-----');
+
+        // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
         while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
           this.piocherCarte();
         }
