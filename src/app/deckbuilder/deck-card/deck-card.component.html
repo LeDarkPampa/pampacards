@@ -1,16 +1,16 @@
 <div class="card-container">
   <div class="card-title">
-    <div class="carte-infos">
+    <div class="nom">
       {{ carte.nom }}
-      <div class="stars">
-        <span class="star" *ngFor="let star of generateStars(carte.rarete)">*</span>
-      </div>
-      <div class="icone">
-        <img src="assets/clans/{{ carte.clan.nom }}.png" alt="{{ carte.clan.nom }}" />
-      </div>
-      <div class="icone">
-        <img src="assets/types/{{ carte.type.nom }}.png" alt="{{ carte.type.nom }}" />
-      </div>
+    </div>
+    <div class="stars">
+      <span class="star" *ngFor="let star of generateStars(carte.rarete)">*</span>
+    </div>
+    <div class="icone">
+      <img src="assets/clans/{{ carte.clan.nom }}.png" alt="{{ carte.clan.nom }}" />
+    </div>
+    <div class="icone">
+      <img src="assets/types/{{ carte.type.nom }}.png" alt="{{ carte.type.nom }}" />
     </div>
     <button class="icon" mat-mini-fab color="warn" aria-label="Supprimer" (click)="removeCard()">
       <mat-icon>delete</mat-icon>

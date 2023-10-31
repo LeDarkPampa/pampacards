@@ -1,5 +1,5 @@
 .card-container {
-  background-color: #141414;
+  background-color: #1F1F1F;
   border: 1px solid rgba(255,255,255,0.4);
   border-radius: 5px;
   margin: 5px;
@@ -8,10 +8,9 @@
 }
 
 .card-title {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 40% 20% repeat(2, 10%) 15%;
   align-items: center;
-  flex-direction: row;
   width: 100%;
 }
 
@@ -23,7 +22,7 @@
 }
 
 .card-container:hover {
-  background-color: #1F1F1F;
+  background-color: #292929;
 }
 
 .card-container:hover .card-details {
@@ -31,15 +30,42 @@
   opacity: 1;
 }
 
-.carte-infos {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
+@media (min-width: 1000px) {
+  .nom {
+    font-size: 16px;
+  }
+
+  .mat-icon {
+    font-size: 24px;
+    height: 24px;
+  }
+
+  .icone img {
+    height: 16px;
+  }
+
+  .card-details {
+    font-size: 16px;
+  }
 }
 
-.icone img {
-  height: 16px;
+@media (max-width: 1000px) {
+  .nom {
+    font-size: 13px;
+  }
+
+  .mat-icon {
+    font-size: 20px;
+    height: 20px;
+  }
+
+  .icone img {
+    height: 13px;
+  }
+
+  .card-details {
+    font-size: 13px;
+  }
 }
 
 .stars {
@@ -58,6 +84,7 @@
 }
 
 .icon {
+  background-color: #141414;
   color: #B42318;
 }
 
