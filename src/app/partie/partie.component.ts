@@ -274,6 +274,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.sendBotMessage(this.joueur.nom + ' défausse la carte ' + carteJouee.nom);
       this.carteDefaussee = true;
       if (this.isFidelite(carteJouee)) {
+        this.sendBotMessage(carteJouee.nom + ' est remise dans le deck');
         this.joueur.deck.push(carteJouee);
         this.melangerDeck(this.joueur.deck);
       } else {
@@ -491,14 +492,14 @@ export class PartieComponent implements OnInit, OnDestroy {
         case EffetEnum.SACRIFICE: {
           // @ts-ignore
           let carteSacrifiee = this.joueur.deck.shift();
-          // @ts-ignore
-          if (this.isFidelite(carteSacrifiee)) {
-            // @ts-ignore
-            this.joueur.deck.push(carteSacrifiee);
-            this.melangerDeck(this.joueur.deck);
-          } else {
-            // @ts-ignore
-            this.joueur.defausse.push(carteSacrifiee);
+          if (carteSacrifiee) {
+            if (this.isFidelite(carteSacrifiee)) {
+              this.joueur.deck.push(carteSacrifiee);
+              this.sendBotMessage(carteSacrifiee.nom + ' est remise dans le deck');
+              this.melangerDeck(this.joueur.deck);
+            } else {
+              this.joueur.defausse.push(carteSacrifiee);
+            }
           }
           break;
         }
@@ -511,6 +512,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
             if (this.isFidelite(carteAleatoire)) {
               this.adversaire.deck.push(carteAleatoire);
+              this.sendBotMessage(carteAleatoire.nom + ' est remise dans le deck');
               this.melangerDeck(this.adversaire.deck);
             } else {
               this.adversaire.defausse.push(carteAleatoire);
@@ -550,6 +552,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               const carteRetiree = this.joueur.terrain.splice(i, 1)[0];
               if (this.isFidelite(carteRetiree)) {
                 this.joueur.deck.push(carteRetiree);
+                this.sendBotMessage(carteRetiree.nom + ' est remise dans le deck');
                 this.melangerDeck(this.joueur.deck);
               } else {
                 this.joueur.defausse.push(carteRetiree);
@@ -1013,6 +1016,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
             if (carteDessusDeck) {
               if (this.isFidelite(carteDessusDeck)) {
+                this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
                 this.adversaire.deck.push(carteDessusDeck);
                 this.melangerDeck(this.adversaire.deck);
               } else {
