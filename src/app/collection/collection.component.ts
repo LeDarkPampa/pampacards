@@ -18,8 +18,11 @@ export class CollectionComponent implements OnInit{
   collection: ICollection | undefined;
   cartes: ICarte[];
   cartesFiltrees: ICarte[] = [];
+  // @ts-ignore
+  filters: IFiltersAndSortsValues;
 
   private errorMessage: any;
+  filtrerCartesPossedees: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
               private typeService: TypeService, private propertiesService: PropertiesService) {
@@ -29,6 +32,12 @@ export class CollectionComponent implements OnInit{
 
   ngOnInit() {
     this.getUserCollection(this.authService.userId);
+    this.filters = {
+      selectedClans: [],
+      selectedTypes: [],
+      selectedRaretes: [],
+      sortValue: 'no'
+    }
   }
 
   getAllCollection() {
@@ -120,6 +129,7 @@ export class CollectionComponent implements OnInit{
   }
 
   applyFilters(filtersAndSortsValues: IFiltersAndSortsValues) {
+    this.filters = filtersAndSortsValues;
     this.cartesFiltrees = this.cartes.filter((carte: ICarte) => {
       if (filtersAndSortsValues.selectedClans && filtersAndSortsValues.selectedClans.length > 0
         && filtersAndSortsValues.selectedClans.indexOf(carte.clan.nom) == -1) {
@@ -129,8 +139,15 @@ export class CollectionComponent implements OnInit{
         && filtersAndSortsValues.selectedTypes.indexOf(carte.type.nom) == -1) {
         return false;
       }
+
+      if (this.filtrerCartesPossedees && !this.isInCollection(carte)) {
+        return false;
+      }
+
       return !(filtersAndSortsValues.selectedRaretes && filtersAndSortsValues.selectedRaretes.length > 0
         && filtersAndSortsValues.selectedRaretes.indexOf(carte.rarete) == -1);
+
+
     });
     this.sortCards(filtersAndSortsValues.sortValue);
   }
@@ -201,6 +218,14 @@ export class CollectionComponent implements OnInit{
           return carteA.nom.localeCompare(carteB.nom);
         }
       });
+    }
+  }
+
+  filtrerDonnees() {
+    if (this.filtrerCartesPossedees) {
+      this.cartesFiltrees = this.cartesFiltrees.filter(carte => this.isInCollection(carte));
+    } else {
+      this.applyFilters(this.filters);
     }
   }
 }

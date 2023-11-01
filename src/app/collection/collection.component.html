@@ -1,6 +1,9 @@
 <div class="collection-container">
   <div class="background">
     <app-bandeau-filtres-cartes (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
+    <div class="ligne-centree">
+      Cartes possédées <input type="checkbox" [(ngModel)]="filtrerCartesPossedees" (change)="filtrerDonnees()">
+    </div>
     <ul class="cartes">
       <li *ngFor="let carte of cartesFiltrees">
         <div *ngIf="isInCollection(carte)">

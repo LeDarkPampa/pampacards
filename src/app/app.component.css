@@ -27,6 +27,10 @@ body {
   flex-wrap: wrap;
 }
 
+.margin-left {
+  margin-left: 10px;
+}
+
 .margin-right {
   margin-right: 10px;
 }
