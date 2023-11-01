@@ -79,14 +79,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   startSearch() {
-    this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.userId).subscribe(data => {
+    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.userId).subscribe(data => {
     })
 
     this.searching = true;
   }
 
   stopSearch() {
-    this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.userId).subscribe(data => {
+    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.userId).subscribe(data => {
     })
 
     this.searching = false;
