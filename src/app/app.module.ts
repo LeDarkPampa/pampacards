@@ -64,6 +64,7 @@ import { InfosComponent } from './infos/infos.component';
 import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base-details.component';
 import { DataManagementComponent } from './administration/data-management/data-management.component';
 import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-icon-button.component';
+import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
 
 @NgModule({
   declarations: [
@@ -117,7 +118,7 @@ import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-i
     RouterModule.forRoot([
       {path: 'accueil', component: AccueilComponent},
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
-      {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard]},
+      {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
       {path: 'infos', component: InfosComponent, canActivate: [AuthGuard]},
       {path: 'infos/boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
       {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent, canActivate: [AuthGuard]},

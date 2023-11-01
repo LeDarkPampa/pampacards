@@ -12,14 +12,16 @@ import {ClanService} from "../services/clan.service";
 import {TypeService} from "../services/type.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
+import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 
 @Component({
   selector: 'app-deckbuilder',
   templateUrl: './deckbuilder.component.html',
   styleUrls: ['./deckbuilder.component.css', '../app.component.css', '../app.component.css']
 })
-export class DeckbuilderComponent implements OnInit {
+export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
+  unsavedChanges = false;
   private errorMessage: any;
   collectionJoueur: ICarteAndQuantity[];
   collectionJoueurFiltree: ICarteAndQuantity[];
@@ -70,6 +72,7 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   selectDeck(deck: IDeck) {
+    this.unsavedChanges = false;
     this.selectedDeck = deck;
     this.nomDeck = this.selectedDeck.nom;
     this.selectedFormat = deck.format;
@@ -77,6 +80,7 @@ export class DeckbuilderComponent implements OnInit {
   }
 
   newDeck() {
+    this.unsavedChanges = false;
     this.filtersAndSortsValues = {
       selectedClans: [],
       selectedTypes: [],
@@ -105,6 +109,7 @@ export class DeckbuilderComponent implements OnInit {
 
   addCarte(carte: ICarte) {
     if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
+      this.unsavedChanges = true;
       const limitation = this.selectedFormat.limitationCartes.find(limitation => limitation.carte.id === carte.id);
       const carteQuantity = this.selectedDeck.cartes.filter(c => c.id === carte.id).length;
       if (limitation) {
@@ -145,6 +150,7 @@ export class DeckbuilderComponent implements OnInit {
 
   removeCard(carte: ICarte) {
     if (this.selectedDeck) {
+      this.unsavedChanges = true;
       let indexCarte = this.selectedDeck.cartes.findIndex(card => card.id == carte.id);
       if (indexCarte >= 0) {
         this.selectedDeck.cartes.splice(indexCarte, 1);
@@ -177,6 +183,7 @@ export class DeckbuilderComponent implements OnInit {
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
+      this.unsavedChanges = false;
       deck.nom = this.nomDeck;
       deck.format = this.selectedFormat;
       this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
@@ -208,7 +215,7 @@ export class DeckbuilderComponent implements OnInit {
     } else {
       let duplicatedDeck: IDeck = {
         id: 0,
-        nom: deck.nom,
+        nom: deck.nom + '-dupl',
         cartes: [],
         utilisateur: this.authService.user,
         format: this.selectedFormat,
@@ -441,5 +448,15 @@ export class DeckbuilderComponent implements OnInit {
 
   private resetValues() {
     this.getUserCollectionFiltered();
+  }
+
+  canDeactivate(): boolean {
+    if (this.unsavedChanges) {
+      return window.confirm(
+        'Vous avez un deck en cours de modification. Voulez-vous vraiment quitter la page ?'
+      );
+    } else {
+      return true;
+    }
   }
 }
