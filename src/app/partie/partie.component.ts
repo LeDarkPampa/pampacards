@@ -108,9 +108,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (this.estJoueurActif) {
         this.carteJouee = false;
         this.carteDefaussee = false;
-        this.sendBotMessage('-----');
-        this.sendBotMessage('TOUR ' + Math.ceil(lastEvent.tour / 2) + ' ' + this.joueur.nom);
-        this.sendBotMessage('-----');
+        this.sendBotMessage('--- TOUR ' + Math.ceil(lastEvent.tour / 2) + ' ' + this.joueur.nom);
 
         // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
         while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
