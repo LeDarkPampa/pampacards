@@ -176,7 +176,7 @@
 }
 
 .flash-animation {
-  animation: flash 1s alternate infinite;
+  animation: flash 0.5s alternate infinite;
 }
 
 @keyframes flash {
