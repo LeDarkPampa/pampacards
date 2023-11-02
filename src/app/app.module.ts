@@ -65,6 +65,7 @@ import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base
 import { DataManagementComponent } from './administration/data-management/data-management.component';
 import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-icon-button.component';
 import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
+import { DetailsEffetsComponent } from './infos/details-effets/details-effets.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
     InfosComponent,
     DecksBaseDetailsComponent,
     DataManagementComponent,
-    PampaIconButtonComponent
+    PampaIconButtonComponent,
+    DetailsEffetsComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -122,6 +124,7 @@ import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
       {path: 'infos', component: InfosComponent, canActivate: [AuthGuard]},
       {path: 'infos/boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
       {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'infos/details-effets', component: DetailsEffetsComponent, canActivate: [AuthGuard]},
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       { path: 'partie-obs/:id/:type', component: PartieObsComponent, canActivate: [AuthGuard] },

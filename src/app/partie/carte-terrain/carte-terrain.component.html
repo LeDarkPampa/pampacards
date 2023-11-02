@@ -16,11 +16,11 @@
     </div>
     <div class="card-image" *ngIf="carte.image_path !== null">
       <img class="carte" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
-        'silence': carte.silence,
-        'bouclier': carte.bouclier,
-        'insensible': carte.insensible,
-        'corrompu': carte.corrompu,
-        'prison': carte.prison
+      'prison': carte.prison,
+      'silence': carte.silence,
+      'bouclier': carte.bouclier,
+      'insensible': carte.insensible,
+      'corrompu': carte.corrompu
       }" />
     </div>
     <div class="card-details">

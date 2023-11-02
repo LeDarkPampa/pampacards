@@ -807,26 +807,52 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.CASSEMURAILLE: {
-          if (this.adversaire.terrain.filter(c => c.bouclier).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  this.adversaire.terrain[indexCarte].bouclier = false;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
+          let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
+          if (adversaireHasProtecteurForet) {
+            if (this.adversaire.terrain.filter(c => c.bouclier && !((1 == c.clan.id || 8 == c.type.id) && !c.corrompu)).length > 0) {
+              let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+                (selectedCarte: ICarte) => {
+                  if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
+                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                    this.adversaire.terrain[indexCarte].bouclier = false;
+                  }
+                  this.updateEffetsContinusAndScores();
+                },
+                (error: any) => console.error(error)
+              );
 
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
+              this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
+
+              this.carteSelectionnee$.subscribe(selectedCarte => {
+                carteSelectionneeSub.unsubscribe();
+              });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+            }
           } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+            if (this.adversaire.terrain.filter(c => c.bouclier).length > 0) {
+              let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+                (selectedCarte: ICarte) => {
+                  if (selectedCarte != null) {
+                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
+                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                    this.adversaire.terrain[indexCarte].bouclier = false;
+                  }
+                  this.updateEffetsContinusAndScores();
+                },
+                (error: any) => console.error(error)
+              );
+
+              this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
+
+              this.carteSelectionnee$.subscribe(selectedCarte => {
+                carteSelectionneeSub.unsubscribe();
+              });
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+            }
           }
           break;
         }

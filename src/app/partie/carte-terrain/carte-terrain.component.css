@@ -254,12 +254,13 @@
 }
 
 .insensible {
-  border: 4px solid grey;
-  filter: opacity(30%);
+  border: 3px solid white;
+  filter: opacity(40%);
 }
 
 .corrompu {
-  filter: invert(20%);
+  border: 3px solid red;
+  opacity: 0.1;
 }
 
 .prison {

@@ -11,10 +11,10 @@
     </div>
 
     <div class="decklist" *ngIf="deckSelectionne">
-      <h3>{{ deckSelectionne?.nom }}</h3>
+      <h3>{{ deckSelectionne.nom }}</h3>
 
       <ul class="carte-grid">
-        <li *ngFor="let carte of deckSelectionne?.cartes">
+        <li *ngFor="let carte of deckSelectionne.cartes">
           <app-carte-terrain [carte]="carte"></app-carte-terrain>
         </li>
       </ul>
