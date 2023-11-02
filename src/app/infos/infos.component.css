@@ -1,0 +1,31 @@
+.container {
+  padding: 20px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 10px;
+}
+
+a {
+  width: calc(40%);
+  text-decoration: none;
+  color: #333;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

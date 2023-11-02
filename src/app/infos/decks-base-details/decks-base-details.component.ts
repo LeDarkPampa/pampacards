@@ -7,7 +7,7 @@ import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
 @Component({
   selector: 'app-decks-base-details',
   templateUrl: './decks-base-details.component.html',
-  styleUrls: ['./decks-base-details.component.css']
+  styleUrls: ['./decks-base-details.component.css', '../../app.component.css']
 })
 export class DecksBaseDetailsComponent implements OnInit {
   utilisateurs: IUtilisateur[] = [];
