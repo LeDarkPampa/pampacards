@@ -66,6 +66,7 @@ import { DataManagementComponent } from './administration/data-management/data-m
 import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-icon-button.component';
 import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
 import { DetailsEffetsComponent } from './infos/details-effets/details-effets.component';
+import { TutorielComponent } from './infos/tutoriel/tutoriel.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { DetailsEffetsComponent } from './infos/details-effets/details-effets.co
     DecksBaseDetailsComponent,
     DataManagementComponent,
     PampaIconButtonComponent,
-    DetailsEffetsComponent
+    DetailsEffetsComponent,
+    TutorielComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -122,6 +124,7 @@ import { DetailsEffetsComponent } from './infos/details-effets/details-effets.co
       {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
       {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
       {path: 'infos', component: InfosComponent, canActivate: [AuthGuard]},
+      {path: 'infos/tutoriel', component: TutorielComponent, canActivate: [AuthGuard]},
       {path: 'infos/boosters-details', component: BoostersDetailsComponent, canActivate: [AuthGuard]},
       {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent, canActivate: [AuthGuard]},
       {path: 'infos/details-effets', component: DetailsEffetsComponent, canActivate: [AuthGuard]},
