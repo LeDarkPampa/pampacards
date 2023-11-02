@@ -45,6 +45,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteJouee = false;
   carteDefaussee = false;
   clickedCartePath: string = '';
+  isFlashing: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -108,12 +109,18 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (this.estJoueurActif) {
         this.carteJouee = false;
         this.carteDefaussee = false;
-        this.sendBotMessage('--- TOUR ' + Math.ceil(lastEvent.tour / 2) + ' ' + this.joueur.nom);
+
+        this.isFlashing = true; // Activez l'animation de flash
 
         // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
         while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
           this.piocherCarte();
         }
+
+        // Désactivez l'animation de flash après un certain délai (par exemple, après 2 secondes)
+        setTimeout(() => {
+          this.isFlashing = false;
+        }, 2000);
       }
     }
 
