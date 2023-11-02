@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div [class]="getAdvColorClass()" [class.bounce-animation]="isFlashing" class="terrain-adv">
+  <div [class]="getAdvColorClass()" [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="terrain-adv">
     <div class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
