@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div [class]="getAdvColorClass()" [ngClass]="{'flash-animation': isFlashing}" class="terrain-adv">
+  <div [class]="getAdvColorClass()" [class.bounce-animation]="isFlashing" class="terrain-adv">
     <div class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div [class]="getJoueurColorClass()" [ngClass]="{'flash-animation': isFlashing}" class="terrain-joueur">
+  <div [class]="getJoueurColorClass()" [class.glow-effect]="isFlashing" class="terrain-joueur">
     <div class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
