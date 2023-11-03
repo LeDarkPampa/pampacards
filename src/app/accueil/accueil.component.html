@@ -1,58 +1,53 @@
-<div *ngIf="!isLoggedIn()">
-  <app-login></app-login>
-</div>
-<div *ngIf="isLoggedIn()">
-  <div class="home-container">
-    <h1 class="title">Les Pampa Cards sont en ligne !</h1>
+<div class="home-container">
+  <h1 class="title">Les Pampa Cards sont en ligne !</h1>
 
-    <div class="news-container">
-      <div class="main-news">
-        <div class="news-image">
-          <img src="../../assets/news/deckcarte.jpg" alt="Image de la news principale">
+  <div class="news-container">
+    <div class="main-news">
+      <div class="news-image">
+        <img src="../../assets/news/deckcarte.jpg" alt="Image de la news principale">
+        <div class="news-overlay">
+          <h2 class="news-title">Les decks de base sont là !</h2>
+          <p class="news-content">
+            Actuellement, il y a 10 decks de bases différents, chacun correspondant à une carte 4* du jeu. Le choix de son premier deck de départ sera important !
+          </p>
+          <p class="news-content">
+            Avez-vous déjà fait votre choix ?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-news">
+      <div class="small-new">
+        <div class="small-news-image">
+          <img src="../../assets/news/pelubull.png" alt="Image du Pelubull">
           <div class="news-overlay">
-            <h2 class="news-title">Les decks de base sont là !</h2>
+            <h2 class="news-title">Le nouveau Pelubull</h2>
             <p class="news-content">
-              Actuellement, il y a 10 decks de bases différents, chacun correspondant à une carte 4* du jeu. Le choix de son premier deck de départ sera important !
-            </p>
-            <p class="news-content">
-              Avez-vous déjà fait votre choix ?
+              L'effet du Pelubull a été modifié pour lui donner plus de sens dans la thématique Jouet : Si cette carte sort de votre défausse, elle gagne +2.
             </p>
           </div>
         </div>
       </div>
-
-      <div class="small-news">
-        <div class="small-new">
-          <div class="small-news-image">
-            <img src="../../assets/news/pelubull.png" alt="Image du Pelubull">
-            <div class="news-overlay">
-              <h2 class="news-title">Le nouveau Pelubull</h2>
-              <p class="news-content">
-                L'effet du Pelubull a été modifié pour lui donner plus de sens dans la thématique Jouet : Si cette carte sort de votre défausse, elle gagne +2.
-              </p>
-            </div>
+      <div class="small-new">
+        <div class="small-news-image">
+          <img src="../../assets/news/cartes1.jpg" alt="Image de la news 2">
+          <div class="news-overlay">
+            <h2 class="news-title">Des nouveaux boosters !</h2>
+            <p class="news-content">
+              Les boosters disponibles ont été retravaillés ! Retrouvez le détail dans le nouvel onglet "Infos"
+            </p>
           </div>
         </div>
-        <div class="small-new">
-          <div class="small-news-image">
-            <img src="../../assets/news/cartes1.jpg" alt="Image de la news 2">
-            <div class="news-overlay">
-              <h2 class="news-title">Des nouveaux boosters !</h2>
-              <p class="news-content">
-                Les boosters disponibles ont été retravaillés ! Retrouvez le détail dans le nouvel onglet "Infos"
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="small-new">
-          <div class="small-news-image">
-            <img src="../../assets/news/cartes2.jpg" alt="Image de la news 3">
-            <div class="news-overlay">
-              <h2 class="news-title">Amélioration du design à venir</h2>
-              <p class="news-content">
-                Maintenant que le jeu est fonctionnel et en ligne, les travaux d'amélioration de l'apparence du site vont pouvoir continuer.
-              </p>
-            </div>
+      </div>
+      <div class="small-new">
+        <div class="small-news-image">
+          <img src="../../assets/news/cartes2.jpg" alt="Image de la news 3">
+          <div class="news-overlay">
+            <h2 class="news-title">Amélioration du design à venir</h2>
+            <p class="news-content">
+              Maintenant que le jeu est fonctionnel et en ligne, les travaux d'amélioration de l'apparence du site vont pouvoir continuer.
+            </p>
           </div>
         </div>
       </div>

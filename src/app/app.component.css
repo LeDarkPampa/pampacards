@@ -27,6 +27,10 @@ body {
   flex-wrap: wrap;
 }
 
+.margin-top {
+  margin-top: 10px;
+}
+
 .margin-left {
   margin-left: 10px;
 }
@@ -37,6 +41,10 @@ body {
 
 .margin-bot {
   margin-bottom: 10px;
+}
+
+.big-margin-bot {
+  margin-bottom: 50px;
 }
 
 .text-center {

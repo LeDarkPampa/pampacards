@@ -1,5 +1,6 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthentificationService } from './services/authentification.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,9 @@ import { AuthentificationService } from './services/authentification.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private cd: ChangeDetectorRef, private authService: AuthentificationService
+  constructor(private router: Router, private authService: AuthentificationService
   ) {}
 
   ngOnInit() {
-    this.cd.detectChanges();
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLogged();
   }
 }

@@ -1,6 +1,6 @@
 <div class="screen">
   <div class="infos-adv" *ngIf="adversaire">
-    {{adversaire?.nom}} - Score : {{adversaire?.score}}
+    {{adversaire?.nom}} - Puissance : {{adversaire?.score}}
   </div>
   <div class="main-adv" *ngIf="adversaire">
     <app-pampa-icon-button [icone]="'fast_rewind'" [couleur]="'gris'" (clickBouton)="premier()"></app-pampa-icon-button>
@@ -70,7 +70,7 @@
     </div>
   </div>
   <div class="infos-joueur" *ngIf="joueur">
-    {{joueur.nom}} - Score : {{joueur.score}}
+    {{joueur.nom}} - Puissance : {{joueur.score}}
   </div>
   <div class="main-joueur" *ngIf="joueur">
     <div class="ligne-centree">

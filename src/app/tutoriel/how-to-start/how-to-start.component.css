@@ -7,7 +7,16 @@ img {
   height: 400px;
 }
 
+.small-image img {
+  height: 200px;
+}
+
 .legende {
   font-size: 14px;
+  padding-bottom: 10px;
   font-style: italic;
+}
+
+a {
+  padding-left: 5px;
 }
