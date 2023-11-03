@@ -16,6 +16,10 @@ export class MenuComponent {
     return this.authService.isAdmin();
   }
 
+  isLoggedIn(): boolean {
+    return this.authService.isLogged();
+  }
+
   logOut() {
     this.authService.logout();
   }

@@ -3,11 +3,11 @@ import {ICarte} from "../../interfaces/ICarte";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
-  selector: 'app-details-effets',
-  templateUrl: './details-effets.component.html',
-  styleUrls: ['./details-effets.component.css', '../../app.component.css']
+  selector: 'app-details-statuts',
+  templateUrl: './details-statuts.component.html',
+  styleUrls: ['./details-statuts.component.css', '../../app.component.css']
 })
-export class DetailsEffetsComponent implements OnInit {
+export class DetailsStatutsComponent implements OnInit {
 
   // @ts-ignore
   bouclier: ICarte;

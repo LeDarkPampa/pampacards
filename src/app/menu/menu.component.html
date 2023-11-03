@@ -3,22 +3,41 @@
     <li>
       <a class="button" routerLink="/accueil" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Accueil</a>
     </li>
-    <li>
+    <li *ngIf="isLoggedIn()">
       <a class="button" routerLink="/collection" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Ma collection</a>
     </li>
-    <li>
+    <li *ngIf="isLoggedIn()">
       <a class="button" routerLink="/deckbuilder" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Deckbuilder</a>
+    </li>
+    <li>
+      <a class="button" routerLink="/tutoriel" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Tutoriel</a>
+      <ul class="submenu">
+        <li>
+          <a routerLink="/tutoriel/debuter" class="sous-menu">
+            <span class="center">
+              Premiers pas
+            </span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/tutoriel/jouer" class="sous-menu">
+            <span class="center">
+              Règles du jeu
+            </span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/tutoriel/details-statuts" class="sous-menu">
+            <span class="center">
+              Statuts
+            </span>
+          </a>
+        </li>
+      </ul>
     </li>
     <li>
       <a class="button" routerLink="/infos" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Infos</a>
       <ul class="submenu">
-        <li>
-          <a routerLink="/infos/tutoriel" class="sous-menu">
-            <span class="center">
-              Tutoriel
-            </span>
-          </a>
-        </li>
         <li>
           <a routerLink="/infos/deck-base-details" class="sous-menu">
             <span class="center">
@@ -33,16 +52,9 @@
             </span>
           </a>
         </li>
-        <li>
-          <a routerLink="/infos/details-effets" class="sous-menu">
-            <span class="center">
-              Effets
-            </span>
-          </a>
-        </li>
       </ul>
     </li>
-    <li>
+    <li *ngIf="isLoggedIn()">
       <a class="button" routerLink="/recherche-combat" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Arêne</a>
     </li>
     <!--
@@ -51,13 +63,16 @@
     </li>
     <a class="button" routerLink="/classements" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Classements</a>
     -->
-    <li>
+    <li *ngIf="isLoggedIn()">
       <a class="button" routerLink="/mon-compte" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Mon compte</a>
     </li>
-    <li>
-      <a class="button" *ngIf="isAdmin()" routerLink="/administration" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Administration</a>
+    <li *ngIf="isAdmin() && isLoggedIn()">
+      <a class="button" routerLink="/administration" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Administration</a>
     </li>
-    <li>
+    <li *ngIf="!isLoggedIn()">
+      <a class="button" routerLink="/login" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Connexion</a>
+    </li>
+    <li *ngIf="isLoggedIn()">
       <a class="button" routerLink="/deconnexion" routerLinkActive="activebutton" ariaCurrentWhenActive="page" (click)="logOut()">Déconnexion</a>
     </li>
   </ul>
