@@ -31,7 +31,7 @@ export class CollectionComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.getUserCollection(this.authService.userId);
+    this.getUserCollection(this.authService.getUserId());
     this.filters = {
       selectedClans: [],
       selectedTypes: [],
@@ -41,10 +41,12 @@ export class CollectionComponent implements OnInit{
   }
 
   getAllCollection() {
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+    // @ts-ignore
+    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
         next: data => {
-          if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+          // @ts-ignore
+          if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
             this.cartes = data;
           } else {
             this.cartes = data.filter(carte => carte.released);
@@ -74,7 +76,8 @@ export class CollectionComponent implements OnInit{
     } else {
       this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
         next: data => {
-          if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+          // @ts-ignore
+          if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
             this.cartes = data;
           } else {
             this.cartes = data.filter(carte => carte.released);
@@ -108,7 +111,8 @@ export class CollectionComponent implements OnInit{
 
     this.http.get<ICollection>(url).subscribe({
       next: data => {
-        if (!(this.authService.user.testeur && this.propertiesService.isTestModeOn())) {
+        // @ts-ignore
+        if (!(this.authService.getUser().testeur && this.propertiesService.isTestModeOn())) {
           data.cartes = data.cartes.filter(carte => carte.released);
         }
         this.collection = data;

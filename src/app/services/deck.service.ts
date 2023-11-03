@@ -13,7 +13,7 @@ export class DeckService {
   constructor(private http: HttpClient, private authService: AuthentificationService) { }
 
   getAllPlayerDecks(): Observable<IDeck[]> {
-    return this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks?userId=' + this.authService.userId).pipe(
+    return this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks?userId=' + this.authService.getUserId()).pipe(
       map((decks: IDeck[]) => {
         return decks.sort((a, b) => {
           const date1 = new Date(a.dateCreation);

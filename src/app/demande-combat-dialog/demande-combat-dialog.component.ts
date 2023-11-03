@@ -23,7 +23,7 @@ export class DemandeCombatDialogComponent implements OnInit {
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
               private authService: AuthentificationService) {
-    this.userId = authService.userId;
+    this.userId = authService.getUserId();
   }
 
   ngOnInit(): void {

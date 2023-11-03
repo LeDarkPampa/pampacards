@@ -18,7 +18,8 @@ export class ClanService {
   getAllClans(): Observable<IClan[]> {
     let url = this.clansUrl;
 
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+    // @ts-ignore
+    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
       url = this.clansTestUrl;
     }
 

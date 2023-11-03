@@ -9,8 +9,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthentificationService
-  ) {}
+  constructor() {}
 
   ngOnInit() {
   }

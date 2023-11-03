@@ -50,7 +50,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
               private sseService: SseService, private cd: ChangeDetectorRef) {
-    this.userId = authService.userId;
+    this.userId = authService.getUserId();
   }
 
   ngOnInit() {

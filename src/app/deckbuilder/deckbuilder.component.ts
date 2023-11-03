@@ -13,6 +13,7 @@ import {TypeService} from "../services/type.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
+import {IUtilisateur} from "../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -93,12 +94,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     if (standardFormat) {
       this.selectedFormat = standardFormat;
     }
+    // @ts-ignore
+    const user:IUtilisateur = this.authService.getUser();
     this.selectedDeck = {
       id: 0,
       nom:'',
       cartes:[],
       format: standardFormat ? standardFormat : this.nullFormat,
-      utilisateur: this.authService.user,
+      utilisateur: user,
       dateCreation: new Date(Date.now())
     };
 
@@ -213,11 +216,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
+      // @ts-ignore
+      const user:IUtilisateur = this.authService.getUser();
+      // @ts-ignore
       let duplicatedDeck: IDeck = {
         id: 0,
         nom: deck.nom + '-dupl',
         cartes: [],
-        utilisateur: this.authService.user,
+        utilisateur: user,
         format: this.selectedFormat,
         dateCreation: new Date(Date.now())
         }
@@ -238,13 +244,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
 
   getUserCollectionFiltered() {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${this.authService.userId}`;
+    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${this.authService.getUserId()}`;
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
     this.http.get<ICollection>(url).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
-          if (!(this.authService.user.testeur && this.propertiesService.isTestModeOn())) {
+          // @ts-ignore
+          if (!(this.authService.getUser().testeur && this.propertiesService.isTestModeOn())) {
             data.cartes = data.cartes.filter(carte => carte.released);
           }
 

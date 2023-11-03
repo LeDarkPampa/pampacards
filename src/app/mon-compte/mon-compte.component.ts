@@ -18,7 +18,8 @@ export class MonCompteComponent {
   newPassword: string = '';
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
-    this.utilisateur = this.authService.user;
+    // @ts-ignore
+    this.utilisateur = this.authService.getUser();
   }
 
   onChangePassword() {

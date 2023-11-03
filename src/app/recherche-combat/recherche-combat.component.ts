@@ -48,7 +48,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
               private deckService: DeckService, private router: Router) {
-    this.userId = authService.userId;
+    // @ts-ignore
+    this.userId = authService.getUserId();
   }
 
   ngOnInit() {
@@ -79,14 +80,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   startSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.userId).subscribe(data => {
+    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.getUserId()).subscribe(data => {
     })
 
     this.searching = true;
   }
 
   stopSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.userId).subscribe(data => {
+    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.getUserId()).subscribe(data => {
     })
 
     this.searching = false;

@@ -20,7 +20,8 @@ export class TypeService {
   getAllTypes(): Observable<IType[]> {
     let url = this.typessUrl;
 
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+    // @ts-ignore
+    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
       url = this.typesTestUrl;
     }
 

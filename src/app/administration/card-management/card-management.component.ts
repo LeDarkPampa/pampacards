@@ -38,7 +38,8 @@ export class CardManagementComponent {
   }
 
   getAllCollection() {
-    if (this.authService.user.testeur && this.propertiesService.isTestModeOn()) {
+    // @ts-ignore
+    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
       this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
         next: (data: ICarte[]) => {
           this.cartes = data;
