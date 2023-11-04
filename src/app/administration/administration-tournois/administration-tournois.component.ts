@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { ITypeCombat } from "../../interfaces/ITypeCombat";
 import { ITournoi } from "../../interfaces/ITournoi";
 import {ILigue} from "../../interfaces/ILigue";
+import {LigueTournoiStatutEnum} from "../../interfaces/LigueTournoiStatutEnum";
 
 @Component({
   selector: 'app-administration-tournois',
@@ -24,7 +25,7 @@ export class AdministrationTournoisComponent implements OnInit {
   constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService) {
     this.tournoiForm = this.fb.group({
       nom: ['', Validators.required],
-      nombre_de_joueurs: [2, Validators.min(2)],
+      nombre_de_joueurs: [4, Validators.min(4)],
       format: [null, Validators.required],
       typeCombat: [null, Validators.required],
     });
@@ -47,7 +48,7 @@ export class AdministrationTournoisComponent implements OnInit {
     // @ts-ignore
     if (this.tournoiForm.valid && this.tournoiForm.get('typeCombat').value) {
       const newTournoi = this.tournoiForm.value;
-      newTournoi.statut = 'En attente';
+      newTournoi.statut = LigueTournoiStatutEnum.A_VENIR;
       this.tournoiService.createTournoi(newTournoi).subscribe(
         (createdTournoi) => {
           console.log('Tournoi créé avec succès :', createdTournoi);
@@ -65,7 +66,7 @@ export class AdministrationTournoisComponent implements OnInit {
     // @ts-ignore
     if (this.ligueForm.valid && this.ligueForm.get('typeCombat').value) {
       const newLigue = this.ligueForm.value;
-      newLigue.statut = 'En attente';
+      newLigue.statut = LigueTournoiStatutEnum.A_VENIR;
       this.tournoiService.createLigue(newLigue).subscribe(
         (createdLigue) => {
           console.log('Ligue créée avec succès :', createdLigue);

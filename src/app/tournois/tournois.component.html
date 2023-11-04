@@ -1,11 +1,26 @@
 <div class="tournament-list colonne-centree">
   <h2>Tournois disponibles</h2>
-  <ul>
-    <li *ngFor="let tournament of availableTournaments">
-      <span>{{ tournament.name }}</span>
-      <button (click)="registerForTournament(tournament)">S'inscrire</button>
-    </li>
-  </ul>
+  <table>
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Nombre de joueurs</th>
+      <th>Format</th>
+      <th>Type de combat</th>
+      <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tournoi of availableTournaments">
+      <td>{{ tournoi.nom }}</td>
+      <td>{{ tournoi.nombreDeJoueurs }}</td>
+      <td>{{ tournoi.format.nom }}</td>
+      <td>{{ tournoi.typeCombat.nom }}</td>
+      <td>{{ tournoi.statut }}</td>
+      <td><button (click)="registerForTournament(tournoi)">S'inscrire</button></td>
+    </tr>
+    </tbody>
+  </table>
 
   <h2>Vos tournois</h2>
   <ul>

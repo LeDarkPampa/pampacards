@@ -1,6 +1,10 @@
-/* Style du formulaire */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 form {
-  max-width: 400px;
+  max-width: 250px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -11,14 +15,12 @@ h2 {
   text-align: center;
 }
 
-/* Style des labels */
 label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
 }
 
-/* Style des champs de saisie */
 input[type="text"],
 input[type="number"],
 select {
@@ -32,7 +34,6 @@ select {
   font-size: 16px;
 }
 
-/* Style du bouton de soumission */
 button[type="submit"] {
   background-color: #007BFF;
   color: white;
@@ -47,7 +48,6 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Style pour les options désactivées */
 select option[disabled] {
   color: #999;
 }

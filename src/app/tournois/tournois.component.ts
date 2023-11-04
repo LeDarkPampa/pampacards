@@ -7,13 +7,13 @@ import {TournoiService} from "../services/tournoi.service";
   styleUrls: ['./tournois.component.css', '../app.component.css']
 })
 export class TournoisComponent implements OnInit {
-  availableTournaments: any[] = [{name: 'Cactus tournament'}, {name: 'Cactus tournament 2'},{name: 'Cactus tournament 3'}];
+  availableTournaments: any[] = [];
   registeredTournaments: any[] = [{name: 'Cactus tournamen 4', status: 'En attente'}, {name: 'Cactus tournament 5', status: 'En cours'},{name: 'Cactus tournament 6', status: 'En cours'}];
 
   constructor(private tournoiService: TournoiService) { }
 
   ngOnInit(): void {
-    this.tournoiService.getTournoisEnAttente().subscribe(
+    this.tournoiService.getTournoisInscriptionsOuvertes().subscribe(
       (data) => {
         this.availableTournaments = data;
       },

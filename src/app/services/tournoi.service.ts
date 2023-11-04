@@ -12,12 +12,24 @@ export class TournoiService {
 
   constructor(private http: HttpClient) { }
 
-  getTournoisEnAttente(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/attente`);
+  getTournoisAVenir(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/a-venir`);
+  }
+
+  getTournoisInscriptionsOuvertes(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/inscriptions-ouvertes`);
+  }
+
+  getTournoisInscriptionsFermees(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/inscriptions-fermees`);
   }
 
   getTournoisEnCours(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/encours`);
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/en-cours`);
+  }
+
+  getTournoisTermines(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/termines`);
   }
 
   getAllTournois(): Observable<ITournoi[]> {
