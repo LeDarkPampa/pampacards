@@ -1,0 +1,98 @@
+<div class="colonne-centree">
+  <div class="ligne-centree">
+    <div>
+      <h2>Créer un tournoi</h2>
+      <form [formGroup]="tournoiForm" (ngSubmit)="onSubmitTournoi()">
+        <label for="nom">Nom du tournoi</label>
+        <input type="text" id="nom" formControlName="nom" required>
+
+        <label for="nombre_de_joueurs">Nombre de joueurs</label>
+        <input type="number" id="nombre_de_joueurs" formControlName="nombre_de_joueurs" required>
+
+        <label for="format">Format</label>
+        <select id="format" formControlName="format" required>
+          <option value="" disabled>Sélectionnez un format</option>
+          <option *ngFor="let format of formats" [ngValue]="format">{{ format.nom }}</option>
+        </select>
+
+        <label for="typeCombat">Type de combat</label>
+        <select id="typeCombat" formControlName="typeCombat" required>
+          <option value="" disabled>Sélectionnez un type de combat</option>
+          <option *ngFor="let typeCombat of typesCombat" [ngValue]="typeCombat">{{ typeCombat.nom }}</option>
+        </select>
+
+        <button type="submit">Créer le tournoi</button>
+      </form>
+    </div>
+
+    <div>
+      <h2>Créer une ligue</h2>
+      <form [formGroup]="ligueForm" (ngSubmit)="onSubmitLigue()">
+        <label for="nom">Nom de la ligue</label>
+        <input type="text" id="nom" formControlName="nom" required>
+
+        <label for="format">Format</label>
+        <select id="format" formControlName="format" required>
+          <option value="" disabled>Sélectionnez un format</option>
+          <option *ngFor="let format of formats" [ngValue]="format">{{ format.nom }}</option>
+        </select>
+
+        <label for="typeCombat">Type de combat</label>
+        <select id="typeCombat" formControlName="typeCombat" required>
+          <option value="" disabled>Sélectionnez un type de combat</option>
+          <option *ngFor="let typeCombat of typesCombat" [ngValue]="typeCombat">{{ typeCombat.nom }}</option>
+        </select>
+
+        <button type="submit">Créer la ligue</button>
+      </form>
+    </div>
+  </div>
+
+  <h2>Liste des tournois</h2>
+  <div class="tournoi-list">
+    <table>
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Nombre de joueurs</th>
+        <th>Format</th>
+        <th>Type de combat</th>
+        <th>Statut</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tournoi of tournois">
+        <td>{{ tournoi.nom }}</td>
+        <td>{{ tournoi.nombreDeJoueurs }}</td>
+        <td>{{ tournoi.format.nom }}</td>
+        <td>{{ tournoi.typeCombat.nom }}</td>
+        <td>{{ tournoi.statut }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <h2>Liste des ligues</h2>
+  <div class="tournoi-list">
+    <table>
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Format</th>
+        <th>Type de combat</th>
+        <th>Statut</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ligue of ligues">
+        <td>{{ ligue.nom }}</td>
+        <td>{{ ligue.format.nom }}</td>
+        <td>{{ ligue.typeCombat.nom }}</td>
+        <td>{{ ligue.statut }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

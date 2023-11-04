@@ -29,4 +29,8 @@ export class AdministrationComponent {
   goToPartiesManagement() {
     this.router.navigate(['/parties-management']);
   }
+
+  goToTournoiManagement() {
+    this.router.navigate(['/tournois-management']);
+  }
 }

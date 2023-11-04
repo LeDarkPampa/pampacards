@@ -13,7 +13,7 @@ import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
@@ -70,6 +70,9 @@ import { TutorielComponent } from './tutoriel/tutoriel.component';
 import { HowToPlayComponent } from './tutoriel/how-to-play/how-to-play.component';
 import { HowToStartComponent } from './tutoriel/how-to-start/how-to-start.component';
 import { CookieService } from 'ngx-cookie-service';
+import { DetailsTournoiComponent } from './tournois/details-tournoi/details-tournoi.component';
+import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.component';
+import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +124,10 @@ import { CookieService } from 'ngx-cookie-service';
     DetailsStatutsComponent,
     TutorielComponent,
     HowToPlayComponent,
-    HowToStartComponent
+    HowToStartComponent,
+    DetailsTournoiComponent,
+    DetailsLigueComponent,
+    AdministrationTournoisComponent
   ],
   imports: [
     RouterModule.forRoot([
@@ -139,7 +145,7 @@ import { CookieService } from 'ngx-cookie-service';
       {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
       {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
       { path: 'partie-obs/:id/:type', component: PartieObsComponent, canActivate: [AuthGuard] },
-      {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
+      {path: 'tournois', component: TournoisComponent},
       {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
       {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
       {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
@@ -148,6 +154,7 @@ import { CookieService } from 'ngx-cookie-service';
       {path: 'data-management', component: DataManagementComponent, canActivate: [AuthGuard]},
       {path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard]},
       {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
+      {path: 'tournois-management', component: AdministrationTournoisComponent, canActivate: [AuthGuard]},
       {path: 'card-view/:id', component: CardViewComponent},
       {path: 'deconnexion', component: DeconnexionComponent},
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
@@ -166,7 +173,8 @@ import { CookieService } from 'ngx-cookie-service';
     DialogModule,
     MatIconModule,
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthGuard,
