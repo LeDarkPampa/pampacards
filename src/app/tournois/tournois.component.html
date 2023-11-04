@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let tournoi of availableTournaments">
+    <tr *ngFor="let tournoi of tournoisOuverts">
       <td>{{ tournoi.nom }}</td>
       <td>{{ tournoi.nombreDeJoueurs }}</td>
       <td>{{ tournoi.format.nom }}</td>
@@ -22,11 +22,32 @@
     </tbody>
   </table>
 
+  <h2>Ligues disponibles</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Format</th>
+      <th>Type de combat</th>
+      <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ligue of liguesOuvertes">
+      <td>{{ ligue.nom }}</td>
+      <td>{{ ligue.format.nom }}</td>
+      <td>{{ ligue.typeCombat.nom }}</td>
+      <td>{{ ligue.statut }}</td>
+      <td><button (click)="registerForTournament(ligue)">S'inscrire</button></td>
+    </tr>
+    </tbody>
+  </table>
+
   <h2>Vos tournois</h2>
   <ul>
     <li *ngFor="let tournament of registeredTournaments">
-      <span>{{ tournament.name }}</span>
-      <span [ngClass]="{'status-active': tournament.status === 'En cours', 'status-pending': tournament.status === 'En attente'}">{{ tournament.status }}</span>
+      <span>{{ tournament.nom }}</span>
+      <span [ngClass]="{'status-active': tournament.statut === 'En cours', 'status-pending': tournament.status === 'En attente'}">{{ tournament.statut }}</span>
     </li>
   </ul>
 </div>

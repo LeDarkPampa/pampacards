@@ -44,6 +44,22 @@ export class TournoiService {
     return this.http.get<ILigue[]>(`${this.BACKEND_URL}/ligues/all`);
   }
 
+  getLiguesInscriptionsOuvertes(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/inscriptions-ouvertes`);
+  }
+
+  getLiguesInscriptionsFermees(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/inscriptions-fermees`);
+  }
+
+  getLiguesEnCours(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/en-cours`);
+  }
+
+  getLiguesTermines(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/termines`);
+  }
+
   createLigue(newLigue: ILigue): Observable<any> {
     return this.http.post(`${this.BACKEND_URL}/ligues`, newLigue);
   }
