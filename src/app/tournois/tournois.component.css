@@ -54,3 +54,7 @@ button {
 .status-pending {
   color: orange;
 }
+
+.status-ended {
+  color: red;
+}

@@ -28,11 +28,13 @@
               {{ participant.pseudo }}
             </div>
           </td>
-          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInParticipants(tournoi)">
+          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
             <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForTournament(tournoi)"></app-pampa-button-carre>
           </td>
-          <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length || isUserInParticipants(tournoi)">
+          <td *ngIf="isUserInParticipants(tournoi)">
             <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForTournament(tournoi)"></app-pampa-button-carre>
+          </td>
+          <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length">
           </td>
         </tr>
         </tbody>
@@ -68,7 +70,7 @@
               {{ participant.pseudo }}
             </div>
           </td>
-          <td *ngIf="!isUserInLigueParticipants(ligue)">
+          <td *ngIf="!isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
             <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForLigue(ligue)"></app-pampa-button-carre>
           </td>
           <td *ngIf="isUserInLigueParticipants(ligue)">
@@ -91,15 +93,38 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let tournament of registeredTournaments">
-          <td>{{ tournament.nom }}</td>
-          <td><span [ngClass]="{'status-active': tournament.statut === 'En cours', 'status-pending': tournament.statut === 'En attente'}">{{ tournament.statut }}</span>
+        <tr *ngFor="let tournoi of registeredTournaments">
+          <td>{{ tournoi.nom }}</td>
+          <td><span [ngClass]="{'status-active': tournoi.statut === 'En cours',
+          'status-pending': tournoi.statut === 'En attente',
+          'status-ended': tournoi.statut === 'Terminé'}">{{ tournoi.statut }}</span>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <ul>
-  </ul>
+  <h3>Vos ligues</h3>
+  <div class="details-statuts">
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Statut</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ligue of registeredLigues">
+          <td>{{ ligue.nom }}</td>
+          <td><span [ngClass]="{'status-active': ligue.statut === 'En cours',
+          'status-pending': ligue.statut === 'En attente',
+          'status-ended': ligue.statut === 'Terminé'}">{{ ligue.statut }}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

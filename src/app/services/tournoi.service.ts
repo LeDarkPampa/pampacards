@@ -12,28 +12,16 @@ export class TournoiService {
 
   constructor(private http: HttpClient) { }
 
-  getTournoisAVenir(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/a-venir`);
-  }
-
-  getTournoisInscriptionsOuvertes(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/inscriptions-ouvertes`);
-  }
-
-  getTournoisInscriptionsFermees(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/inscriptions-fermees`);
-  }
-
-  getTournoisEnCours(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/en-cours`);
-  }
-
-  getTournoisTermines(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/termines`);
-  }
-
   getAllTournois(): Observable<ITournoi[]> {
     return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/all`);
+  }
+
+  getTournoisAVenir(): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/tournois-a-venir`);
+  }
+
+  getTournoisValidesForUser(userId: number): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/tournois-valides?userId=` + userId);
   }
 
   createTournoi(newTournoi: ITournoi): Observable<any> {
@@ -44,20 +32,12 @@ export class TournoiService {
     return this.http.get<ILigue[]>(`${this.BACKEND_URL}/ligues/all`);
   }
 
-  getLiguesInscriptionsOuvertes(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/inscriptions-ouvertes`);
+  getLiguesAVenir(): Observable<ILigue[]> {
+    return this.http.get<ILigue[]>(`${this.BACKEND_URL}/ligues/ligues-a-venir`);
   }
 
-  getLiguesInscriptionsFermees(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/inscriptions-fermees`);
-  }
-
-  getLiguesEnCours(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/en-cours`);
-  }
-
-  getLiguesTermines(): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/termines`);
+  getLiguesValidesForUser(userId: number): Observable<ITournoi[]> {
+    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/ligues-valides?userId=` + userId);
   }
 
   createLigue(newLigue: ILigue): Observable<any> {
