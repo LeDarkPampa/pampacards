@@ -1,19 +1,43 @@
-.tournament-list {
+.container {
+  height: calc(100vh - 40px);
+  text-align: center;
   padding: 20px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.details-statuts {
+
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-y: auto;
+}
+
+.custom-table th, .custom-table td {
+  padding: 5px;
+  text-align: center;
+}
+
+.custom-table th {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.custom-table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.custom-table td {
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 60%;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
 }
 
 button {

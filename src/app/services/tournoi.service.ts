@@ -63,4 +63,6 @@ export class TournoiService {
   createLigue(newLigue: ILigue): Observable<any> {
     return this.http.post(`${this.BACKEND_URL}/ligues`, newLigue);
   }
+
+
 }

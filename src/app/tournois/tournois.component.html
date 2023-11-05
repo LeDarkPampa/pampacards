@@ -1,53 +1,105 @@
-<div class="tournament-list colonne-centree">
-  <h2>Tournois disponibles</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Nombre de joueurs</th>
-      <th>Format</th>
-      <th>Type de combat</th>
-      <th>Statut</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let tournoi of tournoisOuverts">
-      <td>{{ tournoi.nom }}</td>
-      <td>{{ tournoi.nombreDeJoueurs }}</td>
-      <td>{{ tournoi.format.nom }}</td>
-      <td>{{ tournoi.typeCombat.nom }}</td>
-      <td>{{ tournoi.statut }}</td>
-      <td><button (click)="registerForTournament(tournoi)">S'inscrire</button></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <h2>Ligues disponibles</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Format</th>
-      <th>Type de combat</th>
-      <th>Statut</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let ligue of liguesOuvertes">
-      <td>{{ ligue.nom }}</td>
-      <td>{{ ligue.format.nom }}</td>
-      <td>{{ ligue.typeCombat.nom }}</td>
-      <td>{{ ligue.statut }}</td>
-      <td><button (click)="registerForTournament(ligue)">S'inscrire</button></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <h2>Vos tournois</h2>
+<div class="container">
+  <h3>Tournois disponibles</h3>
+  <div class="details-statuts">
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Nombre de places</th>
+          <th>Format</th>
+          <th>Type de combat</th>
+          <th>Statut</th>
+          <th>Nombre d'inscrits</th>
+          <th>Inscrits</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tournoi of tournoisOuverts">
+          <td>{{ tournoi.nom }}</td>
+          <td>{{ tournoi.nombreDeJoueurs }}</td>
+          <td>{{ tournoi.format.nom }}</td>
+          <td>{{ tournoi.typeCombat.nom }}</td>
+          <td>{{ tournoi.statut }}</td>
+          <td>{{ tournoi.participants.length }}</td>
+          <td>
+            <div *ngFor="let participant of tournoi.participants">
+              {{ participant.pseudo }}
+            </div>
+          </td>
+          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInParticipants(tournoi)">
+            <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForTournament(tournoi)"></app-pampa-button-carre>
+          </td>
+          <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length || isUserInParticipants(tournoi)">
+            <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForTournament(tournoi)"></app-pampa-button-carre>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3>Ligues disponibles</h3>
+  <div class="details-statuts">
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Nombre d'inscris</th>
+          <th>Format</th>
+          <th>Type de combat</th>
+          <th>Statut</th>
+          <th>Nombre d'inscrits</th>
+          <th>Inscrits</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ligue of liguesOuvertes">
+          <td>{{ ligue.nom }}</td>
+          <td>{{ ligue.participants.length }}</td>
+          <td>{{ ligue.format.nom }}</td>
+          <td>{{ ligue.typeCombat.nom }}</td>
+          <td>{{ ligue.statut }}</td>
+          <td>{{ ligue.participants.length }}</td>
+          <td>
+            <div *ngFor="let participant of ligue.participants">
+              {{ participant.pseudo }}
+            </div>
+          </td>
+          <td *ngIf="!isUserInLigueParticipants(ligue)">
+            <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForLigue(ligue)"></app-pampa-button-carre>
+          </td>
+          <td *ngIf="isUserInLigueParticipants(ligue)">
+            <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForLigue(ligue)"></app-pampa-button-carre>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3>Vos tournois</h3>
+  <div class="details-statuts">
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Statut</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tournament of registeredTournaments">
+          <td>{{ tournament.nom }}</td>
+          <td><span [ngClass]="{'status-active': tournament.statut === 'En cours', 'status-pending': tournament.statut === 'En attente'}">{{ tournament.statut }}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <ul>
-    <li *ngFor="let tournament of registeredTournaments">
-      <span>{{ tournament.nom }}</span>
-      <span [ngClass]="{'status-active': tournament.statut === 'En cours', 'status-pending': tournament.status === 'En attente'}">{{ tournament.statut }}</span>
-    </li>
   </ul>
 </div>
