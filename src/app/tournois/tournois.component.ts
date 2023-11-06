@@ -143,11 +143,11 @@ export class TournoisComponent implements OnInit {
   }
 
   isUserInTournoiParticipants(tournoi: ITournoi): boolean {
-    return tournoi.participants.some(participant => participant.id === this.utilisateur.id);
+    return tournoi.participants.some(participant => participant.utilisateur.id === this.utilisateur.id);
   }
 
   isUserInLigueParticipants(ligue: ILigue): boolean {
-    return ligue.participants.some(participant => participant.id === this.utilisateur.id);
+    return ligue.participants.some(participant => participant.utilisateur.id === this.utilisateur.id);
   }
 
   inscriptionTournoiOuverte(tournoi: ITournoi): boolean {

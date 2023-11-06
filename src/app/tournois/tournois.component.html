@@ -25,7 +25,7 @@
           <td>{{ tournoi.participants.length }}</td>
           <td>
             <div *ngFor="let participant of tournoi.participants">
-              {{ participant.pseudo }}
+              {{ participant.utilisateur.pseudo }}
             </div>
           </td>
           <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
@@ -48,7 +48,6 @@
         <thead>
         <tr>
           <th>Nom</th>
-          <th>Nombre d'inscris</th>
           <th>Format</th>
           <th>Type de combat</th>
           <th>Statut</th>
@@ -60,14 +59,13 @@
         <tbody>
         <tr *ngFor="let ligue of liguesOuvertes">
           <td>{{ ligue.nom }}</td>
-          <td>{{ ligue.participants.length }}</td>
           <td>{{ ligue.format.nom }}</td>
           <td>{{ ligue.typeCombat.nom }}</td>
           <td>{{ ligue.statut }}</td>
           <td>{{ ligue.participants.length }}</td>
           <td>
             <div *ngFor="let participant of ligue.participants">
-              {{ participant.pseudo }}
+              {{ participant.utilisateur.pseudo }}
             </div>
           </td>
           <td *ngIf="!isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">

@@ -4,12 +4,12 @@
     <thead>
     <tr>
       <th></th>
-      <th *ngFor="let player of players">{{ player.pseudo }}</th>
+      <th *ngFor="let player of players">{{ player.utilisateur.pseudo }}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let player of players; let i = index">
-      <td>{{ player.pseudo }}</td>
+      <td>{{ player.utilisateur.pseudo }}</td>
       <td *ngFor="let opponent of players; let j = index">
         <div *ngIf="i !== j" class="match-cell" [class.played]="i !== j">Match {{ i + 1 }} vs {{ j + 1 }}</div>
       </td>

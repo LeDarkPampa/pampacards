@@ -5,7 +5,7 @@ import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
 import {ILigue} from "../../interfaces/ILigue";
-import {IUtilisateur} from "../../interfaces/IUtilisateur";
+import {ICompetitionParticipant} from "../../interfaces/ICompetitionParticipant";
 
 @Component({
   selector: 'app-details-ligue',
@@ -17,7 +17,7 @@ export class DetailsLigueComponent implements OnInit {
   ligueId: number = 0;
   // @ts-ignore
   ligue: ILigue;
-  players: IUtilisateur[] = [];
+  players: ICompetitionParticipant[] = [];
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,

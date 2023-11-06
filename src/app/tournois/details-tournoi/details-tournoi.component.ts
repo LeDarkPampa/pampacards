@@ -5,7 +5,7 @@ import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
 import {ITournoi} from "../../interfaces/ITournoi";
-import {IUtilisateur} from "../../interfaces/IUtilisateur";
+import {ICompetitionParticipant} from "../../interfaces/ICompetitionParticipant";
 
 @Component({
   selector: 'app-details-tournoi',
@@ -18,7 +18,7 @@ export class DetailsTournoiComponent implements OnInit {
   // @ts-ignore
   tournoi: ITournoi;
 
-  players: IUtilisateur[] = [];
+  players: ICompetitionParticipant[] = [];
 
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
 

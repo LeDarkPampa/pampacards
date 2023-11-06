@@ -90,7 +90,7 @@
               <td>{{ tournoi.participants.length }}</td>
               <td>
                 <div *ngFor="let participant of tournoi.participants">
-                  {{ participant.pseudo }}
+                  {{ participant.utilisateur.pseudo }}
                 </div>
               </td>
               <td class="colonne-centree">
@@ -136,7 +136,7 @@
               <td>{{ ligue.participants.length }}</td>
               <td>
                 <div *ngFor="let participant of ligue.participants">
-                  {{ participant.pseudo }}
+                  {{ participant.utilisateur.pseudo }}
                 </div>
               </td>
               <td class="colonne-centree">
