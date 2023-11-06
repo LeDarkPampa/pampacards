@@ -28,10 +28,10 @@
               {{ participant.pseudo }}
             </div>
           </td>
-          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
+          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
             <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForTournament(tournoi)"></app-pampa-button-carre>
           </td>
-          <td *ngIf="isUserInParticipants(tournoi)">
+          <td *ngIf="isUserInTournoiParticipants(tournoi)">
             <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForTournament(tournoi)"></app-pampa-button-carre>
           </td>
           <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length">
@@ -89,7 +89,7 @@
         <tr>
           <th>Nom</th>
           <th>Statut</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -98,6 +98,9 @@
           <td><span [ngClass]="{'status-active': tournoi.statut === 'En cours',
           'status-pending': tournoi.statut === 'En attente',
           'status-ended': tournoi.statut === 'Terminé'}">{{ tournoi.statut }}</span>
+          </td>
+          <td class="ligne-centree" *ngIf="isUserInTournoiParticipants(tournoi) && isTournoiEnCours(tournoi)">
+            <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirTournoi(tournoi)"></app-pampa-button-carre>
           </td>
         </tr>
         </tbody>
@@ -112,7 +115,7 @@
         <tr>
           <th>Nom</th>
           <th>Statut</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -121,6 +124,9 @@
           <td><span [ngClass]="{'status-active': ligue.statut === 'En cours',
           'status-pending': ligue.statut === 'En attente',
           'status-ended': ligue.statut === 'Terminé'}">{{ ligue.statut }}</span>
+          </td>
+          <td class="ligne-centree" *ngIf="isUserInLigueParticipants(ligue) && isLigueEnCours(ligue)">
+            <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirLigue(ligue)"></app-pampa-button-carre>
           </td>
         </tr>
         </tbody>

@@ -8,6 +8,7 @@ import {IUserAndTournoi} from "../interfaces/IUserAndTournoi";
 import {IUserAndLigue} from "../interfaces/IUserAndLigue";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {LigueTournoiStatutEnum} from "../interfaces/LigueTournoiStatutEnum";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tournois',
@@ -25,7 +26,7 @@ export class TournoisComponent implements OnInit {
   utilisateur: IUtilisateur;
 
 
-  constructor(private http: HttpClient, private tournoiService: TournoiService, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private router: Router, private tournoiService: TournoiService, private authService: AuthentificationService) {
   }
 
   ngOnInit(): void {
@@ -102,7 +103,7 @@ export class TournoisComponent implements OnInit {
     });
   }
 
-  isUserInParticipants(tournoi: ITournoi): boolean {
+  isUserInTournoiParticipants(tournoi: ITournoi): boolean {
     return tournoi.participants.some(participant => participant.id === this.utilisateur.id);
   }
 
@@ -116,6 +117,14 @@ export class TournoisComponent implements OnInit {
 
   inscriptionLigueOuverte(ligue: ILigue): boolean {
     return ligue.statut === LigueTournoiStatutEnum.INSCRIPTIONS_OUVERTES;
+  }
+
+  isTournoiEnCours(tournoi: ITournoi): boolean {
+    return tournoi.statut === LigueTournoiStatutEnum.EN_COURS;
+  }
+
+  isLigueEnCours(ligue: ILigue): boolean {
+    return ligue.statut === LigueTournoiStatutEnum.EN_COURS;
   }
 
   refreshTournoisLigueListes() {
@@ -154,5 +163,13 @@ export class TournoisComponent implements OnInit {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
     );
+  }
+
+  voirTournoi(tournoi: ITournoi) {
+    this.router.navigate(['/tournoi', tournoi.id]);
+  }
+
+  voirLigue(ligue: ILigue) {
+    this.router.navigate(['/ligue', ligue.id]);
   }
 }
