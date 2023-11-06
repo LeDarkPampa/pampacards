@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {TournoiService} from "../services/tournoi.service";
 import {ITournoi} from "../interfaces/ITournoi";
 import {ILigue} from "../interfaces/ILigue";
@@ -9,6 +9,13 @@ import {IUserAndLigue} from "../interfaces/IUserAndLigue";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {LigueTournoiStatutEnum} from "../interfaces/LigueTournoiStatutEnum";
 import {Router} from "@angular/router";
+import {IDemandeCombat} from "../interfaces/IDemandeCombat";
+import {IDeck} from "../interfaces/IDeck";
+import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
+import {DialogService} from "primeng/dynamicdialog";
+import {InscriptionDialogComponent} from "./inscription-dialog/inscription-dialog.component";
+import {DeckService} from "../services/deck.service";
+import {IinscriptionCompetition} from "../interfaces/IinscriptionCompetition";
 
 @Component({
   selector: 'app-tournois',
@@ -24,48 +31,82 @@ export class TournoisComponent implements OnInit {
 
   // @ts-ignore
   utilisateur: IUtilisateur;
+  // @ts-ignore
+  allDecks: IDeck[] = [];
 
 
-  constructor(private http: HttpClient, private router: Router, private tournoiService: TournoiService, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private router: Router, private zone: NgZone, private dialogService: DialogService,
+              private tournoiService: TournoiService, private authService: AuthentificationService, private deckService: DeckService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
     this.utilisateur = this.authService.getUser();
+    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+      this.allDecks = playerDecks;
+    });
     this.refreshTournoisLigueListes();
   }
 
   registerForTournament(tournoi: ITournoi) {
-    // @ts-ignore
-    const inscriptionValues: IUserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser() };
+    this.zone.run(() => {
+      const ref = this.dialogService.open(InscriptionDialogComponent, {
+        header: 'Inscription pour ' + tournoi.nom,
+        width: '60%',
+        height: '60%',
+        data: { competition: tournoi, decks: this.allDecks.filter(deck => deck.format.formatId == tournoi.format.formatId) },
+        closable: false
+      });
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/inscription', inscriptionValues).subscribe({
-      next: response => {
-        alert('Inscription enregistrée !');
-        this.refreshTournoisLigueListes();
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de l\'inscription');
-        this.refreshTournoisLigueListes();
-      }
+      ref.onClose.subscribe((inscriptionCompetition: IinscriptionCompetition) => {
+        if (inscriptionCompetition.status === "OK") {
+          // @ts-ignore
+          const inscriptionValues: IUserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
+
+          this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/inscription', inscriptionValues).subscribe({
+            next: response => {
+              alert('Inscription enregistrée !');
+              this.refreshTournoisLigueListes();
+            },
+            error: error => {
+              console.error('There was an error!', error);
+              alert('Erreur lors de l\'inscription');
+              this.refreshTournoisLigueListes();
+            }
+          });
+        }
+      });
     });
   }
 
   registerForLigue(ligue: ILigue) {
-    // @ts-ignore
-    const inscriptionValues: IUserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser() };
+    this.zone.run(() => {
+      const ref = this.dialogService.open(InscriptionDialogComponent, {
+        header: 'Inscription pour ' + ligue.nom,
+        width: '60%',
+        height: '60%',
+        data: { competition: ligue, decks: this.allDecks.filter(deck => deck.format.formatId == ligue.format.formatId) },
+        closable: false
+      });
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/inscription', inscriptionValues).subscribe({
-      next: response => {
-        alert('Inscription enregistrée !');
-        this.refreshTournoisLigueListes();
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de l\'inscription');
-        this.refreshTournoisLigueListes();
-      }
+      ref.onClose.subscribe((inscriptionCompetition: IinscriptionCompetition) => {
+        if (inscriptionCompetition.status === "OK") {
+          // @ts-ignore
+          const inscriptionValues: IUserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
+
+          this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/inscription', inscriptionValues).subscribe({
+            next: response => {
+              alert('Inscription enregistrée !');
+              this.refreshTournoisLigueListes();
+            },
+            error: error => {
+              console.error('There was an error!', error);
+              alert('Erreur lors de l\'inscription');
+              this.refreshTournoisLigueListes();
+            }
+          });
+        }
+      });
     });
   }
 

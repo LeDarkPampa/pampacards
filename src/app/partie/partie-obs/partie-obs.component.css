@@ -12,6 +12,10 @@
   grid-gap: 0;
 }
 
+.main-width {
+  width: 60%;
+}
+
 .infos-adv {
   display: flex;
   justify-content: center;

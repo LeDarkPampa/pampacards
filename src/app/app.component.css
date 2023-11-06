@@ -8,6 +8,7 @@ body {
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   background-repeat: repeat-y;
   color: white;
+  overflow-y: auto;
 }
 
 .ligne-centree {
@@ -19,6 +20,13 @@ body {
 
 .main-width {
   width: 60%;
+}
+
+.colonne {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .colonne-centree {
@@ -47,6 +55,10 @@ body {
 
 .big-margin-bot {
   margin-bottom: 50px;
+}
+
+.padding-top {
+  padding-top: 10px;
 }
 
 .text-center {

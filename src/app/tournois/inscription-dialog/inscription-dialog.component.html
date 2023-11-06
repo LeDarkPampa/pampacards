@@ -1,0 +1,36 @@
+<div class="colonne app-background padding-top">
+  <div class="ligne-centree margin-bot">Format de decks : {{competition.format.nom}}</div>
+  <div class="ligne-centree margin-bot">Type de combats : {{competition.typeCombat.nom}}</div>
+  <div class="ligne-centree margin-bot erreur-message" *ngIf="!hasValidDeck">
+    Aucun deck valide pour le format demandé
+  </div>
+
+
+  <div class="colonne-centree margin-bot" *ngIf="hasValidDeck">
+    <div *ngIf="competition.typeCombat.nombreDeDecks === 1" class="margin-bot margin-right">
+      Choisis ton deck pour t'inscrire :
+    </div>
+    <div *ngIf="competition.typeCombat.nombreDeDecks > 1" class="margin-bot margin-right">
+      Choisis tes decks pour t'inscrire :
+    </div>
+    <div class="ligne-centree">
+      <div *ngFor="let index of generateRange(competition.typeCombat.nombreDeDecks); let i = index">
+        <p-dropdown [options]="decks" [(ngModel)]="selectedDecks[i]" placeholder="Sélectionnez un deck" optionLabel="nom"></p-dropdown>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!areDecksUnique()">
+    <div class="erreur-message">Des decks identiques ont été sélectionnés. Veuillez en choisir des différents.</div>
+  </div>
+  <div class="ligne-centree">
+    <div *ngIf="hasValidDeck">
+      <div *ngIf="areDecksUnique()">
+        <div *ngIf="allDecksSelected()">
+          <app-pampa-button [texte]="'Accepter'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="accepter()"></app-pampa-button>
+        </div>
+      </div>
+    </div>
+    <app-pampa-button [texte]="'Refuser'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="refuser()"></app-pampa-button>
+  </div>
+
+</div>

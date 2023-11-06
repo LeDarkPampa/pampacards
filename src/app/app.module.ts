@@ -73,6 +73,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DetailsTournoiComponent } from './tournois/details-tournoi/details-tournoi.component';
 import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.component';
 import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
+import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscription-dialog.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { AdministrationTournoisComponent } from './administration/administration
     HowToStartComponent,
     DetailsTournoiComponent,
     DetailsLigueComponent,
-    AdministrationTournoisComponent
+    AdministrationTournoisComponent,
+    InscriptionDialogComponent
   ],
   imports: [
     RouterModule.forRoot([
