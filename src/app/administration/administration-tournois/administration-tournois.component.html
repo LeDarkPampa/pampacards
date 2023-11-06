@@ -6,7 +6,7 @@
       <input type="text" id="nom" formControlName="nom" required>
 
       <label for="nombre_de_joueurs">Nombre de joueurs</label>
-      <input type="number" id="nombre_de_joueurs" formControlName="nombre_de_joueurs" required>
+      <input type="number" id="nombre_de_joueurs" formControlName="nombreDeJoueurs" required>
 
       <label for="format">Format</label>
       <select id="format" formControlName="format" required>
@@ -20,14 +20,12 @@
         <option *ngFor="let typeCombat of typesCombat" [ngValue]="typeCombat">{{ typeCombat.nom }}</option>
       </select>
 
-      <button type="submit">Créer le tournoi</button>
-    </form>
-  </div>
-  <div>
-    <h2>Modifier un tournoi</h2>
-    <form [formGroup]="tournoiForm" (ngSubmit)="onSubmitTournoi()">
+      <label for="statut">Statut</label>
+      <select id="Statut" formControlName="statut">
+        <option *ngFor="let statut of statutsTournoi" [ngValue]="statut">{{ statut }}</option>
+      </select>
 
-      <button type="submit">Modifier le tournoi</button>
+      <button type="submit">Créer le tournoi</button>
     </form>
   </div>
   <div>
@@ -48,63 +46,108 @@
         <option *ngFor="let typeCombat of typesCombat" [ngValue]="typeCombat">{{ typeCombat.nom }}</option>
       </select>
 
+      <label for="statut">Statut</label>
+      <select id="Statut" formControlName="statut">
+        <option *ngFor="let statut of statutsTournoi" [ngValue]="statut">{{ statut }}</option>
+      </select>
+
       <button type="submit">Créer la ligue</button>
     </form>
   </div>
   <div>
-    <h2>Modifier une ligue</h2>
-    <form [formGroup]="tournoiForm" (ngSubmit)="onSubmitTournoi()">
-
-      <button type="submit">Modifier la ligue</button>
-    </form>
-  </div>
-  <div>
-    <h2>Liste des tournois</h2>
-    <div class="tournoi-list">
-      <table>
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Nombre de joueurs</th>
-          <th>Format</th>
-          <th>Type de combat</th>
-          <th>Statut</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let tournoi of tournois">
-          <td>{{ tournoi.nom }}</td>
-          <td>{{ tournoi.nombreDeJoueurs }}</td>
-          <td>{{ tournoi.format.nom }}</td>
-          <td>{{ tournoi.typeCombat.nom }}</td>
-          <td>{{ tournoi.statut }}</td>
-        </tr>
-        </tbody>
-      </table>
+    <div>
+      <h3>Tournois</h3>
+      <div class="details-statuts">
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Places</th>
+              <th>Format</th>
+              <th>Type de combat</th>
+              <th>Statut</th>
+              <th>Inscrits</th>
+              <th>Noms</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tournoi of tournois">
+              <td>{{ tournoi.nom }}</td>
+              <td>{{ tournoi.nombreDeJoueurs }}</td>
+              <td>{{ tournoi.format.nom }}</td>
+              <td>
+                <select [(ngModel)]="tournoi.typeCombat.nom" (change)="updateTypeCombat(tournoi, $event)">
+                  <option *ngFor="let typeCombat of typesCombat">{{ typeCombat.nom }}</option>
+                </select>
+              </td>
+              <td>
+                <select [(ngModel)]="tournoi.statut" name="statut">
+                  <option *ngFor="let statut of statutsTournoi" [ngValue]="statut">{{ statut }}</option>
+                </select>
+              </td>
+              <td>{{ tournoi.participants.length }}</td>
+              <td>
+                <div *ngFor="let participant of tournoi.participants">
+                  {{ participant.pseudo }}
+                </div>
+              </td>
+              <td class="colonne-centree">
+                <app-pampa-button-carre [texte]="'Modifier'" [couleur]="'bleu'" [taille]="'mini'" (click)="saveTournoi(tournoi)"></app-pampa-button-carre>
+                <app-pampa-button-carre [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'mini'" (click)="deleteTournoi(tournoi)"></app-pampa-button-carre>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <h2>Liste des ligues</h2>
-    <div class="tournoi-list">
-      <table>
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Format</th>
-          <th>Type de combat</th>
-          <th>Statut</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let ligue of ligues">
-          <td>{{ ligue.nom }}</td>
-          <td>{{ ligue.format.nom }}</td>
-          <td>{{ ligue.typeCombat.nom }}</td>
-          <td>{{ ligue.statut }}</td>
-        </tr>
-        </tbody>
-      </table>
+    <div>
+      <h3>Ligues</h3>
+      <div class="details-statuts">
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Format</th>
+              <th>Type de combat</th>
+              <th>Statut</th>
+              <th>Inscrits</th>
+              <th>Noms</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ligue of ligues">
+              <td>{{ ligue.nom }}</td>
+              <td>{{ ligue.format.nom }}</td>
+              <td>
+                <select [(ngModel)]="ligue.typeCombat.nom" (change)="updateTypeCombat(ligue, $event)">
+                  <option *ngFor="let typeCombat of typesCombat">{{ typeCombat.nom }}</option>
+                </select>
+              </td>
+              <td>
+                <select [(ngModel)]="ligue.statut" name="statut">
+                  <option *ngFor="let statut of statutsTournoi" [ngValue]="statut">{{ statut }}</option>
+                </select>
+              </td>
+              <td>{{ ligue.participants.length }}</td>
+              <td>
+                <div *ngFor="let participant of ligue.participants">
+                  {{ participant.pseudo }}
+                </div>
+              </td>
+              <td class="colonne-centree">
+                <app-pampa-button-carre [texte]="'Modifier'" [couleur]="'bleu'" [taille]="'mini'" (click)="saveLigue(ligue)"></app-pampa-button-carre>
+                <app-pampa-button-carre [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'mini'" (click)="deleteLigue(ligue)"></app-pampa-button-carre>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

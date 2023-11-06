@@ -24,8 +24,12 @@ export class TournoiService {
     return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/tournois-valides?userId=` + userId);
   }
 
-  createTournoi(newTournoi: ITournoi): Observable<any> {
+  saveTournoi(newTournoi: ITournoi): Observable<any> {
     return this.http.post(`${this.BACKEND_URL}/tournois`, newTournoi);
+  }
+
+  deleteTournoi(id: number): Observable<any> {
+    return this.http.delete(`${this.BACKEND_URL}/tournois/${id}`);
   }
 
   getAllLigues(): Observable<ILigue[]> {
@@ -40,9 +44,12 @@ export class TournoiService {
     return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/ligues-valides?userId=` + userId);
   }
 
-  createLigue(newLigue: ILigue): Observable<any> {
+  saveLigue(newLigue: ILigue): Observable<any> {
     return this.http.post(`${this.BACKEND_URL}/ligues`, newLigue);
   }
 
+  deleteLigue(id: number): Observable<any> {
+    return this.http.delete(`${this.BACKEND_URL}/ligues/${id}`);
+  }
 
 }
