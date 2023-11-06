@@ -17,6 +17,8 @@ export class DetailsLigueComponent implements OnInit {
   ligueId: number = 0;
   // @ts-ignore
   ligue: ILigue;
+  players = ['joueur 1', 'joueur 2', 'joueur 3', 'joueur 4', 'joueur 5'];
+
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
               private sseService: SseService, private cd: ChangeDetectorRef) {
