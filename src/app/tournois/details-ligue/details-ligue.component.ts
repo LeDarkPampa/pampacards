@@ -4,7 +4,6 @@ import {ActivatedRoute} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
-import {ITournoi} from "../../interfaces/ITournoi";
 import {ILigue} from "../../interfaces/ILigue";
 import {IUtilisateur} from "../../interfaces/IUtilisateur";
 
@@ -19,6 +18,7 @@ export class DetailsLigueComponent implements OnInit {
   // @ts-ignore
   ligue: ILigue;
   players: IUtilisateur[] = [];
+  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -35,7 +35,7 @@ export class DetailsLigueComponent implements OnInit {
   }
 
   private getLigue() {
-    this.http.get<ILigue>('https://pampacardsback-57cce2502b80.herokuapp.com/api/ligues/`' + this.ligueId).subscribe({
+    this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + this.ligueId).subscribe({
       next: ligue => {
         this.ligue = ligue;
         this.players = this.ligue.participants;
@@ -45,5 +45,4 @@ export class DetailsLigueComponent implements OnInit {
       }
     });
   }
-
 }

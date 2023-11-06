@@ -1,17 +1,15 @@
-Tournoi {{tournoiId}}
-
 <div class="round-robin-tournament">
-  <h2>Tableau du tournoi - Round Robin</h2>
+  <h2><div class="ligne-centree">Tournoi {{tournoi.nom}}</div></h2>
   <table>
     <thead>
     <tr>
       <th></th>
-      <th *ngFor="let player of players">{{ player }}</th>
+      <th *ngFor="let player of players">{{ player.pseudo }}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let player of players; let i = index">
-      <td>{{ player }}</td>
+      <td>{{ player.pseudo }}</td>
       <td *ngFor="let opponent of players; let j = index">
         <div *ngIf="i !== j" class="match-cell" [class.played]="i !== j">Match {{ i + 1 }} vs {{ j + 1 }}</div>
       </td>

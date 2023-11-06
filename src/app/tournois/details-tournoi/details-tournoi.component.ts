@@ -4,8 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
-import {IPartie} from "../../interfaces/IPartie";
 import {ITournoi} from "../../interfaces/ITournoi";
+import {IUtilisateur} from "../../interfaces/IUtilisateur";
 
 @Component({
   selector: 'app-details-tournoi',
@@ -18,7 +18,9 @@ export class DetailsTournoiComponent implements OnInit {
   // @ts-ignore
   tournoi: ITournoi;
 
-  players = ['joueur 1', 'joueur 2', 'joueur 3', 'joueur 4', 'joueur 5'];
+  players: IUtilisateur[] = [];
+
+  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
 
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
@@ -36,9 +38,10 @@ export class DetailsTournoiComponent implements OnInit {
   }
 
   private getTournoi() {
-    this.http.get<ITournoi>('https://pampacardsback-57cce2502b80.herokuapp.com/api/tournois/`' + this.tournoiId).subscribe({
+    this.http.get<ITournoi>(`${this.BACKEND_URL}/tournois/tournoi?id=` + this.tournoiId).subscribe({
       next: tournoi => {
         this.tournoi = tournoi;
+        this.players = this.tournoi.participants;
       },
       error: error => {
         console.error('There was an error!', error);
