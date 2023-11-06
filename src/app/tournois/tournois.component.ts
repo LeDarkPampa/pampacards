@@ -121,7 +121,6 @@ export class TournoisComponent implements OnInit {
       },
       error: error => {
         console.error('There was an error!', error);
-        alert('Erreur lors de la desinscription');
         this.refreshTournoisLigueListes();
       }
     });
@@ -138,7 +137,6 @@ export class TournoisComponent implements OnInit {
       },
       error: error => {
         console.error('There was an error!', error);
-        alert('Erreur lors de la desinscription');
         this.refreshTournoisLigueListes();
       }
     });
