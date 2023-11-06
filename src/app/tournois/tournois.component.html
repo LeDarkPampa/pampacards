@@ -31,7 +31,7 @@
           <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
             <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForTournament(tournoi)"></app-pampa-button-carre>
           </td>
-          <td *ngIf="isUserInTournoiParticipants(tournoi)">
+          <td *ngIf="isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
             <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForTournament(tournoi)"></app-pampa-button-carre>
           </td>
           <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length">
@@ -73,7 +73,7 @@
           <td *ngIf="!isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
             <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForLigue(ligue)"></app-pampa-button-carre>
           </td>
-          <td *ngIf="isUserInLigueParticipants(ligue)">
+          <td *ngIf="isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
             <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForLigue(ligue)"></app-pampa-button-carre>
           </td>
         </tr>
