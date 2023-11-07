@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {IDeck} from "../interfaces/IDeck";
 import {HttpClient} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {AuthentificationService} from "./authentification.service";
 import { catchError, map } from 'rxjs/operators';
+import {ICollection} from "../interfaces/ICollection";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,17 @@ export class DeckService {
       catchError(error => {
         console.error('There was an error!', error);
         return throwError(error);
+      })
+    );
+  }
+
+  isDeckUtilise(selectedDeck: IDeck): Observable<boolean> {
+    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/isDeckUtilise?deckId=${selectedDeck.id}`;
+    return this.http.get<boolean>(url).pipe(
+      map((data: boolean) => data),
+      catchError((error) => {
+        console.error('There was an error!', error);
+        return of(false);
       })
     );
   }

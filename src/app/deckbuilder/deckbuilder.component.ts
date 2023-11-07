@@ -296,20 +296,31 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   delete() {
     let selectedDeck = this.selectedDeck;
-    this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', {body: selectedDeck}).subscribe({
-      next: data => {
-        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-          this.decks = playerDecks;
-        });
-        // @ts-ignore
-        this.selectedDeck = null;
-        this.resetValues();
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
+    this.deckService.isDeckUtilise(selectedDeck).subscribe(
+      (isUsed) => {
+        if (isUsed) {
+          this.error = [
+            { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
+          ];
+        } else {
+          this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', { body: selectedDeck }).subscribe({
+            next: data => {
+              this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+                this.decks = playerDecks;
+              });
+              // @ts-ignore
+              this.selectedDeck = null;
+              this.resetValues();
+            },
+            error: error => {
+              this.error = [
+                { severity: 'error', summary: 'Erreur', detail: 'Erreur lors de la suppression du deck' },
+              ];
+            }
+          });
+        }
       }
-    });
+    );
   }
 
 
