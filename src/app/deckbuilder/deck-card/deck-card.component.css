@@ -21,18 +21,22 @@
   transition: opacity 0.5s ease-in-out;
 }
 
+.illustration {
+  height: 50px;
+}
+
 .card-container:hover {
   background-color: #292929;
 }
 
 .card-container:hover .card-details {
-  display: block;
+  display: flex;
   opacity: 1;
 }
 
 @media (min-width: 1000px) {
   .nom {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .mat-icon {
@@ -45,7 +49,7 @@
   }
 
   .card-details {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
@@ -64,7 +68,7 @@
   }
 
   .card-details {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
