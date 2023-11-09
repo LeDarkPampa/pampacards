@@ -858,7 +858,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.RESURRECTION: {
           if (!this.hasCrypte(this.adversaire)) {
-            if (this.joueur.defausse.length > 0) {
+            if (this.joueur.defausse.filter(c => this.memeTypeOuClan(c, carte)).length > 0) {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
@@ -872,7 +872,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (error: any) => console.error(error)
               );
 
-              this.showSelectionCarteDialog(this.joueur.defausse);
+              this.showSelectionCarteDialog(this.joueur.defausse.filter(c => this.memeTypeOuClan(c, carte)));
 
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
