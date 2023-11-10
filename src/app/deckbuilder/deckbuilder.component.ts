@@ -23,7 +23,6 @@ import {IUtilisateur} from "../interfaces/IUtilisateur";
 export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   unsavedChanges = false;
-  private errorMessage: any;
   collectionJoueur: ICarteAndQuantity[];
   collectionJoueurFiltree: ICarteAndQuantity[];
   decks: IDeck[] = [];
@@ -41,7 +40,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       limitationCartes: []
   }
   // @ts-ignore
-  error: Message[];
+  message: Message[];
   // @ts-ignore
   hasExceededLimitation: Boolean;
   filtersAndSortsValues: IFiltersAndSortsValues = {
@@ -118,7 +117,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       if (limitation) {
         const limitationQuantity = limitation.limite;
         if (carteQuantity >= limitationQuantity) {
-          this.error = [
+          this.message = [
             {
               severity: 'warn',
               summary: 'Attention',
@@ -129,7 +128,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         }
       } else if (this.selectedFormat.nom != 'NO LIMIT') {
         if (carteQuantity >= 3) {
-          this.error = [
+          this.message = [
             {
               severity: 'warn',
               summary: 'Attention',
@@ -145,7 +144,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       this.selectedDeck.cartes.push(carte);
       this.removeSelectedCardFromUserCollection(carte);
     } else {
-      this.error = [
+      this.message = [
         { severity: 'warn', summary: 'Attention', detail: 'Impossible de mettre plus de vingt cartes' },
       ];
     }
@@ -166,23 +165,23 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   saveDeck() {
     let deck: IDeck = this.selectedDeck;
     if (!this.nomDeck || this.nomDeck === '') {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
     } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id !== deck.id)) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' },
       ];
     } else if (!(deck.cartes.length == 20)) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
     } else if (!this.selectedFormat) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
     } else if (this.hasExceededLimitation) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
@@ -192,6 +191,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
         this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
           this.decks = playerDecks;
+          this.message = [
+            { severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' },
+          ];
         });
       })
     }
@@ -200,19 +202,19 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   duplicateDeck() {
     let deck = this.selectedDeck;
     if (!deck.nom) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
     } else if (!(deck.cartes.length == 20)) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
     } else if (!this.selectedFormat) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
     } else if (this.hasExceededLimitation) {
-      this.error = [
+      this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
     } else {
@@ -276,7 +278,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         this.removeCartesCollectionDuSelectedDeck();
       },
       error: error => {
-        this.errorMessage = error.message;
         console.error('There was an error!', error);
       }
     });
@@ -288,7 +289,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         data.forEach(format => this.formats.push(format));
       },
       error: error => {
-        this.errorMessage = error.message;
         console.error('There was an error!', error);
       }
     })
@@ -299,7 +299,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.deckService.isDeckUtilise(selectedDeck).subscribe(
       (isUsed) => {
         if (isUsed) {
-          this.error = [
+          this.message = [
             { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
           ];
         } else {
@@ -313,7 +313,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
               this.resetValues();
             },
             error: error => {
-              this.error = [
+              this.message = [
                 { severity: 'error', summary: 'Erreur', detail: 'Erreur lors de la suppression du deck' },
               ];
             }
@@ -367,7 +367,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         if (carteQuantity > limitationQuantity) {
           this.hasExceededLimitation = true;
           const carteName = this.selectedDeck.cartes.find(carte => carte.id === carteId)?.nom;
-          this.error = [
+          this.message = [
             {
               severity: 'error',
               summary: 'Erreur',
