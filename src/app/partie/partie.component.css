@@ -176,14 +176,17 @@
 }
 
 .flash-animation {
-  animation: flash 0.5s alternate infinite;
+  animation: pulsate 1s ease infinite;
 }
 
-@keyframes flash {
+@keyframes pulsate {
   0% {
     opacity: 1;
   }
+  50% {
+    opacity: 0.8;
+  }
   100% {
-    opacity: 0.2;
+    opacity: 1;
   }
 }

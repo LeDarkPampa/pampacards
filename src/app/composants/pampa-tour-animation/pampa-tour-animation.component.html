@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'rotation': nouveauTour}">
   <div class="labyrinthe">
     <div>
       <div *ngFor="let position of positions; let i = index" class="etape" [style.left.px]="position[0]" [style.top.px]="position[1]">

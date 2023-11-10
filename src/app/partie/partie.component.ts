@@ -117,10 +117,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.piocherCarte();
         }
 
-        // Désactivez l'animation de flash après un certain délai (par exemple, après 2 secondes)
+        // Désactivez l'animation de flash après un certain délai
         setTimeout(() => {
           this.isFlashing = false;
-        }, 2000);
+        }, 1000);
       }
     }
 

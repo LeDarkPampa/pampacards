@@ -7,6 +7,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 })
 export class PampaTourAnimationComponent implements OnChanges {
   @Input() tour: number = 1;
+  nouveauTour: boolean = false;
   tourAffiche = 0;
   positions: number[][] = [
     [9, 5], [71, 5],
@@ -20,12 +21,12 @@ export class PampaTourAnimationComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if ('tour' in changes) {
       this.tourAffiche = Math.ceil(this.tour / 2);
-    }
-  }
+      this.nouveauTour = true;
 
-  incrementTour() {
-    this.tour = this.tour + 1;
-    this.tourAffiche = Math.ceil(this.tour / 2);
+      setTimeout(() => {
+        this.nouveauTour = false;
+      }, 1000);
+    }
   }
 
   afficherTour(i: number) {
