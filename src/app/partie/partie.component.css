@@ -3,30 +3,37 @@
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   color: white;
   display: grid;
-  grid-template-columns: 10% auto 10% 15%;
-  grid-template-rows: 17% 26% 26% 31%;
-  grid-template-areas: "infos-adv main-adv infos-tours bandeau-chat"
-"deck-adv terrain-adv defausse-adv bandeau-chat"
-"deck-joueur terrain-joueur defausse-joueur bandeau-chat"
-"infos-joueur main-joueur actions bandeau-chat";
+  grid-template-columns: 10% 13% auto 13% 10% 15%;
+  grid-template-rows: 15% 4% 24% 24% 4% 29%;
+  grid-template-areas: "empty infos-adv main-adv main-adv infos-tours bandeau-chat"
+"deck-adv puissance-adv empty2 empty2 infos-tours bandeau-chat"
+  "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
+"deck-joueur terrain-joueur terrain-joueur terrain-joueur defausse-joueur bandeau-chat"
+  "deck-joueur empty3 empty3 puissance-joueur actions bandeau-chat"
+"empty4 main-joueur main-joueur infos-joueur actions bandeau-chat";
   grid-gap: 0;
 }
 
 .infos-adv {
+  grid-area: infos-adv;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
 }
 
 .main-adv {
+  grid-area: main-adv;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.infos-tour {
+.infos-tours {
+  grid-area: infos-tours;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +45,7 @@
 }
 
 .deck-adv {
+  grid-area: deck-adv;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,23 +53,38 @@
 }
 
 .defausse-adv {
+  grid-area: defausse-adv;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-
 }
+
+.puissance-adv {
+  grid-area: puissance-adv;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  border: solid;
+  border-width: 10px 10px 0 10px;
+}
+
+.puissance-joueur {
+  grid-area: puissance-joueur;
+  width: 100%;
+  justify-self: end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  border: solid;
+  border-width: 0 10px 10px 10px;
+}
+
 .deck-joueur {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.terrain-joueur {
-  overflow: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  grid-area: deck-joueur;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,56 +92,31 @@
 }
 
 .terrain-adv {
+  grid-area: terrain-adv;
   overflow: auto;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  border: 10px solid;
 }
 
-.terrain-adv-premier {
-  background-color: rgb(64, 110, 142, 0.5);
-  border: 10px solid rgb(64, 110, 142, 0.7);
-}
-
-.terrain-adv-autre {
-  background-color: rgb(227, 79, 86, 0.5);
-  border: 10px solid rgb(227, 79, 86, 0.7);
-}
-
-.terrain-adv-premier-dark {
-  background-color: rgb(64, 110, 142,0.1);
-  border: 10px solid rgb(64, 110, 142, 0.3);
-}
-
-.terrain-adv-autre-dark {
-  background-color: rgb(227, 79, 86, 0.1);
-  border: 10px solid rgb(227, 79, 86, 0.3);
-}
-
-.terrain-joueur-premier {
-  background-color: rgb(64, 110, 142, 0.5);
-  border: 10px solid rgb(64, 110, 142, 0.7);
-}
-
-.terrain-joueur-autre {
-  background-color: rgb(227, 79, 86, 0.5);
-  border: 10px solid rgb(227, 79, 86, 0.7);
-}
-
-.terrain-joueur-premier-dark {
-  background-color: rgb(64, 110, 142, 0.1);
-  border: 10px solid rgb(64, 110, 142, 0.3);
-}
-
-.terrain-joueur-autre-dark {
-  background-color: rgb(227, 79, 86, 0.1);
-  border: 10px solid rgb(227, 79, 86, 0.3);
+.terrain-joueur {
+  grid-area: terrain-joueur;
+  overflow: auto;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 10px solid;
 }
 
 .defausse-joueur {
+  grid-area: defausse-joueur;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,13 +124,16 @@
 }
 
 .infos-joueur {
+  grid-area: infos-joueur;
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
 }
 
 .main-joueur {
+  grid-area: main-joueur;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,6 +141,7 @@
 }
 
 .actions {
+  grid-area: actions;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -147,32 +149,50 @@
   text-align: center;
 }
 
-.player-container {
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  padding: 5px;
-  text-align: center;
-  width: 95%;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.terrain-adv-premier {
+  background-color: rgb(64, 110, 142, 0.5);
+  border-color: rgb(64, 110, 142, 0.7);
 }
 
+.terrain-adv-autre {
+  background-color: rgb(227, 79, 86, 0.5);
+  border-color: rgb(227, 79, 86, 0.7);
+}
+
+.terrain-adv-premier-dark {
+  background-color: rgb(64, 110, 142,0.1);
+  border-color: rgb(64, 110, 142, 0.3);
+}
+
+.terrain-adv-autre-dark {
+  background-color: rgb(227, 79, 86, 0.1);
+  border-color: rgb(227, 79, 86, 0.3);
+}
+
+.terrain-joueur-premier {
+  background-color: rgb(64, 110, 142, 0.5);
+  border-color: rgb(64, 110, 142, 0.7);
+}
+
+.terrain-joueur-autre {
+  background-color: rgb(227, 79, 86, 0.5);
+  border-color: rgb(227, 79, 86, 0.7);
+}
+
+.terrain-joueur-premier-dark {
+  background-color: rgb(64, 110, 142, 0.1);
+  border-color: rgb(64, 110, 142, 0.3);
+}
+
+.terrain-joueur-autre-dark {
+  background-color: rgb(227, 79, 86, 0.1);
+  border-color: rgb(227, 79, 86, 0.3);
+}
 
 .card-container {
   display: inline-block;
   margin-right: 10px;
   position: relative;
-}
-
-.card-visualiser {
-  margin-top: auto;
-}
-
-.card-visualiser img {
-  max-width: 95%;
 }
 
 .flash-animation {
