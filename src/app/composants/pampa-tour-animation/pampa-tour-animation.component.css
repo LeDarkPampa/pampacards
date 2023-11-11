@@ -35,7 +35,7 @@
 }
 
 .rotation {
-  animation: rotate 1s linear infinite;
+  animation: rotate 1s linear 1;
 }
 
 @keyframes rotate {

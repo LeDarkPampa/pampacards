@@ -196,7 +196,7 @@
 }
 
 .flash-animation {
-  animation: pulsate 1s ease infinite;
+  animation: pulsate 1s ease 2;
 }
 
 @keyframes pulsate {
