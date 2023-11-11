@@ -1,4 +1,4 @@
-.container {
+.tour-container {
   width: 100px;
   height: 120px;
 }
@@ -9,6 +9,7 @@
   position: relative;
   overflow: hidden;
   background-image: url('../../../assets/composants/background-tours.png');
+  transform: rotate(270deg);
   background-repeat: no-repeat;
 }
 
@@ -44,4 +45,8 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.deg90 {
+  transform: rotate(90deg);
 }

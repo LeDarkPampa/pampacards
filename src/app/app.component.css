@@ -53,7 +53,11 @@ body {
   margin-bottom: 10px;
 }
 
-.big-margin-bot {
+.margin-left-30 {
+  margin-left: 30px;
+}
+
+.margin-bot-50 {
   margin-bottom: 50px;
 }
 

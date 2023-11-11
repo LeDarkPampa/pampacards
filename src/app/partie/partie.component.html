@@ -11,13 +11,14 @@
   </div>
   <div class="infos-tours">
     <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
+    <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
   </div>
   <div class="bandeau-chat">
     <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
   <div class="deck-adv">
     <div class="deck-container">
-      <h4>Deck : {{adversaire.deck.length}}</h4>
+      <div class="margin-bot">Deck : {{adversaire.deck.length}}</div>
       <div class="card-container" *ngIf="adversaire.deck.length > 0">
         <app-carte-main-adv></app-carte-main-adv>
       </div>
@@ -33,7 +34,7 @@
   <div class="defausse-adv">
     <div class="deck-container">
       <div>
-        <h4>Défausse : {{adversaire.defausse.length}}</h4>
+        <div class="margin-bot">Défausse : {{adversaire.defausse.length}}</div>
       </div>
       <div class="card-container" *ngIf="adversaire.defausse.length > 0">
         <app-defausse [cartes]="this.adversaire.defausse" (click)="voirDefausse(this.adversaire.defausse)"></app-defausse>
@@ -45,7 +46,7 @@
   </div>
   <div class="deck-joueur">
     <div class="deck-container">
-      <h4>Deck : {{joueur.deck.length}}</h4>
+      <div class="margin-bot">Deck : {{joueur.deck.length}}</div>
       <div class="card-container" *ngIf="joueur.deck.length > 0">
         <app-carte-main-adv></app-carte-main-adv>
       </div>
@@ -61,7 +62,7 @@
   <div class="defausse-joueur">
     <div class="deck-container">
       <div>
-        <h4>Défausse : {{joueur.defausse.length}}</h4>
+        <div class="margin-bot">Défausse : {{joueur.defausse.length}}</div>
       </div>
       <div class="card-container" *ngIf="joueur.defausse.length > 0">
         <app-defausse [cartes]="this.joueur.defausse" (click)="voirDefausse(this.joueur.defausse)"></app-defausse>

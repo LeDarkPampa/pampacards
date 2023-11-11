@@ -1523,4 +1523,8 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.sseService.closeEvenementsPartieEventSource();
   }
+
+  getTourAffiche() {
+    return Math.ceil((this.lastEvent ? this.lastEvent.tour : 0) / 2);
+  }
 }

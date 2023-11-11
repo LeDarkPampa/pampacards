@@ -1,14 +1,10 @@
-<div class="container" [ngClass]="{'rotation': nouveauTour}">
+<div class="tour-container" [ngClass]="{'rotation': nouveauTour}">
   <div class="labyrinthe">
     <div>
       <div *ngFor="let position of positions; let i = index" class="etape" [style.left.px]="position[0]" [style.top.px]="position[1]">
-        {{ afficherTour(i) }}
+       <div class="deg90"> {{ afficherTour(i) }}</div>
       </div>
     </div>
     <div class="cercle" [style.left.px]="positions[tour - 1][0]" [style.top.px]="positions[tour - 1][1]"></div>
-    <!--
-         <button (click)="incrementTour()">+</button>
-     -->
   </div>
-  Tour : {{tourAffiche}}
 </div>
