@@ -88,7 +88,10 @@
   </div>
   <div class="actions">
     <div class="ligne-centree" *ngIf="finDePartie">
-      Fin de la partie ! Victoire de {{vainqueur}}
+      <div>
+        Fin de la partie
+      </div>
+      {{getVainqueurTexte()}}
     </div>
     <div *ngIf=" estJoueurActif && !finDePartie">
       <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="finDeTour()"></app-pampa-button>

@@ -369,7 +369,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     } else if (scoreAdversaire > scoreJoueur) {
       this.vainqueur = this.adversaire.nom;
       vainqueurId = this.adversaire.id;
-    } else {
+    } else if (scoreAdversaire == scoreJoueur) {
       this.vainqueur = 'égalité';
     }
 
@@ -1526,5 +1526,22 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getTourAffiche() {
     return Math.ceil((this.lastEvent ? this.lastEvent.tour : 0) / 2);
+  }
+
+  getVainqueurTexte() {
+    let texteVainqueur = '';
+    if (this.vainqueur) {
+      let scoreJoueur = this.joueur.score;
+      let scoreAdversaire = this.adversaire.score;
+      if (scoreJoueur > scoreAdversaire) {
+        texteVainqueur = "Victoire de " + this.joueur.nom;
+      } else if (scoreAdversaire > scoreJoueur) {
+        texteVainqueur = " Victoire de " + this.adversaire.nom;
+      } else if (scoreAdversaire == scoreJoueur) {
+        texteVainqueur = 'C\'est une égalité ';
+      }
+    }
+
+    return texteVainqueur;
   }
 }
