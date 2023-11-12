@@ -10,7 +10,7 @@ table {
 }
 
 table th, table td {
-  padding: 10px;
+
   text-align: center;
   border: 1px solid #ccc;
 }
@@ -27,15 +27,14 @@ table tr:hover {
 }
 
 .match-cell {
-  width: 100px;
-  height: 30px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .match-cell.played {
-  background-color: #ccc;
   font-weight: bold;
 }
