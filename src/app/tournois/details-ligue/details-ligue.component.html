@@ -1,5 +1,6 @@
 <div class="round-robin-tournament">
   <h2><div class="ligne-centree">Ligue {{ligue.nom}}</div></h2>
+  <div class="has-affrontement" *ngIf="hasAffrontement">Vous avez un combat à jouer !</div>
   <table>
     <thead>
     <tr>
@@ -11,8 +12,8 @@
     <tr *ngFor="let player of players; let i = index">
       <td>{{ player.utilisateur.pseudo }}</td>
       <td *ngFor="let opponent of players; let j = index">
-        <div *ngIf="i !== j && hasAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match {{ i + 1 }} vs {{ j + 1 }}</div>
-        <div *ngIf="i !== j && !hasAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match à venir</div>
+        <div *ngIf="i !== j && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match {{ i + 1 }} vs {{ j + 1 }}</div>
+        <div *ngIf="i !== j && !isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match à venir</div>
       </td>
     </tr>
     </tbody>

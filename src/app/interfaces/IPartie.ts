@@ -9,4 +9,5 @@ export interface IPartie {
   joueurDeux: IUtilisateur;
   deckJoueurUn: IDeck;
   deckJoueurDeux: IDeck;
+  competitionId: number;
 }

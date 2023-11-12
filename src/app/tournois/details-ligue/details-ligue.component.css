@@ -38,3 +38,10 @@ table tr:hover {
 .match-cell.played {
   font-weight: bold;
 }
+
+.has-affrontement {
+  width: 100%;
+  text-align: center;
+  color: red;
+  margin-bottom: 10px;
+}
