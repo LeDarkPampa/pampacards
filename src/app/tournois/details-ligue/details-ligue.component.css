@@ -10,9 +10,12 @@ table {
 }
 
 table th, table td {
-
   text-align: center;
   border: 1px solid #ccc;
+}
+
+td {
+  height: 50px;
 }
 
 table th {

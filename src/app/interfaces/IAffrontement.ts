@@ -23,4 +23,9 @@
     vainqueurId:number;
     competitionId: number;
     isLigue: boolean;
+    partie1Id: number;
+    partie2Id: number;
+    partie3Id: number;
+    partie4Id: number;
+    partie5Id: number;
   }

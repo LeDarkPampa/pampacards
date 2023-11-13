@@ -1,0 +1,21 @@
+<div class="colonne app-background padding-top">
+  <div class="ligne-centree margin-bot erreur-message" *ngIf="!hasValidDeck">
+    Aucun deck valide pour le format demandé
+  </div>
+
+  <div class="colonne-centree margin-bot" *ngIf="hasValidDeck">
+    <div class="margin-bot margin-right">
+      Choisis ton deck pour t'inscrire :
+    </div>
+    <div class="ligne-centree">
+      <p-dropdown [options]="decks" [(ngModel)]="selectedDeck" placeholder="Sélectionnez un deck" optionLabel="nom"></p-dropdown>
+    </div>
+  </div>
+  <div class="ligne-centree">
+    <div *ngIf="hasValidDeck">
+      <app-pampa-button [texte]="'Combattre'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="accepter()"></app-pampa-button>
+    </div>
+    <app-pampa-button [texte]="'Retour'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="refuser()"></app-pampa-button>
+  </div>
+
+</div>

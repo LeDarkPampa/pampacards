@@ -74,6 +74,7 @@ import { DetailsTournoiComponent } from './tournois/details-tournoi/details-tour
 import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.component';
 import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
 import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscription-dialog.component';
+import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-dialog/open-affrontement-dialog.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscri
     DetailsTournoiComponent,
     DetailsLigueComponent,
     AdministrationTournoisComponent,
-    InscriptionDialogComponent
+    InscriptionDialogComponent,
+    OpenAffrontementDialogComponent
   ],
   imports: [
     RouterModule.forRoot([

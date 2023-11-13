@@ -33,8 +33,9 @@ export class TournoisComponent implements OnInit {
   allDecks: IDeck[] = [];
 
 
-  constructor(private http: HttpClient, private router: Router, private zone: NgZone, private dialogService: DialogService,
-              private tournoiService: TournoiService, private authService: AuthentificationService, private deckService: DeckService) {
+  constructor(private http: HttpClient, private router: Router, private zone: NgZone,
+              private dialogService: DialogService, private tournoiService: TournoiService,
+              private authService: AuthentificationService, private deckService: DeckService) {
   }
 
   ngOnInit(): void {

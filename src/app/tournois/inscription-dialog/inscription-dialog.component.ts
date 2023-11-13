@@ -3,7 +3,6 @@ import {IDeck} from "../../interfaces/IDeck";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AuthentificationService} from "../../services/authentification.service";
 import {IinscriptionCompetition} from "../../interfaces/IinscriptionCompetition";
-import {ITournoi} from "../../interfaces/ITournoi";
 
 @Component({
   selector: 'app-inscription-dialog',

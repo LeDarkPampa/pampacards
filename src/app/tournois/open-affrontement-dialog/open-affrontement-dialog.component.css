@@ -1,0 +1,13 @@
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+  color: white;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: rgba(2,0,36,1);
+  color: white;
+}
+
+.erreur-message {
+  color: red;
+}
