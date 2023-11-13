@@ -7,7 +7,5 @@ export interface IPartie {
   status: string;
   joueurUn: IUtilisateur;
   joueurDeux: IUtilisateur;
-  deckJoueurUn: IDeck;
-  deckJoueurDeux: IDeck;
   competitionId: number;
 }
