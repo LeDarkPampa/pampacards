@@ -12,6 +12,8 @@ import {DialogService} from "primeng/dynamicdialog";
 import {IDeck} from "../../interfaces/IDeck";
 import {OpenAffrontementDialogComponent} from "../open-affrontement-dialog/open-affrontement-dialog.component";
 import {catchError} from "rxjs/operators";
+import {ICarte} from "../../interfaces/ICarte";
+import {IEvenementPartie} from "../../interfaces/IEvenementPartie";
 
 @Component({
   selector: 'app-details-ligue',
@@ -74,26 +76,127 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     return affrontements.some(affrontement => (affrontement.joueur1Id === id || affrontement.joueur2Id === id));
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
-    const affrontementRecherche = this.getAffrontement(joueurId1, joueurId2);
+    const affrontement = this.getAffrontement(joueurId1, joueurId2);
 
-    if (affrontementRecherche && affrontementRecherche.vainqueurId == null) {
-      const activePartieId = this.getActivePartieId(affrontementRecherche);
+    if (affrontement && affrontement.vainqueurId == null) {
+      const activePartieId = this.getActivePartieId(affrontement);
 
       if (activePartieId) {
-        const url = this.API_BASE_URL + `/partie?partieId=${activePartieId}`;
+        this.http.get<IPartie>(this.API_BASE_URL + '/partie?partieId=' + activePartieId).subscribe({
+          next: partie => {
+            if (partie && partie.id) {
+              const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
 
-        this.http.get<IPartie>(url).pipe(
-          catchError(error => this.handleError(error))
-        ).subscribe(partie => {
-          if (partie && partie.id) {
-            this.handlePartieNavigation(partie, affrontementRecherche);
+              if (decks) {
+                this.zone.run(() => {
+                  const ref = this.dialogService.open(OpenAffrontementDialogComponent, {
+                    header: 'Choisir un deck',
+                    width: '30%',
+                    height: '50vh',
+                    data: { decks: decks }
+                  });
+
+                  ref.onClose.subscribe((deck: IDeck) => {
+                    if (deck) {
+                      if (affrontement.joueur1Id === this.utilisateur.id) {
+                        if (partie.deckJoueurUn == null) {
+                          const deckMelange = this.melangerDeck(deck.cartes);
+
+                          this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
+                            next: evenementsPartie => {
+                              // @ts-ignore
+                              const lastEvent = evenementsPartie.at(-1);
+                              if (lastEvent) {
+                                let event = {
+                                  partie: partie,
+                                  tour: lastEvent.tour,
+                                  joueurActifId: lastEvent.joueurActifId,
+                                  premierJoueurId: lastEvent.premierJoueurId,
+                                  status: "TOUR_EN_COURS",
+                                  cartesDeckJoueurUn: JSON.stringify(deckMelange),
+                                  cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
+                                  cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
+                                  cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
+                                  cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
+                                  cartesDeckJoueurDeux: lastEvent.cartesDeckJoueurDeux,
+                                  cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
+                                  cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux
+                                };
+
+                                this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+                                  next: response => {
+                                    this.router.navigate(['/partie', partie.id]);
+                                  },
+                                  error: error => {
+                                    console.error('There was an error!', error);
+                                  }
+                                });
+                              }
+                            },
+                            error: error => {
+                              console.error('There was an error!', error);
+                            }
+                          });
+                        } else {
+                          this.router.navigate(['/partie', partie.id]);
+                        }
+                      }
+                      if (affrontement.joueur2Id === this.utilisateur.id) {
+                        if (partie.deckJoueurDeux == null) {
+                          const deckMelange = this.melangerDeck(deck.cartes);
+
+                          this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
+                            next: evenementsPartie => {
+                              // @ts-ignore
+                              const lastEvent = evenementsPartie.at(-1);
+                              if (lastEvent) {
+                                let event = {
+                                  partie: partie,
+                                  tour: lastEvent.tour,
+                                  joueurActifId: lastEvent.joueurActifId,
+                                  premierJoueurId: lastEvent.premierJoueurId,
+                                  status: "TOUR_EN_COURS",
+                                  cartesDeckJoueurDeux: JSON.stringify(deckMelange),
+                                  cartesDeckJoueurUn: lastEvent.cartesDeckJoueurUn,
+                                  cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
+                                  cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
+                                  cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
+                                  cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
+                                  cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
+                                  cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux
+                                };
+
+                                this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+                                  next: response => {
+                                    this.router.navigate(['/partie', partie.id]);
+                                  },
+                                  error: error => {
+                                    console.error('There was an error!', error);
+                                  }
+                                });
+                              }
+                            },
+                            error: error => {
+                              console.error('There was an error!', error);
+                            }
+                          });
+                        } else {
+                          this.router.navigate(['/partie', partie.id]);
+                        }
+                      }
+                    }
+                  });
+                });
+              } else {
+                console.error('Aucun deck trouvé');
+              }
+            } else {
+              console.error('Aucune partie trouvée');
+            }
+          },
+          error: error => {
+            console.error('There was an error!', error);
           }
         });
       }
@@ -115,39 +218,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       default:
         console.log("openAffrontementPartie: Cas non géré");
         return undefined;
-    }
-  }
-
-  handlePartieNavigation(partie: IPartie, affrontement: IAffrontement): void {
-    if (this.utilisateur.id == partie.joueurUn.id || this.utilisateur.id == partie.joueurDeux.id) {
-      const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
-
-      if (decks) {
-        this.zone.run(() => {
-          const ref = this.dialogService.open(OpenAffrontementDialogComponent, {
-            header: 'Choisir un deck',
-            width: '30%',
-            height: '50vh',
-            data: { decks: decks }
-          });
-
-          ref.onClose.subscribe((deck: IDeck) => {
-            if (deck) {
-              const url = this.API_BASE_URL + `/partie?partieId=${partie.id}`;
-
-              this.http.get<IPartie>(url).pipe(
-                catchError(error => this.handleError(error))
-              ).subscribe(partie => {
-                if (partie && partie.id) {
-                  this.router.navigate(['/partie', partie.id]);
-                }
-              });
-            }
-          });
-        });
-      } else {
-        console.error('Aucun deck trouvé');
-      }
     }
   }
 
@@ -205,5 +275,19 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     }
 
     return filteredDecks;
+  }
+
+  private melangerDeck(deck: ICarte[]) {
+    for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+    return deck;
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

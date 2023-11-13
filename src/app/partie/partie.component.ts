@@ -1365,7 +1365,6 @@ export class PartieComponent implements OnInit, OnDestroy {
         console.error('There was an error!', error);
       }
     });
-
   }
 
   private subscribeToEvenementsPartieFlux() {
