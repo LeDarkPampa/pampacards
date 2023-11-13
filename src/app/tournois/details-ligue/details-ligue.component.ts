@@ -59,10 +59,14 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     });
   }
 
+  playerInAffrontement(joueurId1: number, joueurId2: number): boolean {
+    return (this.utilisateur.id === joueurId1 || this.utilisateur.id === joueurId2);
+  }
+
   isAffrontement(joueurId1: number, joueurId2: number): boolean {
     return this.ligue.affrontements.some(affrontement =>
-      (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
-      (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
+      ((affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
+      (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1))
     );
   }
 
@@ -155,8 +159,11 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   getScoreAffrontement(joueurId1: number, joueurId2: number): string {
     const affrontementRecherche = this.getAffrontement(joueurId1, joueurId2);
 
-    // @ts-ignore
-    return affrontementRecherche.scoreJ1 + ' - ' + affrontementRecherche.scoreJ2;
+    if (affrontementRecherche) {
+      return affrontementRecherche.scoreJ1 + ' - ' + affrontementRecherche.scoreJ2;
+    } else {
+      return 'A venir';
+    }
   }
 
   getAffrontement(joueurId1: number, joueurId2: number) {

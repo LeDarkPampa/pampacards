@@ -1,4 +1,4 @@
-<div class="round-robin-tournament">
+<div class="round-robin-tournament" *ngIf="ligue">
   <h2><div class="ligne-centree">Ligue {{ligue.nom}}</div></h2>
   <div class="has-affrontement" *ngIf="hasAffrontement">Vous avez un combat à jouer !</div>
   <table>
@@ -12,11 +12,12 @@
     <tr *ngFor="let player of players; let i = index">
       <td>{{ player.utilisateur.pseudo }}</td>
       <td *ngFor="let opponent of players; let j = index">
-        <div *ngIf="i<j && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">
-          <div>Score actuel : {{getScoreAffrontement(player.utilisateur.id, opponent.utilisateur.id)}}</div>
+        <div *ngIf="i<j && playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">
+          <div>Score : {{getScoreAffrontement(player.utilisateur.id, opponent.utilisateur.id)}}</div>
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(player.utilisateur.id, opponent.utilisateur.id)"></app-pampa-button>
         </div>
         <div *ngIf="i<j && !isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match à venir</div>
+        <div *ngIf="i<j && !playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Score : {{getScoreAffrontement(player.utilisateur.id, opponent.utilisateur.id)}}</div>
       </td>
     </tr>
     </tbody>
