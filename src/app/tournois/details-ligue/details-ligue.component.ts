@@ -111,7 +111,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                           if (lastEvent) {
                             let event;
 
-                            if (affrontement.joueur1Id === this.utilisateur.id) {
+                            if (partie.joueurUn.id === this.utilisateur.id) {
                               event = {
                                 partie: partie,
                                 tour: lastEvent.tour,
@@ -129,7 +129,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                               };
                             }
 
-                            if (affrontement.joueur2Id === this.utilisateur.id) {
+                            if (partie.joueurDeux.id === this.utilisateur.id) {
                               event = {
                                 partie: partie,
                                 tour: lastEvent.tour,
