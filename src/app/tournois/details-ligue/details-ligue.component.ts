@@ -101,9 +101,9 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
 
                   ref.onClose.subscribe((deck: IDeck) => {
                     if (deck) {
-                      // Update des decks dans la partie : this.http.post
-
                       const deckMelange = this.melangerDeck(deck.cartes);
+                      this.http.post
+
                       this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
                         next: evenementsPartie => {
                           // @ts-ignore
@@ -125,7 +125,9 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                                 cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
                                 cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
                                 cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
-                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux
+                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
+                                deckJoueurUnId: deck.id,
+                                deckJoueurDeuxId: lastEvent.deckJoueurDeuxId
                               };
                             }
 
@@ -143,7 +145,9 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                                 cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
                                 cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
                                 cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
-                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux
+                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
+                                deckJoueurUnId: lastEvent.deckJoueurUnId,
+                                deckJoueurDeuxId: deck.id
                               };
                             }
 

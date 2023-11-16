@@ -14,4 +14,6 @@ export interface IEvenementPartie {
   cartesDefausseJoueurUn: string;
   cartesDefausseJoueurDeux: string;
   partie_id: number;
+  deckJoueurUnId: number;
+  deckJoueurDeuxId: number;
 }
