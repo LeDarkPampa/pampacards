@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ILigue} from "../../interfaces/ILigue";
 import {ICompetitionParticipant} from "../../interfaces/ICompetitionParticipant";
-import {interval, Observable, startWith, Subscription, switchMap, throwError} from "rxjs";
+import {interval, startWith, Subscription, switchMap} from "rxjs";
 import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {AuthentificationService} from "../../services/authentification.service";
 import {IAffrontement} from "../../interfaces/IAffrontement";
@@ -76,10 +76,13 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
+    console.log('openAffrontementPartie');
     const affrontement = this.getAffrontement(joueurId1, joueurId2);
 
     if (affrontement && affrontement.vainqueurId == null) {
+      console.log('affrontement && affrontement.vainqueurId == null');
       const activePartieId = this.getActivePartieId(affrontement);
+      console.log('activePartieId = ' + activePartieId);
 
       if (activePartieId) {
         this.http.get<IPartie>(this.API_BASE_URL + '/partie?partieId=' + activePartieId).subscribe({
@@ -179,6 +182,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getActivePartieId(affrontementRecherche: IAffrontement): number | undefined {
+    console.log("affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2 = " + affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2);
     switch (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2) {
       case 0:
         console.log("partie 1 : " + affrontementRecherche.partie1Id);
