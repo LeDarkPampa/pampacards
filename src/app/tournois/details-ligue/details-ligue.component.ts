@@ -88,6 +88,14 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
         this.http.get<IPartie>(this.API_BASE_URL + '/partie?partieId=' + activePartieId).subscribe({
           next: partie => {
             if (partie && partie.id) {
+
+              if (partie.joueurUn.id === this.utilisateur.id && partie.) {
+
+              }
+
+              if (partie.joueurDeux.id === this.utilisateur.id) {
+
+              }
               const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
 
               if (decks) {
@@ -102,7 +110,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                   ref.onClose.subscribe((deck: IDeck) => {
                     if (deck) {
                       const deckMelange = this.melangerDeck(deck.cartes);
-                      this.http.post
 
                       this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
                         next: evenementsPartie => {
@@ -165,8 +172,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
                           console.error('There was an error!', error);
                         }
                       });
-                    } else {
-                      this.router.navigate(['/partie', partie.id]);
                     }
                   });
                 });
