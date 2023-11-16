@@ -11,7 +11,6 @@ import {IPartie} from "../../interfaces/IPartie";
 import {DialogService} from "primeng/dynamicdialog";
 import {IDeck} from "../../interfaces/IDeck";
 import {OpenAffrontementDialogComponent} from "../open-affrontement-dialog/open-affrontement-dialog.component";
-import {catchError} from "rxjs/operators";
 import {ICarte} from "../../interfaces/ICarte";
 import {IEvenementPartie} from "../../interfaces/IEvenementPartie";
 
@@ -196,12 +195,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
         return undefined;
     }
   }
-
-  handleError(error: any): Observable<never> {
-    console.error('There was an error!', error);
-    return throwError('Erreur lors de la requête HTTP.');
-  }
-
   getScoreAffrontement(joueurId1: number, joueurId2: number): string {
     const affrontementRecherche = this.getAffrontement(joueurId1, joueurId2);
 
@@ -213,11 +206,10 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getAffrontement(joueurId1: number, joueurId2: number) {
-    const affrontementRecherche = this.ligue.affrontements.find(affrontement =>
+    return this.ligue.affrontements.find(affrontement =>
       (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
       (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
     );
-    return affrontementRecherche;
   }
 
   getDecksForUser(id: number, affrontement: IAffrontement): IDeck[] | undefined {
