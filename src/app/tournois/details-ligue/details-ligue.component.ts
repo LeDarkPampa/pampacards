@@ -181,14 +181,19 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   getActivePartieId(affrontementRecherche: IAffrontement): number | undefined {
     switch (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2) {
       case 0:
+        console.log("partie 1 : " + affrontementRecherche.partie1Id);
         return affrontementRecherche.partie1Id;
       case 1:
+        console.log("partie 2 : " + affrontementRecherche.partie2Id);
         return affrontementRecherche.partie2Id;
       case 2:
+        console.log("partie 3 : " + affrontementRecherche.partie3Id);
         return affrontementRecherche.partie3Id;
       case 3:
+        console.log("partie 4 : " + affrontementRecherche.partie4Id);
         return affrontementRecherche.partie4Id;
       case 4:
+        console.log("partie 5 : " + affrontementRecherche.partie5Id);
         return affrontementRecherche.partie5Id;
       default:
         console.log("openAffrontementPartie: Cas non géré");
