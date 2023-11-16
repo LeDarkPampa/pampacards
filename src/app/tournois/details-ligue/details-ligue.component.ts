@@ -89,94 +89,92 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
           next: partie => {
             if (partie && partie.id) {
 
-              if (partie.joueurUn.id === this.utilisateur.id && partie.) {
+              if ((partie.joueurUn.id === this.utilisateur.id && !partie.deckJoueurUnId) ||
+                (partie.joueurDeux.id === this.utilisateur.id && !partie.deckJoueurDeuxId)) {
+                const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
 
-              }
+                if (decks) {
+                  this.zone.run(() => {
+                    const ref = this.dialogService.open(OpenAffrontementDialogComponent, {
+                      header: 'Choisir un deck',
+                      width: '30%',
+                      height: '50vh',
+                      data: { decks: decks }
+                    });
 
-              if (partie.joueurDeux.id === this.utilisateur.id) {
+                    ref.onClose.subscribe((deck: IDeck) => {
+                      if (deck) {
+                        const deckMelange = this.melangerDeck(deck.cartes);
 
-              }
-              const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
+                        this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
+                          next: evenementsPartie => {
+                            // @ts-ignore
+                            const lastEvent = evenementsPartie.at(-1);
+                            if (lastEvent) {
+                              let event;
 
-              if (decks) {
-                this.zone.run(() => {
-                  const ref = this.dialogService.open(OpenAffrontementDialogComponent, {
-                    header: 'Choisir un deck',
-                    width: '30%',
-                    height: '50vh',
-                    data: { decks: decks }
-                  });
-
-                  ref.onClose.subscribe((deck: IDeck) => {
-                    if (deck) {
-                      const deckMelange = this.melangerDeck(deck.cartes);
-
-                      this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
-                        next: evenementsPartie => {
-                          // @ts-ignore
-                          const lastEvent = evenementsPartie.at(-1);
-                          if (lastEvent) {
-                            let event;
-
-                            if (partie.joueurUn.id === this.utilisateur.id) {
-                              event = {
-                                partie: partie,
-                                tour: lastEvent.tour,
-                                joueurActifId: lastEvent.joueurActifId,
-                                premierJoueurId: lastEvent.premierJoueurId,
-                                status: "EN_ATTENTE",
-                                cartesDeckJoueurUn: JSON.stringify(deckMelange),
-                                cartesDeckJoueurDeux: lastEvent.cartesDeckJoueurDeux,
-                                cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
-                                cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
-                                cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
-                                cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
-                                cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
-                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
-                                deckJoueurUnId: deck.id,
-                                deckJoueurDeuxId: lastEvent.deckJoueurDeuxId
-                              };
-                            }
-
-                            if (partie.joueurDeux.id === this.utilisateur.id) {
-                              event = {
-                                partie: partie,
-                                tour: lastEvent.tour,
-                                joueurActifId: lastEvent.joueurActifId,
-                                premierJoueurId: lastEvent.premierJoueurId,
-                                status: "EN_ATTENTE",
-                                cartesDeckJoueurUn: lastEvent.cartesDeckJoueurUn,
-                                cartesDeckJoueurDeux: JSON.stringify(deckMelange),
-                                cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
-                                cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
-                                cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
-                                cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
-                                cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
-                                cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
-                                deckJoueurUnId: lastEvent.deckJoueurUnId,
-                                deckJoueurDeuxId: deck.id
-                              };
-                            }
-
-                            this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
-                              next: response => {
-                                this.router.navigate(['/partie', partie.id]);
-                              },
-                              error: error => {
-                                console.error('There was an error!', error);
+                              if (partie.joueurUn.id === this.utilisateur.id) {
+                                event = {
+                                  partie: partie,
+                                  tour: lastEvent.tour,
+                                  joueurActifId: lastEvent.joueurActifId,
+                                  premierJoueurId: lastEvent.premierJoueurId,
+                                  status: "EN_ATTENTE",
+                                  cartesDeckJoueurUn: JSON.stringify(deckMelange),
+                                  cartesDeckJoueurDeux: lastEvent.cartesDeckJoueurDeux,
+                                  cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
+                                  cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
+                                  cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
+                                  cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
+                                  cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
+                                  cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
+                                  deckJoueurUnId: deck.id,
+                                  deckJoueurDeuxId: lastEvent.deckJoueurDeuxId
+                                };
                               }
-                            });
+
+                              if (partie.joueurDeux.id === this.utilisateur.id) {
+                                event = {
+                                  partie: partie,
+                                  tour: lastEvent.tour,
+                                  joueurActifId: lastEvent.joueurActifId,
+                                  premierJoueurId: lastEvent.premierJoueurId,
+                                  status: "EN_ATTENTE",
+                                  cartesDeckJoueurUn: lastEvent.cartesDeckJoueurUn,
+                                  cartesDeckJoueurDeux: JSON.stringify(deckMelange),
+                                  cartesMainJoueurUn: lastEvent.cartesMainJoueurUn,
+                                  cartesMainJoueurDeux: lastEvent.cartesMainJoueurDeux,
+                                  cartesTerrainJoueurUn: lastEvent.cartesTerrainJoueurUn,
+                                  cartesTerrainJoueurDeux: lastEvent.cartesTerrainJoueurDeux,
+                                  cartesDefausseJoueurUn: lastEvent.cartesDefausseJoueurUn,
+                                  cartesDefausseJoueurDeux: lastEvent.cartesDefausseJoueurDeux,
+                                  deckJoueurUnId: lastEvent.deckJoueurUnId,
+                                  deckJoueurDeuxId: deck.id
+                                };
+                              }
+
+                              this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+                                next: response => {
+                                  this.router.navigate(['/partie', partie.id]);
+                                },
+                                error: error => {
+                                  console.error('There was an error!', error);
+                                }
+                              });
+                            }
+                          },
+                          error: error => {
+                            console.error('There was an error!', error);
                           }
-                        },
-                        error: error => {
-                          console.error('There was an error!', error);
-                        }
-                      });
-                    }
+                        });
+                      }
+                    });
                   });
-                });
+                } else {
+                  console.error('Aucun deck trouvé');
+                }
               } else {
-                console.error('Aucun deck trouvé');
+                this.router.navigate(['/partie', partie.id]);
               }
             } else {
               console.error('Aucune partie trouvée');
