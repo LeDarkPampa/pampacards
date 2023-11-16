@@ -182,7 +182,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getActivePartieId(affrontementRecherche: IAffrontement): number | undefined {
-    console.log("affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2 = " + affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2);
+    console.log("affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2 = " + (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2));
     switch (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2) {
       case 0:
         console.log("partie 1 : " + affrontementRecherche.partie1Id);
