@@ -181,24 +181,24 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     }
   }
 
-  getActivePartieId(affrontementRecherche: IAffrontement): number | undefined {
-    console.log("affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2 = " + (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2));
-    switch (affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2) {
+  getActivePartieId(affrontement: IAffrontement): number | undefined {
+    console.log("affrontementRecherche.scoreJ1 + affrontementRecherche.scoreJ2 = " + (affrontement.scoreJ1 + affrontement.scoreJ2));
+    switch (affrontement.scoreJ1 + affrontement.scoreJ2) {
       case 0:
-        console.log("partie 1 : " + affrontementRecherche.partie1Id);
-        return affrontementRecherche.partie1Id;
+        console.log("partie 1 : " + affrontement.partie1Id);
+        return affrontement.partie1Id;
       case 1:
-        console.log("partie 2 : " + affrontementRecherche.partie2Id);
-        return affrontementRecherche.partie2Id;
+        console.log("partie 2 : " + affrontement.partie2Id);
+        return affrontement.partie2Id;
       case 2:
-        console.log("partie 3 : " + affrontementRecherche.partie3Id);
-        return affrontementRecherche.partie3Id;
+        console.log("partie 3 : " + affrontement.partie3Id);
+        return affrontement.partie3Id;
       case 3:
-        console.log("partie 4 : " + affrontementRecherche.partie4Id);
-        return affrontementRecherche.partie4Id;
+        console.log("partie 4 : " + affrontement.partie4Id);
+        return affrontement.partie4Id;
       case 4:
-        console.log("partie 5 : " + affrontementRecherche.partie5Id);
-        return affrontementRecherche.partie5Id;
+        console.log("partie 5 : " + affrontement.partie5Id);
+        return affrontement.partie5Id;
       default:
         console.log("openAffrontementPartie: Cas non géré");
         return undefined;
