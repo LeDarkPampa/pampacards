@@ -71,6 +71,10 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     );
   }
 
+  isAffrontementTermine(affrontement: IAffrontement): boolean {
+    return affrontement.vainqueurId != null;
+  }
+
   private checkIfAffrontement(id: number, affrontements: IAffrontement[]) {
     return affrontements.some(affrontement => (affrontement.joueur1Id === id || affrontement.joueur2Id === id));
   }
