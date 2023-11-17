@@ -225,7 +225,8 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAffrontement(joueurId1: number, joueurId2: number) {
+  getAffrontement(joueurId1: number, joueurId2: number): IAffrontement {
+    // @ts-ignore
     return this.ligue.affrontements.find(affrontement =>
       (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
       (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
