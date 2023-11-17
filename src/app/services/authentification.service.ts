@@ -66,8 +66,7 @@ export class AuthentificationService {
   }
 
   logout(): void {
-    this.cookieService.delete('isLoggedIn');
-    this.cookieService.delete('userId');
+    this.cookieService.deleteAll();
     localStorage.removeItem('user');
     this.router.navigate(['/']);
   }
