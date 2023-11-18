@@ -42,7 +42,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     this.utilisateur = this.authService.getUser();
     this.route.params.subscribe(params => {
       this.ligueId = params['id'];
-      this.subscription = interval(5000)
+      this.subscription = interval(20000)
         .pipe(
           startWith(0),
           switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + this.ligueId))
@@ -76,7 +76,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   private checkIfAffrontement(id: number, affrontements: IAffrontement[]) {
-    return affrontements.some(affrontement => (affrontement.joueur1Id === id || affrontement.joueur2Id === id));
+    return affrontements.some(affrontement => (affrontement.joueur1Id === id || affrontement.joueur2Id === id && affrontement.vainqueurId == null));
   }
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
