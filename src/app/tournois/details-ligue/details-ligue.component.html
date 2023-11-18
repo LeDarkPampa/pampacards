@@ -18,7 +18,6 @@
             <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(player.utilisateur.id, opponent.utilisateur.id)"></app-pampa-button>
           </div>
         </div>
-        <div class="text-red" *ngIf="isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id))"> Terminé !</div>
         <div *ngIf="i<j && !isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Match à venir</div>
         <div *ngIf="i<j && !playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">Score : {{getScoreAffrontement(player.utilisateur.id, opponent.utilisateur.id)}}</div>
       </td>
