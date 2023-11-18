@@ -50,7 +50,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
         .subscribe({
           next: ligue => {
             this.ligue = ligue;
-            this.players = this.ligue.participants;
+            this.players = this.ligue.participants.sort(this.compareByPseudo);
             this.hasAffrontement = this.checkIfAffrontement(this.utilisateur.id, this.ligue.affrontements);
           },
           error: error => {
@@ -272,6 +272,19 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     [deck[i], deck[j]] = [deck[j], deck[i]];
   }
     return deck;
+  }
+
+  compareByPseudo(a: ICompetitionParticipant, b: ICompetitionParticipant): number {
+    const pseudoA = a.utilisateur.pseudo.toUpperCase();
+    const pseudoB = b.utilisateur.pseudo.toUpperCase();
+
+    if (pseudoA < pseudoB) {
+      return -1;
+    }
+    if (pseudoA > pseudoB) {
+      return 1;
+    }
+    return 0;
   }
 
   ngOnDestroy() {
