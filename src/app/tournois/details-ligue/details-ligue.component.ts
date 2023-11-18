@@ -288,7 +288,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       return 0;
     } else if (!a.utilisateur) {
      return 1;
-    } else if (!b.utilisateur) {
+    } else {
       return -1;
     }
   }
