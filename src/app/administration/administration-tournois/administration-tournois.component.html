@@ -138,7 +138,9 @@
               <td>{{ ligue.participants.length }}</td>
               <td>
                 <div *ngFor="let participant of ligue.participants">
-                  {{ participant.utilisateur.pseudo }}
+                  <div *ngIf="participant.utilisateur">
+                    {{ participant.utilisateur.pseudo }}
+                  </div>
                 </div>
               </td>
               <td class="colonne-centree">
