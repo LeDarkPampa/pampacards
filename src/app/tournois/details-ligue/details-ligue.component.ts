@@ -50,7 +50,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
         .subscribe({
           next: ligue => {
             this.ligue = ligue;
-            this.players = this.ligue.participants.sort(this.compareByPseudo);
+            this.players = this.ligue.participants.filter(player => player.utilisateur !== null).sort(this.compareByPseudo);
             this.hasAffrontement = this.checkIfAffrontement(this.utilisateur.id, this.ligue.affrontements);
           },
           error: error => {
