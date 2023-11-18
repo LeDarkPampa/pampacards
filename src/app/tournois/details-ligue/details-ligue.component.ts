@@ -275,16 +275,22 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   compareByPseudo(a: ICompetitionParticipant, b: ICompetitionParticipant): number {
-    const pseudoA = a.utilisateur.pseudo.toUpperCase();
-    const pseudoB = b.utilisateur.pseudo.toUpperCase();
+    if (a.utilisateur && b.utilisateur) {
+      const pseudoA = a.utilisateur.pseudo.toUpperCase();
+      const pseudoB = b.utilisateur.pseudo.toUpperCase();
 
-    if (pseudoA < pseudoB) {
+      if (pseudoA < pseudoB) {
+        return -1;
+      }
+      if (pseudoA > pseudoB) {
+        return 1;
+      }
+      return 0;
+    } else if (!a.utilisateur) {
+     return 1;
+    } else if (!b.utilisateur) {
       return -1;
     }
-    if (pseudoA > pseudoB) {
-      return 1;
-    }
-    return 0;
   }
 
   ngOnDestroy() {
