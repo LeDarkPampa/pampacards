@@ -99,7 +99,7 @@
           'status-pending': tournoi.statut === 'En attente',
           'status-ended': tournoi.statut === 'Terminé'}">{{ tournoi.statut }}</span>
           </td>
-          <td class="ligne-centree" *ngIf="isUserInTournoiParticipants(tournoi) && isTournoiEnCours(tournoi)">
+          <td class="ligne-centree" *ngIf="isUserInTournoiParticipants(tournoi) && isTournoiEnCours(tournoi) || isTournoiTermine(tournoi)">
             <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirTournoi(tournoi)"></app-pampa-button-carre>
           </td>
         </tr>
@@ -125,7 +125,7 @@
           'status-pending': ligue.statut === 'En attente',
           'status-ended': ligue.statut === 'Terminé'}">{{ ligue.statut }}</span>
           </td>
-          <td class="ligne-centree" *ngIf="isUserInLigueParticipants(ligue) && isLigueEnCours(ligue)">
+          <td class="ligne-centree" *ngIf="isUserInLigueParticipants(ligue) && (isLigueEnCours(ligue) || isLigueTermine(ligue))">
             <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirLigue(ligue)"></app-pampa-button-carre>
           </td>
         </tr>

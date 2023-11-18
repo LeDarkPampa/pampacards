@@ -161,8 +161,16 @@ export class TournoisComponent implements OnInit {
     return tournoi.statut === LigueTournoiStatutEnum.EN_COURS;
   }
 
+  isTournoiTermine(tournoi: ITournoi): boolean {
+    return tournoi.statut === LigueTournoiStatutEnum.TERMINE;
+  }
+
   isLigueEnCours(ligue: ILigue): boolean {
     return ligue.statut === LigueTournoiStatutEnum.EN_COURS;
+  }
+
+  isLigueTermine(ligue: ILigue): boolean {
+    return ligue.statut === LigueTournoiStatutEnum.TERMINE;
   }
 
   refreshTournoisLigueListes() {
