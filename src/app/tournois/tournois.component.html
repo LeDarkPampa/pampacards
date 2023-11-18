@@ -65,7 +65,9 @@
           <td>{{ ligue.participants.length }}</td>
           <td>
             <div *ngFor="let participant of ligue.participants">
-              {{ participant.utilisateur.pseudo }}
+              <div *ngIf="participant && participant.utilisateur">
+                {{ participant.utilisateur.pseudo }}
+              </div>
             </div>
           </td>
           <td *ngIf="!isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
