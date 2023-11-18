@@ -90,7 +90,9 @@
               <td>{{ tournoi.participants.length }}</td>
               <td>
                 <div *ngFor="let participant of tournoi.participants">
-                  {{ participant.utilisateur.pseudo }}
+                  <div *ngIf="participant.utilisateur">
+                    {{ participant.utilisateur.pseudo }}
+                  </div>
                 </div>
               </td>
               <td class="colonne-centree">
