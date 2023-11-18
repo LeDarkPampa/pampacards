@@ -93,9 +93,9 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
           next: partie => {
             if (partie && partie.id) {
 
-              if ((partie.joueurUn.id === this.utilisateur.id && !partie.deckJoueurUnId) ||
-                (partie.joueurDeux.id === this.utilisateur.id && !partie.deckJoueurDeuxId)) {
-                const decks = this.getDecksForUser(this.utilisateur.id, affrontement);
+              if ((partie.joueurUn?.id === this.utilisateur?.id && !partie.deckJoueurUnId) ||
+                (partie.joueurDeux?.id === this.utilisateur?.id && !partie.deckJoueurDeuxId)) {
+                const decks = this.getDecksForUser(this.utilisateur?.id, affrontement);
 
                 if (decks) {
                   this.zone.run(() => {
@@ -236,7 +236,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   getDecksForUser(id: number, affrontement: IAffrontement): IDeck[] | undefined {
     let filteredDecks: IDeck[] = [];
 
-    const participant = this.ligue.participants.find(participant => participant.utilisateur.id === id);
+    const participant = this.ligue.participants.filter(player => player.utilisateur !== null).find(participant => participant.utilisateur.id === id);
 
     // @ts-ignore
     const decks = participant.decks;
