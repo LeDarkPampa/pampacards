@@ -412,7 +412,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private createAbandonResult() {
-    let vainqueurId = this.adversaire.id;
     this.vainqueur = this.adversaire.nom;
 
     let scoreJ1 = this.joueur.id == this.partie.joueurUn.id ? this.joueur.score : this.adversaire.score;
@@ -427,7 +426,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     event = {
       partie: this.partie,
-      vainqueurId: vainqueurId,
+      vainqueurId: this.adversaire.id,
       scoreJ1: scoreJ1,
       scoreJ2: scoreJ2
     };
@@ -1516,14 +1515,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.evenementsPartieSubscription) {
-      this.evenementsPartieSubscription.unsubscribe();
-    }
-
-    this.sseService.closeEvenementsPartieEventSource();
-  }
-
   getTourAffiche() {
     return Math.ceil((this.lastEvent ? this.lastEvent.tour : 0) / 2);
   }
@@ -1543,5 +1534,13 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     return texteVainqueur;
+  }
+
+  ngOnDestroy() {
+    if (this.evenementsPartieSubscription) {
+      this.evenementsPartieSubscription.unsubscribe();
+    }
+
+    this.sseService.closeEvenementsPartieEventSource();
   }
 }
