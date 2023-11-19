@@ -42,7 +42,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     this.utilisateur = this.authService.getUser();
     this.route.params.subscribe(params => {
       this.ligueId = params['id'];
-      this.subscription = interval(100000)
+      this.subscription = interval(5000)
         .pipe(
           startWith(0),
           switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + this.ligueId))
