@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {AuthentificationService} from '../services/authentification.service';
 
 @Component({
@@ -8,7 +8,7 @@ import {AuthentificationService} from '../services/authentification.service';
 })
 export class MenuComponent {
 
-  constructor(private authService: AuthentificationService) {
+  constructor(private authService: AuthentificationService, private cd: ChangeDetectorRef) {
 
   }
 
@@ -22,5 +22,6 @@ export class MenuComponent {
 
   logOut() {
     this.authService.logout();
+    this.cd.detectChanges();
   }
 }
