@@ -66,73 +66,74 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
-
-    if (this.lastEvent.status == "FIN_PARTIE") {
-      this.terminerPartie();
-    }
-
-    this.estJoueurActif = lastEvent.joueurActifId == this.userId;
-
-    if (this.lastEvent.joueurActifId != this.joueur.id || this.lastEvent.status != "TOUR_EN_COURS") {
-      if (this.partie.joueurUn.id == this.userId) {
-        this.joueur.id = this.partie.joueurUn.id;
-        this.adversaire.id = this.partie.joueurDeux.id;
-
-        this.joueur.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
-        this.adversaire.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
-
-        this.joueur.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
-        this.adversaire.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
-
-        this.joueur.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
-        this.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
-
-        this.joueur.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
-        this.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
-      } else if (this.partie.joueurDeux.id == this.userId) {
-        this.joueur.id = this.partie.joueurDeux.id;
-        this.adversaire.id = this.partie.joueurUn.id;
-
-        this.adversaire.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
-        this.joueur.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
-
-        this.adversaire.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
-        this.joueur.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
-
-        this.adversaire.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
-        this.joueur.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
-
-        this.adversaire.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
-        this.joueur.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
+    if (!(this.lastEvent.status == "EN_ATTENTE")) {
+      if (this.lastEvent.status == "FIN_PARTIE") {
+        this.terminerPartie();
       }
-    }
 
-    if (this.lastEvent.status == "NOUVEAU_TOUR") {
-      if (this.estJoueurActif) {
-        this.carteJouee = false;
-        this.carteDefaussee = false;
+      this.estJoueurActif = lastEvent.joueurActifId == this.userId;
 
-        this.isFlashing = true; // Activez l'animation de flash
+      if (this.lastEvent.joueurActifId != this.joueur.id || this.lastEvent.status != "TOUR_EN_COURS") {
+        if (this.partie.joueurUn.id == this.userId) {
+          this.joueur.id = this.partie.joueurUn.id;
+          this.adversaire.id = this.partie.joueurDeux.id;
 
-        // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
-        while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
-          this.piocherCarte();
+          this.joueur.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
+          this.adversaire.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
+
+          this.joueur.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
+          this.adversaire.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
+
+          this.joueur.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
+          this.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
+
+          this.joueur.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
+          this.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
+        } else if (this.partie.joueurDeux.id == this.userId) {
+          this.joueur.id = this.partie.joueurDeux.id;
+          this.adversaire.id = this.partie.joueurUn.id;
+
+          this.adversaire.deck = lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
+          this.joueur.deck = lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
+
+          this.adversaire.main = lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
+          this.joueur.main = lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
+
+          this.adversaire.terrain = lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
+          this.joueur.terrain = lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
+
+          this.adversaire.defausse = lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
+          this.joueur.defausse = lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
         }
-
-        // Désactivez l'animation de flash après un certain délai
-        setTimeout(() => {
-          this.isFlashing = false;
-        }, 1000);
       }
+
+      if (this.lastEvent.status == "NOUVEAU_TOUR") {
+        if (this.estJoueurActif) {
+          this.carteJouee = false;
+          this.carteDefaussee = false;
+
+          this.isFlashing = true; // Activez l'animation de flash
+
+          // On pioche jusqu'à avoir 4 cartes en main si on est le joueur actif
+          while (this.joueur.main.length < 4 && this.joueur.deck.length > 0) {
+            this.piocherCarte();
+          }
+
+          // Désactivez l'animation de flash après un certain délai
+          setTimeout(() => {
+            this.isFlashing = false;
+          }, 1000);
+        }
+      }
+
+
+      if (lastEvent.status == "DEBUT_PARTIE") {
+        this.initCards();
+      }
+      this.updateEffetsContinusAndScores();
+
+      this.cd.detectChanges();
     }
-
-
-    if (lastEvent.status == "DEBUT_PARTIE") {
-      this.initCards();
-    }
-    this.updateEffetsContinusAndScores();
-
-    this.cd.detectChanges();
   }
 
   private initValues() {

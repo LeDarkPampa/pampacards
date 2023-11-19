@@ -3,7 +3,7 @@
     {{adversaire.nom}}
   </div>
   <div class="main-adv">
-    <div class="ligne-centree">
+    <div *ngIf="adversaire" class="ligne-centree">
       <div *ngFor="let carte of adversaire.main">
         <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
       </div>
