@@ -46,7 +46,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteDefaussee = false;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
-  private isAbandon: boolean = false;
   private joueurAbandon: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
@@ -69,6 +68,10 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (!(this.lastEvent.status == "EN_ATTENTE")) {
       if (this.lastEvent.status == "FIN_PARTIE") {
         this.terminerPartie();
+      }
+
+      if (this.lastEvent.status == "ABANDON") {
+        this.finDePartie = true;
       }
 
       this.estJoueurActif = lastEvent.joueurActifId == this.userId;
@@ -1462,7 +1465,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
       next: response => {
         this.finDePartie = true;
-        this.isAbandon = true;
         this.joueurAbandon = this.joueur.nom;
 
         let event = this.createAbandonResult();
@@ -1526,7 +1528,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getVainqueurTexte() {
     let texteVainqueur = '';
-    if (this.isAbandon) {
+    if (this.lastEvent.status == "ABANDON") {
       if (this.joueurAbandon == '') {
         this.joueurAbandon = this.adversaire.nom;
       }

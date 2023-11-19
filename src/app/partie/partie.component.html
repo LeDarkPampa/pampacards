@@ -72,11 +72,11 @@
   <div *ngIf="joueur" [class]="getJoueurColorClass()" class="puissance-joueur">
     Puissance totale : {{joueur.score}}
   </div>
-  <div class="infos-joueur">
+  <div *ngIf="joueur" class="infos-joueur">
     {{joueur.nom}}
   </div>
   <div class="main-joueur">
-    <div class="ligne-centree">
+    <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.main; let i = index">
         <app-carte-main (jouer)="onJouerCarte($event)" (defausser)="onDefausserCarte($event)" [carte]="carte"
                         [estJoueurActif]="estJoueurActif" [carteJouee]="carteJouee"
