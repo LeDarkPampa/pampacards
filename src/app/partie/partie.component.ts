@@ -46,6 +46,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteDefaussee = false;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
+  private isAbandon: boolean = false;
+  private joueurAbandon: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -1459,6 +1461,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
       next: response => {
         this.finDePartie = true;
+        this.isAbandon = true;
+        this.joueurAbandon = this.joueur.nom;
 
         let event = this.createAbandonResult();
 
@@ -1521,15 +1525,22 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getVainqueurTexte() {
     let texteVainqueur = '';
-    if (this.vainqueur) {
-      let scoreJoueur = this.joueur.score;
-      let scoreAdversaire = this.adversaire.score;
-      if (scoreJoueur > scoreAdversaire) {
-        texteVainqueur = "Victoire de " + this.joueur.nom;
-      } else if (scoreAdversaire > scoreJoueur) {
-        texteVainqueur = " Victoire de " + this.adversaire.nom;
-      } else if (scoreAdversaire == scoreJoueur) {
-        texteVainqueur = 'C\'est une égalité ';
+    if (this.isAbandon) {
+      if (this.joueurAbandon == '') {
+        this.joueurAbandon = this.adversaire.nom;
+      }
+      texteVainqueur = " Abandon de " + this.joueurAbandon;
+    } else {
+      if (this.vainqueur) {
+        let scoreJoueur = this.joueur.score;
+        let scoreAdversaire = this.adversaire.score;
+        if (scoreJoueur > scoreAdversaire) {
+          texteVainqueur = "Victoire de " + this.joueur.nom;
+        } else if (scoreAdversaire > scoreJoueur) {
+          texteVainqueur = " Victoire de " + this.adversaire.nom;
+        } else if (scoreAdversaire == scoreJoueur) {
+          texteVainqueur = 'C\'est une égalité ';
+        }
       }
     }
 
