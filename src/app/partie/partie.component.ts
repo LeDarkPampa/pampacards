@@ -65,7 +65,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
 
-    if (this.lastEvent.status == "FIN_PARTIE" || this.lastEvent.status == "ABANDON") {
+    if (this.lastEvent.status == "FIN_PARTIE") {
       this.terminerPartie();
     }
 
