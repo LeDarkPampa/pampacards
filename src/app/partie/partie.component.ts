@@ -726,7 +726,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SILENCE: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.silence).length > 0) {
+          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
@@ -739,7 +739,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.silence));
+            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
