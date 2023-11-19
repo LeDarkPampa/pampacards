@@ -7,6 +7,7 @@ import { ITypeCombat } from "../../interfaces/ITypeCombat";
 import { ITournoi } from "../../interfaces/ITournoi";
 import {ILigue} from "../../interfaces/ILigue";
 import {LigueTournoiStatutEnum} from "../../interfaces/LigueTournoiStatutEnum";
+import {Message} from "primeng/api";
 
 @Component({
   selector: 'app-administration-tournois',
@@ -23,6 +24,7 @@ export class AdministrationTournoisComponent implements OnInit {
   ligues: ILigue[] = [];
 
   statutsTournoi: string[] = Object.values(LigueTournoiStatutEnum);
+  message: Message[] = [];
 
   constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService) {
     this.tournoiForm = this.fb.group({
@@ -137,6 +139,9 @@ export class AdministrationTournoisComponent implements OnInit {
   saveTournoi(tournoi: ITournoi) {
     this.tournoiService.saveTournoi(tournoi).subscribe(
       (modified) => {
+        this.message = [
+          { severity: 'success', summary: 'Sauvegarde', detail: 'Tournoi sauvegardé' },
+        ];
         this.loadTournois();
       },
       (error) => {
@@ -148,6 +153,9 @@ export class AdministrationTournoisComponent implements OnInit {
   saveLigue(ligue: ILigue) {
     this.tournoiService.saveLigue(ligue).subscribe(
       (modified) => {
+        this.message = [
+          { severity: 'success', summary: 'Sauvegarde', detail: 'Ligue sauvegardée' },
+        ];
         this.loadLigues();
       },
       (error) => {
