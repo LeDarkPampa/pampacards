@@ -544,6 +544,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.FUSION: {
           carte.bouclier = true;
+          carte.insensible = true;
 
           // @ts-ignore
           let puissanceAjoutee = 0;
