@@ -39,11 +39,6 @@ export class PropertiesService {
   }
 
   isTestModeOn() {
-    const storedTestMode = localStorage.getItem('testModeOn');
-    if (storedTestMode) {
-      this.testModeOn = JSON.parse(storedTestMode);
-    } else {
-      this.fetchProperties();
-    }
+    return localStorage.getItem('testModeOn');
   }
 }
