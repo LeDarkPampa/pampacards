@@ -3,6 +3,8 @@
     <app-bandeau-filtres-cartes (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
     <div class="ligne-centree">
       Cartes possédées <input type="checkbox" [(ngModel)]="filtrerCartesPossedees" (change)="filtrerDonnees()">
+      <div *ngIf="isUserTest()" class="margin-left">Cartes d'extension <input type="checkbox" [(ngModel)]="filtrerCartesExtension" (change)="filtrerDonnees()">
+      </div>
     </div>
     <ul class="cartes">
       <li *ngFor="let carte of cartesFiltrees">

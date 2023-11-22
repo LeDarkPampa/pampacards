@@ -23,6 +23,7 @@ export class CollectionComponent implements OnInit{
 
   private errorMessage: any;
   filtrerCartesPossedees: boolean = false;
+  filtrerCartesExtension: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
               private typeService: TypeService, private propertiesService: PropertiesService) {
@@ -148,10 +149,12 @@ export class CollectionComponent implements OnInit{
         return false;
       }
 
+      if (this.filtrerCartesExtension && carte.released) {
+        return false;
+      }
+
       return !(filtersAndSortsValues.selectedRaretes && filtersAndSortsValues.selectedRaretes.length > 0
         && filtersAndSortsValues.selectedRaretes.indexOf(carte.rarete) == -1);
-
-
     });
     this.sortCards(filtersAndSortsValues.sortValue);
   }
@@ -228,8 +231,18 @@ export class CollectionComponent implements OnInit{
   filtrerDonnees() {
     if (this.filtrerCartesPossedees) {
       this.cartesFiltrees = this.cartesFiltrees.filter(carte => this.isInCollection(carte));
+      if (this.filtrerCartesExtension) {
+       this.cartesFiltrees = this.cartesFiltrees.filter(carte => !carte.released);
+      }
     } else {
+      if (this.filtrerCartesExtension) {
+        this.cartesFiltrees = this.cartesFiltrees.filter(carte => !carte.released);
+      }
       this.applyFilters(this.filters);
     }
+  }
+
+  isUserTest() {
+    return this.authService.getUser()?.testeur;
   }
 }
