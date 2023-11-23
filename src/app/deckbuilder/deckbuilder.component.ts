@@ -58,12 +58,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   ngOnInit() {
-    this.filtersAndSortsValues = {
-      selectedClans: [],
-      selectedTypes: [],
-      selectedRaretes: [],
-      sortValue: 'no'
-    };
     this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
       this.decks = playerDecks;
     });
@@ -81,12 +75,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   newDeck() {
     this.unsavedChanges = false;
-    this.filtersAndSortsValues = {
-      selectedClans: [],
-      selectedTypes: [],
-      selectedRaretes: [],
-      sortValue: 'no'
-    };
     const standardFormat = this.formats.find(format => format.nom === 'STANDARD');
 
     // Assigner le format "STANDARD" au nouveau deck
@@ -465,6 +453,12 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   private resetValues() {
+    this.filtersAndSortsValues = {
+      selectedClans: [],
+      selectedTypes: [],
+      selectedRaretes: [],
+      sortValue: 'no'
+    };
     this.getUserCollectionFiltered();
   }
 
