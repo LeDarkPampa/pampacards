@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import {Router} from "@angular/router";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {NavigationEnd, Router} from "@angular/router";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {CookieService} from "ngx-cookie-service";
 
@@ -12,8 +12,20 @@ import {CookieService} from "ngx-cookie-service";
 export class AuthentificationService {
   private apiUrl = 'https://pampacardsback-57cce2502b80.herokuapp.com/api/authenticate';
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.cookieService.get('isLoggedIn') === 'true');
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
+  private userSubject = new BehaviorSubject<IUtilisateur | null>(this.getUser());
+  user$ = this.userSubject.asObservable();
+
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Mettez à jour l'état de connexion et de l'utilisateur à chaque changement de route.
+        this.isLoggedInSubject.next(this.cookieService.get('isLoggedIn') === 'true');
+        this.userSubject.next(this.getUser());
+      }
+    });
   }
 
   login(login: string, password: string): Observable<boolean> {
@@ -27,6 +39,11 @@ export class AuthentificationService {
           this.cookieService.set('isLoggedIn', 'true');
           this.cookieService.set('userId', user.id.toString());
           localStorage.setItem('user', JSON.stringify(user));
+
+          // Émettre des événements pour informer les composants abonnés des changements d'état.
+          this.isLoggedInSubject.next(true);
+          this.userSubject.next(user);
+
           return true;
         } else {
           console.log('Nom d\'utilisateur ou mot de passe incorrect.');
@@ -36,38 +53,33 @@ export class AuthentificationService {
     );
   }
 
-  isLogged() {
-    return this.cookieService.get('isLoggedIn') === 'true';
+  isLogged(): Observable<boolean> {
+    return this.isLoggedIn$;
   }
 
-  isAdmin() {
-    // @ts-ignore
-    return this.getUser() && this.getUser().pseudo == "Pampa";
+  isAdmin(): Observable<boolean> {
+    // Utilisez l'observable user$ pour éviter de déclencher une exception si getUser() renvoie null.
+    return this.user$.pipe(map(user => !!user && user.pseudo === "Pampa"));
   }
 
   getUser(): IUtilisateur | null {
     const userData = localStorage.getItem('user');
-    if (userData) {
-      return JSON.parse(userData);
-    } else {
-      return null;
-    }
+    return userData ? JSON.parse(userData) : null;
   }
 
   getUserId(): number {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user: IUtilisateur = JSON.parse(userData);
-      return user.id;
-    } else {
-      return 0;
-    }
-
+    const user = this.getUser();
+    return user ? user.id : 0;
   }
 
   logout(): void {
     this.cookieService.deleteAll();
     localStorage.removeItem('user');
+
+    // Émettre des événements pour informer les composants abonnés des changements d'état.
+    this.isLoggedInSubject.next(false);
+    this.userSubject.next(null);
+
     this.router.navigate(['/']);
   }
 }
