@@ -148,6 +148,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     }
     this.addSelectedCardToUserCollection(carte);
     this.checkLimitationsFormat();
+    this.applyFilters(this.filtersAndSortsValues);
   }
 
   saveDeck() {
