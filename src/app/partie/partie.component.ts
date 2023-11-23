@@ -66,8 +66,10 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
     if (!(this.lastEvent.status == "EN_ATTENTE")) {
-      if (this.lastEvent.status == "FIN_PARTIE") {
-        this.terminerPartie();
+      if (this.lastEvent.status == "FIN_PARTIE" && !this.finDePartie) {
+        if (this.joueur.id == this.partie.joueurUn.id) {
+          this.terminerPartie();
+        }
       }
 
       if (this.lastEvent.status == "ABANDON") {
@@ -1351,15 +1353,13 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     let event = this.createEndEvent();
 
-    if (event.vainqueurId == this.userId || (this.vainqueur == 'égalité' && this.userId < this.adversaire.id)) {
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/enregistrerResultat', event).subscribe({
-        next: response => {
-        },
-        error: error => {
-          console.error('There was an error!', error);
-        }
-      });
-    }
+    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/enregistrerResultat', event).subscribe({
+      next: response => {
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   private getPartie() {
