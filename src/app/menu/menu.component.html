@@ -3,10 +3,10 @@
     <li>
       <a class="button" routerLink="/accueil" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Accueil</a>
     </li>
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/collection" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Ma collection</a>
     </li>
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/deckbuilder" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Deckbuilder</a>
     </li>
     <li>
@@ -54,25 +54,25 @@
         </li>
       </ul>
     </li>
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/recherche-combat" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Arêne</a>
     </li>
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/tournois" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Tournois</a>
     </li>
     <!--
     <a class="button" routerLink="/classements" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Classements</a>
     -->
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/mon-compte" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Mon compte</a>
     </li>
-    <li *ngIf="isAdmin() && isLoggedIn()">
+    <li *ngIf="isAdmin() && (authService.isLoggedIn$ | async)">
       <a class="button" routerLink="/administration" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Administration</a>
     </li>
-    <li *ngIf="!isLoggedIn()">
+    <li *ngIf="!(authService.isLoggedIn$ | async)">
       <a class="button" routerLink="/login" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Connexion</a>
     </li>
-    <li *ngIf="isLoggedIn()">
+    <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/deconnexion" routerLinkActive="activebutton" ariaCurrentWhenActive="page" (click)="logOut()">Déconnexion</a>
     </li>
   </ul>

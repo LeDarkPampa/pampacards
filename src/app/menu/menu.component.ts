@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
 import {AuthentificationService} from '../services/authentification.service';
+import {first} from "rxjs";
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +9,7 @@ import {AuthentificationService} from '../services/authentification.service';
 })
 export class MenuComponent {
 
-  constructor(private authService: AuthentificationService, private cd: ChangeDetectorRef) {
+  constructor(public authService: AuthentificationService, private cd: ChangeDetectorRef) {
 
   }
 
@@ -16,8 +17,9 @@ export class MenuComponent {
     return this.authService.isAdmin();
   }
 
-  isLoggedIn(): boolean {
-    return this.authService.isLogged();
+  async isLoggedIn(): Promise<boolean> {
+    const isLoggedIn = await this.authService.isLoggedIn$.pipe(first()).toPromise();
+    return !!isLoggedIn; // Convertir la valeur en un boolean avec l'opérateur double négation (!!).
   }
 
   logOut() {

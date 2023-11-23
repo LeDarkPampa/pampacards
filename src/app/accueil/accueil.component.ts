@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
   selector: 'app-accueil',
@@ -9,12 +7,8 @@ import {AuthentificationService} from "../services/authentification.service";
 })
 export class AccueilComponent {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) {
+  constructor() {
 
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLogged();
   }
 
 }
