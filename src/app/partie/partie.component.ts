@@ -503,6 +503,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           // @ts-ignore
           let carteSacrifiee = this.joueur.deck.shift();
           if (carteSacrifiee) {
+            this.sendBotMessage(carteSacrifiee.nom + ' est sacrifiée');
             if (this.isFidelite(carteSacrifiee)) {
               this.joueur.deck.push(carteSacrifiee);
               this.sendBotMessage(carteSacrifiee.nom + ' est remise dans le deck');
