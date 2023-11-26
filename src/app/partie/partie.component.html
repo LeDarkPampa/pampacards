@@ -3,10 +3,10 @@
     {{adversaire.nom}}
   </div>
   <div class="main-adv">
-    <div *ngIf="adversaire" class="ligne-centree">
-      <div *ngFor="let carte of adversaire.main">
-        <img class="carte" src="assets/doscarte.png" alt="Dos de carte" />
-      </div>
+    <div *ngIf="adversaire" class="ligne-centree height-total">
+      <span *ngFor="let carte of adversaire.main">
+        <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
+      </span>
     </div>
   </div>
   <div *ngIf="lastEvent" class="infos-tours">
