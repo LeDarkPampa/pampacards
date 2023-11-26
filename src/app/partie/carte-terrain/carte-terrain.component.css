@@ -1,12 +1,13 @@
 .card {
+  color: #fff;
   margin: 5px;
   aspect-ratio: 3 / 4;
   background: rgba(64, 67, 78, 0.9);
-  border: solid black 1px;
+  border: solid 1px black;
   border-radius: 12px;
   box-shadow: -5px -5px 20px #141414, 5px 5px 20px #0a0a0a;
   backdrop-filter: blur(10px);
-  padding: 2px 5px 2px 5px;
+  padding: 2px 5px;
   transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
   cursor: pointer;
 }
@@ -58,12 +59,6 @@
   opacity: 1;
 }
 
-.card-image img {
-  border: solid 2px black;
-  aspect-ratio: 4 / 3;
-  max-width:100%;
-}
-
 .card-details {
   width: 100%;
   height: 100%;
@@ -80,7 +75,6 @@
 .card-details h4 {
   font-size: 9px;
   margin: 0;
-  color: #fff;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -88,7 +82,6 @@
 }
 
 .card-details p {
-  color: #fff;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -98,7 +91,6 @@
 .card-power h4 {
   font-size: 11px;
   margin: 0;
-  color: #fff;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -107,11 +99,10 @@
 
 .card-power span {
   font-weight: bold;
-  color: #fff;
 }
 
 .card-description {
-  color: #fff;
+
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -170,143 +161,47 @@
   filter: blur(5px);
 }
 
-@media (max-height: 600px) {
-  .collection {
-    height: 170px;
-  }
-
-  .booster {
-    height: 170px;
-  }
-
-  .deckbuilder {
-    height: 170px;
-  }
-
-  .terrain {
-    height: 140px;
-  }
-
-  .defausse {
-    height: 100px;
-  }
-
-  .defausse .icone img {
-    height: 6px;
-  }
-
-  .terrain .icone img {
-    height: 11px;
-  }
-
-  .collection .icone img {
-    height: 11px;
-  }
-
-  .deckbuilder .icone img {
-    height: 11px;
-  }
-
-  .booster .icone img {
-    height: 11px;
-  }
-
-  .stars {
-    font-size: 16px;
-    text-align: center;
-  }
+.collection {
+  height: 250px;
 }
 
-@media (min-height: 600px) and (max-height: 850px) {
-  .collection {
-    height: 190px;
-  }
-
-  .booster {
-    height: 190px;
-  }
-
-  .deckbuilder {
-    height: 190px;
-  }
-
-  .terrain {
-    height: 160px;
-  }
-
-  .defausse {
-    height: 120px;
-  }
-
-  .defausse .icone img {
-    height: 8px;
-  }
-
-  .terrain .icone img {
-    height: 13px;
-  }
-
-  .collection .icone img {
-    height: 13px;
-  }
-
-  .deckbuilder .icone img {
-    height: 13px;
-  }
-
-  .booster .icone img {
-    height: 13px;
-  }
-
-  .stars {
-    font-size: 18px;
-    text-align: center;
-  }
+.booster {
+  height: 210px;
 }
 
-@media (min-height: 850px) {
-  .collection {
-    height: 250px;
-  }
+.deckbuilder {
+  height: 210px;
+}
 
-  .booster {
-    height: 210px;
-  }
+.terrain {
+  height: 180px;
+}
 
-  .deckbuilder {
-    height: 210px;
-  }
+.defausse {
+  height: 170px;
+}
 
-  .terrain {
-    height: 180px;
-  }
+.defausse .icone img {
+  height: 10px;
+}
 
-  .defausse {
-    height: 140px;
-  }
+.terrain .icone img, .collection .icone img, .deckbuilder .icone img, .booster .icone img {
+  height: 15px;
+}
 
-  .defausse .icone img {
-    height: 10px;
-  }
+.stars {
+  font-size: 20px;
+  text-align: center;
+}
 
-  .terrain .icone img {
-    height: 15px;
-  }
+.collection .card-image img, .booster .card-image img, .deckbuilder .card-image img {
+  border: solid 2px black;
+  aspect-ratio: 4 / 3;
+  max-width:100%;
+}
 
-  .collection .icone img {
-    height: 15px;
-  }
-
-  .deckbuilder .icone img {
-    height: 15px;
-  }
-
-  .booster .icone img {
-    height: 15px;
-  }
-
-  .stars {
-    font-size: 20px;
-    text-align: center;
-  }
+.terrain .card-image img, .defausse .card-image img {
+  border: solid 2px black;
+  aspect-ratio: 16 / 9;
+  width:100%;
 }

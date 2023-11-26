@@ -78,6 +78,10 @@ body {
   width: 100%;
 }
 
+.height-total {
+  height: 100%;
+}
+
 .text-red {
   color: red;
 }
