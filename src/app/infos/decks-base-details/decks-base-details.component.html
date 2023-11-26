@@ -1,23 +1,21 @@
 <div class="background">
-  <div class="gestion-utilisateurs-container">
-    <h1>Détail des decks de base</h1>
+  <h1>Détail des decks de base</h1>
 
-    Cliquez sur un deck de base pour voir les cartes qui le composent
+  Cliquez sur un deck de base pour voir les cartes qui le composent
 
-    <div class="button-grid">
-      <div *ngFor="let deck of decksDeBase">
-        <app-pampa-button-carre [texte]="deck.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerDeck(deck)"></app-pampa-button-carre>
-      </div>
+  <div class="button-grid">
+    <div *ngFor="let deck of decksDeBase">
+      <app-pampa-button-carre [texte]="deck.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerDeck(deck)"></app-pampa-button-carre>
     </div>
+  </div>
 
-    <div class="decklist" *ngIf="deckSelectionne">
-      <h3>{{ deckSelectionne.nom }}</h3>
+  <div class="ligne-centree" *ngIf="deckSelectionne">
+    <h3>{{ deckSelectionne.nom }}</h3>
 
-      <ul class="carte-grid">
-        <li *ngFor="let carte of deckSelectionne.cartes">
-          <app-carte-terrain [carte]="carte"></app-carte-terrain>
-        </li>
-      </ul>
-    </div>
+    <ul class="carte-grid">
+      <li *ngFor="let carte of deckSelectionne.cartes">
+        <app-carte-terrain [carte]="carte"></app-carte-terrain>
+      </li>
+    </ul>
   </div>
 </div>

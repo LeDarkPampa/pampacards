@@ -50,7 +50,7 @@ ul.carte-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
-  justify-items: center;
+  justify-content: center;
 }
 
 li {
@@ -63,12 +63,9 @@ li {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px;
-  justify-items: center;
+  justify-content: center;
 }
 
 .button-grid button {
   width: 100%;
-}
-
-.decklist {
 }

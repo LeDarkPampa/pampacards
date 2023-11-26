@@ -1,30 +1,28 @@
 <div class="background">
-  <div class="boosters-container">
-    <h1>Détail des boosters</h1>
+  <h1>Détail des boosters</h1>
 
-    <div class="colonne-centree margin-bot">
-      <div>Taux d'obtension des cartes selon leurs raretés :</div>
-      <div>1* : 50%</div>
-      <div>2* : 30%</div>
-      <div>3* : 15%</div>
-      <div>4* : 5%</div>
+  <div class="colonne-centree margin-bot">
+    <div>Taux d'obtension des cartes selon leurs raretés :</div>
+    <div>1* : 50%</div>
+    <div>2* : 30%</div>
+    <div>3* : 15%</div>
+    <div>4* : 5%</div>
+  </div>
+
+  Cliquez sur un booster pour voir les cartes que vous avez une chance de trouver dedans
+
+  <div class="button-grid">
+    <div *ngFor="let booster of boosters">
+      <app-pampa-button-carre [texte]="booster.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerBooster(booster)"></app-pampa-button-carre>
     </div>
+  </div>
 
-    Cliquez sur un booster pour voir les cartes que vous avez une chance de trouver dedans
-
-    <div class="button-grid">
-      <div *ngFor="let booster of boosters">
-        <app-pampa-button-carre [texte]="booster.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerBooster(booster)"></app-pampa-button-carre>
-      </div>
-    </div>
-
-    <div class="decklist" *ngIf="boosterSelectionne">
-      <h3>{{ boosterSelectionne.nom }}</h3>
-      <ul class="carte-grid">
-        <li *ngFor="let carte of boosterSelectionne.cartes">
-          <app-carte-terrain [carte]="carte"></app-carte-terrain>
-        </li>
-      </ul>
-    </div>
+  <div class="ligne-centree" *ngIf="boosterSelectionne">
+    <h3>{{ boosterSelectionne.nom }}</h3>
+    <ul class="carte-grid">
+      <li *ngFor="let carte of boosterSelectionne.cartes">
+        <app-carte-terrain [carte]="carte"></app-carte-terrain>
+      </li>
+    </ul>
   </div>
 </div>

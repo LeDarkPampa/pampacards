@@ -1,14 +1,10 @@
 .background {
   width: 100%;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
-}
-
-.gestion-utilisateurs-container {
-  text-align: center;
-  margin: 20px;
-  padding: 20px;
 }
 
 h1 {
@@ -23,10 +19,10 @@ ul {
 }
 
 ul.carte-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-gap: 10px;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 li {
@@ -36,10 +32,10 @@ li {
 }
 
 .button-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 10px;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .button-grid button {
