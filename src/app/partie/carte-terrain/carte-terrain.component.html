@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="card-image" *ngIf="carte.image_path !== null">
-      <img class="carte" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
+      <img loading="lazy" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
       'prison': carte.prison,
       'silence': carte.silence,
       'bouclier': carte.bouclier,
