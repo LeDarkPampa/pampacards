@@ -1174,6 +1174,41 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.melangerDeck(this.adversaire.deck);
           break;
         }
+        case EffetEnum.TRAHISON: {
+          if (this.joueur.terrain.filter(c => !c.insensible).length > 0) {
+            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+              (selectedCarte: ICarte) => {
+                if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' trahit la carte ' + selectedCarte.nom);
+                  const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+
+                  const carte = this.adversaire.main[indexCarte];
+
+                  if (this.isFidelite(carte)) {
+                    this.adversaire.deck.push(carte);
+                    this.sendBotMessage(carte.nom + ' est remise dans le deck');
+                    this.melangerDeck(this.adversaire.deck);
+                  } else {
+                    this.adversaire.defausse.push(carte);
+                  }
+
+                  this.adversaire.main.splice(indexCarte, 1);
+                }
+                this.updateEffetsContinusAndScores();
+              },
+              (error: any) => console.error(error)
+            );
+
+            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
+
+            this.carteSelectionnee$.subscribe(selectedCarte => {
+              carteSelectionneeSub.unsubscribe();
+            });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+          }
+          break;
+        }
         default: {
           //statements;
           break;
