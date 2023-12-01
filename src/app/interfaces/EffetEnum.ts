@@ -52,5 +52,6 @@ export enum EffetEnum {
   SABOTEUR = "SABOTEUR",
   POISSON = "POISSON",
   TRAHISON = "TRAHISON",
-  STOP = "STOP"
+  STOP = "STOP",
+  MENTALISME= "MENTALISME"
 }

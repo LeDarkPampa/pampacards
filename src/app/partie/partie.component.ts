@@ -1093,6 +1093,12 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
+        case EffetEnum.MENTALISME: {
+          if (this.adversaire.main.filter.length > 0) {
+            this.showVisionCartesDialog(this.adversaire.main);
+          }
+          break;
+        }
         case EffetEnum.SECTE: {
           carte.diffPuissanceInstant += carte.effet.valeurBonusMalus * this.adversaire.terrain.length;
           break;
