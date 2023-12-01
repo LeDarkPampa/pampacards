@@ -63,4 +63,7 @@ export class CarteMainComponent implements OnInit {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
+  isCarteCorrompu(carte: ICarte) {
+    return carte && carte.clan && carte.clan.nom === 'Corrompu';
+  }
 }

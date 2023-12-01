@@ -124,7 +124,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -132,7 +131,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -140,7 +138,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -148,14 +145,13 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
   }
 
   private memeTypeOuClan(c: ICarte, carte: ICarte) {
-    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id) && !c.corrompu;
+    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
   }
 
   private getPuissanceTotale(carte: ICarte) {
@@ -183,7 +179,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (joueurHasProtecteurForet) {
-        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
+        if (1 == carte.clan.id || 8 == carte.type.id) {
           carte.bouclier = true;
         }
       }
@@ -192,7 +188,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (adversaireHasProtecteurForet) {
-        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
+        if (1 == carte.clan.id || 8 == carte.type.id) {
           carte.bouclier = true;
         }
       }
@@ -258,7 +254,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier && carteCible.corrompu) {
+              if (!carteCible.bouclier && carteCible.clan.nom === 'Corrompu') {
                 carteCible.diffPuissanceContinue--;
               }
             }
@@ -343,7 +339,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier && carteCible.corrompu) {
+              if (!carteCible.bouclier && carteCible.clan.nom === 'Corrompu') {
                 carteCible.diffPuissanceContinue--;
               }
             }

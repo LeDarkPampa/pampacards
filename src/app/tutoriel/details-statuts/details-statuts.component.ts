@@ -32,7 +32,6 @@ export class DetailsStatutsComponent implements OnInit {
         carte.bouclier = false;
         carte.insensible = false;
         carte.silence = false;
-        carte.corrompu = false;
         carte.prison = false;
         this.bouclier = {
           id: carte.id,
@@ -49,7 +48,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: true,
           insensible: false,
-          corrompu: false,
           prison: false
         };
         this.corrompu = {
@@ -67,7 +65,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: false,
-          corrompu: true,
           prison: false
         };
         this.insensible = {
@@ -85,7 +82,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: true,
-          corrompu: false,
           prison: false
         };
         this.silence = {
@@ -103,7 +99,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: true,
           bouclier: false,
           insensible: false,
-          corrompu: false,
           prison: false
         };
         this.indestructible = {
@@ -121,7 +116,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: true,
           insensible: false,
-          corrompu: false,
           prison: false
         };
         this.prison = {
@@ -139,7 +133,6 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: false,
-          corrompu: false,
           prison: true
         };
         this.cd.detectChanges();

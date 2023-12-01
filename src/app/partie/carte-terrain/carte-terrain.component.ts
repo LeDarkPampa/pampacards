@@ -22,4 +22,8 @@ export class CarteTerrainComponent {
   generateStars(rarete: number): number[] {
     return Array(rarete).fill(0);
   }
+
+  isCarteCorrompu(carte: ICarte) {
+    return carte && carte.clan && carte.clan.nom === 'Corrompu';
+  }
 }

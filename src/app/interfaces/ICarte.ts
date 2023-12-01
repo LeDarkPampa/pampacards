@@ -14,7 +14,6 @@ export interface ICarte {
   silence: boolean;
   bouclier: boolean;
   insensible: boolean;
-  corrompu: boolean;
   prison: boolean;
   diffPuissanceInstant: number;
   diffPuissanceContinue: number;

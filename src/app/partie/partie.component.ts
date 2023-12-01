@@ -14,6 +14,8 @@ import {SelectionCarteDialogComponent} from "./selection-carte-dialog/selection-
 import {VisionCartesDialogComponent} from "./vision-cartes-dialog/vision-cartes-dialog.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
+import {IClan} from "../interfaces/IClan";
+import {IType} from "../interfaces/IType";
 
 @Component({
   selector: 'app-partie',
@@ -47,6 +49,18 @@ export class PartieComponent implements OnInit, OnDestroy {
   clickedCartePath: string = '';
   isFlashing: boolean = false;
   private joueurAbandon: string = '';
+  private nomCorrompu = 'Corrompu';
+  private clanCorrompu: IClan = {
+    id: 0,
+    nom: this.nomCorrompu
+  };
+
+  private typeCorrompu: IType = {
+    id: 0,
+    nom: this.nomCorrompu
+  };
+
+
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -447,7 +461,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -455,7 +468,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -463,7 +475,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -471,7 +482,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
-      carte.corrompu = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     });
@@ -678,20 +688,21 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.CORRUPTION: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.corrompu).length > 0) {
+          if (this.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.nomCorrompu)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
                   this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  this.adversaire.terrain[indexCarte].corrompu = true;
+                  this.adversaire.terrain[indexCarte].clan = this.clanCorrompu;
+                  this.adversaire.terrain[indexCarte].type = this.typeCorrompu;
                 }
                 this.updateEffetsContinusAndScores();
               },
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.corrompu));
+            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.nomCorrompu)));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -702,7 +713,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.POSSESSION: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && c.corrompu
+          if (this.adversaire.terrain.filter(c => !c.bouclier && (c.clan.nom === this.nomCorrompu)
             && this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
@@ -717,7 +728,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && c.corrompu
+            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && (c.clan.nom === this.nomCorrompu)
               && this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
@@ -819,7 +830,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
 
           if (adversaireHasProtecteurForet) {
-            if (this.adversaire.terrain.filter(c => c.bouclier && !((1 == c.clan.id || 8 == c.type.id) && !c.corrompu)).length > 0) {
+            if (this.adversaire.terrain.filter(c => c.bouclier && !(1 == c.clan.id || 8 == c.type.id)).length > 0) {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
@@ -1092,7 +1103,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private memeTypeOuClan(c: ICarte, carte: ICarte) {
-    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id) && !c.corrompu;
+    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
   }
 
   private getPuissanceTotale(carte: ICarte) {
@@ -1140,7 +1151,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (joueurHasProtecteurForet) {
-        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
+        if (1 == carte.clan.id || 8 == carte.type.id) {
           carte.bouclier = true;
         }
       }
@@ -1149,7 +1160,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       carte.diffPuissanceContinue = 0;
 
       if (adversaireHasProtecteurForet) {
-        if ((1 == carte.clan.id || 8 == carte.type.id) && !carte.corrompu) {
+        if (1 == carte.clan.id || 8 == carte.type.id) {
           carte.bouclier = true;
         }
       }
@@ -1215,7 +1226,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier && carteCible.corrompu) {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
                 carteCible.diffPuissanceContinue--;
               }
             }
@@ -1300,7 +1311,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier && carteCible.corrompu) {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
                 carteCible.diffPuissanceContinue--;
               }
             }
