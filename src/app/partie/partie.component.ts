@@ -1182,17 +1182,17 @@ export class PartieComponent implements OnInit, OnDestroy {
                   this.sendBotMessage(this.joueur.nom + ' trahit la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-                  const carte = this.adversaire.main[indexCarte];
+                  const carte = this.joueur.terrain[indexCarte];
 
                   if (this.isFidelite(carte)) {
-                    this.adversaire.deck.push(carte);
+                    this.joueur.deck.push(carte);
                     this.sendBotMessage(carte.nom + ' est remise dans le deck');
-                    this.melangerDeck(this.adversaire.deck);
+                    this.melangerDeck(this.joueur.deck);
                   } else {
-                    this.adversaire.defausse.push(carte);
+                    this.joueur.defausse.push(carte);
                   }
 
-                  this.adversaire.main.splice(indexCarte, 1);
+                  this.joueur.terrain.splice(indexCarte, 1);
                 }
                 this.updateEffetsContinusAndScores();
               },
