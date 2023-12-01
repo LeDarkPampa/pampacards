@@ -277,9 +277,21 @@ export class PartieComponent implements OnInit, OnDestroy {
       } else {
         this.joueur.terrain.push(carte);
       }
-    }
 
-    this.updateEffetsContinusAndScores();
+      let stopJ1 = false;
+      let stopJ2 = false;
+      if (carte && carte.effet && carte.effet.code == EffetEnum.STOP) {
+        if (this.joueur.id == this.partie.joueurUn.id) {
+          stopJ2 = true;
+        } else if (this.joueur.id == this.partie.joueurDeux.id) {
+          stopJ1 = true;
+        }
+      }
+
+      this.updateEffetsContinusAndScores();
+      this.sendUpdatedGame(stopJ1, stopJ2);
+      this.updateEffetsContinusAndScores();
+    }
   }
 
   jouerNouvelleCarteDepuisDefausse(carte: ICarte) {
