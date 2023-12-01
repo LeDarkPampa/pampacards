@@ -60,8 +60,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     nom: this.nomCorrompu
   };
 
-
-
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
               private sseService: SseService, private cd: ChangeDetectorRef) {
@@ -1083,7 +1081,38 @@ export class PartieComponent implements OnInit, OnDestroy {
                 this.adversaire.deck.push(carteDessusDeck);
                 this.melangerDeck(this.adversaire.deck);
               } else {
+                this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
                 this.adversaire.defausse.push(carteDessusDeck);
+              }
+            }
+          }
+          break;
+        }
+        case EffetEnum.DUOTERREMENT: {
+          if (!this.hasCitadelle(this.adversaire)) {
+            const carteDessusDeck = this.adversaire.deck.shift();
+
+            if (carteDessusDeck) {
+              if (this.isFidelite(carteDessusDeck)) {
+                this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
+                this.adversaire.deck.push(carteDessusDeck);
+                this.melangerDeck(this.adversaire.deck);
+              } else {
+                this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
+                this.adversaire.defausse.push(carteDessusDeck);
+              }
+            }
+
+            const carteDessusDeck2 = this.adversaire.deck.shift();
+
+            if (carteDessusDeck2) {
+              if (this.isFidelite(carteDessusDeck2)) {
+                this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck');
+                this.adversaire.deck.push(carteDessusDeck2);
+                this.melangerDeck(this.adversaire.deck);
+              } else {
+                this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse');
+                this.adversaire.defausse.push(carteDessusDeck2);
               }
             }
           }

@@ -1,6 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ICarte} from "../../interfaces/ICarte";
 import {HttpClient} from "@angular/common/http";
+import {IClan} from "../../interfaces/IClan";
+import {IType} from "../../interfaces/IType";
 
 @Component({
   selector: 'app-details-statuts',
@@ -21,6 +23,15 @@ export class DetailsStatutsComponent implements OnInit {
   indestructible: ICarte;
   // @ts-ignore
   prison: ICarte;
+  private clanCorrompu: IClan = {
+    id: 0,
+    nom: 'Corrompu'
+  };
+
+  private typeCorrompu: IType = {
+    id: 0,
+    nom: 'Corrompu'
+  };
 
   constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
   }
@@ -53,8 +64,8 @@ export class DetailsStatutsComponent implements OnInit {
         this.corrompu = {
           id: carte.id,
           nom: carte.nom,
-          clan: carte.clan,
-          type: carte.type,
+          clan: this.clanCorrompu,
+          type: this.typeCorrompu,
           rarete: carte.rarete,
           effet: carte.effet,
           puissance: carte.puissance,
