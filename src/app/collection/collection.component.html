@@ -1,9 +1,11 @@
 <div class="collection-container">
   <div class="background">
-    <app-bandeau-filtres-cartes (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
-    <div class="ligne-centree">
-      Cartes possédées <input type="checkbox" [(ngModel)]="filtrerCartesPossedees" (change)="filtrerDonnees()">
-      <div *ngIf="isUserTest()" class="margin-left">Cartes d'extension <input type="checkbox" [(ngModel)]="filtrerCartesExtension" (change)="filtrerDonnees()">
+    <div class="sticky-bandeau">
+      <app-bandeau-filtres-cartes (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
+      <div class="ligne-centree margin-top">
+        Cartes possédées <input type="checkbox" [(ngModel)]="filtrerCartesPossedees" (change)="filtrerDonnees()">
+        <div *ngIf="isUserTest()" class="margin-left">Cartes d'extension <input type="checkbox" [(ngModel)]="filtrerCartesExtension" (change)="filtrerDonnees()">
+        </div>
       </div>
     </div>
     <ul class="cartes">

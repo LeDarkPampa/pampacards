@@ -1,11 +1,16 @@
 .deckbuilder-container {
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
   background-repeat: repeat-y;
-}
-
-.background {
   width: 100%;
   color: white;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-areas: "gauche cadredeck"
+}
+
+.gauche {
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
 }
 
 .bandeaudecks {
@@ -21,20 +26,21 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-.creationdeck {
   width: 100%;
+  overflow-y: auto;
 }
 
 .cadrecollection {
-  max-height: 80%;
   width: 80%;
 }
 
 .cadredeck {
-  width: 17vw;
-  margin-left: 10px;
+  position: sticky;
+  top: 40px;
+  z-index: 50;
+  height: max-content;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   border: 2px solid #D1DEDE;
@@ -43,7 +49,7 @@
 }
 
 .carte-deck {
-  width: 17vw;
+  width: 100%;
 }
 
 .cartes {

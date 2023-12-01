@@ -11,6 +11,20 @@ body {
   overflow-y: auto;
 }
 
+.sticky-menu {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.sticky-bandeau {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-bottom: 7px;
+}
+
 .ligne-centree {
   display: flex;
   align-items: center;

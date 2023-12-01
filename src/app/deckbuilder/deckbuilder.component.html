@@ -1,15 +1,13 @@
 <div class="deckbuilder-container">
-  <div class="background">
-    <div class="bandeaudecks">
-      <app-pampa-button [texte]="'NEW'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="newDeck()"></app-pampa-button>
-      <div *ngFor="let deck of decks">
-        <app-pampa-button-carre [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button-carre>
+  <div class="gauche">
+    <div class="sticky-bandeau">
+      <div class="bandeaudecks">
+        <app-pampa-button [texte]="'NEW'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="newDeck()"></app-pampa-button>
+        <div *ngFor="let deck of decks">
+          <app-pampa-button-carre [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button-carre>
+        </div>
       </div>
-    </div>
-    <div class="creationdeck" *ngIf="selectedDeck">
-      <div class="cadrecollection">
-        <p-messages [(value)]="message" [enableService]="false"></p-messages>
-
+      <div *ngIf="selectedDeck">
         <div class="ligne-centree">
           <div class="ligne-centree espaces-autour">
             <div class="label-champs">
@@ -32,26 +30,27 @@
             <app-pampa-button [texte]="'Supprimer'" [couleur]="'rouge'" [taille]="'trespetit'" (clickBouton)="delete()"></app-pampa-button>
           </div>
         </div>
-
         <app-limitations-deck [selectedFormat]="selectedFormat"></app-limitations-deck>
-
         <app-bandeau-filtres-cartes [filtersAndSortsValues]="filtersAndSortsValues" (applyFilters)="applyFilters($event)"></app-bandeau-filtres-cartes>
-        <ul class="cartes ligne-centree">
-          <li *ngFor="let carteWithQuantity of collectionJoueurFiltree">
-            <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
-            <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
-            <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
-          </li>
-        </ul>
       </div>
-      <div class="cadredeck">
-        <div class="ligne-centree">
-          <h4>Nombre de cartes : {{ selectedDeck.cartes.length }}/20</h4>
-        </div>
-        <div class="carte-deck ligne-centree" *ngFor="let card of selectedDeck.cartes | sortCardsByName">
-          <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
-        </div>
-      </div>
+    </div>
+    <div class="creationdeck" *ngIf="selectedDeck">
+      <p-messages [(value)]="message" [enableService]="false"></p-messages>
+      <ul class="cartes ligne-centree">
+        <li *ngFor="let carteWithQuantity of collectionJoueurFiltree">
+          <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+          <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
+          <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="cadredeck" *ngIf="selectedDeck">
+    <div class="ligne-centree">
+      <h4>Nombre de cartes : {{ selectedDeck.cartes.length }}/20</h4>
+    </div>
+    <div class="carte-deck ligne-centree" *ngFor="let card of selectedDeck.cartes | sortCardsByName">
+      <app-deck-card [carte]="card" (clickedCarte)="removeCard(card)"></app-deck-card>
     </div>
   </div>
 </div>
