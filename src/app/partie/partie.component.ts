@@ -210,11 +210,15 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.sendBotMessage(this.joueur.nom + ' joue la carte ' + carteJouee.nom);
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
+          if (carteJouee.effet.code == EffetEnum.SABOTEUR) {
+            this.adversaire.terrain.push(carteJouee);
+          } else {
             this.joueur.terrain.push(carteJouee);
-            this.updateEffetsContinusAndScores();
-            this.sendUpdatedGame();
           }
-        );
+
+          this.updateEffetsContinusAndScores();
+          this.sendUpdatedGame();
+        });
       } else {
         this.joueur.terrain.push(carteJouee);
         this.updateEffetsContinusAndScores();
@@ -229,7 +233,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.joueur.main.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
         this.playInstantEffect(carte).then(r => {
+          if (carte.effet.code == EffetEnum.SABOTEUR) {
+            this.adversaire.terrain.push(carte);
+          } else {
             this.joueur.terrain.push(carte);
+          }
           }
         );
       } else {
@@ -250,7 +258,11 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
 
         this.playInstantEffect(carte).then(r => {
+          if (carte.effet.code == EffetEnum.SABOTEUR) {
+            this.adversaire.terrain.push(carte);
+          } else {
             this.joueur.terrain.push(carte);
+          }
           }
         );
       } else {
