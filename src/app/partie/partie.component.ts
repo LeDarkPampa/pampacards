@@ -16,6 +16,7 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
+import {IEffet} from "../interfaces/IEffet";
 
 @Component({
   selector: 'app-partie',
@@ -59,6 +60,30 @@ export class PartieComponent implements OnInit, OnDestroy {
     id: 0,
     nom: this.nomCorrompu
   };
+
+  private poissonPourri: ICarte = {
+    id: 0,
+    nom: 'Poisson pourri',
+    clan: {
+      id: -1,
+      nom: 'Pourri'
+    },
+    type: {
+      id: -1,
+      nom: 'Pourri'
+    },
+    rarete: 0,
+    effet: null,
+    puissance: -1,
+    image_path: 'poissonpourri.png',
+    silence: false,
+    bouclier: false,
+    insensible: false,
+    prison: false,
+    diffPuissanceInstant: 0,
+    diffPuissanceContinue: 0,
+    released: false
+  }
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -209,6 +234,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.sendBotMessage(this.joueur.nom + ' joue la carte ' + carteJouee.nom);
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
+          // @ts-ignore
           if (carteJouee.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carteJouee);
           } else {
@@ -232,6 +258,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.joueur.main.splice(index, 1)[0];
       if (carte.effet && !carte.effet.continu) {
         this.playInstantEffect(carte).then(r => {
+          // @ts-ignore
           if (carte.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carte);
           } else {
@@ -257,6 +284,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
 
         this.playInstantEffect(carte).then(r => {
+          // @ts-ignore
           if (carte.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carte);
           } else {
@@ -607,6 +635,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 if (selectedCarte != null) {
                   this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  // @ts-ignore
                   this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
                 }
                 this.updateEffetsContinusAndScores();
@@ -631,6 +660,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 if (selectedCarte != null) {
                   this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
                   const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  // @ts-ignore
                   this.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
                 }
                 this.updateEffetsContinusAndScores();
@@ -724,8 +754,9 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.POSSESSION: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && (c.clan.nom === this.nomCorrompu)
-            && this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse).length > 0) {
+          // @ts-ignore
+          if (this.adversaire.terrain.filter(c => this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse &&
+            !c.bouclier && (c.clan.nom === this.nomCorrompu)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
@@ -739,8 +770,9 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && (c.clan.nom === this.nomCorrompu)
-              && this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse));
+            // @ts-ignore
+            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse &&
+              !c.bouclier && (c.clan.nom === this.nomCorrompu)));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -1134,6 +1166,12 @@ export class PartieComponent implements OnInit, OnDestroy {
               carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
             }
           }
+          break;
+        }
+        case EffetEnum.POISSON: {
+          this.adversaire.deck.push(this.poissonPourri);
+          this.adversaire.deck.push(this.poissonPourri);
+          this.melangerDeck(this.adversaire.deck);
           break;
         }
         default: {

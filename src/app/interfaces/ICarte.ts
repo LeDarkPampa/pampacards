@@ -8,7 +8,7 @@ export interface ICarte {
   clan: IClan;
   type: IType;
   rarete: number;
-  effet: IEffet;
+  effet: IEffet | null;
   puissance: number;
   image_path: string;
   silence: boolean;
