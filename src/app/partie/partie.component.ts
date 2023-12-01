@@ -66,11 +66,11 @@ export class PartieComponent implements OnInit, OnDestroy {
     nom: 'Poisson pourri',
     clan: {
       id: -1,
-      nom: 'Pourri'
+      nom: 'Mafia'
     },
     type: {
       id: -1,
-      nom: 'Pourri'
+      nom: 'Eau'
     },
     rarete: 0,
     effet: null,
