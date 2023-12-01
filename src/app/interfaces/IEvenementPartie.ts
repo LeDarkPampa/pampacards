@@ -16,4 +16,6 @@ export interface IEvenementPartie {
   partie_id: number;
   deckJoueurUnId: number;
   deckJoueurDeuxId: number;
+  stopJ1: boolean;
+  stopJ2: boolean;
 }

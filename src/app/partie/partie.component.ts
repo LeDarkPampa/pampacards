@@ -16,7 +16,6 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
-import {IEffet} from "../interfaces/IEffet";
 
 @Component({
   selector: 'app-partie',
@@ -228,21 +227,30 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   onJouerCarte(index: number) {
+    let stopJ1 = false;
+    let stopJ2 = false;
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
       this.carteJouee = true;
       this.sendBotMessage(this.joueur.nom + ' joue la carte ' + carteJouee.nom);
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
-          // @ts-ignore
-          if (carteJouee.effet.code == EffetEnum.SABOTEUR) {
+          if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carteJouee);
           } else {
             this.joueur.terrain.push(carteJouee);
           }
 
+          if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.STOP) {
+            if (this.joueur.id == this.partie.joueurUn.id) {
+              stopJ2 = true;
+            } else if (this.joueur.id == this.partie.joueurDeux.id) {
+              stopJ1 = true;
+            }
+          }
+
           this.updateEffetsContinusAndScores();
-          this.sendUpdatedGame();
+          this.sendUpdatedGame(stopJ1, stopJ2);
         });
       } else {
         this.joueur.terrain.push(carteJouee);
@@ -370,9 +378,9 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  sendUpdatedGame() {
+  sendUpdatedGame(stopJ1 = false, stopJ2 = false) {
     // @ts-ignore
-    let event = this.createNextEvent();
+    let event = this.createNextEvent(stopJ1, stopJ2);
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
       next: response => {
@@ -397,11 +405,13 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
-      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
+      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      stopJ1: this.lastEvent.stopJ1,
+      stopJ2: this.lastEvent.stopJ2
     };
   }
 
-  private createNextEvent() {
+  private createNextEvent(stopJ1 = false, stopJ2 = false) {
     return {
       partie: this.partie,
       tour: this.lastEvent.tour,
@@ -415,7 +425,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
-      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
+      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      stopJ1: stopJ1 ? stopJ1 : this.lastEvent.stopJ1,
+      stopJ2: stopJ2 ? stopJ2 : this.lastEvent.stopJ2
     };
   }
 
@@ -468,7 +480,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesDeckJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDeckJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.deck) : JSON.stringify(this.adversaire.deck),
       cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
-      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse)
+      cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
+      stopJ1: this.lastEvent.stopJ1,
+      stopJ2: this.lastEvent.stopJ2
     };
   }
 
