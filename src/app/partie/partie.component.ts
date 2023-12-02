@@ -1301,71 +1301,26 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
-        case EffetEnum.MEURTRE: {
-          if (this.joueur.terrain.filter(c => !c.insensible).length > 0) {
+        case EffetEnum.CHROPIE: {
+          if (this.adversaire.defausse.filter(c => c.effet).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
-                  const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
+                  const indexCarteSelectionnee = this.adversaire.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-                  const carte = this.joueur.terrain[indexCarte];
+                  carte.effet = this.adversaire.defausse[indexCarteSelectionnee].effet;
 
-                  if (this.isFidelite(carte)) {
-                    this.joueur.deck.push(carte);
-                    this.sendBotMessage(carte.nom + ' est remise dans le deck');
-                    this.melangerDeck(this.joueur.deck);
-                  } else if (this.isCauchemard(carte)) {
-                    this.adversaire.terrain.push(carte);
-                    this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
-                  } else {
-                    this.joueur.defausse.push(carte);
-                  }
-                  this.joueur.terrain.splice(indexCarte, 1);
-                }
-
-                if (this.adversaire.terrain.filter(c => !c.bouclier).length > 0) {
-                  let carteSelectionneeSub = this.secondeCarteSelectionnee$.subscribe(
-                    (selectedCarte: ICarte) => {
-                      if (selectedCarte != null) {
-                        this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
-                        const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-
-                        const carte = this.adversaire.terrain[indexCarte];
-
-                        if (this.isFidelite(carte)) {
-                          this.adversaire.deck.push(carte);
-                          this.sendBotMessage(carte.nom + ' est remise dans le deck');
-                          this.melangerDeck(this.adversaire.deck);
-                        } else if (this.isCauchemard(carte)) {
-                          this.joueur.terrain.push(carte);
-                          this.sendBotMessage(carte.nom + ' est envoyée sur le terrain');
-                        } else {
-                          this.adversaire.defausse.push(carte);
-                        }
-
-                        this.adversaire.terrain.splice(indexCarte, 1);
-                      }
-                      this.updateEffetsContinusAndScores();
-                    },
-                    (error: any) => console.error(error)
-                  );
-
-                  this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier));
-
-                  this.secondeCarteSelectionnee$.subscribe(selectedCarte => {
-                    carteSelectionneeSub.unsubscribe();
+                  this.playInstantEffect(carte).then(r => {
+                    this.updateEffetsContinusAndScores();
                   });
-                } else {
-                  this.sendBotMessage('Pas de cible disponible pour le pouvoir');
                 }
-
                 this.updateEffetsContinusAndScores();
               },
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
+            this.showSelectionCarteDialog(this.adversaire.defausse.filter(c => c.effet));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
