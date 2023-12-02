@@ -1102,8 +1102,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.MENTALISME: {
-          if (this.adversaire.main.filter.length > 0) {
-            this.showVisionCartesDialog(this.adversaire.main);
+          if (!this.hasPalissade(this.adversaire)) {
+            if (this.adversaire.main.filter.length > 0) {
+              this.showVisionCartesDialog(this.adversaire.main);
+            }
           }
           break;
         }
@@ -1209,9 +1211,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.POISSON: {
-          this.adversaire.deck.push(this.poissonPourri);
-          this.adversaire.deck.push(this.poissonPourri);
-          this.melangerDeck(this.adversaire.deck);
+          if (!this.hasCitadelle(this.adversaire)) {
+            this.adversaire.deck.push(this.poissonPourri);
+            this.adversaire.deck.push(this.poissonPourri);
+            this.melangerDeck(this.adversaire.deck);
+          }
           break;
         }
         case EffetEnum.TRAHISON: {
@@ -1257,12 +1261,17 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.DEVOREUR: {
-          carte.diffPuissanceInstant += this.joueur.defausse.length;
-          this.joueur.defausse = [];
+          if (!this.hasCrypte(this.adversaire)) {
+            carte.diffPuissanceInstant += this.joueur.defausse.length;
+            this.joueur.defausse = [];
+          }
           break;
         }
         case EffetEnum.ABSORPTION: {
-          this.joueur.defausse = [];
+          if (!this.hasCrypte(this.adversaire)) {
+            this.joueur.defausse = [];
+          }
+
           this.adversaire.defausse = [];
           break;
         }
