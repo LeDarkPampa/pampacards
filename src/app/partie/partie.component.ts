@@ -1255,6 +1255,32 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.adversaire.defausse = [];
           break;
         }
+        case EffetEnum.VOIX: {
+          // @ts-ignore
+          if (this.joueur.terrain.filter(c => c.silence)) {
+            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+              (selectedCarte: ICarte) => {
+                if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
+                  const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  this.joueur.terrain[indexCarte].silence = false;
+                }
+                this.updateEffetsContinusAndScores();
+              },
+              (error: any) => console.error(error)
+            );
+
+            // @ts-ignore
+            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => c.silence));
+
+            this.carteSelectionnee$.subscribe(selectedCarte => {
+              carteSelectionneeSub.unsubscribe();
+            });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+          }
+          break;
+        }
         default: {
           //statements;
           break;
