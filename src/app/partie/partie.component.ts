@@ -1328,6 +1328,9 @@ export class PartieComponent implements OnInit, OnDestroy {
                           this.adversaire.deck.push(carte);
                           this.sendBotMessage(carte.nom + ' est remise dans le deck');
                           this.melangerDeck(this.adversaire.deck);
+                        } else if (this.isCauchemard(carte)) {
+                          this.joueur.terrain.push(carte);
+                          this.sendBotMessage(carte.nom + ' est envoyée sur le terrain');
                         } else {
                           this.adversaire.defausse.push(carte);
                         }
