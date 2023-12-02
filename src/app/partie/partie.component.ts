@@ -1241,6 +1241,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
+        case EffetEnum.TARDIF: {
+          carte.diffPuissanceInstant += this.getTourAffiche();
+          break;
+        }
         default: {
           //statements;
           break;
