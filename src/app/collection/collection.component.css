@@ -39,11 +39,6 @@ li {
   position: relative;
 }
 
-li:hover {
-  transform: scale(1.2);
-  z-index: 1;
-}
-
 img {
   max-width: 100%;
   max-height: 100%;

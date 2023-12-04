@@ -38,7 +38,7 @@
       <p-messages [(value)]="message" [enableService]="false"></p-messages>
       <ul class="cartes ligne-centree">
         <li *ngFor="let carteWithQuantity of collectionJoueurFiltree">
-          <app-carte-terrain [carte]="carteWithQuantity.carte" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+          <app-carte-terrain [carte]="carteWithQuantity.carte" [taille]="'deckbuilder'" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
           <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
           <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
         </li>
