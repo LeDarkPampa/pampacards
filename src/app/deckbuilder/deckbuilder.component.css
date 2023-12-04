@@ -44,13 +44,13 @@
 
 .cadredeck {
   position: sticky;
+  display: flex;
+  flex-direction: column;
   top: 40px;
   z-index: 50;
   height: max-content;
   max-height: calc(100vh - 40px);
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
   border: 2px solid #D1DEDE;
   border-radius: 5px;
   background-color: #333333;
