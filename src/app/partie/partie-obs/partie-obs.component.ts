@@ -394,7 +394,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
         this.getEventsPartie();
 
         if (this.type === 'obs') {
-          this.getChatPartieMessages();
           this.subscribeToEvenementsPartieFlux();
           this.subscribeToChatMessagesFlux();
         }
