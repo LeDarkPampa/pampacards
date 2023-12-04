@@ -1,30 +1,49 @@
 .card {
-  color: #fff;
   margin: 5px;
+  padding: 2px 5px;
   aspect-ratio: 3 / 4;
   background: rgba(64, 67, 78, 0.9);
   border: solid 1px black;
   border-radius: 12px;
   box-shadow: -5px -5px 20px #141414, 5px 5px 20px #0a0a0a;
   backdrop-filter: blur(10px);
-  padding: 2px 5px;
   transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
   cursor: pointer;
 }
 
 .card-content {
-  aspect-ratio: 3 / 4;
-  width: 100%;
   height: 100%;
   padding: 5px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .card-header {
-  height: 20%;
   width: 100%;
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: "icone1 nom icone2"
+  "icone1 stars icone2"
+}
+
+.icone1 {
+  grid-area: icone1;
+}
+
+.nom {
+  grid-area: nom;
+  text-align: center;
+}
+
+.icone2 {
+  grid-area: icone2;
+}
+
+.stars {
+  grid-area: stars;
+  font-size: 18px;
+  text-align: center;
 }
 
 .card-header h3 {
@@ -38,38 +57,40 @@
   text-overflow: ellipsis;
 }
 
-.card-title {
-  margin-bottom: 6px;
-}
-
-.bandeau {
-  width: 95%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .star {
   color: white;
 }
 
 .card-image {
-  width: 100%;
+  border: solid 2px black;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
 
+.card.terrain:hover .card-image, .card.collection:hover .card-image, .card.booster:hover .card-image, .card.deckbuilder:hover .card-image {
+  height: 0;
+  opacity: 0;
+  transition: height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.collection .card-image, .booster .card-image, .deckbuilder .card-image {
+  max-width:100%;
+}
+
+.terrain .card-image, .defausse .card-image {
+  aspect-ratio: 16 / 9;
+  max-width:100%;
+}
+
 .card-details {
-  width: 100%;
   height: 100%;
   box-sizing: border-box;
-  transition: max-height 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out;
   background: rgba(0, 0, 0, 0.8);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 3px;
+  padding: 2px;
 }
 
 .card-details h4 {
@@ -102,18 +123,17 @@
 }
 
 .card-description {
-
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.card.terrain:hover .card-details, .card.collection:hover .card-details, .card.booster:hover .card-details, .deckbuilder:hover .card-details {
-  max-height: 80%;
+.card:hover .card-details {
+  height: 80%;
   transition: max-height 0.5s ease-in-out;
 }
 
-.card.terrain:hover .card-image, .card.collection:hover .card-image, .card.booster:hover .card-image, .card.deckbuilder:hover .card-image {
+.card:hover .card-image {
   height: 0;
   opacity: 0;
   transition: height 0.5s ease-in-out, opacity 0.5s ease-in-out;
@@ -133,10 +153,6 @@
 
 .collection .card-description .small, .booster .card-description .small, .deckbuilder .card-description .small {
   font-size: 11px;
-}
-
-.card.terrain:hover, .card.collection:hover, .card.booster:hover, .card.deckbuilder:hover {
-  transform: scale(1.05);
 }
 
 .silence {
@@ -161,26 +177,6 @@
   filter: blur(5px);
 }
 
-.collection {
-  height: 250px;
-}
-
-.booster {
-  height: 210px;
-}
-
-.deckbuilder {
-  height: 210px;
-}
-
-.terrain {
-  height: 180px;
-}
-
-.defausse {
-  height: 170px;
-}
-
 .defausse .icone img {
   height: 10px;
 }
@@ -189,19 +185,58 @@
   height: 15px;
 }
 
-.stars {
-  font-size: 20px;
-  text-align: center;
+@media (min-height: 850px) {
+  .collection {
+    height: 250px;
+  }
+
+  .booster {
+    height: 250px;
+  }
+
+  .deckbuilder {
+    height: 250px;
+  }
+
+  .terrain {
+    height: 180px;
+  }
+
 }
 
-.collection .card-image img, .booster .card-image img, .deckbuilder .card-image img {
-  border: solid 2px black;
-  aspect-ratio: 4 / 3;
-  max-width:100%;
+@media (min-height: 600px) and (max-height: 850px) {
+  .collection {
+    height: 240px;
+  }
+
+  .booster {
+    height: 240px;
+  }
+
+  .deckbuilder {
+    height: 240px;
+  }
+
+  .terrain {
+    height: 180px;
+  }
+
 }
 
-.terrain .card-image img, .defausse .card-image img {
-  border: solid 2px black;
-  aspect-ratio: 16 / 9;
-  width:100%;
+@media (max-height: 600px) {
+  .collection {
+    height: 230px;
+  }
+
+  .booster {
+    height: 230px;
+  }
+
+  .deckbuilder {
+    height: 230px;
+  }
+
+  .terrain {
+    height: 180px;
+  }
 }
