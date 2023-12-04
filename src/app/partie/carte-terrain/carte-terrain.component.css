@@ -62,7 +62,6 @@
 }
 
 .card-image {
-  border: solid 2px black;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
