@@ -1,5 +1,22 @@
-.carte {
-  height: 100px;
-  aspect-ratio: 3 / 4;
+
+
+@media (min-height: 850px) {
+  .carte {
+    height: 100px;
+    aspect-ratio: 3 / 4;
+  }
 }
 
+@media (min-height: 600px) and (max-height: 850px) {
+  .carte {
+    height: 90px;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (max-height: 600px) {
+  .carte {
+    height: 80px;
+    aspect-ratio: 3 / 4;
+  }
+}
