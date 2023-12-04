@@ -165,7 +165,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       data: { cartes },
       closable: false
     });
-
     ref.onClose.subscribe(() => {
     });
   }
