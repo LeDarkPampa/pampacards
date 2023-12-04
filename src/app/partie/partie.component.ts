@@ -351,7 +351,6 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.joueur.deck.push(carte);
       }
     }
-
     this.updateEffetsContinusAndScores();
   }
 
