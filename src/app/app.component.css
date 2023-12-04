@@ -22,7 +22,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 0;
+  margin-top: 0;
 }
 
 .main-width {
@@ -109,7 +109,15 @@ body {
     padding: 5px;
   }
 
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 5px;
+  }
+
   :host ::ng-deep .p-multiselect .p-multiselect-label {
+    padding: 5px;
+  }
+
+  :host ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     padding: 5px;
   }
 }
@@ -117,19 +125,44 @@ body {
 @media (min-height: 600px) and (max-height: 850px) {
   :host ::ng-deep .p-dropdown .p-dropdown-label {
     padding: 4px;
+    font-size: 13px;
+  }
+
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 4px;
+    font-size: 13px;
   }
 
   :host ::ng-deep .p-multiselect .p-multiselect-label {
     padding: 4px;
+    font-size: 13px;
   }
+
+  :host ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    padding: 4px;
+    font-size: 13px;
+  }
+
 }
 
 @media (max-height: 600px) {
   :host ::ng-deep .p-dropdown .p-dropdown-label {
     padding: 3px;
+    font-size: 12px;
+  }
+
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 4px;
+    font-size: 12px;
   }
 
   :host ::ng-deep .p-multiselect .p-multiselect-label {
     padding: 3px;
+    font-size: 12px;
+  }
+
+  :host ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    padding: 4px;
+    font-size: 12px;
   }
 }

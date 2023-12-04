@@ -21,17 +21,92 @@ button {
   .button {
     font-size: 16px;
   }
+
+  .mini {
+    width: 100px;
+    padding: 6px;
+  }
+
+  .trespetit {
+    width: 130px;
+  }
+
+  .petit {
+    width: 200px;
+  }
+
+  .moyen {
+    width: 300px;
+  }
+
+  .grand {
+    width: 400px;
+  }
+
+  .tresgrand {
+    width: 500px;
+  }
 }
 
 @media (min-height: 600px) and (max-height: 850px) {
   .button {
     font-size: 14px;
   }
+
+  .mini {
+    width: 80px;
+    padding: 6px;
+  }
+
+  .trespetit {
+    width: 110px;
+  }
+
+  .petit {
+    width: 180px;
+  }
+
+  .moyen {
+    width: 280px;
+  }
+
+  .grand {
+    width: 380px;
+  }
+
+  .tresgrand {
+    width: 480px;
+  }
 }
 
 @media (max-height: 600px) {
   .button {
     font-size: 12px;
+  }
+
+  .mini {
+    width: 70px;
+    padding: 6px;
+  }
+
+  .trespetit {
+    width: 100px;
+  }
+
+  .petit {
+    width: 170px;
+  }
+
+  .moyen {
+    width: 270px;
+  }
+
+  .grand {
+    width: 370px;
+  }
+
+  .tresgrand {
+    width: 470px;
   }
 }
 
@@ -41,31 +116,6 @@ button:hover {
 
 button:active {
   box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
-}
-
-.mini {
-  width: 100px;
-  padding: 6px;
-}
-
-.trespetit {
-  width: 150px;
-}
-
-.petit {
-  width: 200px;
-}
-
-.moyen {
-  width: 300px;
-}
-
-.grand {
-  width: 400px;
-}
-
-.tresgrand {
-  width: 500px;
 }
 
 .noir {
