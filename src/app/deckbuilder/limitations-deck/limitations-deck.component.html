@@ -1,5 +1,5 @@
 <div class="limitation-container" *ngIf="this.selectedFormat">
-  <div class="restrictions-title">Restrictions du format</div>
+  <div class="center restrictions-title">Restrictions du format</div>
   <div class="restrictions-list">
     <ng-container *ngIf="this.selectedFormat.limitationCartes.length > 0; else noLimitation">
       <div class="restriction-item" *ngFor="let limitationCarte of this.selectedFormat.limitationCartes">

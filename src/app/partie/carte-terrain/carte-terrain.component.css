@@ -59,7 +59,6 @@
 
 .stars {
   grid-area: stars;
-  font-size: 18px;
   text-align: center;
 }
 
@@ -229,6 +228,10 @@
     height: 180px;
     width: 135px;
   }
+
+  .stars {
+    font-size: 18px;
+  }
 }
 
 @media (min-height: 600px) and (max-height: 850px) {
@@ -238,13 +241,13 @@
   }
 
   .booster {
-    height: 220px;
-    width: 155px;
+    height: 210px;
+    width: 157px;
   }
 
   .deckbuilder {
-    height: 220px;
-    width: 155px;
+    height: 180px;
+    width: 135px;
   }
 
   .terrain {
@@ -255,6 +258,16 @@
   .defausse {
     height: 120px;
     width: 90px;
+  }
+
+  .stars {
+    font-size: 16px;
+    height: 16px;
+  }
+
+  .deckbuilder .card-image {
+    aspect-ratio: 16 / 9;
+    max-width:100%;
   }
 }
 
@@ -265,8 +278,8 @@
   }
 
   .booster {
-    height: 200px;
-    width: 150px;
+    height: 180px;
+    width: 135px;
   }
 
   .deckbuilder {
@@ -282,5 +295,15 @@
   .defausse {
     height: 120px;
     width: 90px;
+  }
+
+  .stars {
+    height: 14px;
+    font-size: 14px;
+  }
+
+  .deckbuilder .card-image {
+    aspect-ratio: 16 / 9;
+    max-width:100%;
   }
 }

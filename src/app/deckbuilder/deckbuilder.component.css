@@ -107,6 +107,36 @@ input {
   -webkit-appearance: none;
 }
 
+@media (min-height: 850px) {
+  .input {
+    font-size: 16px;
+  }
+
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+    font-size: 16px;
+  }
+}
+
+@media (min-height: 600px) and (max-height: 850px) {
+  .input {
+    font-size: 14px;
+  }
+
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+    font-size: 14px;
+  }
+}
+
+@media (max-height: 600px) {
+  .input {
+    font-size: 12px;
+  }
+
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
+    font-size: 12px;
+  }
+}
+
 ::placeholder {
   color: #A3A3A3;
   opacity: 1; /* Firefox */
