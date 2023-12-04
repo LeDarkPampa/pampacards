@@ -1,17 +1,38 @@
-.screen {
-  height: calc(100vh - 40px);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
-  color: white;
-  display: grid;
-  grid-template-columns: 10% 13% auto 13% 10% 15%;
-  grid-template-rows: 11% 4% 26% 26% 4% 29%;
-  grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
+@media (min-height: 850px) {
+  .screen {
+    height: calc(100vh - 40px);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+    color: white;
+    display: grid;
+    grid-template-columns: 10% 13% auto 13% 10% 13%;
+    grid-template-rows: 11% 4% 26% 26% 4% 29%;
+    grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
   "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
   "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
 "deck-joueur terrain-joueur terrain-joueur terrain-joueur defausse-joueur bandeau-chat"
   "deck-joueur empty3 empty3 puissance-joueur actions bandeau-chat"
 "empty4 main-joueur main-joueur infos-joueur actions bandeau-chat";
-  grid-gap: 0;
+    grid-gap: 0;
+  }
+}
+
+@media (max-height: 850px) {
+  .screen {
+    height: calc(100vh - 40px);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+    color: white;
+    display: grid;
+    grid-template-columns: 8% 17% auto 17% 10% 13%;
+    grid-template-rows: 11% 4% 26% 26% 4% 3% 26%;
+    grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
+  "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
+  "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
+"deck-joueur terrain-joueur terrain-joueur terrain-joueur defausse-joueur bandeau-chat"
+  "deck-joueur empty3 empty3 puissance-joueur empty5 bandeau-chat"
+    "empty4 main-joueur main-joueur infos-joueur empty5 bandeau-chat"
+"empty4 main-joueur main-joueur actions empty5 bandeau-chat";
+    grid-gap: 0;
+  }
 }
 
 .infos-adv {
