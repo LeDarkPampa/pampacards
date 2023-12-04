@@ -31,38 +31,6 @@
   }
 }
 
-@media (min-height: 600px) and (max-height: 850px) {
-  .card {
-    height: 180px;
-    aspect-ratio: 3 / 4;
-  }
-
-  .icone img {
-    height: 13px;
-  }
-
-  .stars {
-    font-size: 18px;
-    text-align: center;
-  }
-}
-
-@media (min-height: 850px) {
-  .card {
-    height: 200px;
-    aspect-ratio: 3 / 4;
-  }
-
-  .icone img {
-    height: 15px;
-  }
-
-  .stars {
-    font-size: 20px;
-    text-align: center;
-  }
-}
-
 .card:hover {
   background: rgba(64, 67, 78, 1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -211,4 +179,36 @@
 
 .prison {
   filter: blur(5px);
+}
+
+@media (min-height: 600px) and (max-height: 850px) {
+  .card {
+    height: 170px;
+    width: 127px;
+  }
+
+  .icone img {
+    height: 13px;
+  }
+
+  .stars {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+@media (min-height: 850px) {
+  .card {
+    height: 200px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .icone img {
+    height: 15px;
+  }
+
+  .stars {
+    font-size: 20px;
+    text-align: center;
+  }
 }
