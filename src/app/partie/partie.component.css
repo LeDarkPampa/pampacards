@@ -26,18 +26,10 @@
 
 .main-adv {
   grid-area: main-adv;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .infos-tours {
   grid-area: infos-tours;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .bandeau-chat {
@@ -46,26 +38,24 @@
 
 .deck-adv {
   grid-area: deck-adv;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+}
+
+.deck-joueur {
+  grid-area: deck-joueur;
 }
 
 .defausse-adv {
   grid-area: defausse-adv;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
-.puissance-adv {
-  grid-area: puissance-adv;
+.puissance {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.puissance-adv {
+  grid-area: puissance-adv;
   border-radius: 10px 10px 0 0;
   border: solid;
   border-width: 10px 10px 0 10px;
@@ -73,54 +63,29 @@
 
 .puissance-joueur {
   grid-area: puissance-joueur;
-  width: 100%;
   justify-self: end;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 0 0 10px 10px;
   border: solid;
   border-width: 0 10px 10px 10px;
 }
 
-.deck-joueur {
-  grid-area: deck-joueur;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.terrain {
+  overflow: auto;
+  border-radius: 0 10px 0 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 10px solid;
 }
 
 .terrain-adv {
   grid-area: terrain-adv;
-  overflow: auto;
-  border-radius: 0 10px 0 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 10px solid;
 }
 
 .terrain-joueur {
   grid-area: terrain-joueur;
-  overflow: auto;
-  border-radius: 0 0 0 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 10px solid;
 }
 
 .defausse-joueur {
   grid-area: defausse-joueur;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .infos-joueur {
@@ -134,10 +99,6 @@
 
 .main-joueur {
   grid-area: main-joueur;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .actions {

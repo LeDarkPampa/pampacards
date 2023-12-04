@@ -2,21 +2,21 @@
   <div *ngIf="adversaire" class="infos-adv">
     {{adversaire.nom}}
   </div>
-  <div class="main-adv">
+  <div class="center main-adv">
     <div *ngIf="adversaire" class="ligne-centree height-total">
       <span *ngFor="let carte of adversaire.main">
         <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
       </span>
     </div>
   </div>
-  <div *ngIf="lastEvent" class="infos-tours">
+  <div *ngIf="lastEvent" class="center infos-tours">
     <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
     <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
   </div>
   <div class="bandeau-chat">
     <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
-  <div class="deck-adv">
+  <div class="center deck-adv">
     <div *ngIf="adversaire" class="deck-container">
       <div class="margin-bot">Deck : {{adversaire.deck.length}}</div>
       <div class="card-container" *ngIf="adversaire.deck.length > 0">
@@ -24,14 +24,14 @@
       </div>
     </div>
   </div>
-  <div [class]="getAdvColorClass()" class="terrain-adv">
+  <div [class]="getAdvColorClass()" class="center terrain terrain-adv">
     <div *ngIf="adversaire" class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-adv">
+  <div class="center defausse-adv">
     <div *ngIf="adversaire" class="deck-container">
       <div>
         <div class="margin-bot">Défausse : {{adversaire.defausse.length}}</div>
@@ -41,10 +41,10 @@
       </div>
     </div>
   </div>
-  <div *ngIf="adversaire" [class]="getAdvColorClass()" class="puissance-adv">
+  <div *ngIf="adversaire" [class]="getAdvColorClass()" class="puissance puissance-adv">
     Puissance totale : {{adversaire.score}}
   </div>
-  <div class="deck-joueur">
+  <div class="center deck-joueur">
     <div *ngIf="joueur" class="deck-container">
       <div class="margin-bot">Deck : {{joueur.deck.length}}</div>
       <div class="card-container" *ngIf="joueur.deck.length > 0">
@@ -52,14 +52,14 @@
       </div>
     </div>
   </div>
-  <div  *ngIf="lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="terrain-joueur">
+  <div  *ngIf="lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="center terrain terrain-joueur">
     <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-joueur">
+  <div class="center defausse-joueur">
     <div *ngIf="joueur" class="deck-container">
       <div>
         <div class="margin-bot">Défausse : {{joueur.defausse.length}}</div>
@@ -69,13 +69,13 @@
       </div>
     </div>
   </div>
-  <div *ngIf="joueur" [class]="getJoueurColorClass()" class="puissance-joueur">
+  <div *ngIf="joueur" [class]="getJoueurColorClass()" class="puissance puissance-joueur">
     Puissance totale : {{joueur.score}}
   </div>
   <div *ngIf="joueur" class="infos-joueur">
     {{joueur.nom}}
   </div>
-  <div class="main-joueur">
+  <div class="center main-joueur">
     <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.main; let i = index">
         <app-carte-main (jouer)="onJouerCarte($event)" (defausser)="onDefausserCarte($event)" [carte]="carte"
