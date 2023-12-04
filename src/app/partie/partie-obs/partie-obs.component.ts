@@ -395,7 +395,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
         if (this.type === 'obs') {
           this.subscribeToEvenementsPartieFlux();
-          this.subscribeToChatMessagesFlux();
         }
       },
       error: error => {
@@ -437,30 +436,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           this.actuaLEvent = this.firstEvent;
           this.updateGameFromLastEvent(this.actuaLEvent);
         }
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
-
-  private subscribeToChatMessagesFlux() {
-    this.sseService.getChatMessagesFlux(this.partieId);
-    this.evenementsPartieSubscription = this.sseService.chatMessages$.subscribe(
-      (chatPartieMessages: IChatPartieMessage[]) => {
-        // @ts-ignore
-        this.chatMessages = chatPartieMessages;
-        this.cd.detectChanges();
-      },
-      (error: any) => console.error(error)
-    );
-  }
-
-  private getChatPartieMessages() {
-    this.http.get<IChatPartieMessage[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages?partieId=' + this.partieId).subscribe({
-      next: chatMessages => {
-        // @ts-ignore
-        this.chatMessages = chatMessages;
       },
       error: error => {
         console.error('There was an error!', error);
