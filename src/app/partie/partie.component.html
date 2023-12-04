@@ -13,7 +13,7 @@
     <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
     <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
   </div>
-  <div class="bandeau-chat">
+  <div *ngIf="joueur" class="bandeau-chat">
     <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
   <div class="center deck-adv">

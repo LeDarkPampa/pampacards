@@ -1277,7 +1277,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.VOIX: {
           // @ts-ignore
-          if (this.joueur.terrain.filter(c => c.silence)) {
+          if (this.joueur.terrain.filter(c => c.silence).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {

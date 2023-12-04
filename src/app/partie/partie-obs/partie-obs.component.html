@@ -3,15 +3,19 @@
     {{adversaire?.nom}} - Puissance : {{adversaire?.score}}
   </div>
   <div class="main-adv" *ngIf="adversaire">
-    <app-pampa-icon-button [icone]="'fast_rewind'" [couleur]="'gris'" (clickBouton)="premier()"></app-pampa-icon-button>
-    <app-pampa-icon-button [icone]="'navigate_before'" [couleur]="'gris'" (clickBouton)="precedent()"></app-pampa-icon-button>
+    <div *ngIf="type === 'replay'">
+      <app-pampa-icon-button [icone]="'fast_rewind'" [couleur]="'gris'" (clickBouton)="premier()"></app-pampa-icon-button>
+      <app-pampa-icon-button [icone]="'navigate_before'" [couleur]="'gris'" (clickBouton)="precedent()"></app-pampa-icon-button>
+    </div>
     <div class="ligne-centree main-width">
       <div *ngFor="let carte of adversaire.main">
         <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
       </div>
     </div>
-    <app-pampa-icon-button [icone]="'navigate_next'" [couleur]="'gris'" (clickBouton)="suivant()"></app-pampa-icon-button>
-    <app-pampa-icon-button [icone]="'fast_forward'" [couleur]="'gris'" (clickBouton)="dernier()"></app-pampa-icon-button>
+    <div *ngIf="type === 'replay'">
+      <app-pampa-icon-button [icone]="'navigate_next'" [couleur]="'gris'" (clickBouton)="suivant()"></app-pampa-icon-button>
+      <app-pampa-icon-button [icone]="'fast_forward'" [couleur]="'gris'" (clickBouton)="dernier()"></app-pampa-icon-button>
+    </div>
   </div>
   <div class="infos-tour">
     <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : actuaLEvent ? actuaLEvent.tour : 0"></app-pampa-tour-animation>
