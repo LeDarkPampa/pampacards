@@ -1,19 +1,106 @@
-<div class="round-robin-tournament">
-  <h2><div class="ligne-centree">Tournoi {{tournoi.nom}}</div></h2>
-  <table>
-    <thead>
-    <tr>
-      <th></th>
-      <th *ngFor="let player of players">{{ player.utilisateur.pseudo }}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let player of players; let i = index">
-      <td>{{ player.utilisateur.pseudo }}</td>
-      <td *ngFor="let opponent of players; let j = index">
-        <div *ngIf="i !== j" class="match-cell" [class.played]="i !== j">Match {{ i + 1 }} vs {{ j + 1 }}</div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div class="tableau">
+  <div class="tour">
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 1
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 2
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 3
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 4
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 5
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 6
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 7
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 8
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tour">
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 1
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 3
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 5
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 7
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tour">
+    <div class="bracket-game">
+      <div class="player">
+        Joueur 1
+        <div class="score">
+          3
+        </div>
+      </div>
+      <div class="player">
+        Joueur 7
+        <div class="score">
+          1
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

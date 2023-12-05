@@ -15,15 +15,11 @@ export class AuthentificationService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.cookieService.get('isLoggedIn') === 'true');
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private userSubject = new BehaviorSubject<IUtilisateur | null>(this.getUser());
-  user$ = this.userSubject.asObservable();
-
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Mettez à jour l'état de connexion et de l'utilisateur à chaque changement de route.
         this.isLoggedInSubject.next(this.cookieService.get('isLoggedIn') === 'true');
-        this.userSubject.next(this.getUser());
       }
     });
   }
@@ -42,7 +38,6 @@ export class AuthentificationService {
 
           // Émettre des événements pour informer les composants abonnés des changements d'état.
           this.isLoggedInSubject.next(true);
-          this.userSubject.next(user);
 
           return true;
         } else {
@@ -57,12 +52,13 @@ export class AuthentificationService {
     return this.isLoggedIn$;
   }
 
-  isAdmin(): Observable<boolean> {
+  isAdmin(): boolean {
     // Utilisez l'observable user$ pour éviter de déclencher une exception si getUser() renvoie null.
-    return this.user$.pipe(map(user => !!user && user.pseudo === "Pampa"));
+
+    return this.getUser() && this.getUser().pseudo === "Pampa";
   }
 
-  getUser(): IUtilisateur | null {
+  getUser(): IUtilisateur {
     const userData = localStorage.getItem('user');
     return userData ? JSON.parse(userData) : null;
   }
@@ -78,7 +74,6 @@ export class AuthentificationService {
 
     // Émettre des événements pour informer les composants abonnés des changements d'état.
     this.isLoggedInSubject.next(false);
-    this.userSubject.next(null);
 
     this.router.navigate(['/']);
   }

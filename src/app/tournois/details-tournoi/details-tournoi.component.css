@@ -1,41 +1,30 @@
-.round-robin-tournament {
-  padding: 20px;
-  border-radius: 5px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ccc;
-}
-
-table th, table td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-
-table th {
-  background-color: #333;
-  color: #fff;
-}
-
-table tr:nth-child(even) {
-}
-
-table tr:hover {
-}
-
-.match-cell {
-  width: 100px;
-  height: 30px;
-  border: 1px solid #ccc;
+.tableau {
+  height: calc(100vh - 40px);
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.match-cell.played {
-  background-color: #ccc;
-  font-weight: bold;
+.tour {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.bracket-game {
+  margin: 10px 0;
+}
+
+.player {
+  min-width: 100px;
+  border: 1px solid #AAA;
+  padding-left: 10px;
+}
+
+.player .score {
+  display: inline;
+  float: right;
+  border-left: 1px solid #AAA;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: grey;
 }
