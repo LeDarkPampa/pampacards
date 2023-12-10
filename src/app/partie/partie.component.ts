@@ -49,19 +49,20 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteDefaussee = false;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
-  private joueurAbandon: string = '';
-  private nomCorrompu = 'Corrompu';
-  private clanCorrompu: IClan = {
+  enAttente: boolean = false;
+  joueurAbandon: string = '';
+  nomCorrompu = 'Corrompu';
+  clanCorrompu: IClan = {
     id: 0,
     nom: this.nomCorrompu
   };
 
-  private typeCorrompu: IType = {
+  typeCorrompu: IType = {
     id: 0,
     nom: this.nomCorrompu
   };
 
-  private poissonPourri: ICarte = {
+  poissonPourri: ICarte = {
     id: 0,
     nom: 'Poisson pourri',
     clan: {
@@ -103,6 +104,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
     if (!(this.lastEvent.status == "EN_ATTENTE")) {
+      this.enAttente = false;
       if (this.lastEvent.status == "FIN_PARTIE" && !this.finDePartie) {
         this.finDePartie = true;
         if (this.joueur.id == this.partie.joueurUn.id) {
@@ -176,6 +178,8 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.updateEffetsContinusAndScores();
 
       this.cd.detectChanges();
+    } else {
+      this.enAttente = true;
     }
   }
 
