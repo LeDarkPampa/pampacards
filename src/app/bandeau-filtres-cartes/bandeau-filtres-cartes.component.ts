@@ -84,10 +84,11 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   }
 
   emitSortEvent(sortValue: string) {
-    this.resetSort = false;
     this.filtersAndSortsValues.sortValue = sortValue;
-
-    this.applyFiltersCards();
+    setTimeout(() => {
+      this.resetSort = false;
+      this.applyFiltersCards();
+    });
   }
 
   applyFiltersCards() {
