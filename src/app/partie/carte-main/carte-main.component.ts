@@ -1,4 +1,14 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ICarte} from "../../interfaces/ICarte";
 
 @Component({
@@ -6,7 +16,7 @@ import {ICarte} from "../../interfaces/ICarte";
   templateUrl: './carte-main.component.html',
   styleUrls: ['./carte-main.component.css', '../../app.component.css']
 })
-export class CarteMainComponent implements OnInit {
+export class CarteMainComponent implements OnInit, OnChanges {
 
   // @ts-ignore
   @Input() carte: ICarte;
@@ -24,7 +34,7 @@ export class CarteMainComponent implements OnInit {
 
   cadreOuvert = false;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private cd: ChangeDetectorRef) {}
 
 
   ngOnInit() {
@@ -38,6 +48,12 @@ export class CarteMainComponent implements OnInit {
     const targetElement = event.target as HTMLElement;
     if (!this.elementRef.nativeElement.contains(targetElement)) {
       this.cadreOuvert = false;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['estJoueurActif']) {
+      this.cd.detectChanges();
     }
   }
 
