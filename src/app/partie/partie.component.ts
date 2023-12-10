@@ -180,6 +180,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.cd.detectChanges();
     } else {
       this.enAttente = true;
+      this.cd.detectChanges();
     }
   }
 
