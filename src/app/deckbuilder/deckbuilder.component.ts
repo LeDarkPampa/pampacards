@@ -7,9 +7,6 @@ import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
 import {ILimitationCarte} from "../interfaces/ILimitationCarte";
-import {PropertiesService} from "../services/properties.service";
-import {ClanService} from "../services/clan.service";
-import {TypeService} from "../services/type.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
@@ -18,13 +15,14 @@ import {IUtilisateur} from "../interfaces/IUtilisateur";
 @Component({
   selector: 'app-deckbuilder',
   templateUrl: './deckbuilder.component.html',
-  styleUrls: ['./deckbuilder.component.css', '../app.component.css', '../app.component.css']
+  styleUrls: ['./deckbuilder.component.css', '../app.component.css']
 })
 export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   unsavedChanges = false;
   collectionJoueur: ICarteAndQuantity[];
   collectionJoueurFiltree: ICarteAndQuantity[];
+  collectionJoueurFiltreeTriee: ICarteAndQuantity[];
   decks: IDeck[] = [];
   formats: IFormat[] = [];
 
@@ -50,19 +48,21 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     sortValue: 'no'
   };
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
-              private typeService: TypeService, private propertiesService: PropertiesService,
+  constructor(private http: HttpClient, private authService: AuthentificationService,
               private deckService: DeckService) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
+    this.collectionJoueurFiltreeTriee = [];
   }
 
   ngOnInit() {
+    this.collectionJoueurFiltree = [];
+    this.collectionJoueurFiltreeTriee = [];
     this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
       this.decks = playerDecks;
+      this.getAllFormats();
+      this.getUserCollectionFiltered();
     });
-    this.getAllFormats();
-    this.resetValues();
   }
 
   selectDeck(deck: IDeck) {
@@ -130,7 +130,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
     if (this.selectedDeck && this.selectedDeck.cartes.length < 20) {
       this.selectedDeck.cartes.push(carte);
-      this.removeSelectedCardFromUserCollection(carte);
+      this.refreshCollectionFiltered();
     } else {
       this.message = [
         { severity: 'warn', summary: 'Attention', detail: 'Impossible de mettre plus de vingt cartes' },
@@ -145,10 +145,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       if (indexCarte >= 0) {
         this.selectedDeck.cartes.splice(indexCarte, 1);
       }
+      this.refreshCollectionFiltered();
     }
-    this.addSelectedCardToUserCollection(carte);
-    this.checkLimitationsFormat();
-    this.applyFilters(this.filtersAndSortsValues);
   }
 
   saveDeck() {
@@ -157,7 +155,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
-    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id !== deck.id)) {
+    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id != deck.id)) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' },
       ];
@@ -236,8 +234,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   getUserCollectionFiltered() {
     const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${this.authService.getUserId()}`;
-    this.collectionJoueur = [];
-    this.collectionJoueurFiltree = [];
     this.http.get<ICollection>(url).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
@@ -247,30 +243,32 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
           }
 
           data.cartes.forEach(carte => {
-            let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id == carte.id);
+            let indexCarte = this.collectionJoueur.findIndex(card => card.carte.id === carte.id);
             if (indexCarte >= 0) {
+              // Créer une nouvelle instance de l'objet avant de le modifier
               this.collectionJoueur[indexCarte].quantity = this.collectionJoueur[indexCarte].quantity + 1;
             } else {
               this.collectionJoueur.push({carte: carte, quantity: 1});
             }
-            this.collectionJoueurFiltree = this.collectionJoueur;
           });
+          this.collectionJoueurFiltree = this.deepCopy(this.collectionJoueur);
         }
-        let filtersAndSortsValues = {
+        this.filtersAndSortsValues = {
           selectedClans: [],
           selectedTypes: [],
           selectedRaretes: [],
-          sortValue: 'clan-asc'
+          sortValue: 'no'
         };
-        this.applyFilters(filtersAndSortsValues);
 
-        this.removeCartesCollectionDuSelectedDeck();
+        this.refreshCollectionFiltered();
       },
       error: error => {
         console.error('There was an error!', error);
       }
     });
   }
+
+
 
   private getAllFormats() {
     this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
@@ -312,29 +310,25 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     );
   }
 
-
-  private removeSelectedCardFromUserCollection(carte: ICarte) {
-    let indexCarte = this.collectionJoueurFiltree.findIndex(card => card.carte.id == carte.id);
-    if (indexCarte >= 0) {
-      if (this.collectionJoueurFiltree[indexCarte].quantity > 1) {
-        this.collectionJoueurFiltree[indexCarte].quantity = this.collectionJoueurFiltree[indexCarte].quantity - 1;
-      } else if (this.collectionJoueurFiltree[indexCarte].quantity == 1) {
-        this.collectionJoueurFiltree.splice(indexCarte, 1);
-      }
-    }
-  }
-
-  private addSelectedCardToUserCollection(carte: ICarte) {
-    let indexCarte = this.collectionJoueurFiltree.findIndex(card => card.carte.id == carte.id);
-    if (indexCarte >= 0) {
-      this.collectionJoueurFiltree[indexCarte].quantity = this.collectionJoueurFiltree[indexCarte].quantity + 1;
-    } else {
-      this.collectionJoueurFiltree.push({carte: carte, quantity: 1});
-    }
-  }
-
   private removeCartesCollectionDuSelectedDeck() {
-    this.selectedDeck?.cartes.forEach(carte => this.removeSelectedCardFromUserCollection(carte));
+    this.collectionJoueurFiltree = this.deepCopy(this.collectionJoueur);
+    this.removeSelectedCardsFromUserCollection();
+
+
+  }
+
+  private removeSelectedCardsFromUserCollection() {
+    this.selectedDeck?.cartes.forEach(carte => {
+      const indexCarte = this.collectionJoueurFiltree.findIndex(card => card.carte.id === carte.id);
+      if (indexCarte >= 0) {
+        const cardEntry = this.collectionJoueurFiltree[indexCarte];
+        if (cardEntry.quantity > 1) {
+          cardEntry.quantity--;
+        } else {
+          this.collectionJoueurFiltree.splice(indexCarte, 1);
+        }
+      }
+    });
   }
 
   onFormatChange() {
@@ -369,7 +363,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   applyFilters(filtersAndSortsValues: IFiltersAndSortsValues) {
-    this.collectionJoueurFiltree = this.collectionJoueur.filter((carte: ICarteAndQuantity) => {
+    this.collectionJoueurFiltreeTriee = this.collectionJoueurFiltree.filter((carte: ICarteAndQuantity) => {
       if (filtersAndSortsValues.selectedClans && filtersAndSortsValues.selectedClans.length > 0
         && filtersAndSortsValues.selectedClans.indexOf(carte.carte.clan.nom) == -1) {
         return false;
@@ -386,19 +380,19 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   sortCards(sortValue: string) {
     if (sortValue != '' && sortValue != 'no') {
-      this.collectionJoueurFiltree.sort((carteA, carteB) => {
+      this.collectionJoueurFiltreeTriee.sort((carteA, carteB) => {
         let value1;
         let value2;
         if (sortValue === 'clan-asc') {
           const clanComparison = carteA.carte.clan.nom.localeCompare(carteB.carte.clan.nom);
-          if (clanComparison !== 0) {
+          if (clanComparison != 0) {
             return clanComparison;
           } else {
             return carteA.carte.nom.localeCompare(carteB.carte.nom);
           }
         } else if (sortValue === 'clan-desc') {
           const clanComparison = carteB.carte.clan.nom.localeCompare(carteA.carte.clan.nom);
-          if (clanComparison !== 0) {
+          if (clanComparison != 0) {
             return clanComparison;
           } else {
             return carteB.carte.nom.localeCompare(carteA.carte.nom);
@@ -411,14 +405,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
           value2 = carteA.carte.nom;
         } else if (sortValue === 'rarete-asc') {
           const rareteComparison = carteA.carte.rarete - carteB.carte.rarete;
-          if (rareteComparison !== 0) {
+          if (rareteComparison != 0) {
             return rareteComparison;
           } else {
             return carteA.carte.nom.localeCompare(carteB.carte.nom);
           }
         } else if (sortValue === 'rarete-desc') {
           const rareteComparison = carteB.carte.rarete - carteA.carte.rarete;
-          if (rareteComparison !== 0) {
+          if (rareteComparison != 0) {
             return rareteComparison;
           } else {
             return carteB.carte.nom.localeCompare(carteA.carte.nom);
@@ -426,9 +420,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         } else if (sortValue === '') {
           value1 = carteA.carte.rarete;
           value2 = carteB.carte.rarete;
-        } else if (sortValue === '') {
-          value1 = carteB.carte.rarete;
-          value2 = carteA.carte.rarete;
         } else {
           value1 = carteA.carte.nom;
           value2 = carteB.carte.nom;
@@ -442,9 +433,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         return 0;
       });
     } else {
-      this.collectionJoueurFiltree.sort((carteA, carteB) => {
+      this.collectionJoueurFiltreeTriee.sort((carteA, carteB) => {
         const clanComparison = carteA.carte.clan.nom.localeCompare(carteB.carte.clan.nom);
-        if (clanComparison !== 0) {
+        if (clanComparison != 0) {
           return clanComparison;
         } else {
           return carteA.carte.nom.localeCompare(carteB.carte.nom);
@@ -460,7 +451,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       selectedRaretes: [],
       sortValue: 'no'
     };
-    this.getUserCollectionFiltered();
+    this.refreshCollectionFiltered();
   }
 
   canDeactivate(): boolean {
@@ -471,5 +462,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     } else {
       return true;
     }
+  }
+
+  refreshCollectionFiltered() {
+    this.removeCartesCollectionDuSelectedDeck();
+    this.applyFilters(this.filtersAndSortsValues);
+  }
+
+  private deepCopy(obj: any): any {
+    return JSON.parse(JSON.stringify(obj));
   }
 }
