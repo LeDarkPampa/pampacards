@@ -76,7 +76,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   private checkIfAffrontement(id: number, affrontements: IAffrontement[]) {
-    return affrontements.some(affrontement => (affrontement.joueur1Id === id || affrontement.joueur2Id === id && affrontement.vainqueurId == null));
+    return affrontements.some(affrontement => ((affrontement.joueur1Id === id || affrontement.joueur2Id === id) && affrontement.vainqueurId == null));
   }
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
