@@ -118,6 +118,12 @@ button:active {
   box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
 }
 
+.noir {
+  background-color: #272727;
+  text-shadow: 1px 1px 0 #212121;
+  color: #ffffff;
+}
+
 .bleu {
   background-color: #1e4f6c;
   text-shadow: 1px 1px 0 #1a425d;
@@ -151,5 +157,23 @@ button:active {
 .rose {
   background-color: #ff69b4;
   text-shadow: 1px 1px 0 #ff4499;
+  color: #ffffff;
+}
+
+.bordeaux {
+  background-color: #800000;
+  text-shadow: 1px 1px 0 #600000;
+  color: #ffffff;
+}
+
+.gris {
+  background-color: #808080;
+  text-shadow: 1px 1px 0 #666666;
+  color: #ffffff;
+}
+
+.marron {
+  background-color: #8b4513;
+  text-shadow: 1px 1px 0 #753b0f;
   color: #ffffff;
 }
