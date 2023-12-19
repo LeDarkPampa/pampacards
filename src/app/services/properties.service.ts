@@ -43,6 +43,12 @@ export class PropertiesService {
   }
 
   isTestModeOn() {
-    return localStorage.getItem('testModeOn');
+    const testModeOnString = localStorage.getItem('testModeOn');
+    if (testModeOnString) {
+      const testModeOn = JSON.parse(testModeOnString);
+      return testModeOn === true;
+    } else {
+      return false;
+    }
   }
 }
