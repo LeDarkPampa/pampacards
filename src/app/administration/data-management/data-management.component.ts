@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {PropertiesService} from "../../services/properties.service";
 
 @Component({
   selector: 'app-data-management',
@@ -8,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DataManagementComponent {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private propertiesService: PropertiesService) {
 
   }
 
@@ -34,5 +35,9 @@ export class DataManagementComponent {
         alert('Erreur lors de la suppression');
       }
     });
+  }
+
+  updateProperties() {
+    this.propertiesService.updateProperties();
   }
 }

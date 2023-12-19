@@ -21,6 +21,10 @@ export class PropertiesService {
     }
   }
 
+  updateProperties() {
+    this.fetchProperties();
+  }
+
   private fetchProperties() {
     this.http.get<IPropertie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/properties').subscribe({
       next: (data: IPropertie[]) => {
