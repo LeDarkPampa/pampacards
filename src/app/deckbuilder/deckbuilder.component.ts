@@ -11,6 +11,7 @@ import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
+import {PropertiesService} from "../services/properties.service";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -49,7 +50,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   };
 
   constructor(private http: HttpClient, private authService: AuthentificationService,
-              private deckService: DeckService) {
+              private deckService: DeckService, private propertiesService: PropertiesService) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
