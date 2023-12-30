@@ -7,14 +7,20 @@
   color: white;
 }
 
+:host ::ng-deep .p-dialog-content {
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+
 :host ::ng-deep .p-dialog .p-dialog-content {
   overflow: visible !important;
-  padding: 0;
+  padding: 0 !important;
   background: rgba(2,0,36,1);
   color: white;
 }
 
 :host ::ng-deep body > p-dynamicdialog > div > div > div.p-dialog-content {
   overflow: visible !important;
-  padding: 0;
+  padding: 0 !important;
 }
