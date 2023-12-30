@@ -13,11 +13,7 @@
   color: white;
 }
 
-:host ::ng-deep .p-dialog-content {
-  overflow: visible !important;
-}
-
-.p-dialog-content {
+:host ::ng-deep body > p-dynamicdialog > div > div > div.p-dialog-content {
   overflow: visible !important;
 }
 
