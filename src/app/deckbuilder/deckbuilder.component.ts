@@ -129,6 +129,27 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     }
 
+    const standardFormat = this.selectedFormat.nom === 'STANDARD';
+    // Format standard : 3 cartes 4* max
+    if (standardFormat && carte.rarete === 4) {
+      let nb4Etoiles = 0;
+      for (const c of this.selectedDeck.cartes) {
+        if (c.rarete === 4) {
+          nb4Etoiles ++;
+        }
+      }
+      if (nb4Etoiles >= 3) {
+        this.message = [
+          {
+            severity: 'error',
+            summary: 'Erreur',
+            detail: `Votre deck ne peut contenir que 3 cartes 4* dans ce format.`,
+          },
+        ];
+        return;
+      }
+    }
+
     if (this.selectedDeck && this.selectedDeck.cartes.length < 20) {
       this.selectedDeck.cartes.push(carte);
       this.refreshCollectionFiltered();
@@ -314,8 +335,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   private removeCartesCollectionDuSelectedDeck() {
     this.collectionJoueurFiltree = this.deepCopy(this.collectionJoueur);
     this.removeSelectedCardsFromUserCollection();
-
-
   }
 
   private removeSelectedCardsFromUserCollection() {
@@ -338,9 +357,33 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   private checkLimitationsFormat() {
     if (this.selectedFormat && this.selectedFormat.limitationCartes) {
-      const limitationCartes = this.selectedFormat.limitationCartes;
 
       this.hasExceededLimitation = false;
+
+      const limitationCartes = this.selectedFormat.limitationCartes;
+
+      const standardFormat = this.selectedFormat.nom === 'STANDARD';
+
+      // Format standard : 3 cartes 4* max
+      if (standardFormat) {
+        let nb4Etoiles = 0;
+        for (const carte of this.selectedDeck.cartes) {
+          if (carte.rarete === 4) {
+            nb4Etoiles ++;
+          }
+
+          if (nb4Etoiles >= 4) {
+            this.message = [
+              {
+                severity: 'error',
+                summary: 'Erreur',
+                detail: `Votre deck ne peut contenir que 3 cartes 4* dans ce format.`,
+              },
+            ];
+            this.hasExceededLimitation = true;
+          }
+        }
+      }
 
       limitationCartes.forEach((limitation: ILimitationCarte) => {
         const carteId = limitation.carte.id;
