@@ -8,6 +8,7 @@
 }
 
 :host ::ng-deep .p-dialog .p-dialog-content {
+  overflow-y: visible;
   background: rgba(2,0,36,1);
   color: white;
 }
