@@ -8,9 +8,17 @@
 }
 
 :host ::ng-deep .p-dialog .p-dialog-content {
-  overflow-y: visible;
+  overflow: visible !important;
   background: rgba(2,0,36,1);
   color: white;
+}
+
+:host ::ng-deep .p-dialog-content {
+  overflow: visible !important;
+}
+
+.p-dialog-content {
+  overflow: visible !important;
 }
 
 .erreur-message {
