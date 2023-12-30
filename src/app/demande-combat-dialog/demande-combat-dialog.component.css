@@ -9,14 +9,12 @@
 
 :host ::ng-deep .p-dialog .p-dialog-content {
   overflow: visible !important;
+  padding: 0;
   background: rgba(2,0,36,1);
   color: white;
 }
 
-:host ::ng-deep .p-dialog-content {
+:host ::ng-deep body > p-dynamicdialog > div > div > div.p-dialog-content {
   overflow: visible !important;
-}
-
-.p-dialog-content {
-  overflow: visible !important;
+  padding: 0;
 }
