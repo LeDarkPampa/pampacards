@@ -38,6 +38,6 @@ export class DataManagementComponent {
   }
 
   updateProperties() {
-    this.propertiesService.updateProperties();
+    this.propertiesService.loadProperties();
   }
 }
