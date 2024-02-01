@@ -306,6 +306,14 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       return victoriesB - victoriesA; // Tri décroissant par nombre de victoires
     }
 
+    const lostA = this.getNombreDefaites(playerA.utilisateur.id);
+    const lostB = this.getNombreDefaites(playerB.utilisateur.id);
+
+    // Comparer le nombre de défaites
+    if (lostA !== lostB) {
+      return lostA - lostB;
+    }
+
     // En cas d'égalité, comparer le nombre de manches perdues
     const scoreA = this.getNombreManchesPerdues(playerA.utilisateur.id);
     const scoreB = this.getNombreManchesPerdues(playerB.utilisateur.id);
@@ -315,6 +323,12 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
 
   getNombreVictoires(joueurId: number): number {
     return this.ligue.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
+  }
+
+  getNombreDefaites(joueurId: number): number {
+    return this.ligue.affrontements.filter(affrontement =>
+      (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
+      && (affrontement.vainqueurId !== null && affrontement.vainqueurId !== joueurId)).length;
   }
 
   getNombreManchesGagnees(joueurId: number): number {
