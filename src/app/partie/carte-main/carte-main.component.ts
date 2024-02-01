@@ -39,6 +39,7 @@ export class CarteMainComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     document.addEventListener('click', this.closeWindowIfClickedOutside);
+    this.cd.detectChanges();
   }
 
   private closeWindowIfClickedOutside = (event: MouseEvent) => {
@@ -52,7 +53,7 @@ export class CarteMainComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['estJoueurActif']) {
+    if (changes['estJoueurActif'] && this.cadreOuvert) {
       this.cd.detectChanges();
     }
   }

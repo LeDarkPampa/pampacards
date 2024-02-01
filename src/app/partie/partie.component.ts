@@ -49,7 +49,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteDefaussee = false;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
-  enAttente: boolean = false;
+  enAttente: boolean = true;
   joueurAbandon: string = '';
   nomCorrompu = 'Corrompu';
   clanCorrompu: IClan = {
