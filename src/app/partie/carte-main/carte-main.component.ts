@@ -53,9 +53,7 @@ export class CarteMainComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['estJoueurActif'] && this.cadreOuvert) {
-      this.cd.detectChanges();
-    }
+    this.cd.detectChanges();
   }
 
   ouvrirCadre() {
