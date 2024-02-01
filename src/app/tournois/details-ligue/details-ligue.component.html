@@ -4,10 +4,10 @@
 
   <div *ngFor="let player of players; let i = index">
     <div *ngFor="let opponent of players; let j = index">
-      <div *ngIf="i<j && playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">
+      <div *ngIf="i<j && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">
         {{player.utilisateur.pseudo}} vs {{opponent.utilisateur.pseudo}} :
         <div>Score : {{getScoreAffrontement(player.utilisateur.id, opponent.utilisateur.id)}}</div>
-        <div *ngIf="!isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id))">
+        <div *ngIf="!isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id)) && playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) ">
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(player.utilisateur.id, opponent.utilisateur.id)"></app-pampa-button>
         </div>
         <div class="text-red" *ngIf="isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id))"> Terminé !</div>
