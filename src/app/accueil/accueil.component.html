@@ -36,7 +36,7 @@
     <button class="explore-button">Boosters</button>
   </div>
 </div>
-<div class="features-container">
+<div *ngIf="authService.isLoggedIn$ | async" class="features-container">
   <div class="feature-card" (click)="navigateTo('learn-to-play')">
     <div class="card-content">
       <h2>Construire un deck</h2>
@@ -44,14 +44,14 @@
     </div>
     <button class="explore-button">Deckbuilder</button>
   </div>
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('learn-to-play')">
     <div class="card-content">
       <h2>Trouver un adversaire</h2>
       <p>Rien ne vos un match amical pour s'entrainer.</p>
     </div>
     <button class="explore-button">Arène</button>
   </div>
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('learn-to-play')">
     <div class="card-content">
       <h2>Voir les tournois</h2>
       <p>Les vrais compétitions se trouvent ici.</p>
