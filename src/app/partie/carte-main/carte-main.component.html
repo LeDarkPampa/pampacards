@@ -39,6 +39,7 @@
   </div>
 </div>
 estJoueurActif = {{estJoueurActif}}
+cadreOuvert = {{cadreOuvert}}
 <div class="cadre" *ngIf="cadreOuvert && estJoueurActif">
   <div *ngIf="!carteJouee"><button (click)="jouerCarte()">Jouer</button></div>
   <div *ngIf="!carteDefaussee"><button (click)="defausserCarte()">Défausser</button></div>

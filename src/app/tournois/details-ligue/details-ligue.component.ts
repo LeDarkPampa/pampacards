@@ -325,10 +325,16 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     return this.ligue.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
   }
 
+  getNombreNuls(joueurId: number): number {
+    return this.ligue.affrontements.filter(affrontement =>
+      (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
+      && (affrontement.vainqueurId !== null && affrontement.vainqueurId === 0)).length;
+  }
+
   getNombreDefaites(joueurId: number): number {
     return this.ligue.affrontements.filter(affrontement =>
       (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
-      && (affrontement.vainqueurId !== null && affrontement.vainqueurId !== joueurId)).length;
+      && (affrontement.vainqueurId !== null && affrontement.vainqueurId !== 0 && affrontement.vainqueurId !== joueurId)).length;
   }
 
   getNombreManchesGagnees(joueurId: number): number {

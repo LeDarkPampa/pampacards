@@ -22,6 +22,7 @@
       <th>Position</th>
       <th>Pseudo</th>
       <th>Victoires</th>
+      <th>Nuls</th>
       <th>Défaites</th>
       <th>Manches gagnées</th>
       <th>Manches perdues</th>
@@ -32,6 +33,7 @@
       <td>{{ i + 1 }}</td>
       <td>{{ player.utilisateur.pseudo }}</td>
       <td>{{ getNombreVictoires(player.utilisateur.id) }}</td>
+      <td>{{ getNombreNuls(player.utilisateur.id) }}</td>
       <td>{{ getNombreDefaites(player.utilisateur.id) }}</td>
       <td>{{ getNombreManchesGagnees(player.utilisateur.id) }}</td>
       <td>{{ getNombreManchesPerdues(player.utilisateur.id) }}</td>
