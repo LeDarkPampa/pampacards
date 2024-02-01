@@ -1,4 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import {AuthentificationService} from "../services/authentification.service";
+import {first} from "rxjs";
 
 @Component({
   selector: 'app-accueil',
@@ -7,9 +10,14 @@ import {Component} from '@angular/core';
 })
 export class AccueilComponent {
 
-  constructor() {
+  constructor(public authService: AuthentificationService, private router: Router) {}
+
+  navigateTo(link: string) {
 
   }
 
+  async isLoggedIn(): Promise<boolean> {
+    const isLoggedIn = await this.authService.isLoggedIn$.pipe(first()).toPromise();
+    return !!isLoggedIn;
+  }
 }
-
