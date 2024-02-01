@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accueil',
@@ -7,9 +8,9 @@ import {Component} from '@angular/core';
 })
 export class AccueilComponent {
 
-  constructor() {
+  constructor(private router: Router) {}
+
+  navigateTo(link: string) {
 
   }
-
 }
-

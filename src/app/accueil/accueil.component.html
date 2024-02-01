@@ -1,53 +1,61 @@
-<div class="home-container">
-  <h1 class="title">Les Pampa Cards sont en ligne !</h1>
+<div class="explanation-section">
+  <div class="explanation-text">
+    <h2>Bienvenue dans le Monde des Pampa Cards !</h2>
+    <p>
+      Explorez les fonctionnalités pour commencer votre aventure.
+    </p>
+    <p>
+      Apprenez les règles, découvrez les decks de départ, construisez votre propre deck, trouvez des adversaires et participez à des tournois excitants.
+    </p>
+    <p>
+      Que l'aventure commence !
+    </p>
+  </div>
+</div>
 
-  <div class="news-container">
-    <div class="main-news">
-      <div class="news-image">
-        <img src="../../assets/news/news1.png" alt="Image de la news principale">
-        <div class="news-overlay">
-          <h2 class="news-title">Travaux en cours</h2>
-          <p class="news-content">
-            Le design continu d'être amélioré. Les images des cartes sont mieux mises en valeur, notamment dans la collection. Les travaux avancent pour la jouabilité sur tablette !
-          </p>
-        </div>
-      </div>
+<div class="features-container">
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Apprendre à Jouer</h2>
+      <p>Découvrez les règles du jeu et les bases stratégiques.</p>
     </div>
-
-    <div class="small-news">
-      <div class="small-new">
-        <div class="small-news-image">
-          <img src="../../assets/news/news2.png" alt="Image du Frozaurus">
-          <div class="news-overlay">
-            <h2 class="news-title">Les ligues au top</h2>
-            <p class="news-content">
-              Le système de ligue a eu le droit à son lot de correctifs ! Allez-voir si une ligue est prévue dans l'onglet "Tournois".
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="small-new">
-        <div class="small-news-image">
-          <img src="../../assets/news/news3.png" alt="Image de la news 3">
-          <div class="news-overlay">
-            <h2 class="news-title">Nouvelle corruption</h2>
-            <p class="news-content">
-              Petit relooking de la corruption pour la rendre encore plus effrayante !
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="small-new">
-        <div class="small-news-image">
-          <img src="../../assets/news/news4.png" alt="Image de la news 4">
-          <div class="news-overlay">
-            <h2 class="news-title">Attaque de chauve-souris</h2>
-            <p class="news-content">
-              La chauve-souris gagne en puissance et dispose d'un nouveau pouvoir. Allez découvrir cela dans la collection.
-            </p>
-          </div>
-        </div>
-      </div>
+    <button class="explore-button">Tutoriel</button>
+  </div>
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Découvrir les decks de départ</h2>
+      <p>Le choix du deck de départ est toujours important.</p>
     </div>
+    <button class="explore-button">Decks de départ</button>
+  </div>
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Voir le détail des boosters</h2>
+      <p>Découvrez dans quel booster trouver la carte de vos rêves.</p>
+    </div>
+    <button class="explore-button">Boosters</button>
+  </div>
+</div>
+<div class="features-container">
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Construire un deck</h2>
+      <p>Préparez votre armée pour le combat.</p>
+    </div>
+    <button class="explore-button">Deckbuilder</button>
+  </div>
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Trouver un adversaire</h2>
+      <p>Rien ne vos un match amical pour s'entrainer.</p>
+    </div>
+    <button class="explore-button">Arène</button>
+  </div>
+  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+    <div class="card-content">
+      <h2>Voir les tournois</h2>
+      <p>Les vrais compétitions se trouvent ici.</p>
+    </div>
+    <button class="explore-button">Tournois</button>
   </div>
 </div>
