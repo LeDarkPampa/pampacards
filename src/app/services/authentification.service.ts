@@ -34,6 +34,7 @@ export class AuthentificationService {
         if (user) {
           this.cookieService.set('isLoggedIn', 'true');
           this.cookieService.set('userId', user.id.toString());
+          localStorage.removeItem('user');
           localStorage.setItem('user', JSON.stringify(user));
 
           // Émettre des événements pour informer les composants abonnés des changements d'état.

@@ -27,6 +27,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   // @ts-ignore
   ligue: ILigue;
   players: ICompetitionParticipant[] = [];
+  sortedPlayers: ICompetitionParticipant[] = [];
   hasAffrontement: boolean = false;
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
@@ -52,6 +53,9 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
             this.ligue = ligue;
             this.players = this.ligue.participants.filter(player => player.utilisateur !== null).sort(this.compareByPseudo);
             this.hasAffrontement = this.checkIfAffrontement(this.utilisateur.id, this.ligue.affrontements);
+
+            // Trier les joueurs pour le classement
+            this.sortedPlayers = this.players.slice().sort((a, b) => this.comparePlayers(a, b));
           },
           error: error => {
             console.error('There was an error!', error);
@@ -291,6 +295,46 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     } else {
       return -1;
     }
+  }
+
+  comparePlayers(playerA: ICompetitionParticipant, playerB: ICompetitionParticipant): number {
+    const victoriesA = this.getNombreVictoires(playerA.utilisateur.id);
+    const victoriesB = this.getNombreVictoires(playerB.utilisateur.id);
+
+    // Comparer le nombre de victoires
+    if (victoriesB !== victoriesA) {
+      return victoriesB - victoriesA; // Tri décroissant par nombre de victoires
+    }
+
+    // En cas d'égalité, comparer le nombre de manches perdues
+    const scoreA = this.getNombreManchesPerdues(playerA.utilisateur.id);
+    const scoreB = this.getNombreManchesPerdues(playerB.utilisateur.id);
+
+    return scoreA - scoreB; // Tri croissant par nombre de manches perdues
+  }
+
+  getNombreVictoires(joueurId: number): number {
+    return this.ligue.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
+  }
+
+  getNombreManchesGagnees(joueurId: number): number {
+    return this.ligue.affrontements
+      .filter(affrontement =>
+        ((affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId))
+      )
+      .reduce((totalManchesGagnees, affrontement) => {
+        return totalManchesGagnees + ((affrontement.joueur1Id == joueurId) ? affrontement.scoreJ1 : affrontement.scoreJ2);
+      }, 0);
+  }
+
+  getNombreManchesPerdues(joueurId: number): number {
+    return this.ligue.affrontements
+      .filter(affrontement =>
+        ((affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId))
+      )
+      .reduce((totalManchesGagnees, affrontement) => {
+        return totalManchesGagnees + ((affrontement.joueur1Id == joueurId) ? affrontement.scoreJ2 : affrontement.scoreJ1);
+      }, 0);
   }
 
   ngOnDestroy() {
