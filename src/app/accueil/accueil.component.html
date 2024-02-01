@@ -14,21 +14,21 @@
 </div>
 
 <div class="features-container">
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div class="feature-card" (click)="navigateTo('/tutoriel/debuter')">
     <div class="card-content">
       <h2>Apprendre à Jouer</h2>
       <p>Découvrez les règles du jeu et les bases stratégiques.</p>
     </div>
     <button class="explore-button">Tutoriel</button>
   </div>
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div class="feature-card" (click)="navigateTo('/tutoriel/jouer')">
     <div class="card-content">
       <h2>Découvrir les decks de départ</h2>
       <p>Le choix du deck de départ est toujours important.</p>
     </div>
     <button class="explore-button">Decks de départ</button>
   </div>
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div class="feature-card" (click)="navigateTo('/infos/deck-base-details')">
     <div class="card-content">
       <h2>Voir le détail des boosters</h2>
       <p>Découvrez dans quel booster trouver la carte de vos rêves.</p>
@@ -37,21 +37,21 @@
   </div>
 </div>
 <div *ngIf="authService.isLoggedIn$ | async" class="features-container">
-  <div class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div class="feature-card" (click)="navigateTo('/deckbuilder')">
     <div class="card-content">
       <h2>Construire un deck</h2>
       <p>Préparez votre armée pour le combat.</p>
     </div>
     <button class="explore-button">Deckbuilder</button>
   </div>
-  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('learn-to-play')">
+  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('/recherche-combat')">
     <div class="card-content">
       <h2>Trouver un adversaire</h2>
       <p>Rien ne vos un match amical pour s'entrainer.</p>
     </div>
     <button class="explore-button">Arène</button>
   </div>
-  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('learn-to')">
+  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card" (click)="navigateTo('/tournois')">
     <div class="card-content">
       <h2>Voir les tournois</h2>
       <p>Les vrais compétitions se trouvent ici.</p>

@@ -13,7 +13,7 @@ export class AccueilComponent {
   constructor(public authService: AuthentificationService, private router: Router) {}
 
   navigateTo(link: string) {
-
+    this.router.navigate([link]);
   }
 
   async isLoggedIn(): Promise<boolean> {
