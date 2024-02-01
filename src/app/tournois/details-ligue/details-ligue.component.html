@@ -1,7 +1,7 @@
 <div class="round-robin-tournament" *ngIf="ligue">
   <h2><div class="ligne-centree">Ligue {{ligue.nom}}</div></h2>
   <div class="has-affrontement" *ngIf="hasAffrontement">Vous avez un combat à jouer !</div>
-
+  <div class="has-affrontement" *ngIf="!hasAffrontement">En attente du prochain tour</div>
   <div *ngFor="let player of players; let i = index">
     <div *ngFor="let opponent of players; let j = index">
       <div *ngIf="i<j && isAffrontement(player.utilisateur.id, opponent.utilisateur.id)" class="match-cell" [class.played]="i !== j">
@@ -10,7 +10,7 @@
         <div *ngIf="!isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id)) && playerInAffrontement(player.utilisateur.id, opponent.utilisateur.id) ">
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(player.utilisateur.id, opponent.utilisateur.id)"></app-pampa-button>
         </div>
-        <div class="text-red" *ngIf="isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id))"> Terminé !</div>
+        <div class="text-red margin-left" *ngIf="isAffrontementTermine(getAffrontement(player.utilisateur.id, opponent.utilisateur.id))"> Terminé !</div>
       </div>
     </div>
   </div>
@@ -28,7 +28,6 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Utilisez *ngFor pour parcourir la liste triée des joueurs -->
     <tr *ngFor="let player of sortedPlayers; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ player.utilisateur.pseudo }}</td>

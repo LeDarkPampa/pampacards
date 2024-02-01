@@ -171,7 +171,6 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
       }
 
-
       if (lastEvent.status == "DEBUT_PARTIE") {
         this.initCards();
       }
