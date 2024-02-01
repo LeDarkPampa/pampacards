@@ -18,6 +18,6 @@ export class AccueilComponent {
 
   async isLoggedIn(): Promise<boolean> {
     const isLoggedIn = await this.authService.isLoggedIn$.pipe(first()).toPromise();
-    return !!isLoggedIn; // Convertir la valeur en un boolean avec l'opérateur double négation (!!).
+    return !!isLoggedIn;
   }
 }
