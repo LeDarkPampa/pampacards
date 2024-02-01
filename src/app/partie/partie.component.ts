@@ -1666,6 +1666,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.joueur.score = sommePuissancesJoueur;
     this.adversaire.score = sommePuissancesAdversaire;
+    this.cd.detectChanges();
   }
 
   voirDefausse(defausse: ICarte[]) {
