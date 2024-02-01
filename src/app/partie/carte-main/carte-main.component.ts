@@ -43,12 +43,14 @@ export class CarteMainComponent implements OnInit, OnChanges {
 
   private closeWindowIfClickedOutside = (event: MouseEvent) => {
     if (!this.cadreOuvert) {
+      this.cd.detectChanges();
       return;
     }
     const targetElement = event.target as HTMLElement;
     if (!this.elementRef.nativeElement.contains(targetElement)) {
       this.cadreOuvert = false;
     }
+    this.cd.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges) {
