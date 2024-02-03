@@ -1276,7 +1276,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           let nbParis = 0;
           for (let c of this.joueur.terrain) {
             if (c.effet &&  c.effet.code === EffetEnum.PARI) {
-              nbParis++;
+              nbParis = nbParis + 1;
             }
           }
 
@@ -1287,7 +1287,6 @@ export class PartieComponent implements OnInit, OnDestroy {
               }
             }
           }
-          carte.puissance = 7;
 
           break;
         }
