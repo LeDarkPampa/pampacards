@@ -200,3 +200,59 @@
     text-align: center;
   }
 }
+
+.card.air {
+  border: 3px solid #A7B0CA;
+}
+
+.card.champignon {
+  border: 3px solid #8E5572;
+}
+
+.card.eau {
+  border: 3px solid #27476E;
+}
+
+.card.electricite {
+  border: 3px solid #FFBC1F;
+}
+
+.card.feu {
+  border: 3px solid #C3423F;
+}
+
+.card.fruit {
+  border: 3px solid #F45D01;
+}
+
+.card.jouet {
+  border: 3px solid #C6C5B9;
+}
+
+.card.plante {
+  border: 3px solid #3F612D;
+}
+
+.card.desert {
+  border: 3px solid #C6A15B;
+}
+
+.card.glace {
+  border: 3px solid #9DD9D2;
+}
+
+.card.roche {
+  border: 3px solid #A38560;
+}
+
+.card.espace {
+  border: 3px solid purple;
+}
+
+.card.nuit {
+  border: 3px solid darkblue;
+}
+
+.card.casino {
+  border: 3px solid goldenrod;
+}
