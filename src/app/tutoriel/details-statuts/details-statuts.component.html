@@ -18,6 +18,13 @@
         </tr>
         </thead>
         <tbody>
+        <tr *ngIf="normale">
+          <td>Sans statut</td>
+          <td>La carte sans aucun effet.</td>
+          <td>
+            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="normale"></app-carte-terrain></div>
+          </td>
+        </tr>
         <tr *ngIf="bouclier">
           <td>Bouclier</td>
           <td>La carte est protégée contre les effets adverses (silence, diminution de puissance, etc.). Le seul effet pouvant cibler la carte est l'effet détruisant les boucliers.</td>

@@ -1,40 +1,61 @@
-<div  [ngClass]="[taille]" class="card">
+<div [ngClass]="{
+  'prison': carte.prison,
+  'silence': carte.silence,
+  'bouclier': carte.bouclier,
+  'insensible': carte.insensible,
+  'corrompu': isCarteCorrompu(carte),
+  'taille': taille,
+  'air': carte.type.nom === 'Air',
+  'champignon': carte.type.nom === 'Champignon',
+  'eau': carte.type.nom === 'Eau',
+  'electricite': carte.type.nom === 'Electricite',
+  'feu': carte.type.nom === 'Feu',
+  'fruit': carte.type.nom === 'Fruit',
+  'jouet': carte.type.nom === 'Jouet',
+  'plante': carte.type.nom === 'Plante',
+  'desert': carte.type.nom === 'Désert',
+  'glace': carte.type.nom === 'Glace',
+  'roche': carte.type.nom === 'Roche',
+  'espace': carte.type.nom === 'Espace',
+  'nuit': carte.type.nom === 'Nuit',
+  'casino': carte.type.nom === 'Casino'
+}" class="card {{ taille }}">
   <div class="card-content">
-    <div class="card-header">
-      <div class="nom"><h3>{{ carte.nom }}</h3></div>
-      <div class="icone1 ligne-centree">
-        <div class="icone">
-          <img src="assets/clans/{{ carte.clan.nom }}.png" alt="{{ carte.clan.nom }}" />
-        </div>
-      </div>
-      <div class="stars">
-        <span class="star" *ngFor="let star of generateStars(carte.rarete)">*</span>
-      </div>
-      <div class="icone2 ligne-centree">
-        <div class="icone">
-          <img src="assets/types/{{ carte.type.nom }}.png" alt="{{ carte.type.nom }}" />
-        </div>
+  <div class="card-header">
+    <div class="nom"><h3>{{ carte.nom }}</h3></div>
+    <div class="icone1 ligne-centree">
+      <div class="icone">
+        <img src="assets/clans/{{ carte.clan.nom }}.png" alt="{{ carte.clan.nom }}" />
       </div>
     </div>
-    <img class="card-image" *ngIf="carte.image_path !== null" loading="lazy" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
+    <div class="stars">
+      <span class="star" *ngFor="let star of generateStars(carte.rarete)">*</span>
+    </div>
+    <div class="icone2 ligne-centree">
+      <div class="icone">
+        <img src="assets/types/{{ carte.type.nom }}.png" alt="{{ carte.type.nom }}" />
+      </div>
+    </div>
+  </div>
+  <img class="card-image" *ngIf="carte.image_path !== null" loading="lazy" src="assets/cartes/{{ carte.image_path }}" alt="{{ carte.nom }}" [ngClass]="{
       'prison': carte.prison,
       'silence': carte.silence,
       'bouclier': carte.bouclier,
       'insensible': carte.insensible,
       'corrompu': isCarteCorrompu(carte)
       }" />
-    <div class="card-details">
-      <div class="card-power">
-        <h4>Puissance: <span class="small">{{ getPuissanceTotale(carte) }}</span></h4>
-      </div>
-      <div class="card-description">
-        <div class="small">
-          <div *ngIf="carte.effet && carte.effet.continu">
-            <span>(C)</span>
-          </div>
-          {{ carte.effet?.description }}
+  <div class="card-details">
+    <div class="card-power">
+      <h4>Puissance: <span class="small">{{ getPuissanceTotale(carte) }}</span></h4>
+    </div>
+    <div class="card-description">
+      <div class="small">
+        <div *ngIf="carte.effet && carte.effet.continu">
+          <span>(C)</span>
         </div>
+        {{ carte.effet?.description }}
       </div>
     </div>
   </div>
+</div>
 </div>

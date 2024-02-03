@@ -12,6 +12,8 @@ import {IType} from "../../interfaces/IType";
 export class DetailsStatutsComponent implements OnInit {
 
   // @ts-ignore
+  normale: ICarte;
+  // @ts-ignore
   bouclier: ICarte;
   // @ts-ignore
   insensible: ICarte;
@@ -44,6 +46,23 @@ export class DetailsStatutsComponent implements OnInit {
         carte.insensible = false;
         carte.silence = false;
         carte.prison = false;
+        this.normale = {
+          id: carte.id,
+          nom: carte.nom,
+          clan: carte.clan,
+          type: carte.type,
+          rarete: carte.rarete,
+          effet: carte.effet,
+          puissance: carte.puissance,
+          image_path: carte.image_path,
+          diffPuissanceInstant: carte.diffPuissanceInstant,
+          diffPuissanceContinue: carte.diffPuissanceContinue,
+          released: carte.released,
+          silence: false,
+          bouclier: false,
+          insensible: false,
+          prison: false
+        }
         this.bouclier = {
           id: carte.id,
           nom: carte.nom,
