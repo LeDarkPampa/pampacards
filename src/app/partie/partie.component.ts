@@ -118,7 +118,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       this.estJoueurActif = lastEvent.joueurActifId == this.userId;
 
-      if (this.lastEvent.joueurActifId != this.joueur.id || this.lastEvent.status != "TOUR_EN_COURS") {
+      if (this.lastEvent.joueurActifId != this.joueur.id) {
         if (this.partie.joueurUn.id == this.userId) {
           this.joueur.id = this.partie.joueurUn.id;
           this.adversaire.id = this.partie.joueurDeux.id;
