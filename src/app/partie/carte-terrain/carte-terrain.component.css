@@ -226,7 +226,10 @@
 }
 
 .card.casino {
-  border: 3px solid goldenrod;
+  border-top: 3px solid #C3423F;
+  border-left: 3px solid goldenrod;
+  border-bottom: 3px solid #C3423F;
+  border-right: 3px solid goldenrod;
 }
 
 .card.silence {
