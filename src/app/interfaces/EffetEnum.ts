@@ -61,5 +61,6 @@ export enum EffetEnum {
   MEURTRE = "MEURTRE",
   CAUCHEMARD = "CAUCHEMARD",
   CHROPIE = "CHROPIE",
-  MATINAL = "MATINAL"
+  MATINAL = "MATINAL",
+  PARI = "PARI"
 }

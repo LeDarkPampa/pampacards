@@ -1272,6 +1272,25 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
+        case EffetEnum.PARI: {
+          let nbParis = 0;
+          for (let c of this.joueur.terrain) {
+            if (c.effet &&  c.effet.code === EffetEnum.PARI) {
+              nbParis++;
+            }
+          }
+
+          if (nbParis == 2) {
+            for (let c of this.joueur.terrain) {
+              if (c.effet &&  c.effet.code === EffetEnum.PARI) {
+                c.puissance = 7;
+              }
+            }
+          }
+          carte.puissance = 7;
+
+          break;
+        }
         case EffetEnum.ABSORPTION: {
           if (!this.hasCrypte(this.adversaire)) {
             this.joueur.defausse = [];
