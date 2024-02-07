@@ -1443,7 +1443,9 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.RESISTANCE_INSTANT: {
-          carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+          if (this.joueur.defausse.length < 3) {
+            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
+          }
           break;
         }
         case EffetEnum.SEPT: {
