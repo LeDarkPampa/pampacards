@@ -1455,10 +1455,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           const mainJoueur = this.joueur.main;
           const mainAdversaire = this.adversaire.main;
 
-          this.joueur.deck = deckJoueur;
-          this.adversaire.deck = deckAdversaire;
-          this.joueur.main = mainJoueur;
-          this.adversaire.main = mainAdversaire;
+          this.joueur.deck = deckAdversaire;
+          this.adversaire.deck = deckJoueur;
+          this.joueur.main = mainAdversaire;
+          this.adversaire.main = mainJoueur;
 
           break;
         }
