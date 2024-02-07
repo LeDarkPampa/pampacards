@@ -1442,6 +1442,34 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
           break;
         }
+        case EffetEnum.RESISTANCE_INSTANT: {
+          carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+          break;
+        }
+        case EffetEnum.SEPT: {
+          carte.puissance = 7;
+          const deckJoueur = this.joueur.deck;
+          const deckAdversaire = this.adversaire.deck;
+          const mainJoueur = this.joueur.main;
+          const mainAdversaire = this.adversaire.main;
+
+          this.joueur.deck = deckJoueur;
+          this.adversaire.deck = deckAdversaire;
+          this.joueur.main = mainJoueur;
+          this.adversaire.main = mainAdversaire;
+
+          break;
+        }
+        case EffetEnum.SIX: {
+          carte.puissance = 6;
+
+          const deckJoueur = this.joueur.deck;
+          const deckAdversaire = this.adversaire.deck;
+
+          this.joueur.deck = deckJoueur;
+          this.adversaire.deck = deckAdversaire;
+          break;
+        }
         default: {
           //statements;
           break;
