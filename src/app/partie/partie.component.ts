@@ -1459,40 +1459,84 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.SEPT: {
           carte.puissance = 7;
+
           const deckJoueur = this.joueur.deck;
           const deckAdversaire = this.adversaire.deck;
           const mainJoueur = this.joueur.main;
           const mainAdversaire = this.adversaire.main;
 
-          this.joueur.deck = deckAdversaire;
-          this.adversaire.deck = deckJoueur;
-          this.joueur.main = mainAdversaire;
-          this.adversaire.main = mainJoueur;
+          if (!this.hasCitadelle(this.adversaire)) {
+            this.joueur.deck = deckAdversaire;
+            this.adversaire.deck = deckJoueur;
+
+          }
+
+          if (!this.hasPalissade(this.adversaire)) {
+            this.joueur.main = mainAdversaire;
+            this.adversaire.main = mainJoueur;
+          }
 
           break;
         }
         case EffetEnum.SIX: {
           carte.puissance = 6;
 
-          const deckJoueur = this.joueur.deck;
-          const deckAdversaire = this.adversaire.deck;
+          if (!this.hasCitadelle(this.adversaire)) {
+            const deckJoueur = this.joueur.deck;
+            const deckAdversaire = this.adversaire.deck;
 
-          this.joueur.deck = deckJoueur;
-          this.adversaire.deck = deckAdversaire;
+            this.joueur.deck = deckJoueur;
+            this.adversaire.deck = deckAdversaire;
+          }
+
           break;
         }
         case EffetEnum.CINQ: {
           carte.puissance = 5;
 
-          const mainJoueur = this.joueur.main;
-          const mainAdversaire = this.adversaire.main;
+          if (!this.hasPalissade(this.adversaire)) {
+            const mainJoueur = this.joueur.main;
+            const mainAdversaire = this.adversaire.main;
 
-          this.joueur.main = mainAdversaire;
-          this.adversaire.main = mainJoueur;
+            this.joueur.main = mainAdversaire;
+            this.adversaire.main = mainJoueur;
+          }
+
+          break;
+        }
+        case EffetEnum.QUATRE: {
+          carte.puissance = 4;
+          if (!this.hasPalissade(this.adversaire)) {
+            if (this.joueur.main.length > 0 && this.adversaire.main.length > 0) {
+              const randomIndexJoueur = Math.floor(Math.random() * this.joueur.main.length);
+              const randomIndexAdversaire = Math.floor(Math.random() * this.adversaire.main.length);
+
+              let carteJoueur = this.joueur.main[randomIndexJoueur];
+              this.joueur.main.splice(randomIndexJoueur, 1);
+
+              let carteAdversaire = this.adversaire.main[randomIndexAdversaire];
+              this.adversaire.main.splice(randomIndexAdversaire, 1);
+
+              this.adversaire.main.push(carteJoueur);
+              this.joueur.main.push(carteAdversaire);
+
+              this.showSelectionCarteDialog(this.joueur.main);
+            } else {
+              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+            }
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+          }
           break;
         }
         case EffetEnum.BOUCLIERPLUS: {
           carte.bouclier = true;
+          carte.diffPuissanceInstant += 1;
+          break;
+        }
+        case EffetEnum.INSENSIBLEPLUS: {
+          carte.bouclier = true;
+          carte.insensible = true;
           carte.diffPuissanceInstant += 1;
           break;
         }
