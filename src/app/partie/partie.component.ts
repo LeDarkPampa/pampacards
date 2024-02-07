@@ -1481,6 +1481,16 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.adversaire.deck = deckAdversaire;
           break;
         }
+        case EffetEnum.CINQ: {
+          carte.puissance = 5;
+
+          const mainJoueur = this.joueur.main;
+          const mainAdversaire = this.adversaire.main;
+
+          this.joueur.main = mainAdversaire;
+          this.adversaire.main = mainJoueur;
+          break;
+        }
         case EffetEnum.BOUCLIERPLUS: {
           carte.bouclier = true;
           carte.diffPuissanceInstant += 1;
