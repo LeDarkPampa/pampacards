@@ -243,6 +243,9 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.playInstantEffect(carteJouee).then(r => {
           if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carteJouee);
+          } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEURPLUS) {
+            carteJouee.puissance = -4;
+            this.adversaire.terrain.push(carteJouee);
           } else {
             this.joueur.terrain.push(carteJouee);
           }
@@ -273,12 +276,15 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carte.effet && !carte.effet.continu) {
         this.playInstantEffect(carte).then(r => {
           // @ts-ignore
-          if (carte.effet.code == EffetEnum.SABOTEUR) {
+          if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEUR) {
+            this.adversaire.terrain.push(carte);
+          } else if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
+            carte.puissance = -4;
             this.adversaire.terrain.push(carte);
           } else {
             this.joueur.terrain.push(carte);
           }
-          }
+        }
         );
       } else {
         this.joueur.terrain.push(carte);
@@ -312,6 +318,9 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.playInstantEffect(carte).then(r => {
           // @ts-ignore
           if (carte.effet.code == EffetEnum.SABOTEUR) {
+            this.adversaire.terrain.push(carte);
+          } else if (carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
+            carte.puissance = -4;
             this.adversaire.terrain.push(carte);
           } else {
             this.joueur.terrain.push(carte);
@@ -1470,6 +1479,11 @@ export class PartieComponent implements OnInit, OnDestroy {
 
           this.joueur.deck = deckJoueur;
           this.adversaire.deck = deckAdversaire;
+          break;
+        }
+        case EffetEnum.BOUCLIERPLUS: {
+          carte.bouclier = true;
+          carte.diffPuissanceInstant += 1;
           break;
         }
         default: {
