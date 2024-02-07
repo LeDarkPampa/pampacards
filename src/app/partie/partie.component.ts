@@ -114,6 +114,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       if (this.lastEvent.status == "ABANDON") {
         this.finDePartie = true;
+
       }
 
       this.estJoueurActif = lastEvent.joueurActifId == this.userId;
@@ -644,15 +645,9 @@ export class PartieComponent implements OnInit, OnDestroy {
 
               // Retirer la carte du terrain et la placer dans la défausse
               const carteRetiree = this.joueur.terrain.splice(i, 1)[0];
-              if (this.isFidelite(carteRetiree)) {
-                this.joueur.deck.push(carteRetiree);
-                this.sendBotMessage(carteRetiree.nom + ' est remise dans le deck');
-                this.melangerDeck(this.joueur.deck);
-              } else if (this.isCauchemard(carte)) {
-                this.adversaire.terrain.push(carte);
-                this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
-              } else {
-                this.joueur.defausse.push(carteRetiree);
+              if (this.isCauchemard(carteRetiree)) {
+                this.adversaire.terrain.push(carteRetiree);
+                this.sendBotMessage(carteRetiree.nom + ' est envoyée sur le terrain adverse');
               }
 
               // Décrémenter la variable i pour éviter de sauter une carte
@@ -1286,6 +1281,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 c.puissance = 7;
               }
             }
+            carte.puissance = 7;
           }
 
           break;
