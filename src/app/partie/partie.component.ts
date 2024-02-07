@@ -45,8 +45,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   public secondeCarteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   vainqueur = "";
-  carteJouee = true;
-  carteDefaussee = true;
+  carteJouee = false;
+  carteDefaussee = false;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
   enAttente: boolean = true;
@@ -256,12 +256,12 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
 
           this.updateEffetsContinusAndScores();
-          this.sendUpdatedGame(stopJ1, stopJ2);
+          this.sendUpdatedGameAfterPlay(stopJ1, stopJ2);
         });
       } else {
         this.joueur.terrain.push(carteJouee);
         this.updateEffetsContinusAndScores();
-        this.sendUpdatedGame();
+        this.sendUpdatedGameAfterPlay();
       }
     }
   }
@@ -295,7 +295,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
 
       this.updateEffetsContinusAndScores();
-      this.sendUpdatedGame(stopJ1, stopJ2);
+      this.sendUpdatedGameAfterPlay(stopJ1, stopJ2);
       this.updateEffetsContinusAndScores();
     }
   }
@@ -373,7 +373,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
     this.updateEffetsContinusAndScores();
-    this.sendUpdatedGame();
+    this.sendUpdatedGameAfterDefausse();
   }
 
   private isFidelite(carte: ICarte) {
@@ -399,9 +399,24 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  sendUpdatedGame(stopJ1 = false, stopJ2 = false) {
+  sendUpdatedGameAfterPlay(stopJ1 = false, stopJ2 = false) {
     // @ts-ignore
     let event = this.createNextEvent(stopJ1, stopJ2);
+    event.carteJouee = true;
+
+    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+      next: response => {
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+
+  sendUpdatedGameAfterDefausse() {
+    // @ts-ignore
+    let event = this.createNextEvent(stopJ1, stopJ2);
+    event.carteDefaussee = true;
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
       next: response => {
@@ -448,7 +463,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       cartesDefausseJoueurUn: this.partie.joueurUn.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       cartesDefausseJoueurDeux: this.partie.joueurDeux.id == this.userId ? JSON.stringify(this.joueur.defausse) : JSON.stringify(this.adversaire.defausse),
       stopJ1: stopJ1 ? stopJ1 : this.lastEvent.stopJ1,
-      stopJ2: stopJ2 ? stopJ2 : this.lastEvent.stopJ2
+      stopJ2: stopJ2 ? stopJ2 : this.lastEvent.stopJ2,
+      carteJouee: this.lastEvent.carteJouee,
+      carteDefaussee: this.lastEvent.carteDefaussee
     };
   }
 
