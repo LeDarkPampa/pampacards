@@ -45,8 +45,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   public secondeCarteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   vainqueur = "";
-  carteJouee = false;
-  carteDefaussee = false;
+  carteJouee = true;
+  carteDefaussee = true;
   clickedCartePath: string = '';
   isFlashing: boolean = false;
   enAttente: boolean = true;
