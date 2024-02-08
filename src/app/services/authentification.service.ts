@@ -49,10 +49,6 @@ export class AuthentificationService {
     );
   }
 
-  isLogged(): Observable<boolean> {
-    return this.isLoggedIn$;
-  }
-
   isAdmin(): boolean {
     // Utilisez l'observable user$ pour éviter de déclencher une exception si getUser() renvoie null.
 
