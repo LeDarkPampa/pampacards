@@ -114,7 +114,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       if (uniqueClans.size > 1 && uniqueTypes.size > 1) {
         return 'Le deck MONO ne peut contenir que des cartes du même clan ou du même type.';
       }
-    } else if (selectedFormat.nom === '44') {
+    }
+
+    if (selectedFormat.nom === '44') {
       let totalRarity = deck.cartes.reduce((sum, card) => sum + card.rarete, 0);
 
       if (addedCard) {
@@ -124,14 +126,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       if (totalRarity > rarityLimit44) {
         return `Votre deck ne peut pas avoir une rareté totale supérieure à ${rarityLimit44} dans le format "44".`;
       }
-    } else if (selectedFormat.nom === 'STANDARD') {
-      const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
-
-      if (numberOf4Stars > 3) {
-        return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
-      }
     }
 
+    // Vérification de la limitation par carte
     if (selectedFormat.limitationCartes && addedCard) {
       const limitation = selectedFormat.limitationCartes.find(limitation => limitation.carte.id === addedCard.id);
       const carteQuantity = deck.cartes.filter(c => c.id === addedCard.id).length;
@@ -141,36 +138,30 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     }
 
+    if (selectedFormat.nom === 'STANDARD') {
+      const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
+
+      if (numberOf4Stars > 3) {
+        return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
+      }
+    }
+
     // Vérification spécifique à la sauvegarde pour "NO LIMIT"
     if (selectedFormat.nom !== 'NO LIMIT') {
       const cardQuantities = new Map<number, number>();
 
-      if (addedCard) {
-        const limitation = this.selectedFormat.limitationCartes.find(limitation => limitation.carte.id === addedCard.id);
-        const carteQuantity = this.selectedDeck.cartes.filter(c => c.id === addedCard.id).length;
-        if (limitation) {
-          const limitationQuantity = limitation.limite;
-          if (carteQuantity >= limitationQuantity) {
-            this.message = [
-              {
-                severity: 'warn',
-                summary: 'Attention',
-                detail: `Impossible d'ajouter la carte "${addedCard.nom}". La limitation de ${limitationQuantity} exemplaire(s) est déjà atteinte.`,
-              },
-            ];
-            return null;
-          }
-        }
-      } else {
-        for (const card of deck.cartes) {
-          cardQuantities.set(card.id, (cardQuantities.get(card.id) || 0) + 1);
-        }
+      for (const card of deck.cartes) {
+        cardQuantities.set(card.id, (cardQuantities.get(card.id) || 0) + 1);
+      }
 
-        for (const [cardId, quantity] of cardQuantities) {
-          if (quantity > cardLimit) {
-            const cardName = deck.cartes.find(c => c.id === cardId)?.nom || 'La carte';
-            return `Impossible de sauvegarder. ${cardName} a plus de ${cardLimit} exemplaires.`;
-          }
+      if (addedCard) {
+        cardQuantities.set(addedCard.id, (cardQuantities.get(addedCard.id) || 0) + 1);
+      }
+
+      for (const [cardId, quantity] of cardQuantities) {
+        if (quantity > cardLimit) {
+          const cardName = deck.cartes.find(c => c.id === cardId)?.nom || addedCard?.nom || 'La carte';
+          return `Impossible de sauvegarder. ${cardName} a plus de ${cardLimit} exemplaires.`;
         }
       }
     }
@@ -186,6 +177,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   addCarte(carte: ICarte) {
+    let carteQuantity = 0;
     if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
       this.unsavedChanges = true;
 
