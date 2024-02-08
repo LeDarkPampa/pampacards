@@ -14,5 +14,13 @@
     <ng-template #noLimitation>
       <div class="no-limitation">Aucune limitation</div>
     </ng-template>
+
+    <div class="restriction-item" *ngIf="this.selectedFormat && this.selectedFormat.nom == 'MONO'">
+      <div class="card-name gold">Toutes vos cartes doivent avoir un même clan ou type en commun</div>
+    </div>
+
+    <div class="restriction-item" *ngIf="this.selectedFormat && this.selectedFormat.nom == '44'">
+      <div class="card-name gold">La somme des étoiles des cartes de votre deck doit être <= 44</div>
+    </div>
   </div>
 </div>

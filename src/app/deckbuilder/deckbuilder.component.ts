@@ -78,7 +78,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.unsavedChanges = false;
     const standardFormat = this.formats.find(format => format.nom === 'STANDARD');
 
-    // Assigner le format "STANDARD" au nouveau deck
     if (standardFormat) {
       this.selectedFormat = standardFormat;
     }
@@ -98,66 +97,135 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.resetValues();
   }
 
-  addCarte(carte: ICarte) {
-    if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
-      this.unsavedChanges = true;
-      const limitation = this.selectedFormat.limitationCartes.find(limitation => limitation.carte.id === carte.id);
-      const carteQuantity = this.selectedDeck.cartes.filter(c => c.id === carte.id).length;
-      if (limitation) {
-        const limitationQuantity = limitation.limite;
-        if (carteQuantity >= limitationQuantity) {
-          this.message = [
-            {
-              severity: 'warn',
-              summary: 'Attention',
-              detail: `Impossible d'ajouter la carte "${carte.nom}". La limitation de ${limitationQuantity} exemplaire(s) est déjà atteinte.`,
-            },
-          ];
-          return;
-        }
-      } else if (this.selectedFormat.nom != 'NO LIMIT') {
-        if (carteQuantity >= 3) {
-          this.message = [
-            {
-              severity: 'warn',
-              summary: 'Attention',
-              detail: `Impossible d'ajouter la carte "${carte.nom}". La limitation de 3 exemplaires est déjà atteinte.`,
-            },
-          ];
-          return;
+  validateDeckOperation(deck: IDeck, selectedFormat: IFormat, addedCard?: ICarte): string | null {
+    const deckSizeLimit = 20;
+    const cardLimit = 3;
+    const rarityLimit44 = 44;
+
+    if (selectedFormat.nom === 'MONO') {
+      const uniqueClans = new Set(deck.cartes.map(c => c.clan.id));
+      const uniqueTypes = new Set(deck.cartes.map(c => c.type.id));
+
+      if (addedCard) {
+        uniqueClans.add(addedCard.clan.id);
+        uniqueTypes.add(addedCard.type.id);
+      }
+
+      if (uniqueClans.size > 1 && uniqueTypes.size > 1) {
+        return 'Le deck MONO ne peut contenir que des cartes du même clan ou du même type.';
+      }
+    }
+
+    if (selectedFormat.nom === '44') {
+      let totalRarity = deck.cartes.reduce((sum, card) => sum + card.rarete, 0);
+
+      if (addedCard) {
+        totalRarity += addedCard.rarete;
+      }
+
+      if (totalRarity > rarityLimit44) {
+        return `Votre deck ne peut pas avoir une rareté totale supérieure à ${rarityLimit44} dans le format "44".`;
+      }
+    }
+
+    // Vérification de la limitation par carte
+    if (selectedFormat.limitationCartes && addedCard) {
+      const limitation = selectedFormat.limitationCartes.find(limitation => limitation.carte.id === addedCard.id);
+      const carteQuantity = deck.cartes.filter(c => c.id === addedCard.id).length;
+
+      if (limitation && carteQuantity >= limitation.limite) {
+        return `Impossible d'ajouter la carte "${addedCard.nom}". La limitation de ${limitation.limite} exemplaire(s) est déjà atteinte.`;
+      }
+    }
+
+    if (selectedFormat.nom === 'STANDARD') {
+      const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
+
+      if (numberOf4Stars > 3) {
+        return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
+      }
+    }
+
+    // Vérification spécifique à la sauvegarde pour "NO LIMIT"
+    if (selectedFormat.nom !== 'NO LIMIT') {
+      const cardQuantities = new Map<number, number>();
+
+      for (const card of deck.cartes) {
+        cardQuantities.set(card.id, (cardQuantities.get(card.id) || 0) + 1);
+      }
+
+      if (addedCard) {
+        cardQuantities.set(addedCard.id, (cardQuantities.get(addedCard.id) || 0) + 1);
+      }
+
+      for (const [cardId, quantity] of cardQuantities) {
+        if (quantity > cardLimit) {
+          const cardName = deck.cartes.find(c => c.id === cardId)?.nom || addedCard?.nom || 'La carte';
+          return `Impossible de sauvegarder. ${cardName} a plus de ${cardLimit} exemplaires.`;
         }
       }
     }
 
-    const standardFormat = this.selectedFormat.nom === 'STANDARD';
-    // Format standard : 3 cartes 4* max
-    if (standardFormat && carte.rarete === 4) {
-      let nb4Etoiles = 0;
-      for (const c of this.selectedDeck.cartes) {
-        if (c.rarete === 4) {
-          nb4Etoiles ++;
-        }
-      }
-      if (nb4Etoiles >= 3) {
-        this.message = [
-          {
-            severity: 'error',
-            summary: 'Erreur',
-            detail: `Votre deck ne peut contenir que 3 cartes 4* dans ce format.`,
-          },
-        ];
+    // Vérification de la taille totale du deck
+    const deckSize = addedCard ? deck.cartes.length + 1 : deck.cartes.length;
+
+    if (deckSize > deckSizeLimit) {
+      return 'Impossible de mettre plus de vingt cartes';
+    }
+
+    return null;
+  }
+
+  addCarte(carte: ICarte) {
+    let carteQuantity = 0;
+    if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
+      this.unsavedChanges = true;
+
+      const validationError = this.validateDeckOperation(this.selectedDeck, this.selectedFormat, carte);
+
+      if (validationError) {
+        this.message = [{ severity: 'warn', summary: 'Attention', detail: validationError }];
         return;
       }
     }
 
-    if (this.selectedDeck && this.selectedDeck.cartes.length < 20) {
-      this.selectedDeck.cartes.push(carte);
-      this.refreshCollectionFiltered();
-    } else {
-      this.message = [
-        { severity: 'warn', summary: 'Attention', detail: 'Impossible de mettre plus de vingt cartes' },
-      ];
+    this.selectedDeck.cartes.push(carte);
+    this.refreshCollectionFiltered();
+  }
+
+  saveDeck() {
+    let deck: IDeck = this.selectedDeck;
+
+    if (!this.nomDeck || this.nomDeck === '') {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' }];
+      return;
+    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id !== deck.id)) {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' }];
+      return;
+    } else if (!(deck.cartes.length === 20)) {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' }];
+      return;
+    } else if (!this.selectedFormat) {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' }];
+      return;
     }
+
+    const validationError = this.validateDeckOperation(deck, this.selectedFormat);
+    if (validationError) {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: validationError }];
+      return;
+    }
+
+    this.unsavedChanges = false;
+    deck.nom = this.nomDeck;
+    deck.format = this.selectedFormat;
+
+    this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
+      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+        this.decks = playerDecks;
+        this.message = [{ severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' }];
+      });
+    });
   }
 
   removeCard(carte: ICarte) {
@@ -168,43 +236,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         this.selectedDeck.cartes.splice(indexCarte, 1);
       }
       this.refreshCollectionFiltered();
-    }
-  }
-
-  saveDeck() {
-    let deck: IDeck = this.selectedDeck;
-    if (!this.nomDeck || this.nomDeck === '') {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
-      ];
-    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id != deck.id)) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' },
-      ];
-    } else if (!(deck.cartes.length == 20)) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
-      ];
-    } else if (!this.selectedFormat) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
-      ];
-    } else if (this.hasExceededLimitation) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
-      ];
-    } else {
-      this.unsavedChanges = false;
-      deck.nom = this.nomDeck;
-      deck.format = this.selectedFormat;
-      this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
-        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-          this.decks = playerDecks;
-          this.message = [
-            { severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' },
-          ];
-        });
-      })
     }
   }
 
@@ -322,9 +353,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
               this.resetValues();
             },
             error: error => {
-              this.message = [
-                { severity: 'error', summary: 'Erreur', detail: 'Erreur lors de la suppression du deck' },
-              ];
+              this.newDeck();
             }
           });
         }
