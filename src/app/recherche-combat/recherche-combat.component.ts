@@ -53,26 +53,22 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn$) {
-      this.checkSiDejaPartieEncours();
-      this.getUsersSearchingFight();
-      this.subscribeToUserStream();
-      this.subscribeToDemandeCombatFlux()
-      this.getAllFormats();
-      this.chooseFirstPlayer = false;
+    this.checkSiDejaPartieEncours();
+    this.getUsersSearchingFight();
+    this.subscribeToUserStream();
+    this.subscribeToDemandeCombatFlux()
+    this.getAllFormats();
+    this.chooseFirstPlayer = false;
 
-      this.searching = true;
-      this.startSearch();
+    this.searching = true;
+    this.startSearch();
 
-      this.tableauDemandesEnvoyees = [];
-      this.tableauDemandesRecues = [];
+    this.tableauDemandesEnvoyees = [];
+    this.tableauDemandesRecues = [];
 
-      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-        this.allDecks = playerDecks;
-      });
-    } else {
-      this.router.navigate(['/accueil']);
-    }
+    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+      this.allDecks = playerDecks;
+    });
   }
 
   onToggleChange(isChecked: boolean) {

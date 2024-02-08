@@ -12,7 +12,6 @@ import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {PropertiesService} from "../services/properties.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -50,7 +49,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     sortValue: 'no'
   };
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private router: Router,
+  constructor(private http: HttpClient, private authService: AuthentificationService,
               private deckService: DeckService, private propertiesService: PropertiesService) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
@@ -58,17 +57,13 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn$) {
-      this.collectionJoueurFiltree = [];
-      this.collectionJoueurFiltreeTriee = [];
-      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-        this.decks = playerDecks;
-        this.getAllFormats();
-        this.getUserCollectionFiltered();
-      });
-    } else {
-      this.router.navigate(['/accueil']);
-    }
+    this.collectionJoueurFiltree = [];
+    this.collectionJoueurFiltreeTriee = [];
+    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+      this.decks = playerDecks;
+      this.getAllFormats();
+      this.getUserCollectionFiltered();
+    });
   }
 
   selectDeck(deck: IDeck) {
