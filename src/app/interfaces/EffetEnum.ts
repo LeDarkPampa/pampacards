@@ -71,5 +71,6 @@ export enum EffetEnum {
   CINQ = "CINQ",
   QUATRE = "QUATRE",
   INSENSIBLEPLUS = "INSENSIBLEPLUS",
-  MELEE = 'MELEE'
+  MELEE = 'MELEE',
+  SECOND = 'SECOND'
 }

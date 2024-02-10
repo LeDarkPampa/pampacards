@@ -1288,6 +1288,12 @@ export class PartieComponent implements OnInit, OnDestroy {
           carte.diffPuissanceInstant -= this.getTourAffiche();
           break;
         }
+        case EffetEnum.SECOND: {
+          if (this.getTourAffiche() === 2) {
+            carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+          }
+          break;
+        }
         case EffetEnum.DEVOREUR: {
           if (!this.hasCrypte(this.adversaire)) {
             carte.diffPuissanceInstant += this.joueur.defausse.length;
