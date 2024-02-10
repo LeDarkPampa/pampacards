@@ -110,8 +110,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
     // Vérification pour le format "MONO"
     if (selectedFormat.nom === 'MONO') {
-      const uniqueClans = new Set([...deck.cartes, addedCard].map(c => c?.clan.id));
-      const uniqueTypes = new Set([...deck.cartes, addedCard].map(c => c?.type.id));
+      const uniqueClans: Set<number> = new Set([...deck.cartes.map(c => c.clan.id), ...(addedCard ? [addedCard.clan.id] : [])]);
+      const uniqueTypes: Set<number> = new Set([...deck.cartes.map(c => c.type.id), ...(addedCard ? [addedCard.type.id] : [])]);
 
       if (uniqueClans.size > 1 && uniqueTypes.size > 1) {
         return 'Le deck MONO ne peut contenir que des cartes du même clan ou du même type.';
