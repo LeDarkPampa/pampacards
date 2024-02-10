@@ -1640,6 +1640,14 @@ export class PartieComponent implements OnInit, OnDestroy {
             }
             break;
           }
+          case EffetEnum.MELEE: {
+            for (let carteCible of this.joueur.terrain) {
+              if (carteCible.id == carte.id) {
+                carte.diffPuissanceContinue++;
+              }
+            }
+            break;
+          }
           case EffetEnum.CAPITAINE: {
             let indexCarteCible = 0;
             for (let carteCible of this.joueur.terrain) {
@@ -1722,6 +1730,14 @@ export class PartieComponent implements OnInit, OnDestroy {
                 carte.diffPuissanceContinue++;
               }
               indexCarteCible++;
+            }
+            break;
+          }
+          case EffetEnum.MELEE: {
+            for (let carteCible of this.joueur.terrain) {
+              if (carteCible.id == carte.id) {
+                carte.diffPuissanceContinue++;
+              }
             }
             break;
           }
