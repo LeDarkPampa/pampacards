@@ -217,7 +217,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.MELEE: {
             for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id === carte.id) {
+              if (carteCible.id == carte.id) {
                 carte.diffPuissanceContinue++;
               }
             }
@@ -310,7 +310,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.MELEE: {
             for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id === carte.id) {
+              if (carteCible.id == carte.id) {
                 carte.diffPuissanceContinue++;
               }
             }
