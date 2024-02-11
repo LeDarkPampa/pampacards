@@ -1,40 +1,56 @@
-.screen {
-  height: calc(100vh - 40px);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
-  color: white;
-  display: grid;
-  grid-template-columns: 10% auto 10% 15%;
-  grid-template-rows: 25% 25% 25% 25%;
-  grid-template-areas: "infos-adv main-adv infos-tours bandeau-chat"
-"deck-adv terrain-adv defausse-adv bandeau-chat"
-"deck-joueur terrain-joueur defausse-joueur bandeau-chat"
-"infos-joueur main-joueur actions bandeau-chat";
-  grid-gap: 0;
+@media (min-height: 850px) {
+  .screen {
+    height: calc(100vh - 40px);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+    color: white;
+    display: grid;
+    grid-template-columns: 10% 13% auto 13% 10% 13%;
+    grid-template-rows: 11% 4% 26% 26% 4% 29%;
+    grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
+  "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
+  "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
+"deck-joueur terrain-joueur terrain-joueur terrain-joueur defausse-joueur bandeau-chat"
+  "deck-joueur empty3 empty3 puissance-joueur actions bandeau-chat"
+"empty4 main-joueur main-joueur infos-joueur actions bandeau-chat";
+    grid-gap: 0;
+  }
 }
 
-.main-width {
-  width: 60%;
+@media (max-height: 850px) {
+  .screen {
+    height: calc(100vh - 40px);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+    color: white;
+    display: grid;
+    grid-template-columns: 8% 17% auto 17% 10% 13%;
+    grid-template-rows: 11% 4% 26% 26% 4% 3% 26%;
+    grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
+  "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
+  "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
+"deck-joueur terrain-joueur terrain-joueur terrain-joueur defausse-joueur bandeau-chat"
+  "deck-joueur empty3 empty3 puissance-joueur empty5 bandeau-chat"
+    "empty4 main-joueur main-joueur infos-joueur empty5 bandeau-chat"
+"empty4 main-joueur main-joueur actions empty5 bandeau-chat";
+    grid-gap: 0;
+  }
 }
 
 .infos-adv {
+  grid-area: infos-adv;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
 }
 
 .main-adv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-area: main-adv;
 }
 
-.infos-tour {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.infos-tours {
+  grid-area: infos-tours;
 }
 
 .bandeau-chat {
@@ -42,89 +58,117 @@
 }
 
 .deck-adv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-area: deck-adv;
 }
 
-.terrain-adv {
-  overflow: auto;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.deck-joueur {
+  grid-area: deck-joueur;
 }
 
 .defausse-adv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
+  grid-area: defausse-adv;
 }
-.deck-joueur {
+
+.puissance {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+}
+.puissance-adv {
+  grid-area: puissance-adv;
+  border-radius: 10px 10px 0 0;
+  border: solid;
+  border-width: 10px 10px 0 10px;
+}
+
+.puissance-joueur {
+  grid-area: puissance-joueur;
+  justify-self: end;
+  border-radius: 0 0 10px 10px;
+  border: solid;
+  border-width: 0 10px 10px 10px;
+}
+
+.terrain {
+  overflow: auto;
+  border-radius: 0 10px 0 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 10px solid;
+}
+
+.terrain-adv {
+  grid-area: terrain-adv;
 }
 
 .terrain-joueur {
-  overflow: auto;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-area: terrain-joueur;
 }
 
 .defausse-joueur {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-area: defausse-joueur;
 }
 
 .infos-joueur {
+  grid-area: infos-joueur;
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
 }
 
 .main-joueur {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-area: main-joueur;
 }
 
 .actions {
+  grid-area: actions;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: red;
 }
 
-.player-container {
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  padding: 5px;
-  text-align: center;
-  width: 95%;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.terrain-adv-premier {
+  background-color: rgb(64, 110, 142, 0.5);
+  border-color: rgb(64, 110, 142, 0.7);
+}
+
+.terrain-adv-autre {
+  background-color: rgb(227, 79, 86, 0.5);
+  border-color: rgb(227, 79, 86, 0.7);
+}
+
+.terrain-adv-premier-dark {
+  background-color: rgb(64, 110, 142,0.1);
+  border-color: rgb(64, 110, 142, 0.3);
+}
+
+.terrain-adv-autre-dark {
+  background-color: rgb(227, 79, 86, 0.1);
+  border-color: rgb(227, 79, 86, 0.3);
+}
+
+.terrain-joueur-premier {
+  background-color: rgb(64, 110, 142, 0.5);
+  border-color: rgb(64, 110, 142, 0.7);
+}
+
+.terrain-joueur-autre {
+  background-color: rgb(227, 79, 86, 0.5);
+  border-color: rgb(227, 79, 86, 0.7);
+}
+
+.terrain-joueur-premier-dark {
+  background-color: rgb(64, 110, 142, 0.1);
+  border-color: rgb(64, 110, 142, 0.3);
+}
+
+.terrain-joueur-autre-dark {
+  background-color: rgb(227, 79, 86, 0.1);
+  border-color: rgb(227, 79, 86, 0.3);
 }
 
 .card-container {
@@ -133,10 +177,18 @@
   position: relative;
 }
 
-.card-visualiser {
-  margin-top: auto;
+.flash-animation {
+  animation: pulsate 1s ease 2;
 }
 
-.card-visualiser img {
-  max-width: 95%;
+@keyframes pulsate {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
 }

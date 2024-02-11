@@ -246,6 +246,8 @@ export class PartieComponent implements OnInit, OnDestroy {
           } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEURPLUS) {
             carteJouee.puissance = -4;
             this.adversaire.terrain.push(carteJouee);
+          } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.KAMIKAZE) {
+            this.joueur.defausse.push(carteJouee);
           } else {
             this.joueur.terrain.push(carteJouee);
           }
@@ -281,6 +283,8 @@ export class PartieComponent implements OnInit, OnDestroy {
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
             carte.puissance = -4;
             this.adversaire.terrain.push(carte);
+          } else if (carte && carte.effet && carte.effet.code == EffetEnum.KAMIKAZE) {
+            this.joueur.defausse.push(carte);
           } else {
             this.joueur.terrain.push(carte);
           }
@@ -322,6 +326,8 @@ export class PartieComponent implements OnInit, OnDestroy {
           } else if (carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
             carte.puissance = -4;
             this.adversaire.terrain.push(carte);
+          } else if (carte && carte.effet && carte.effet.code == EffetEnum.KAMIKAZE) {
+            this.joueur.defausse.push(carte);
           } else {
             this.joueur.terrain.push(carte);
           }
@@ -687,6 +693,31 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SABOTAGE: {
+          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
+            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+              (selectedCarte: ICarte) => {
+                if (selectedCarte != null) {
+                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
+                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  // @ts-ignore
+                  this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
+                }
+                this.updateEffetsContinusAndScores();
+              },
+              (error: any) => console.error(error)
+            );
+
+            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.prison));
+
+            this.carteSelectionnee$.subscribe(selectedCarte => {
+              carteSelectionneeSub.unsubscribe();
+            });
+          } else {
+            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+          }
+          break;
+        }
+        case EffetEnum.KAMIKAZE: {
           if (this.adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
@@ -1153,6 +1184,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           carte.diffPuissanceInstant += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
           break;
         }
+        case EffetEnum.EGOISME: {
+          carte.diffPuissanceInstant -= carte.effet.valeurBonusMalus * this.joueur.terrain.length;
+          break;
+        }
         case EffetEnum.SOUTIEN: {
           for (let c of this.joueur.terrain) {
             if (!c.insensible && !c.prison && this.memeTypeOuClan(c, carte)) {
@@ -1290,6 +1325,12 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.SECOND: {
           if (this.getTourAffiche() === 2) {
+            carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+          }
+          break;
+        }
+        case EffetEnum.TROISIEME: {
+          if (this.getTourAffiche() === 3) {
             carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
           }
           break;

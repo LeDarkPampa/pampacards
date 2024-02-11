@@ -40,12 +40,11 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   actuaLEvent: IEvenementPartie;
   listEvents: IEvenementPartie[] = [];
   lastEventId: number = 0;
-  carteSelectionneeSubject = new Subject<ICarte>();
   vainqueur = "";
   chatMessages: IChatPartieMessage[] = [];
   message: string = '';
-  clickedCartePath: string = '';
   tourAffiche = 0;
+  nomCorrompu = 'Corrompu';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone,
@@ -54,11 +53,11 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.route.params.subscribe(params => {
       this.partieId = params['id'];
-      this.type = params['type'];
       this.getPartie();
+      this.getEventsPartie();
+      this.subscribeToEvenementsPartieFlux();
       this.cd.detectChanges();
     });
   }
@@ -170,10 +169,10 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private updateEffetsContinusAndScores() {
-    // On remet à 0 les puissances continues avant de les recalculer
     let joueurHasProtecteurForet = this.joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
     let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
 
+    // On remet à 0 les puissances continues avant de les recalculer
     for (let carte of this.joueur.terrain) {
       carte.diffPuissanceContinue = 0;
 
@@ -261,7 +260,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === 'Corrompu') {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
                 carteCible.diffPuissanceContinue--;
               }
             }
@@ -354,7 +353,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
           }
           case EffetEnum.DOMINATION: {
             for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === 'Corrompu') {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
                 carteCible.diffPuissanceContinue--;
               }
             }
@@ -387,15 +386,20 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     let sommePuissancesAdversaire = 0;
 
     for (let carte of this.joueur.terrain) {
-      sommePuissancesJoueur += this.getPuissanceTotale(carte);
+      if (carte) {
+        sommePuissancesJoueur += this.getPuissanceTotale(carte);
+      }
     }
 
     for (let carte of this.adversaire.terrain) {
-      sommePuissancesAdversaire += this.getPuissanceTotale(carte);
+      if (carte) {
+        sommePuissancesAdversaire += this.getPuissanceTotale(carte);
+      }
     }
 
     this.joueur.score = sommePuissancesJoueur;
     this.adversaire.score = sommePuissancesAdversaire;
+    this.cd.detectChanges();
   }
 
   voirDefausse(defausse: ICarte[]) {
@@ -417,6 +421,26 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
         console.error('There was an error!', error);
       }
     });
+  }
+
+  getVainqueurTexte() {
+    let texteVainqueur = '';
+    if (this.vainqueur) {
+      let scoreJoueur = this.joueur.score;
+      let scoreAdversaire = this.adversaire.score;
+      if (scoreJoueur > scoreAdversaire) {
+        texteVainqueur = "Victoire de " + this.joueur.nom;
+      } else if (scoreAdversaire > scoreJoueur) {
+        texteVainqueur = " Victoire de " + this.adversaire.nom;
+      } else if (scoreAdversaire == scoreJoueur) {
+        texteVainqueur = 'C\'est une égalité ';
+      }
+    }
+    return texteVainqueur;
+  }
+
+  getTourAffiche() {
+    return Math.ceil((this.lastEvent ? this.lastEvent.tour : 0) / 2);
   }
 
   private subscribeToEvenementsPartieFlux() {
