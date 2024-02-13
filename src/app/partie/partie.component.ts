@@ -1532,8 +1532,8 @@ export class PartieComponent implements OnInit, OnDestroy {
             const deckJoueur = this.joueur.deck;
             const deckAdversaire = this.adversaire.deck;
 
-            this.joueur.deck = deckJoueur;
-            this.adversaire.deck = deckAdversaire;
+            this.joueur.deck = deckAdversaire;
+            this.adversaire.deck = deckJoueur;
           }
 
           break;
@@ -1566,8 +1566,6 @@ export class PartieComponent implements OnInit, OnDestroy {
 
               this.adversaire.main.push(carteJoueur);
               this.joueur.main.push(carteAdversaire);
-
-              this.showSelectionCarteDialog(this.joueur.main);
             } else {
               this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             }
