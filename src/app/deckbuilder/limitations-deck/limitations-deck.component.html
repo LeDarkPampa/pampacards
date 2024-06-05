@@ -15,6 +15,10 @@
       <div class="no-limitation">Aucune limitation</div>
     </ng-template>
 
+    <div class="restriction-item" *ngIf="this.selectedFormat && this.selectedFormat.nom == 'STANDARD'">
+      <div class="card-name gold">Max 3 cartes de rareté 4* dans le deck</div>
+    </div>
+
     <div class="restriction-item" *ngIf="this.selectedFormat && this.selectedFormat.nom == 'MONO'">
       <div class="card-name gold">Toutes vos cartes doivent avoir un même clan ou type en commun</div>
     </div>
