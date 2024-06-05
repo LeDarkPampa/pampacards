@@ -40,6 +40,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       nom: '',
       limitationCartes: []
   }
+
+  totalRarete: number = 0;
+
   // @ts-ignore
   message: Message[];
   // @ts-ignore
@@ -50,6 +53,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     selectedRaretes: [],
     sortValue: 'no'
   };
+
 
   constructor(
     private http: HttpClient,
@@ -77,6 +81,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.selectedDeck = deck;
     this.nomDeck = this.selectedDeck.nom;
     this.selectedFormat = deck.format;
+    this.totalRarete = this.calculRarete(deck);
     this.resetValues();
   }
 
@@ -97,6 +102,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       utilisateur: user,
       dateCreation: new Date(Date.now())
     };
+
+    this.totalRarete = 0;
 
     this.nomDeck = '';
     this.hasExceededLimitation = false;
@@ -177,6 +184,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     }
 
     this.selectedDeck.cartes.push(carte);
+    this.totalRarete = this.calculRarete(this.selectedDeck);
     this.refreshCollectionFiltered();
   }
 
@@ -222,6 +230,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       if (indexCarte >= 0) {
         this.selectedDeck.cartes.splice(indexCarte, 1);
       }
+      this.totalRarete = this.calculRarete(this.selectedDeck);
       this.refreshCollectionFiltered();
     }
   }
@@ -527,6 +536,10 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   refreshCollectionFiltered() {
     this.removeCartesCollectionDuSelectedDeck();
     this.applyFilters(this.filtersAndSortsValues);
+  }
+
+  calculRarete(deck: IDeck) {
+    return deck.cartes.reduce((somme, carte) => somme + carte.rarete, 0);
   }
 
   private deepCopy(obj: any): any {
