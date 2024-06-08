@@ -4,7 +4,7 @@
       <div class="bandeaudecks">
         <app-pampa-button [texte]="'NEW'" [couleur]="'vert'" [taille]="'trespetit'" (clickBouton)="newDeck()"></app-pampa-button>
         <div *ngFor="let deck of decks">
-          <app-pampa-button-carre [texte]="deck.nom + ' - ' + deck.format.nom" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button-carre>
+          <app-pampa-button-carre [texte]="deck.nom + ' - Nom format ?'" [couleur]="'marron'" [taille]="'petit'" (clickBouton)="selectDeck(deck)"></app-pampa-button-carre>
         </div>
       </div>
       <div *ngIf="selectedDeck">

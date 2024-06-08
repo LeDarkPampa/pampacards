@@ -61,7 +61,7 @@
           <ng-template pTemplate="body" let-rowData>
             <tr>
               <td>{{ rowData.joueurDeuxPseudo }}</td>
-              <td>{{ rowData.nomFormat }}</td>
+              <td>{{ getFormatNomById(rowData.formatId) }} </td>
               <td>{{ rowData.nomDeckUn }}</td>
               <td>{{ getStatusLabel(rowData.status) }}</td>
               <td>
@@ -89,7 +89,7 @@
         <ng-template pTemplate="body" let-rowData>
           <tr>
             <td>{{ rowData.joueurUnPseudo }}</td>
-            <td>{{ rowData.nomFormat }}</td>
+            <td>{{ getFormatNomById(rowData.formatId) }} </td>
             <td>{{ getStatusLabel(rowData.status) }}</td>
             <td>
               <button mat-icon-button aria-label="Voir" (click)="voirDemande(rowData)">

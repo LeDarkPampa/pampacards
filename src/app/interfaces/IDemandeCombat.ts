@@ -7,7 +7,7 @@ export interface IDemandeCombat {
   deckUnId: number;
   deckDeuxId: number;
   nomDeckUn: string;
-  nomFormat: string;
+  formatId: number;
   partieId: number;
   message: string;
   firstPlayerId: number;

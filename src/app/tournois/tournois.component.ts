@@ -53,7 +53,10 @@ export class TournoisComponent implements OnInit {
         header: 'Inscription pour ' + tournoi.nom,
         width: '60%',
         height: '60%',
-        data: { competition: tournoi, decks: this.allDecks.filter(deck => deck.format.formatId == tournoi.format.formatId) },
+        data: { competition: tournoi, decks: this.allDecks.filter(deck =>
+            deck.formats.some(format => format.formatId === tournoi.format.formatId)
+          )
+        },
         closable: false
       });
 
@@ -84,7 +87,7 @@ export class TournoisComponent implements OnInit {
         header: 'Inscription pour ' + ligue.nom,
         width: '60%',
         height: '60%',
-        data: { competition: ligue, decks: this.allDecks.filter(deck => deck.format.formatId == ligue.format.formatId) },
+        data: { competition: ligue, decks: this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  ligue.format.formatId)) },
         closable: false
       });
 

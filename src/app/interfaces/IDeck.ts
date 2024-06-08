@@ -6,6 +6,6 @@ export interface IDeck {
   nom: string;
   cartes: ICarte[];
   utilisateur: IUtilisateur;
-  format: IFormat;
+  formats: IFormat[];
   dateCreation: Date;
 }

@@ -129,6 +129,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       joueurDeuxId: opponent.id,
       deckUnId: this.selectedDeck.id,
       firstPlayerId: firstPlayerId,
+      formatId: this.selectedFormat.formatId,
       message: 'message'
     };
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createChallenge', data).subscribe({
@@ -284,7 +285,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   onFormatChange() {
-    this.filteredDecks = this.allDecks.filter(deck => deck.format.formatId == this.selectedFormat.formatId);
+    this.filteredDecks = this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  this.selectedFormat.formatId));
   }
 
   getStatusLabel(status: string) {
@@ -309,6 +310,11 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     }
   }
 
+  getFormatNomById(formatId: number): string {
+    const format = this.formats.find(format => format.formatId === formatId);
+    return format ? format.nom : 'Format non trouvé';
+  }
+
   ngOnDestroy() {
     this.searching = false;
     this.stopSearch();
@@ -322,6 +328,4 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.sseService.closeUserListEventSource();
     this.sseService.closeDemandeCombatEventSource();
   }
-
-
 }

@@ -80,7 +80,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.unsavedChanges = false;
     this.selectedDeck = deck;
     this.nomDeck = this.selectedDeck.nom;
-    this.selectedFormat = deck.format;
+    this.selectedFormat = deck.formats[0];
     this.totalRarete = this.calculRarete(deck);
     this.resetValues();
   }
@@ -98,10 +98,12 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       id: 0,
       nom:'',
       cartes:[],
-      format: standardFormat ? standardFormat : this.nullFormat,
       utilisateur: user,
+      formats: [],
       dateCreation: new Date(Date.now())
     };
+
+    this.selectedDeck.formats.push(standardFormat ? standardFormat : this.nullFormat);
 
     this.totalRarete = 0;
 
@@ -213,7 +215,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
     this.unsavedChanges = false;
     deck.nom = this.nomDeck;
-    deck.format = this.selectedFormat;
+    // JDAJDAJDA Sauvegarde des formats du deck
+    deck.formats.push(this.selectedFormat);
 
     this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
       this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
@@ -262,7 +265,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         nom: deck.nom + '-dupl',
         cartes: [],
         utilisateur: user,
-        format: this.selectedFormat,
+        formats: deck.formats,
         dateCreation: new Date(Date.now())
         }
       ;

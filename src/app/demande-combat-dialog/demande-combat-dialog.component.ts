@@ -29,7 +29,8 @@ export class DemandeCombatDialogComponent implements OnInit {
   ngOnInit(): void {
     this.demande = this.config.data.demande;
     const decksValides: IDeck[] = this.config.data.decks;
-    this.decks = decksValides.filter(deck => deck.format.nom == this.config.data.demande.nomFormat);
+    this.decks = decksValides.filter(deck =>
+      deck.formats.some(format => format.formatId === this.config.data.demande.formatId));
     this.hasValidDeck = this.decks.length > 0;
   }
 
