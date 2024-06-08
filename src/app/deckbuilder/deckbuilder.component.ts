@@ -6,7 +6,6 @@ import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
-import {ILimitationCarte} from "../interfaces/ILimitationCarte";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
@@ -103,8 +102,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       dateCreation: new Date(Date.now())
     };
 
-    this.selectedDeck.formats.push(standardFormat ? standardFormat : this.nullFormat);
-
     this.totalRarete = 0;
 
     this.nomDeck = '';
@@ -112,7 +109,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.resetValues();
   }
 
-  validateDeckOperation(deck: IDeck, selectedFormat: IFormat, addedCard?: ICarte): string | null {
+  validateDeck(deck: IDeck, selectedFormat: IFormat, addedCard?: ICarte): string | null {
     const deckSizeLimit = 20;
     const cardLimit = 3;
     const rarityLimit44 = 44;
@@ -177,7 +174,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
       this.unsavedChanges = true;
 
-      const validationError = this.validateDeckOperation(this.selectedDeck, this.selectedFormat, carte);
+      const validationError = this.validateDeck(this.selectedDeck, this.selectedFormat, carte);
 
       if (validationError) {
         this.message = [{ severity: 'warn', summary: 'Attention', detail: validationError }];
@@ -207,7 +204,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       return;
     }
 
-    const validationError = this.validateDeckOperation(deck, this.selectedFormat);
+    const validationError = this.validateDeck(deck, this.selectedFormat);
     if (validationError) {
       this.message = [{ severity: 'error', summary: 'Erreur', detail: validationError }];
       return;
@@ -215,8 +212,13 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
     this.unsavedChanges = false;
     deck.nom = this.nomDeck;
-    // JDAJDAJDA Sauvegarde des formats du deck
-    deck.formats.push(this.selectedFormat);
+
+    // On sauvegarde tous les formats pour lesquels le deck est valide
+    this.formats.forEach(format => {
+      if (this.validateDeck(this.selectedDeck, format) === null) {
+        deck.formats.push(format);
+      }
+    })
 
     this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
       this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
@@ -380,57 +382,10 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   onFormatChange() {
-    this.checkLimitationsFormat();
-  }
-
-  private checkLimitationsFormat() {
-    if (this.selectedFormat && this.selectedFormat.limitationCartes) {
-
-      this.hasExceededLimitation = false;
-
-      const limitationCartes = this.selectedFormat.limitationCartes;
-
-      const standardFormat = this.selectedFormat.nom === 'STANDARD';
-
-      // Format standard : 3 cartes 4* max
-      if (standardFormat) {
-        let nb4Etoiles = 0;
-        for (const carte of this.selectedDeck.cartes) {
-          if (carte.rarete === 4) {
-            nb4Etoiles ++;
-          }
-
-          if (nb4Etoiles >= 4) {
-            this.message = [
-              {
-                severity: 'error',
-                summary: 'Erreur',
-                detail: `Votre deck ne peut contenir que 3 cartes 4* dans ce format.`,
-              },
-            ];
-            this.hasExceededLimitation = true;
-          }
-        }
-      }
-
-      limitationCartes.forEach((limitation: ILimitationCarte) => {
-        const carteId = limitation.carte.id;
-        const limitationQuantity = limitation.limite;
-
-        const carteQuantity = this.selectedDeck.cartes.filter(carte => carte.id === carteId).length;
-
-        if (carteQuantity > limitationQuantity) {
-          this.hasExceededLimitation = true;
-          const carteName = this.selectedDeck.cartes.find(carte => carte.id === carteId)?.nom;
-          this.message = [
-            {
-              severity: 'error',
-              summary: 'Erreur',
-              detail: `La carte "${carteName}" dépasse la limitation de ${limitationQuantity} exemplaire(s) dans ce format.`,
-            },
-          ];
-        }
-      });
+    const validationError = this.validateDeck(this.selectedDeck, this.selectedFormat);
+    if (validationError) {
+      this.message = [{ severity: 'error', summary: 'Erreur', detail: validationError }];
+      return;
     }
   }
 
