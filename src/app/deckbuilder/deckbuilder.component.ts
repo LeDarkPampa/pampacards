@@ -213,6 +213,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.unsavedChanges = false;
     deck.nom = this.nomDeck;
 
+    deck.formats = [];
+
     // On sauvegarde tous les formats pour lesquels le deck est valide
     this.formats.forEach(format => {
       if (this.validateDeck(this.selectedDeck, format) === null) {
@@ -502,5 +504,22 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   private deepCopy(obj: any): any {
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  getFormatsNomForDeck(deck: IDeck): string {
+    let nomsFormats = '';
+    for (const format of deck.formats) {
+      this.formats.find(format => format.formatId ===  format.formatId);
+
+      if (format) {
+        if (nomsFormats.length > 0) {
+          nomsFormats += ' - ' + format.nom;
+        } else {
+          nomsFormats += format.nom;
+        }
+      }
+    }
+
+    return nomsFormats;
   }
 }
