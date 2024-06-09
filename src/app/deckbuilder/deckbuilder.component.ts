@@ -54,12 +54,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   };
 
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthentificationService,
-    private deckService: DeckService,
-    private propertiesService: PropertiesService
-  ) {
+  constructor(private http: HttpClient, private authService: AuthentificationService,
+    private deckService: DeckService, private propertiesService: PropertiesService)
+  {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
@@ -185,6 +182,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.selectedDeck.cartes.push(carte);
     this.totalRarete = this.calculRarete(this.selectedDeck);
     this.refreshCollectionFiltered();
+    this.sortCartesDeck();
   }
 
   saveDeck() {
@@ -239,6 +237,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
       this.totalRarete = this.calculRarete(this.selectedDeck);
       this.refreshCollectionFiltered();
+      this.sortCartesDeck();
     }
   }
 
@@ -317,6 +316,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         };
 
         this.refreshCollectionFiltered();
+        this.sortCartesDeck();
       },
       error: error => {
         console.error('There was an error!', error);
@@ -521,5 +521,12 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     }
 
     return nomsFormats;
+  }
+
+  sortCartesDeck() {
+    this.selectedDeck.cartes.sort((n1,n2) =>
+    {
+      return n1.nom.localeCompare(n2.nom);
+    });
   }
 }
