@@ -4,5 +4,5 @@
       <app-carte-terrain [carte]="carte"></app-carte-terrain>
     </li>
   </ul>
-  <button pButton type="button" label="Sélectionner" (click)="selectionner()" [disabled]="!carteSelectionnee"></button>
+  <app-pampa-button [texte]="'Sélectionner'" [couleur]="'vert'" [taille]="'trespetit'" (click)="selectionner()"></app-pampa-button>
 </div>
