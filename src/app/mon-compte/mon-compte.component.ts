@@ -16,6 +16,7 @@ export class MonCompteComponent {
 
   utilisateur: IUtilisateur;
   newPassword: string = '';
+  codePromo: string = '';
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {
     // @ts-ignore
@@ -40,6 +41,27 @@ export class MonCompteComponent {
       this.newPassword = '';
     } else {
       console.error('Utilisateur non trouvé');
+    }
+  }
+
+  onEnterCode() {
+    if (this.codePromo !== null && this.codePromo !== '') {
+      const codePromoBody = {
+        codePromo: this.codePromo,
+        utilisateur: this.utilisateur
+      }
+      // codePromo
+      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/useCodePromo', codePromoBody).subscribe({
+        next: response => {
+          alert('Code promo validé');
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          alert('Code promo invalide');
+        }
+      });
+    } else {
+      alert('Aucun code promo entré');
     }
   }
 }
