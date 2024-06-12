@@ -88,9 +88,9 @@
   </div>
   <div class="actions">
     <div class="ligne-centree" *ngIf="finDePartie">
-      <div>
-        Fin de la partie
-      </div>
+      Fin de la partie
+    </div>
+    <div class="ligne-centree" *ngIf="finDePartie">
       {{getVainqueurTexte()}}
     </div>
     <div *ngIf=" estJoueurActif && !finDePartie">

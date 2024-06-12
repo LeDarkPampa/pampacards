@@ -1,94 +1,105 @@
 <div class="screen">
-  <div class="infos-adv" *ngIf="adversaire">
-    {{adversaire.nom}} - Puissance : {{adversaire.score}}
+  <div *ngIf="adversaire" class="infos-adv">
+    {{adversaire.nom}}
   </div>
-  <div class="main-adv" *ngIf="adversaire">
-    <div *ngIf="type === 'replay'">
+  <div class="center main-adv">
+    <div *ngIf="typeEcran === 'replay'">
       <app-pampa-icon-button [icone]="'fast_rewind'" [couleur]="'gris'" (clickBouton)="premier()"></app-pampa-icon-button>
       <app-pampa-icon-button [icone]="'navigate_before'" [couleur]="'gris'" (clickBouton)="precedent()"></app-pampa-icon-button>
     </div>
-    <div class="ligne-centree main-width">
-      <div *ngFor="let carte of adversaire.main">
-        <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
-      </div>
+    <div *ngIf="adversaire" class="ligne-centree height-total">
+      <span *ngFor="let carte of adversaire.main">
+        <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
+      </span>
     </div>
-    <div *ngIf="type === 'replay'">
+    <div *ngIf="typeEcran === 'replay'">
       <app-pampa-icon-button [icone]="'navigate_next'" [couleur]="'gris'" (clickBouton)="suivant()"></app-pampa-icon-button>
       <app-pampa-icon-button [icone]="'fast_forward'" [couleur]="'gris'" (clickBouton)="dernier()"></app-pampa-icon-button>
     </div>
   </div>
-  <div class="infos-tour">
-    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : actuaLEvent ? actuaLEvent.tour : 0"></app-pampa-tour-animation>
+  <div *ngIf="lastEvent && !actuaLEvent" class="center infos-tours">
+    <app-pampa-tour-animation [tour]="lastEvent ? lastEvent.tour : 0"></app-pampa-tour-animation>
+    <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
   </div>
-  <div class="bandeau-chat">
+  <div *ngIf="actuaLEvent" class="center infos-tours">
+    <app-pampa-tour-animation [tour]="actuaLEvent ? actuaLEvent.tour : 0"></app-pampa-tour-animation>
+    <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
+  </div>
+  <div *ngIf="joueur" class="bandeau-chat">
     <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
   </div>
-  <div class="deck-adv" *ngIf="adversaire">
-    <div class="deck-container">
-      <h4>Deck : {{adversaire.deck.length}}</h4>
+  <div class="center deck-adv">
+    <div *ngIf="adversaire" class="deck-container">
+      <div class="margin-bot">Deck : {{adversaire.deck.length}}</div>
       <div class="card-container" *ngIf="adversaire.deck.length > 0">
         <app-carte-main-adv></app-carte-main-adv>
       </div>
     </div>
   </div>
-  <div class="terrain-adv" *ngIf="adversaire">
-    <div class="ligne-centree">
+  <div class="center terrain terrain-adv">
+    <div *ngIf="adversaire" class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-adv" *ngIf="adversaire">
-    <div class="deck-container">
+  <div class="center defausse-adv">
+    <div *ngIf="adversaire" class="deck-container">
       <div>
-        <h4>Défausse : {{adversaire.defausse.length}}</h4>
+        <div class="margin-bot">Défausse : {{adversaire.defausse.length}}</div>
       </div>
       <div class="card-container" *ngIf="adversaire.defausse.length > 0">
         <app-defausse [cartes]="this.adversaire.defausse" (click)="voirDefausse(this.adversaire.defausse)"></app-defausse>
       </div>
     </div>
   </div>
-  <div class="deck-joueur" *ngIf="joueur">
-    <div class="deck-container">
-      <h4>Deck : {{joueur.deck.length}}</h4>
+  <div *ngIf="adversaire" class="puissance puissance-adv">
+    Puissance totale : {{adversaire.score}}
+  </div>
+  <div class="center deck-joueur">
+    <div *ngIf="joueur" class="deck-container">
+      <div class="margin-bot">Deck : {{joueur.deck.length}}</div>
       <div class="card-container" *ngIf="joueur.deck.length > 0">
         <app-carte-main-adv></app-carte-main-adv>
       </div>
     </div>
   </div>
-  <div class="terrain-joueur" *ngIf="joueur">
-    <div class="ligne-centree">
+  <div  *ngIf="lastEvent" class="center terrain terrain-joueur">
+    <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
-        <app-carte-terrain [carte]="carte" [estJoueurActif]="false"></app-carte-terrain>
+        <app-carte-terrain [carte]="carte"></app-carte-terrain>
       </div>
     </div>
   </div>
-  <div class="defausse-joueur" *ngIf="joueur">
-    <div class="deck-container">
+  <div class="center defausse-joueur">
+    <div *ngIf="joueur" class="deck-container">
       <div>
-        <h4>Défausse : {{joueur.defausse.length}}</h4>
+        <div class="margin-bot">Défausse : {{joueur.defausse.length}}</div>
       </div>
       <div class="card-container" *ngIf="joueur.defausse.length > 0">
         <app-defausse [cartes]="this.joueur.defausse" (click)="voirDefausse(this.joueur.defausse)"></app-defausse>
       </div>
     </div>
   </div>
-  <div class="infos-joueur" *ngIf="joueur">
-    {{joueur.nom}} - Puissance : {{joueur.score}}
+  <div *ngIf="joueur" class="puissance puissance-joueur">
+    Puissance totale : {{joueur.score}}
   </div>
-  <div class="main-joueur" *ngIf="joueur">
-    <div class="ligne-centree">
-      <div *ngFor="let carte of joueur.main">
-        <app-carte-main [carte]="carte" [estJoueurActif]="false"></app-carte-main>
+  <div *ngIf="joueur" class="infos-joueur">
+    {{joueur.nom}}
+  </div>
+  <div class="center main-joueur">
+    <div *ngIf="joueur" class="ligne-centree">
+      <div *ngFor="let carte of joueur.main; let i = index">
+        <app-carte-main [carte]="carte" [index]="i"></app-carte-main>
       </div>
     </div>
   </div>
   <div class="actions">
     <div class="ligne-centree" *ngIf="finDePartie">
-      Fin de la partie !
+      Fin de la partie
     </div>
     <div class="ligne-centree" *ngIf="finDePartie">
-      Victoire de {{vainqueur}}
+      {{getVainqueurTexte()}}
     </div>
   </div>
 </div>

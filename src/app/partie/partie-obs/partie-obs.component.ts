@@ -28,7 +28,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   // @ts-ignore
   partieId: number;
   // @ts-ignore
-  type: string;
+  typeEcran: string;
   finDePartie = false;
   // @ts-ignore
   private evenementsPartieSubscription: Subscription;
@@ -55,6 +55,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.partieId = params['id'];
+      this.typeEcran = params['type'];
       this.getPartie();
       this.getEventsPartie();
       this.subscribeToEvenementsPartieFlux();
@@ -413,7 +414,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
         this.initValues();
         this.getEventsPartie();
 
-        if (this.type === 'obs') {
+        if (this.typeEcran === 'obs') {
           this.subscribeToEvenementsPartieFlux();
         }
       },
@@ -462,14 +463,14 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
       next: evenementsPartie => {
 
-        if (this.type === 'obs') {
+        if (this.typeEcran === 'obs') {
           // @ts-ignore
           this.lastEvent = evenementsPartie.at(-1);
           if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
             this.lastEventId = this.lastEvent.id;
             this.updateGameFromLastEvent(this.lastEvent);
           }
-        } else if (this.type === 'replay') {
+        } else if (this.typeEcran === 'replay') {
           this.listEvents = evenementsPartie;
           // @ts-ignore
           this.firstEvent = evenementsPartie.at(0);
