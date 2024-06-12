@@ -126,11 +126,18 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
         return `Votre deck ne peut pas avoir une rareté totale supérieure à ${rarityLimit44} dans le format "44".`;
       }
     } else if (selectedFormat.nom === 'STANDARD') {
-      // Vérification pour le format "STANDARD"
-      const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
+      if (addedCard?.rarete === 4) {
+        const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
 
-      if (numberOf4Stars > 3) {
-        return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
+        if (numberOf4Stars == 3) {
+          return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
+        }
+      } else {
+        const numberOf4Stars = deck.cartes.filter(c => c.rarete === 4).length;
+
+        if (numberOf4Stars > 3) {
+          return 'Votre deck ne peut contenir que 3 cartes 4* dans le format STANDARD.';
+        }
       }
     }
 

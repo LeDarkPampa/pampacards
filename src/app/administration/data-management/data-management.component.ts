@@ -4,6 +4,7 @@ import {PropertiesService} from "../../services/properties.service";
 import {IDeck} from "../../interfaces/IDeck";
 import {IFormat} from "../../interfaces/IFormat";
 import {ICarte} from "../../interfaces/ICarte";
+import {ILimitationCarte} from "../../interfaces/ILimitationCarte";
 
 @Component({
   selector: 'app-data-management',
@@ -120,12 +121,13 @@ export class DataManagementComponent {
       }
     }
 
-    if (selectedFormat.limitationCartes && addedCard) {
-      const limitation = selectedFormat.limitationCartes.find(limitation => limitation.carte.id === addedCard.id);
-      const carteQuantity = deck.cartes.filter(c => c.id === addedCard.id).length;
+    if (selectedFormat.limitationCartes) {
+      for (const limitation of selectedFormat.limitationCartes) {
+        const carteQuantity = deck.cartes.filter(c => c.id === limitation.carte.id).length;
 
-      if (limitation && carteQuantity >= limitation.limite) {
-        return `Impossible d'ajouter la carte "${addedCard.nom}". La limitation de ${limitation.limite} exemplaire(s) est déjà atteinte.`;
+        if (carteQuantity > limitation.limite) {
+          return `Limitation non respectée.`;
+        }
       }
     }
 
