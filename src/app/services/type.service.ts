@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { IType } from '../interfaces/IType';
-import {IClan} from "../interfaces/IClan";
 import {catchError} from "rxjs/operators";
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
