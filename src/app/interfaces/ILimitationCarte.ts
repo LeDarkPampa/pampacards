@@ -1,9 +1,6 @@
-import {ICarte} from "./ICarte"
-import {IUtilisateur} from "./IUtilisateur";
-import {IFormat} from "./IFormat";
+import {ICarte} from "./ICarte";
 export interface ILimitationCarte {
   limitationId: number;
   carte: ICarte;
-  format: IFormat;
   limite: number;
 }
