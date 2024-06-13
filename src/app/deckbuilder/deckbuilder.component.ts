@@ -263,8 +263,6 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     });
   }
 
-
-
   private getAllFormats() {
     this.http.get<IFormat[]>(`${API_BASE_URL}/formats`).subscribe({
       next: data => {

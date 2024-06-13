@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ICarte } from '../../interfaces/ICarte';
 import { IClan } from '../../interfaces/IClan';
 import { IType } from '../../interfaces/IType';
-import { HttpClient } from '@angular/common/http';
 import { IEffet } from '../../interfaces/IEffet';
-import {AuthentificationService} from "../../services/authentification.service";
-import {PropertiesService} from "../../services/properties.service";
+import { AuthentificationService } from "../../services/authentification.service";
+import { PropertiesService } from "../../services/properties.service";
+import { catchError, switchMap } from 'rxjs/operators';
+import { throwError, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-card-management',
   templateUrl: './card-management.component.html',
   styleUrls: ['./card-management.component.css', '../../app.component.css']
 })
-export class CardManagementComponent {
+export class CardManagementComponent implements OnInit {
   cartes: ICarte[] = [];
   clans: IClan[] = [];
   types: IType[] = [];
@@ -20,104 +22,60 @@ export class CardManagementComponent {
   selectedSort: string = 'clan';
   sortDirection: number = 1;
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private propertiesService: PropertiesService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthentificationService,
+    private propertiesService: PropertiesService
+  ) {}
+
+  ngOnInit(): void {
     this.getAllCollection();
-    this.sortCards();
   }
 
-  saveChanges() {
+  getAllCollection(): void {
+    const isTestMode = this.authService.getUser().testeur && this.propertiesService.isTestModeOn();
+    const cartesUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes';
+    const clansUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/clans';
+    const typesUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/types';
+
+    forkJoin({
+      cartes: this.http.get<ICarte[]>(cartesUrl),
+      clans: this.http.get<IClan[]>(clansUrl),
+      types: this.http.get<IType[]>(typesUrl),
+      effets: this.http.get<IEffet[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/effets')
+    }).pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération des données', error);
+        return throwError(error);
+      })
+    ).subscribe({
+      next: (data: { cartes: ICarte[], clans: IClan[], types: IType[], effets: IEffet[] }) => {
+        this.cartes = data.cartes;
+        this.clans = data.clans;
+        this.types = data.types;
+        this.effets = data.effets;
+        this.sortCards();
+      }
+    });
+  }
+
+  saveChanges(): void {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateCartes', this.cartes).subscribe({
       next: () => {
         alert('Cartes mises à jour');
       },
       error: error => {
-        console.error('There was an error!', error);
+        console.error('Erreur lors de la sauvegarde', error);
         alert('Erreur lors de la sauvegarde');
       }
     });
   }
 
-  getAllCollection() {
-    // @ts-ignore
-    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
-      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
-        next: (data: ICarte[]) => {
-          this.cartes = data;
-          this.sortCards();
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des cartes', error);
-        }
-      });
-
-      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans').subscribe({
-        next: (data: IClan[]) => {
-          this.clans = data;
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des clans', error);
-        }
-      });
-
-      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes').subscribe({
-        next: (data: IType[]) => {
-          this.types = data;
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des types', error);
-        }
-      });
-    } else {
-      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
-        next: (data: ICarte[]) => {
-          this.cartes = data;
-          this.sortCards();
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des cartes', error);
-        }
-      });
-
-      this.http.get<IClan[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/clans').subscribe({
-        next: (data: IClan[]) => {
-          this.clans = data;
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des clans', error);
-        }
-      });
-
-      this.http.get<IType[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/types').subscribe({
-        next: (data: IType[]) => {
-          this.types = data;
-        },
-        error: error => {
-          console.error('Erreur lors de la récupération des types', error);
-        }
-      });
-    }
-
-    this.http.get<IEffet[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/effets').subscribe({
-      next: (data: IEffet[]) => {
-        this.effets = data;
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération des effets', error);
-      }
-    });
-  }
-
   compareEffets(effet1: IEffet, effet2: IEffet): boolean {
-    if (!effet1 && !effet2) {
-      return true;
-    } else if (!effet1 || !effet2) {
-      return false;
-    } else {
-      return effet1.id === effet2.id;
-    }
+    return effet1?.id === effet2?.id;
   }
 
-  sortCards() {
+  sortCards(): void {
     this.cartes.sort((a, b) => {
       let compareValueA, compareValueB;
 
@@ -141,21 +99,11 @@ export class CardManagementComponent {
           break;
       }
 
-      if (compareValueA < compareValueB) {
-        return -this.sortDirection;
-      } else if (compareValueA > compareValueB) {
-        return this.sortDirection;
-      } else {
-        return 0;
-      }
+      return (compareValueA < compareValueB ? -1 : compareValueA > compareValueB ? 1 : 0) * this.sortDirection;
     });
   }
 
   getContinuValue(carte: ICarte): string {
-    if (carte.effet && carte.effet.continu) {
-      return "Oui";
-    } else {
-      return "Non";
-    }
+    return carte.effet && carte.effet.continu ? "Oui" : "Non";
   }
 }
