@@ -23,4 +23,8 @@ export class CarteService {
     return carte.effet && carte.effet.code == EffetEnum.CAUCHEMARD && !carte.silence;
   }
 
+  memeTypeOuClan(c: ICarte, carte: ICarte) {
+    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
+  }
+
 }

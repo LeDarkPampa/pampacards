@@ -18,6 +18,7 @@ import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
 import {CarteService} from "../services/carte.service";
 import {catchError} from "rxjs/operators";
+import {JoueurService} from "../services/joueur.service";
 
 @Component({
   selector: 'app-partie',
@@ -76,7 +77,15 @@ export class PartieComponent implements OnInit, OnDestroy {
       nom: 'Eau'
     },
     rarete: 0,
-    effet: null,
+    effet: {
+      id: 79,
+      code: 'NO',
+      continu: false,
+      conditionPuissanceAdverse: 0,
+      valeurBonusMalus: 0,
+      description: 'Aucun effet'
+    }
+    ,
     puissance: -1,
     image_path: 'poissonpourri.png',
     silence: false,
@@ -90,6 +99,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
+              private joueurService: JoueurService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
     this.userId = authService.getUserId();
   }
@@ -276,9 +286,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     const index = this.joueur.main.findIndex(c => c.id === carte.id);
     if (index !== -1) {
       this.joueur.main.splice(index, 1)[0];
-      if (carte.effet && !carte.effet.continu) {
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
         this.playInstantEffect(carte).then(r => {
-          // @ts-ignore
           if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEUR) {
             this.adversaire.terrain.push(carte);
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
@@ -297,7 +306,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       let stopJ1 = false;
       let stopJ2 = false;
-      if (carte && carte.effet && carte.effet.code == EffetEnum.STOP) {
+      if (carte && carte.effet.code == EffetEnum.STOP) {
         if (this.joueur.id == this.partie.joueurUn.id) {
           stopJ2 = true;
         } else if (this.joueur.id == this.partie.joueurDeux.id) {
@@ -315,7 +324,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     const index = this.joueur.defausse.findIndex(c => c.id === carte.id);
     if (index !== -1) {
       this.joueur.defausse.splice(index, 1)[0];
-      if (carte.effet && !carte.effet.continu) {
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
@@ -346,8 +355,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     const index = this.joueur.defausse.findIndex(c => c.id === carte.id);
     if (index !== -1) {
       this.joueur.defausse.splice(index, 1)[0];
-      if (carte.effet && !carte.effet.continu) {
-        if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
+        if (carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
         this.joueur.main.push(carte);
@@ -363,7 +372,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     const index = this.joueur.defausse.findIndex(c => c.id === carte.id);
     if (index !== -1) {
       this.joueur.defausse.splice(index, 1)[0];
-      if (carte.effet && !carte.effet.continu) {
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
@@ -405,21 +414,18 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   finDeTour() {
     if (this.estJoueurActif) {
-      // @ts-ignore
       let event = this.createEndTurnEvent();
       this.sendEvent(event);
     }
   }
 
   sendUpdatedGameAfterPlay(stopJ1 = false, stopJ2 = false) {
-    // @ts-ignore
     let event = this.createNextEvent(stopJ1, stopJ2);
     event.carteJouee = true;
     this.sendEvent(event);
   }
 
-  sendUpdatedGameAfterDefausse() {
-    // @ts-ignore
+  sendUpdatedGameAfterDefausse(stopJ1 = false, stopJ2 = false) {
     let event = this.createNextEvent(stopJ1, stopJ2);
     event.carteDefaussee = true;
     this.sendEvent(event);
@@ -563,283 +569,38 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private async playInstantEffect(carte: ICarte) {
-    if (carte && carte.effet && carte.effet.code) {
-      switch(carte.effet.code) {
-        case EffetEnum.HEROISME: {
-          let atLeastOne = false;
-          for (let carteCible of this.adversaire.terrain) {
-            if (this.getPuissanceTotale(carteCible) >= carte.effet.conditionPuissanceAdverse) {
-              atLeastOne = true;
-            }
-          }
-          if (atLeastOne) {
-            carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
-          }
+    if (carte && carte.effet && carte.effet.code != 'NO') {
+      switch (carte.effet.code) {
+        case EffetEnum.HEROISME:
+          this.handleHeroisme(carte);
           break;
-        }
-        case EffetEnum.IMMUNISE: {
-          carte.bouclier = true;
+        case EffetEnum.IMMUNISE:
+          this.handleImmunise(carte);
           break;
-        }
-        case EffetEnum.INSENSIBLE: {
-          carte.bouclier = true;
-          carte.insensible = true;
+        case EffetEnum.INSENSIBLE:
+          this.handleInsensible(carte);
           break;
-        }
-        case EffetEnum.SACRIFICE: {
-          // @ts-ignore
-          let carteSacrifiee = this.joueur.deck.shift();
-          if (carteSacrifiee) {
-            this.sendBotMessage(carteSacrifiee.nom + ' est sacrifiée');
-            if (this.carteService.isFidelite(carteSacrifiee)) {
-              this.joueur.deck.push(carteSacrifiee);
-              this.sendBotMessage(carteSacrifiee.nom + ' est remise dans le deck');
-              this.melangerDeck(this.joueur.deck);
-            } else {
-              this.joueur.defausse.push(carteSacrifiee);
-            }
-          }
+        case EffetEnum.SACRIFICE:
+          this.handleSacrifice(carte);
           break;
-        }
-        case EffetEnum.ELECTROCUTION: {
-          if (!this.hasPalissade(this.adversaire)) {
-            // @ts-ignore
-            const indexCarteAleatoire = Math.floor(Math.random() * this.adversaire.main.length);
-
-            const carteAleatoire = this.adversaire.main[indexCarteAleatoire];
-
-            if (this.carteService.isFidelite(carteAleatoire)) {
-              this.adversaire.deck.push(carteAleatoire);
-              this.sendBotMessage(carteAleatoire.nom + ' est remise dans le deck');
-              this.melangerDeck(this.adversaire.deck);
-            } else {
-              this.adversaire.defausse.push(carteAleatoire);
-            }
-
-            this.adversaire.main.splice(indexCarteAleatoire, 1);
-          }
+        case EffetEnum.ELECTROCUTION:
+          this.handleElectrocution(carte);
           break;
-        }
-        case EffetEnum.RESET: {
-          let tailleMain = this.joueur.main.length;
-          while (this.joueur.main.length > 0) {
-            // @ts-ignore
-            this.joueur.deck.push(this.joueur.main.shift());
-          }
-
-          this.melangerDeck(this.joueur.deck);
-
-          for (let i = 0; i < tailleMain; i++) {
-            // @ts-ignore
-            this.joueur.main.push(this.joueur.deck.shift());
-          }
+        case EffetEnum.RESET:
+          this.handleReset(carte);
           break;
-        }
-        case EffetEnum.FUSION: {
-          carte.bouclier = true;
-          carte.insensible = true;
-
-          // @ts-ignore
-          let puissanceAjoutee = 0;
-          for (let i = 0; i < this.joueur.terrain.length; i++) {
-            let carteCible = this.joueur.terrain[i];
-            if (this.memeTypeOuClan(carteCible, carte) && !carteCible.insensible) {
-              puissanceAjoutee += carte.effet.valeurBonusMalus;
-
-              // Retirer la carte du terrain et la placer dans la défausse
-              const carteRetiree = this.joueur.terrain.splice(i, 1)[0];
-              if (this.carteService.isCauchemard(carteRetiree)) {
-                this.adversaire.terrain.push(carteRetiree);
-                this.sendBotMessage(carteRetiree.nom + ' est envoyée sur le terrain adverse');
-              }
-
-              // Décrémenter la variable i pour éviter de sauter une carte
-              i--;
-            }
-          }
-          carte.diffPuissanceInstant += puissanceAjoutee;
-
+        case EffetEnum.FUSION:
+          this.handleFusion(carte);
           break;
-        }
-        case EffetEnum.SABOTAGE: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  // @ts-ignore
-                  this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.prison));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
+        case EffetEnum.SABOTAGE:
+        case EffetEnum.KAMIKAZE:
+        case EffetEnum.SERVIABLE:
+        case EffetEnum.BOUCLIER:
+        case EffetEnum.RECYCLAGE:
+        case EffetEnum.CORRUPTION:
+        case EffetEnum.POSSESSION:
+          this.handleTargetSelectionEffect(carte, carte.effet.code);
           break;
-        }
-        case EffetEnum.KAMIKAZE: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  // @ts-ignore
-                  this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.prison));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
-          break;
-        }
-        case EffetEnum.SERVIABLE: {
-          if (this.joueur.terrain.filter(c => !c.insensible && !c.prison && this.memeTypeOuClan(c, carte)).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  // @ts-ignore
-                  this.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible && !c.prison && this.memeTypeOuClan(c, carte)));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
-          break;
-        }
-        case EffetEnum.BOUCLIER: {
-          if (this.joueur.terrain.filter(c => !c.insensible && !c.bouclier).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  this.joueur.terrain[indexCarte].bouclier = true;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible && !c.bouclier));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
-          break;
-        }
-        case EffetEnum.RECYCLAGE: {
-          if (!this.hasCrypte(this.adversaire)) {
-            if (this.joueur.defausse.length > 0) {
-              let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-                (selectedCarte: ICarte) => {
-                  if (selectedCarte != null) {
-                    this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                    const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                    this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
-                  }
-                  this.updateEffetsContinusAndScores();
-                },
-                (error: any) => console.error(error)
-              );
-
-              this.showSelectionCarteDialog(this.joueur.defausse);
-
-              this.carteSelectionnee$.subscribe(selectedCarte => {
-                carteSelectionneeSub.unsubscribe();
-              });
-            } else {
-              this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-            }
-          }
-          break;
-        }
-        case EffetEnum.CORRUPTION: {
-          if (this.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.nomCorrompu)).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  this.adversaire.terrain[indexCarte].clan = this.clanCorrompu;
-                  this.adversaire.terrain[indexCarte].type = this.typeCorrompu;
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.nomCorrompu)));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
-          break;
-        }
-        case EffetEnum.POSSESSION: {
-          // @ts-ignore
-          if (this.adversaire.terrain.filter(c => this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse &&
-            !c.bouclier && (c.clan.nom === this.nomCorrompu)).length > 0) {
-            let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
-              (selectedCarte: ICarte) => {
-                if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-                  this.joueur.terrain.push(this.adversaire.terrain[indexCarte]);
-                  this.adversaire.terrain.splice(indexCarte, 1);
-                }
-                this.updateEffetsContinusAndScores();
-              },
-              (error: any) => console.error(error)
-            );
-
-            // @ts-ignore
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse &&
-              !c.bouclier && (c.clan.nom === this.nomCorrompu)));
-
-            this.carteSelectionnee$.subscribe(selectedCarte => {
-              carteSelectionneeSub.unsubscribe();
-            });
-          } else {
-            this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-          }
-          break;
-        }
         case EffetEnum.SILENCE: {
           if (this.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
@@ -865,7 +626,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SAUVETAGE: {
-          if (!this.hasCrypte(this.adversaire)) {
+          if (!this.joueurService.hasCrypte(this.adversaire)) {
             if (this.joueur.defausse.length > 0) {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
@@ -891,7 +652,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.TROC: {
-          if (this.hasPalissade(this.adversaire)) {
+          if (this.joueurService.hasPalissade(this.adversaire)) {
             this.sendBotMessage('Pas de cible disponible pour le pouvoir');
             break;
           }
@@ -982,8 +743,8 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.RESURRECTION: {
-          if (!this.hasCrypte(this.adversaire)) {
-            if (this.joueur.defausse.filter(c => this.memeTypeOuClan(c, carte)).length > 0) {
+          if (!this.joueurService.hasCrypte(this.adversaire)) {
+            if (this.joueur.defausse.filter(c => this.carteService.memeTypeOuClan(c, carte)).length > 0) {
               let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
                 (selectedCarte: ICarte) => {
                   if (selectedCarte != null) {
@@ -997,7 +758,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (error: any) => console.error(error)
               );
 
-              this.showSelectionCarteDialog(this.joueur.defausse.filter(c => this.memeTypeOuClan(c, carte)));
+              this.showSelectionCarteDialog(this.joueur.defausse.filter(c => this.carteService.memeTypeOuClan(c, carte)));
 
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
@@ -1011,7 +772,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.RENFORT: {
-          if (this.joueur.main.filter(c => this.memeTypeOuClan(c, carte)).length > 0) {
+          if (this.joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
@@ -1025,7 +786,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.joueur.main.filter(c => this.memeTypeOuClan(c, carte)));
+            this.showSelectionCarteDialog(this.joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -1036,7 +797,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.IMPOSTEUR: {
-          if (this.joueur.terrain.filter(c => !c.insensible && !c.silence && c.effet && this.memeTypeOuClan(c, carte)).length > 0) {
+          if (this.joueur.terrain.filter(c => !c.insensible && !c.silence && c.effet && this.carteService.memeTypeOuClan(c, carte)).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
@@ -1054,7 +815,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible &&  !c.silence && c.effet && this.memeTypeOuClan(c, carte)));
+            this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible &&  !c.silence && c.effet && this.carteService.memeTypeOuClan(c, carte)));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -1130,7 +891,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.MENTALISME: {
-          if (!this.hasPalissade(this.adversaire)) {
+          if (!this.joueurService.hasPalissade(this.adversaire)) {
             if (this.adversaire.main.filter.length > 0) {
               this.showVisionCartesDialog(this.adversaire.main);
             }
@@ -1163,7 +924,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.SOUTIEN: {
           for (let c of this.joueur.terrain) {
-            if (!c.insensible && !c.prison && this.memeTypeOuClan(c, carte)) {
+            if (!c.insensible && !c.prison && this.carteService.memeTypeOuClan(c, carte)) {
               c.diffPuissanceInstant += carte.effet.valeurBonusMalus;
             }
           }
@@ -1171,14 +932,14 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.AMITIE: {
           for (let c of this.joueur.terrain) {
-            if (!carte.insensible && !carte.prison && this.memeTypeOuClan(carte, c)) {
+            if (!carte.insensible && !carte.prison && this.carteService.memeTypeOuClan(carte, c)) {
               carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
             }
           }
           break;
         }
         case EffetEnum.ENTERREMENT: {
-          if (!this.hasCitadelle(this.adversaire)) {
+          if (!this.joueurService.hasCitadelle(this.adversaire)) {
             const carteDessusDeck = this.adversaire.deck.shift();
 
             if (carteDessusDeck) {
@@ -1195,7 +956,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.DUOTERREMENT: {
-          if (!this.hasCitadelle(this.adversaire)) {
+          if (!this.joueurService.hasCitadelle(this.adversaire)) {
             const carteDessusDeck = this.adversaire.deck.shift();
 
             if (carteDessusDeck) {
@@ -1243,7 +1004,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.POISSON: {
-          if (!this.hasCitadelle(this.adversaire)) {
+          if (!this.joueurService.hasCitadelle(this.adversaire)) {
             this.adversaire.deck.push(this.poissonPourri);
             this.adversaire.deck.push(this.poissonPourri);
             this.melangerDeck(this.adversaire.deck);
@@ -1309,7 +1070,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.DEVOREUR: {
-          if (!this.hasCrypte(this.adversaire)) {
+          if (!this.joueurService.hasCrypte(this.adversaire)) {
             carte.diffPuissanceInstant += this.joueur.defausse.length;
             this.joueur.defausse = [];
           }
@@ -1335,7 +1096,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.ABSORPTION: {
-          if (!this.hasCrypte(this.adversaire)) {
+          if (!this.joueurService.hasCrypte(this.adversaire)) {
             this.joueur.defausse = [];
           }
 
@@ -1343,7 +1104,6 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.VOIX: {
-          // @ts-ignore
           if (this.joueur.terrain.filter(c => c.silence).length > 0) {
             let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
@@ -1357,7 +1117,6 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            // @ts-ignore
             this.showSelectionCarteDialog(this.joueur.terrain.filter(c => c.silence));
 
             this.carteSelectionnee$.subscribe(selectedCarte => {
@@ -1486,13 +1245,13 @@ export class PartieComponent implements OnInit, OnDestroy {
           const mainJoueur = this.joueur.main;
           const mainAdversaire = this.adversaire.main;
 
-          if (!this.hasCitadelle(this.adversaire)) {
+          if (!this.joueurService.hasCitadelle(this.adversaire)) {
             this.joueur.deck = deckAdversaire;
             this.adversaire.deck = deckJoueur;
 
           }
 
-          if (!this.hasPalissade(this.adversaire)) {
+          if (!this.joueurService.hasPalissade(this.adversaire)) {
             this.joueur.main = mainAdversaire;
             this.adversaire.main = mainJoueur;
           }
@@ -1502,7 +1261,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         case EffetEnum.SIX: {
           carte.puissance = 6;
 
-          if (!this.hasCitadelle(this.adversaire)) {
+          if (!this.joueurService.hasCitadelle(this.adversaire)) {
             const deckJoueur = this.joueur.deck;
             const deckAdversaire = this.adversaire.deck;
 
@@ -1515,7 +1274,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         case EffetEnum.CINQ: {
           carte.puissance = 5;
 
-          if (!this.hasPalissade(this.adversaire)) {
+          if (!this.joueurService.hasPalissade(this.adversaire)) {
             const mainJoueur = this.joueur.main;
             const mainAdversaire = this.adversaire.main;
 
@@ -1527,7 +1286,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.QUATRE: {
           carte.puissance = 4;
-          if (!this.hasPalissade(this.adversaire)) {
+          if (!this.joueurService.hasPalissade(this.adversaire)) {
             if (this.joueur.main.length > 0 && this.adversaire.main.length > 0) {
               const randomIndexJoueur = Math.floor(Math.random() * this.joueur.main.length);
               const randomIndexAdversaire = Math.floor(Math.random() * this.adversaire.main.length);
@@ -1567,8 +1326,167 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private memeTypeOuClan(c: ICarte, carte: ICarte) {
-    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
+  private handleHeroisme(carte: ICarte) {
+    if (carte && carte.effet) {
+      let atLeastOne = this.adversaire.terrain.some((carteCible: ICarte) => this.getPuissanceTotale(carteCible) >= carte.effet.conditionPuissanceAdverse);
+      if (atLeastOne) {
+        carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+      }
+    }
+  }
+
+  private handleImmunise(carte: ICarte) {
+    carte.bouclier = true;
+  }
+
+  private handleInsensible(carte: ICarte) {
+    carte.bouclier = true;
+    carte.insensible = true;
+  }
+
+  private handleSacrifice(carte: ICarte) {
+    let carteSacrifiee = this.joueur.deck.shift();
+    if (carteSacrifiee) {
+      this.sendBotMessage(`${carteSacrifiee.nom} est sacrifiée`);
+      if (this.carteService.isFidelite(carteSacrifiee)) {
+        this.joueur.deck.push(carteSacrifiee);
+        this.sendBotMessage(`${carteSacrifiee.nom} est remise dans le deck`);
+        this.melangerDeck(this.joueur.deck);
+      } else {
+        this.joueur.defausse.push(carteSacrifiee);
+      }
+    }
+  }
+
+  private handleElectrocution(carte: ICarte) {
+    if (!this.joueurService.hasPalissade(this.adversaire)) {
+      const indexCarteAleatoire = Math.floor(Math.random() * this.adversaire.main.length);
+      const carteAleatoire = this.adversaire.main[indexCarteAleatoire];
+
+      if (this.carteService.isFidelite(carteAleatoire)) {
+        this.adversaire.deck.push(carteAleatoire);
+        this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`);
+        this.melangerDeck(this.adversaire.deck);
+      } else {
+        this.adversaire.defausse.push(carteAleatoire);
+      }
+
+      this.adversaire.main.splice(indexCarteAleatoire, 1);
+    }
+  }
+
+  private handleReset(carte: ICarte) {
+    let tailleMain = this.joueur.main.length;
+    while (this.joueur.main.length > 0) {
+      this.joueur.deck.push(<ICarte>this.joueur.main.shift());
+    }
+
+    this.melangerDeck(this.joueur.deck);
+
+    for (let i = 0; i < tailleMain; i++) {
+      this.joueur.main.push(<ICarte>this.joueur.deck.shift());
+    }
+  }
+
+  private handleFusion(carte: ICarte) {
+    if (carte && carte.effet.code != 'NO') {
+      carte.bouclier = true;
+      carte.insensible = true;
+
+      let puissanceAjoutee = 0;
+      for (let i = 0; i < this.joueur.terrain.length; i++) {
+        let carteCible = this.joueur.terrain[i];
+        if (this.carteService.memeTypeOuClan(carteCible, carte) && !carteCible.insensible) {
+          puissanceAjoutee += carte.effet.valeurBonusMalus;
+
+          const carteRetiree = this.joueur.terrain.splice(i, 1)[0];
+          if (this.carteService.isCauchemard(carteRetiree)) {
+            this.adversaire.terrain.push(carteRetiree);
+            this.sendBotMessage(`${carteRetiree.nom} est envoyée sur le terrain adverse`);
+          }
+          i--;
+        }
+      }
+      carte.diffPuissanceInstant += puissanceAjoutee;
+    }
+  }
+
+  private handleTargetSelectionEffect(carte: ICarte, effetCode: EffetEnum) {
+    let targetTerrain: ICarte[] = []; // Initialisez avec un tableau vide
+
+    let applyEffect: (selectedCarte: ICarte) => void;
+
+    switch (effetCode) {
+      case EffetEnum.SABOTAGE:
+      case EffetEnum.KAMIKAZE:
+        targetTerrain = this.adversaire.terrain.filter((c: ICarte) => !c.bouclier && !c.prison);
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
+        };
+        break;
+      case EffetEnum.SERVIABLE:
+        targetTerrain = this.joueur.terrain.filter((c: ICarte) => !c.insensible && !c.prison && this.carteService.memeTypeOuClan(c, carte));
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.joueur.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
+        };
+        break;
+      case EffetEnum.BOUCLIER:
+        targetTerrain = this.joueur.terrain.filter((c: ICarte) => !c.insensible && !c.bouclier);
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.joueur.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.joueur.terrain[indexCarte].bouclier = true;
+        };
+        break;
+      case EffetEnum.RECYCLAGE:
+        targetTerrain = this.joueur.defausse;
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.joueur.defausse.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
+        };
+        break;
+      case EffetEnum.CORRUPTION:
+        targetTerrain = this.adversaire.terrain.filter((c: ICarte) => !c.bouclier && !(c.clan.nom === this.nomCorrompu));
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.adversaire.terrain[indexCarte].clan = this.clanCorrompu;
+          this.adversaire.terrain[indexCarte].type = this.typeCorrompu;
+        };
+        break;
+      case EffetEnum.POSSESSION:
+        targetTerrain = this.adversaire.terrain.filter((c: ICarte) => {
+          return this.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse &&
+            !c.bouclier && (c.clan.nom === this.nomCorrompu);
+        });
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.joueur.terrain.push(this.adversaire.terrain[indexCarte]);
+          this.adversaire.terrain.splice(indexCarte, 1);
+        };
+        break;
+    }
+
+    if (targetTerrain.length > 0) {
+      let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+        (selectedCarte: ICarte) => {
+          if (selectedCarte != null) {
+            this.sendBotMessage(`${this.joueur.nom} cible la carte ${selectedCarte.nom}`);
+            applyEffect(selectedCarte);
+          }
+          this.updateEffetsContinusAndScores();
+        },
+        (error: any) => console.error(error)
+      );
+
+      this.showSelectionCarteDialog(targetTerrain);
+
+      this.carteSelectionnee$.subscribe(selectedCarte => {
+        carteSelectionneeSub.unsubscribe();
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir');
+    }
   }
 
   private getPuissanceTotale(carte: ICarte) {
@@ -1608,217 +1526,92 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private updateEffetsContinusAndScores() {
-    let joueurHasProtecteurForet = this.joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
-    let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
+    this.resetBoucliersEtPuissances(this.joueur);
+    this.resetBoucliersEtPuissances(this.adversaire);
 
-    // On remet à 0 les puissances continues avant de les recalculer
-    for (let carte of this.joueur.terrain) {
-      carte.diffPuissanceContinue = 0;
-
-      if (joueurHasProtecteurForet) {
-        if (1 == carte.clan.id || 8 == carte.type.id) {
-          carte.bouclier = true;
-        }
-      }
-    }
-    for (let carte of this.adversaire.terrain) {
-      carte.diffPuissanceContinue = 0;
-
-      if (adversaireHasProtecteurForet) {
-        if (1 == carte.clan.id || 8 == carte.type.id) {
-          carte.bouclier = true;
-        }
-      }
-    }
-
-    let indexCarte = 0;
-    for (let carte of this.joueur.terrain) {
-      if (carte.effet && carte.effet.continu && !carte.silence) {
-        switch(carte.effet.code) {
-          case EffetEnum.VAMPIRISME: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.defausse.length;
-            break;
-          }
-          case EffetEnum.CANNIBALE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
-            break;
-          }
-          case EffetEnum.ESPRIT_EQUIPE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.joueur.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte)) {
-                carte.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.MELEE: {
-            for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id == carte.id) {
-                carte.diffPuissanceContinue++;
-              }
-            }
-            break;
-          }
-          case EffetEnum.CAPITAINE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.joueur.terrain) {
-              if (indexCarte != indexCarteCible && !carteCible.insensible && this.memeTypeOuClan(carteCible, carte)) {
-                carteCible.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.SYMBIOSE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.deck.length;
-            break;
-          }
-          case EffetEnum.SANG_PUR: {
-            let allCompatible = true;
-            for (let carteCible of this.joueur.terrain) {
-              if (!this.memeTypeOuClan(carteCible, carte)) {
-                allCompatible = false;
-              }
-            }
-
-            if (allCompatible) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-
-            break;
-          }
-          case EffetEnum.TSUNAMI: {
-            for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.DOMINATION: {
-            for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.RESISTANCE: {
-            if (this.joueur.defausse.length < 3) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-            break;
-          }
-          case EffetEnum.ILLUMINATI: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.terrain.length;
-            break;
-          }
-          default: {
-            //statements;
-            break;
-          }
-        }
-      }
-      indexCarte++;
-    }
-
-    indexCarte = 0;
-    for (let carte of this.adversaire.terrain) {
-      if (carte.effet && carte.effet.continu && !carte.silence) {
-        switch(carte.effet.code) {
-          case EffetEnum.VAMPIRISME: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
-            break;
-          }
-          case EffetEnum.CANNIBALE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.defausse.length;
-            break;
-          }
-          case EffetEnum.ESPRIT_EQUIPE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.adversaire.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte)) {
-                carte.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.MELEE: {
-            for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id == carte.id) {
-                carte.diffPuissanceContinue++;
-              }
-            }
-            break;
-          }
-          case EffetEnum.CAPITAINE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.adversaire.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte) && !carteCible.insensible) {
-                carteCible.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.SYMBIOSE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.deck.length;
-            break;
-          }
-          case EffetEnum.SANG_PUR: {
-            let allCompatible = true;
-            for (let carteCible of this.adversaire.terrain) {
-              if (!this.memeTypeOuClan(carteCible, carte)) {
-                allCompatible = false;
-              }
-            }
-
-            if (allCompatible) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-
-            break;
-          }
-          case EffetEnum.TSUNAMI: {
-            for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.DOMINATION: {
-            for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.RESISTANCE: {
-            if (this.adversaire.defausse.length < 3) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-            break;
-          }
-          case EffetEnum.ILLUMINATI: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.terrain.length;
-            break;
-          }
-          default: {
-            //statements;
-            break;
-          }
-        }
-      }
-      indexCarte++;
-    }
+    this.appliquerEffetsContinus(this.joueur, this.adversaire);
+    this.appliquerEffetsContinus(this.adversaire, this.joueur);
 
     this.updateScores();
   }
+
+  private resetBoucliersEtPuissances(joueur: IPlayerState) {
+    const hasProtecteurForet = this.joueurService.getJoueurHasProtecteurForet(joueur);
+
+    for (let carte of joueur.terrain) {
+      carte.diffPuissanceContinue = 0;
+      if (hasProtecteurForet && (1 === carte.clan.id || 8 === carte.type.id)) {
+        carte.bouclier = true;
+      }
+    }
+  }
+
+  private appliquerEffetsContinus(source: IPlayerState, cible: IPlayerState) {
+    source.terrain.forEach((carte, index) => {
+      if (carte.effet.code != 'NO' && carte.effet.continu && !carte.silence) {
+        switch (carte.effet.code) {
+          case EffetEnum.VAMPIRISME:
+            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * cible.defausse.length;
+            break;
+          case EffetEnum.CANNIBALE:
+            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * source.defausse.length;
+            break;
+          case EffetEnum.ESPRIT_EQUIPE:
+            source.terrain.forEach((carteCible, indexCible) => {
+              if (index !== indexCible && this.carteService.memeTypeOuClan(carteCible, carte)) {
+                carte.diffPuissanceContinue++;
+              }
+            });
+            break;
+          case EffetEnum.MELEE:
+            if (source.terrain.some(carteCible => carteCible.id === carte.id)) {
+              carte.diffPuissanceContinue++;
+            }
+            break;
+          case EffetEnum.CAPITAINE:
+            source.terrain.forEach((carteCible, indexCible) => {
+              if (index !== indexCible && !carteCible.insensible && this.carteService.memeTypeOuClan(carteCible, carte)) {
+                carteCible.diffPuissanceContinue++;
+              }
+            });
+            break;
+          case EffetEnum.SYMBIOSE:
+            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * source.deck.length;
+            break;
+          case EffetEnum.SANG_PUR:
+            if (source.terrain.every(carteCible => this.carteService.memeTypeOuClan(carteCible, carte))) {
+              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
+            }
+            break;
+          case EffetEnum.TSUNAMI:
+            cible.terrain.forEach(carteCible => {
+              if (!carteCible.bouclier) {
+                carteCible.diffPuissanceContinue--;
+              }
+            });
+            break;
+          case EffetEnum.DOMINATION:
+            cible.terrain.forEach(carteCible => {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
+                carteCible.diffPuissanceContinue--;
+              }
+            });
+            break;
+          case EffetEnum.RESISTANCE:
+            if (source.defausse.length < 3) {
+              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
+            }
+            break;
+          case EffetEnum.ILLUMINATI:
+            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * cible.terrain.length;
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+
 
   private updateScores() {
     let sommePuissancesJoueur = 0;
@@ -1896,42 +1689,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
-  private hasCitadelle(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.CITADELLE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
-  private hasCrypte(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.CRYPTE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
-  private hasPalissade(joueur: IPlayerState) : boolean {
-    let result = false;
-
-    for (let carte of joueur.terrain) {
-      if (carte.effet && carte.effet.code == EffetEnum.PALISSADE) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
-
   confirmAbandon() {
     this.zone.run(() => {
       const ref = this.dialogService.open(ConfirmationDialogComponent, {
@@ -1951,7 +1708,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   abandon() {
-    // @ts-ignore
     let event = this.createAbandonPEvent();
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
