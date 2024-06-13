@@ -1781,17 +1781,15 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.joueurAbandon = this.adversaire.nom;
       }
       texteVainqueur = " Abandon de " + this.joueurAbandon;
-    } else {
-      if (this.vainqueur) {
-        let scoreJoueur = this.joueur.score;
-        let scoreAdversaire = this.adversaire.score;
-        if (scoreJoueur > scoreAdversaire) {
-          texteVainqueur = " Victoire de " + this.joueur.nom;
-        } else if (scoreAdversaire > scoreJoueur) {
-          texteVainqueur = " Victoire de " + this.adversaire.nom;
-        } else if (scoreAdversaire == scoreJoueur) {
-          texteVainqueur = 'C\'est une égalité ';
-        }
+    } else if (this.finDePartie) {
+      let scoreJoueur = this.joueur.score;
+      let scoreAdversaire = this.adversaire.score;
+      if (scoreJoueur > scoreAdversaire) {
+        texteVainqueur = " Victoire de " + this.joueur.nom;
+      } else if (scoreAdversaire > scoreJoueur) {
+        texteVainqueur = " Victoire de " + this.adversaire.nom;
+      } else if (scoreAdversaire == scoreJoueur) {
+        texteVainqueur = 'C\'est une égalité ';
       }
     }
 
