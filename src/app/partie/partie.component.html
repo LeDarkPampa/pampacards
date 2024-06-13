@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div [class]="getAdvColorClass()" class="center terrain terrain-adv">
+  <div [class]="getAdvColorClass()" class="ligne-centree terrain terrain-adv">
     <div *ngIf="adversaire" class="ligne-centree">
       <div *ngFor="let carte of adversaire.terrain">
         <app-carte-terrain [carte]="carte"></app-carte-terrain>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div  *ngIf="lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="center terrain terrain-joueur">
+  <div  *ngIf="lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="ligne-centree terrain terrain-joueur">
     <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
         <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>

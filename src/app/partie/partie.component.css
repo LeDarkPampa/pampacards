@@ -91,7 +91,11 @@
 }
 
 .terrain {
-  overflow: auto;
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  justify-content:center;
+  overflow-x: auto;
   border-radius: 0 10px 0 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border: 10px solid;
