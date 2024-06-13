@@ -87,11 +87,13 @@
     </div>
   </div>
   <div class="actions">
-    <div class="ligne-centree" *ngIf="finDePartie">
-      Fin de la partie
-    </div>
-    <div class="ligne-centree" *ngIf="finDePartie">
-      {{getVainqueurTexte()}}
+    <div class="colonne-centree">
+      <div class="ligne-centree" *ngIf="finDePartie">
+        Fin de la partie
+      </div>
+      <div class="ligne-centree" *ngIf="finDePartie">
+        {{getVainqueurTexte()}}
+      </div>
     </div>
     <div *ngIf=" estJoueurActif && !finDePartie">
       <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="finDeTour()"></app-pampa-button>

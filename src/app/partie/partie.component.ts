@@ -1786,7 +1786,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         let scoreJoueur = this.joueur.score;
         let scoreAdversaire = this.adversaire.score;
         if (scoreJoueur > scoreAdversaire) {
-          texteVainqueur = "Victoire de " + this.joueur.nom;
+          texteVainqueur = " Victoire de " + this.joueur.nom;
         } else if (scoreAdversaire > scoreJoueur) {
           texteVainqueur = " Victoire de " + this.adversaire.nom;
         } else if (scoreAdversaire == scoreJoueur) {

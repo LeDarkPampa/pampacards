@@ -1,6 +1,6 @@
 <div class="colonne-centree popup-background">
   <div class="ligne-centree margin-bot">
-    Format : {{demande.formatId}}
+    Format : {{ getFormatNomById(demande.formatId) }}
   </div>
   <div class="ligne-centree margin-bot" *ngIf="!hasValidDeck">
     Aucun deck valide pour le format proposé
