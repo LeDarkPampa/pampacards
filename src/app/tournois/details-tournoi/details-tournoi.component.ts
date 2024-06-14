@@ -38,7 +38,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
           next: tournoi => {
             this.tournoi = tournoi;
             this.players = this.tournoi.participants;
-            this.affrontements = this.tournoi.affrontements; // Assuming affrontements are directly available
+            this.affrontements = this.tournoi.rounds[0].affrontements; // Assuming affrontements are directly available
             this.organizeRounds();
           },
           error: error => {
@@ -55,7 +55,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
 
       // Organize affrontements in pairs (assuming they are already in order)
       for (let i = 0; i < this.affrontements.length; i += 2) {
-        this.rounds.push({affrontements: this.affrontements});
+        // this.rounds.push({affrontements: this.affrontements});
       }
     }
   }

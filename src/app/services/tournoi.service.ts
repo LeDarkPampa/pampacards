@@ -40,8 +40,8 @@ export class TournoiService {
     return this.http.get<ILigue[]>(`${this.BACKEND_URL}/ligues/ligues-a-venir`);
   }
 
-  getLiguesValidesForUser(userId: number): Observable<ITournoi[]> {
-    return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/ligues/ligues-valides?userId=` + userId);
+  getLiguesValidesForUser(userId: number): Observable<ILigue[]> {
+    return this.http.get<ILigue[]>(`${this.BACKEND_URL}/ligues/ligues-valides?userId=` + userId);
   }
 
   saveLigue(newLigue: ILigue): Observable<any> {
