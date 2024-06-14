@@ -461,9 +461,11 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   sortCartesDeck() {
-    this.selectedDeck.cartes.sort((n1,n2) =>
-    {
-      return n1.nom.localeCompare(n2.nom);
-    });
+    if (this.selectedDeck) {
+      this.selectedDeck.cartes.sort((n1,n2) =>
+      {
+        return n1.nom.localeCompare(n2.nom);
+      });
+    }
   }
 }

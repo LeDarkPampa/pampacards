@@ -1,104 +1,16 @@
-<div class="tableau">
-  <div class="tour">
-    <div class="bracket-game">
+<div class="tableau" *ngIf="tournoi">
+  <div class="tour" *ngFor="let round of rounds">
+    <div class="bracket-game" *ngFor="let match of round.affrontements">
       <div class="player">
-        Joueur 1
+        {{ match.joueur1Id }}
         <div class="score">
-          3
+          {{ match.scoreJ1 }}
         </div>
       </div>
       <div class="player">
-        Joueur 2
+        {{ match.joueur2Id }}
         <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 3
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 4
-        <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 5
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 6
-        <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 7
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 8
-        <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tour">
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 1
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 3
-        <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 5
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 7
-        <div class="score">
-          1
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tour">
-    <div class="bracket-game">
-      <div class="player">
-        Joueur 1
-        <div class="score">
-          3
-        </div>
-      </div>
-      <div class="player">
-        Joueur 7
-        <div class="score">
-          1
+          {{ match.scoreJ2 }}
         </div>
       </div>
     </div>
