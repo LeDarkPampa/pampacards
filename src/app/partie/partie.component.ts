@@ -1005,8 +1005,10 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
         case EffetEnum.POISSON: {
           if (!this.joueurService.hasCitadelle(this.adversaire)) {
-            this.adversaire.deck.push(this.poissonPourri);
-            this.adversaire.deck.push(this.poissonPourri);
+            for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
+              this.adversaire.deck.push(this.poissonPourri);
+            }
+            
             this.melangerDeck(this.adversaire.deck);
           }
           break;
