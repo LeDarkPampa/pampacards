@@ -647,16 +647,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private defausseCarte(carte: ICarte, pileDefausse: ICarte[], destination: ICarte[]) {
-    if (this.carteService.isFidelite(carte)) {
-      destination.push(carte);
-      this.sendBotMessage(`${carte.nom} est remise dans le deck`);
-      this.partieService.melangerDeck(destination);
-    } else {
-      pileDefausse.push(carte);
-    }
-  }
-
   private handleMentalisme() {
     if (!this.joueurService.hasPalissade(this.adversaire) && this.adversaire.main.length > 0) {
       this.showVisionCartesDialog(this.adversaire.main);
@@ -684,24 +674,24 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private handleCinqEffect(carte: ICarte) {
-    this.manageDeckExchange(carte, !this.joueurService.hasPalissade(this.adversaire), this.joueur.main, this.adversaire.main, "5");
+    this.manageExchange(carte, !this.joueurService.hasPalissade(this.adversaire), this.joueur.main, this.adversaire.main, "5");
   }
 
   private handleSixEffect(carte: ICarte) {
-    this.manageDeckExchange(carte, !this.joueurService.hasCitadelle(this.adversaire), this.joueur.deck, this.adversaire.deck, "6");
+    this.manageExchange(carte, !this.joueurService.hasCitadelle(this.adversaire), this.joueur.deck, this.adversaire.deck, "6");
   }
 
   private handleSeptEffect(carte: ICarte) {
     carte.puissance = 7;
     if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      this.manageDeckExchange(carte, true, this.joueur.deck, this.adversaire.deck, "7");
+      this.manageExchange(carte, true, this.joueur.deck, this.adversaire.deck, "7");
     }
     if (!this.joueurService.hasPalissade(this.adversaire)) {
-      this.manageDeckExchange(carte, true, this.joueur.main, this.adversaire.main, "7");
+      this.manageExchange(carte, true, this.joueur.main, this.adversaire.main, "7");
     }
   }
 
-  private manageDeckExchange(carte: ICarte, condition: boolean, deck1: ICarte[], deck2: ICarte[], message: string) {
+  private manageExchange(carte: ICarte, condition: boolean, deck1: ICarte[], deck2: ICarte[], message: string) {
     carte.puissance = parseInt(message.charAt(0));
     if (condition) {
       const temp = deck1.slice();
@@ -828,7 +818,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       this.showSelectionCarteDialog(this.joueur.terrain.filter(c => c.silence));
 
-      this.carteSelectionnee$.subscribe(selectedCarte => {
+      this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
       });
     } else {
@@ -906,7 +896,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.prison));
 
-      this.carteSelectionnee$.subscribe(selectedCarte => {
+      this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
       });
     } else {
@@ -931,7 +921,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
 
-      this.carteSelectionnee$.subscribe(selectedCarte => {
+      this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
       });
     } else {
@@ -962,7 +952,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.showSelectionCarteDialog(this.joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)));
 
-    this.carteSelectionnee$.subscribe(selectedCarte => {
+    this.carteSelectionnee$.subscribe(() => {
       carteSelectionneeSub.unsubscribe();
     });
   }
@@ -994,7 +984,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible && !c.silence && c.effet && this.carteService.memeTypeOuClan(c, carte)));
 
-    this.carteSelectionnee$.subscribe(selectedCarte => {
+    this.carteSelectionnee$.subscribe(() => {
       carteSelectionneeSub.unsubscribe();
     });
   }
@@ -1017,7 +1007,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private handleTargetSelectionEffect(carte: ICarte, effetCode: EffetEnum) {
-    let targetTerrain: ICarte[] = []; // Initialisez avec un tableau vide
+    let targetTerrain: ICarte[] = [];
 
     let applyEffect: (selectedCarte: ICarte) => void;
 
@@ -1086,7 +1076,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
       this.showSelectionCarteDialog(targetTerrain);
 
-      this.carteSelectionnee$.subscribe(selectedCarte => {
+      this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
       });
     } else {
@@ -1169,7 +1159,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       (c: ICarte) => c.bouclier;
 
     if (this.adversaire.terrain.filter(filterFunction).length > 0) {
-      const carteSelectionneeSub = this.selectAndHandleCard(this.adversaire.terrain.filter(filterFunction))
+      this.selectAndHandleCard(this.adversaire.terrain.filter(filterFunction))
         .subscribe(() => {
           this.updateEffetsContinusAndScores();
         });
