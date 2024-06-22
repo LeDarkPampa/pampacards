@@ -760,29 +760,36 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private handleCinqEffect(carte: ICarte) {
-    this.manageExchange(carte, !this.joueurService.hasPalissade(this.adversaire), this.joueur.main, this.adversaire.main, "5");
+    carte.puissance = parseInt("5");
+    if (!this.joueurService.hasPalissade(this.adversaire)) {
+      const temp = this.joueur.main.slice();
+      this.joueur.main = this.adversaire.main;
+      this.adversaire.main = temp;
+    }
   }
 
   private handleSixEffect(carte: ICarte) {
-    this.manageExchange(carte, !this.joueurService.hasCitadelle(this.adversaire), this.joueur.deck, this.adversaire.deck, "6");
+    carte.puissance = parseInt("6");
+    if (!this.joueurService.hasCitadelle(this.adversaire)) {
+      const temp = this.joueur.deck.slice();
+      this.joueur.deck = this.adversaire.deck;
+      this.adversaire.deck = temp;
+    }
   }
 
   private handleSeptEffect(carte: ICarte) {
-    carte.puissance = 7;
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      this.manageExchange(carte, true, this.joueur.deck, this.adversaire.deck, "7");
-    }
-    if (!this.joueurService.hasPalissade(this.adversaire)) {
-      this.manageExchange(carte, true, this.joueur.main, this.adversaire.main, "7");
-    }
-  }
+    carte.puissance = parseInt("7");
 
-  private manageExchange(carte: ICarte, condition: boolean, deck1: ICarte[], deck2: ICarte[], message: string) {
-    carte.puissance = parseInt(message.charAt(0));
-    if (condition) {
-      const temp = deck1.slice();
-      deck1 = deck2;
-      deck2 = temp;
+    if (!this.joueurService.hasPalissade(this.adversaire)) {
+      const temp = this.joueur.main.slice();
+      this.joueur.main = this.adversaire.main;
+      this.adversaire.main = temp;
+    }
+
+    if (!this.joueurService.hasCitadelle(this.adversaire)) {
+      const temp = this.joueur.deck.slice();
+      this.joueur.deck = this.adversaire.deck;
+      this.adversaire.deck = temp;
     }
   }
 
