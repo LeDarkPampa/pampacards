@@ -75,7 +75,8 @@ import { AdministrationTournoisComponent } from './administration/administration
 import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscription-dialog.component';
 import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-dialog/open-affrontement-dialog.component';
 import {PartieService} from "./services/partie.service";
-import {TchatService} from "./services/tchatService";
+import {CarteEffetService} from "./services/carteEffet.service";
+import {TchatService} from "./services/tchat.service";
 
 @NgModule({
   declarations: [
@@ -191,7 +192,8 @@ import {TchatService} from "./services/tchatService";
     DeckService,
     CookieService,
     PartieService,
-    TchatService
+    TchatService,
+    CarteEffetService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import { IType } from '../interfaces/IType';
-import {catchError} from "rxjs/operators";
-import {AuthentificationService} from "./authentification.service";
-import {PropertiesService} from "./properties.service";
 import {ICarte} from "../interfaces/ICarte";
 import {EffetEnum} from "../interfaces/EffetEnum";
 
@@ -14,6 +8,12 @@ import {EffetEnum} from "../interfaces/EffetEnum";
 export class CarteService {
 
   constructor() { }
+
+  nomCorrompu = 'Corrompu';
+
+  getNomCorrompu(): string {
+    return this.nomCorrompu;
+  }
 
   isFidelite(carte: ICarte) {
     return carte.effet && carte.effet.code == EffetEnum.FIDELITE && !carte.silence;
@@ -25,6 +25,10 @@ export class CarteService {
 
   memeTypeOuClan(c: ICarte, carte: ICarte) {
     return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
+  }
+
+  getPuissanceTotale(carte: ICarte) {
+    return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
 }
