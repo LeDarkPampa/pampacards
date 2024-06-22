@@ -74,6 +74,8 @@ import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.co
 import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
 import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscription-dialog.component';
 import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-dialog/open-affrontement-dialog.component';
+import {PartieService} from "./services/partie.service";
+import {TchatService} from "./services/tchatService";
 
 @NgModule({
   declarations: [
@@ -187,7 +189,9 @@ import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-di
     DialogService,
     PropertiesService,
     DeckService,
-    CookieService
+    CookieService,
+    PartieService,
+    TchatService
   ],
   bootstrap: [AppComponent]
 })
