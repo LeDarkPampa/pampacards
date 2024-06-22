@@ -167,6 +167,125 @@ export class CarteEffetService {
     }
   }
 
+  handleElectrocution(adversaire: IPlayerState, partieId: number) {
+    if (!this.joueurService.hasPalissade(adversaire)) {
+      const indexCarteAleatoire = Math.floor(Math.random() * adversaire.main.length);
+      const carteAleatoire = adversaire.main[indexCarteAleatoire];
+
+      if (this.carteService.isFidelite(carteAleatoire)) {
+        this.partieService.mettreCarteDansDeck(adversaire, carteAleatoire);
+        this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`, partieId);
+        this.partieService.melangerDeck(adversaire.deck);
+      } else {
+        this.partieService.jouerCarteDansDefausse(adversaire, carteAleatoire);
+      }
+
+      adversaire.main.splice(indexCarteAleatoire, 1);
+    }
+  }
+
+  handleEnterrement(adversaire: IPlayerState, partieId: number) {
+    if (!this.joueurService.hasCitadelle(adversaire)) {
+      const carteDessusDeck = adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(`${carteDessusDeck.nom} est remise dans le deck`, partieId);
+          this.partieService.mettreCarteDansDeck(adversaire, carteDessusDeck);
+          this.partieService.melangerDeck(adversaire.deck);
+        } else {
+          this.sendBotMessage(`${carteDessusDeck.nom} est envoyée dans la défausse`, partieId);
+          this.partieService.jouerCarteDansDefausse(adversaire, carteDessusDeck);
+        }
+      }
+    }
+  }
+
+  handleDuoterrementEffect(adversaire: IPlayerState, partieId: number) {
+    if (!this.joueurService.hasCitadelle(adversaire)) {
+      const carteDessusDeck = adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(`${carteDessusDeck.nom} est remise dans le deck`, partieId);
+          this.partieService.mettreCarteDansDeck(adversaire, carteDessusDeck);
+          this.partieService.melangerDeck(adversaire.deck);
+        } else {
+          this.sendBotMessage(`${carteDessusDeck.nom} est envoyée dans la défausse`, partieId);
+          this.partieService.jouerCarteDansDefausse(adversaire, carteDessusDeck);
+        }
+      }
+
+      const carteDessusDeck2 = adversaire.deck.shift();
+
+      if (carteDessusDeck2) {
+        if (this.carteService.isFidelite(carteDessusDeck2)) {
+          this.sendBotMessage(`${carteDessusDeck2.nom} est remise dans le deck`, partieId);
+          this.partieService.mettreCarteDansDeck(adversaire, carteDessusDeck2);
+          this.partieService.melangerDeck(adversaire.deck);
+        } else {
+          this.sendBotMessage(`${carteDessusDeck2.nom} est envoyée dans la défausse`, partieId);
+          this.partieService.jouerCarteDansDefausse(adversaire, carteDessusDeck2);
+        }
+      }
+    }
+  }
+
+  handleNuee(joueur: IPlayerState, carte: ICarte) {
+    joueur.terrain.forEach(c => {
+      if (c.id === carte.id) {
+        carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+      }
+    });
+  }
+
+  handlePoisson(adversaire: IPlayerState, carte: ICarte) {
+    if (!this.joueurService.hasCitadelle(adversaire)) {
+      for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
+        this.partieService.mettreCarteDansDeck(adversaire, this.partieService.getPoissonPourri());
+      }
+      this.partieService.melangerDeck(adversaire.deck);
+    }
+  }
+
+  handleSixEffect(joueur: IPlayerState, adversaire: IPlayerState, carte: ICarte) {
+    carte.puissance = parseInt("6");
+    if (!this.joueurService.hasCitadelle(adversaire)) {
+      const temp = joueur.deck.slice();
+      joueur.deck = adversaire.deck;
+      adversaire.deck = temp;
+    }
+  }
+
+  handleCinqEffect(joueur: IPlayerState, adversaire: IPlayerState, carte: ICarte) {
+    carte.puissance = parseInt("5");
+    if (!this.joueurService.hasPalissade(adversaire)) {
+      const temp = joueur.main.slice();
+      joueur.main = adversaire.main;
+      adversaire.main = temp;
+    }
+  }
+
+  handleQuatreEffect(joueur: IPlayerState, adversaire: IPlayerState, carte: ICarte, partieId: number) {
+    carte.puissance = 4;
+    if (!this.joueurService.hasPalissade(adversaire)) {
+      if (joueur.main.length > 0 && adversaire.main.length > 0) {
+        const randomIndexJoueur = Math.floor(Math.random() * joueur.main.length);
+        const randomIndexAdversaire = Math.floor(Math.random() * adversaire.main.length);
+
+        const carteJoueur = joueur.main.splice(randomIndexJoueur, 1)[0];
+        const carteAdversaire = adversaire.main.splice(randomIndexAdversaire, 1)[0];
+
+        this.partieService.mettreCarteDansMain(adversaire, carteJoueur);
+        this.partieService.mettreCarteDansMain(joueur, carteAdversaire);
+      } else {
+        this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieId);
+      }
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieId);
+    }
+  }
+
   resetBoucliersEtPuissances(joueur: IPlayerState) {
     const hasProtecteurForet = this.joueurService.getJoueurHasProtecteurForet(joueur);
 

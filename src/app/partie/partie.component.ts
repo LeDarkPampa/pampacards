@@ -374,7 +374,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.carteEffetService.handleSacrifice(this.joueur, this.partie.id);
           break;
         case EffetEnum.ELECTROCUTION:
-          this.handleElectrocution();
+          this.carteEffetService.handleElectrocution(this.adversaire, this.partie.id);
           break;
         case EffetEnum.RESET:
           this.carteEffetService.handleReset(this.joueur);
@@ -546,11 +546,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.ENTERREMENT: {
-          this.handleEnterrement();
+          this.carteEffetService.handleEnterrement(this.adversaire, this.partie.id);
           break;
         }
         case EffetEnum.DUOTERREMENT: {
-          this.handleDuoterrementEffect();
+          this.carteEffetService.handleDuoterrementEffect(this.adversaire, this.partie.id);
           break;
         }
         case EffetEnum.MEUTE: {
@@ -558,11 +558,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.NUEE: {
-          this.handleNuee(carte);
+          this.carteEffetService.handleNuee(this.joueur, carte);
           break;
         }
         case EffetEnum.POISSON: {
-          this.handlePoisson(carte);
+          this.carteEffetService.handlePoisson(this.adversaire, carte);
           break;
         }
         case EffetEnum.TRAHISON: {
@@ -638,17 +638,17 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SIX: {
-          this.handleSixEffect(carte);
+          this.carteEffetService.handleSixEffect(this.joueur, this.adversaire, carte);
 
           break;
         }
         case EffetEnum.CINQ: {
-          this.handleCinqEffect(carte);
+          this.carteEffetService.handleCinqEffect(this.joueur, this.adversaire, carte);
 
           break;
         }
         case EffetEnum.QUATRE: {
-          this.handleQuatreEffect(carte);
+          this.carteEffetService.handleQuatreEffect(this.joueur, this.adversaire, carte, this.partie.id);
           break;
         }
         case EffetEnum.BOUCLIERPLUS:
@@ -665,111 +665,9 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handlePoisson(carte: ICarte) {
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
-        this.partieService.mettreCarteDansDeck(this.adversaire, this.partieService.getPoissonPourri());
-      }
-      this.partieService.melangerDeck(this.adversaire.deck);
-    }
-  }
-
-  private handleNuee(carte: ICarte) {
-    this.joueur.terrain.forEach(c => {
-      if (c.id === carte.id) {
-        carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
-      }
-    });
-  }
-
-  private handleEnterrement() {
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      const carteDessusDeck = this.adversaire.deck.shift();
-
-      if (carteDessusDeck) {
-        if (this.carteService.isFidelite(carteDessusDeck)) {
-          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
-          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck);
-          this.partieService.melangerDeck(this.adversaire.deck);
-        } else {
-          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
-          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck);
-        }
-      }
-    }
-  }
-
-  private handleDuoterrementEffect() {
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      const carteDessusDeck = this.adversaire.deck.shift();
-
-      if (carteDessusDeck) {
-        if (this.carteService.isFidelite(carteDessusDeck)) {
-          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
-          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck);
-          this.partieService.melangerDeck(this.adversaire.deck);
-        } else {
-          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
-          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck);
-        }
-      }
-
-      const carteDessusDeck2 = this.adversaire.deck.shift();
-
-      if (carteDessusDeck2) {
-        if (this.carteService.isFidelite(carteDessusDeck2)) {
-          this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck');
-          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck2);
-          this.partieService.melangerDeck(this.adversaire.deck);
-        } else {
-          this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse');
-          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck2);
-        }
-      }
-    }
-  }
-
   private handleMentalisme() {
     if (!this.joueurService.hasPalissade(this.adversaire) && this.adversaire.main.length > 0) {
       this.showVisionCartesDialog(this.adversaire.main);
-    }
-  }
-
-  private handleQuatreEffect(carte: ICarte) {
-    carte.puissance = 4;
-    if (!this.joueurService.hasPalissade(this.adversaire)) {
-      if (this.joueur.main.length > 0 && this.adversaire.main.length > 0) {
-        const randomIndexJoueur = Math.floor(Math.random() * this.joueur.main.length);
-        const randomIndexAdversaire = Math.floor(Math.random() * this.adversaire.main.length);
-
-        const carteJoueur = this.joueur.main.splice(randomIndexJoueur, 1)[0];
-        const carteAdversaire = this.adversaire.main.splice(randomIndexAdversaire, 1)[0];
-
-        this.partieService.mettreCarteDansMain(this.adversaire, carteJoueur);
-        this.partieService.mettreCarteDansMain(this.joueur, carteAdversaire);
-      } else {
-        this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-      }
-    } else {
-      this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-    }
-  }
-
-  private handleCinqEffect(carte: ICarte) {
-    carte.puissance = parseInt("5");
-    if (!this.joueurService.hasPalissade(this.adversaire)) {
-      const temp = this.joueur.main.slice();
-      this.joueur.main = this.adversaire.main;
-      this.adversaire.main = temp;
-    }
-  }
-
-  private handleSixEffect(carte: ICarte) {
-    carte.puissance = parseInt("6");
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      const temp = this.joueur.deck.slice();
-      this.joueur.deck = this.adversaire.deck;
-      this.adversaire.deck = temp;
     }
   }
 
@@ -1060,23 +958,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.carteSelectionnee$.subscribe(() => {
       carteSelectionneeSub.unsubscribe();
     });
-  }
-
-  private handleElectrocution() {
-    if (!this.joueurService.hasPalissade(this.adversaire)) {
-      const indexCarteAleatoire = Math.floor(Math.random() * this.adversaire.main.length);
-      const carteAleatoire = this.adversaire.main[indexCarteAleatoire];
-
-      if (this.carteService.isFidelite(carteAleatoire)) {
-        this.partieService.mettreCarteDansDeck(this.adversaire, carteAleatoire);
-        this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`);
-        this.partieService.melangerDeck(this.adversaire.deck);
-      } else {
-        this.partieService.jouerCarteDansDefausse(this.adversaire, carteAleatoire);
-      }
-
-      this.adversaire.main.splice(indexCarteAleatoire, 1);
-    }
   }
 
   private handleTargetSelectionEffect(carte: ICarte, effetCode: EffetEnum) {
