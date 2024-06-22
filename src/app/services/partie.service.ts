@@ -72,13 +72,6 @@ export class PartieService {
     return this.typeCorrompu;
   }
 
-  melangerDeck(deck: ICarte[]) {
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-  }
-
   initPlayerCards = (player: IPlayerState) => {
     const initCardProperties = (carte: ICarte) => {
       carte.bouclier = false;
@@ -90,4 +83,15 @@ export class PartieService {
     player.deck.forEach(initCardProperties);
     player.main.forEach(initCardProperties);
   };
+
+  melangerDeck(deck: ICarte[]) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+  }
+
+  jouerCarteSurTerrain(joueur: IPlayerState, carte: ICarte) {
+    joueur.terrain.push(carte);
+  }
 }

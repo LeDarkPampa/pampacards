@@ -216,14 +216,14 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
           if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEUR) {
-            this.adversaire.terrain.push(carteJouee);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carteJouee);
           } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.SABOTEURPLUS) {
             carteJouee.puissance = -4;
-            this.adversaire.terrain.push(carteJouee);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carteJouee);
           } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.KAMIKAZE) {
             this.joueur.defausse.push(carteJouee);
           } else {
-            this.joueur.terrain.push(carteJouee);
+            this.partieService.jouerCarteSurTerrain(this.joueur, carteJouee);
           }
 
           if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.STOP) {
@@ -252,19 +252,19 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carte.effet.code != 'NO' && !carte.effet.continu) {
         this.playInstantEffect(carte).then(r => {
           if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEUR) {
-            this.adversaire.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
             carte.puissance = -4;
-            this.adversaire.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.KAMIKAZE) {
             this.joueur.defausse.push(carte);
           } else {
-            this.joueur.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.joueur, carte);
           }
         }
         );
       } else {
-        this.joueur.terrain.push(carte);
+        this.partieService.jouerCarteSurTerrain(this.joueur, carte);
       }
 
       let stopJ1 = false;
