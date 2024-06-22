@@ -19,6 +19,7 @@ import {JoueurService} from "../services/joueur.service";
 import {PartieService} from "../services/partie.service";
 import {CarteEffetService} from "../services/carteEffet.service";
 import {TchatService} from "../services/tchat.service";
+import {PartieEventService} from "../services/partieEvent.service";
 
 @Component({
   selector: 'app-partie',
@@ -58,6 +59,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
+              private partieEventService: PartieEventService,
               private tchatService: TchatService, private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
     this.userId = authService.getUserId();
@@ -233,12 +235,12 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
 
           this.updateEffetsContinusAndScores();
-          this.partieService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent, stopJ1, stopJ2);
+          this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent, stopJ1, stopJ2);
         });
       } else {
         this.joueur.terrain.push(carteJouee);
         this.updateEffetsContinusAndScores();
-        this.partieService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
+        this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
       }
     }
   }
@@ -276,7 +278,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
 
       this.updateEffetsContinusAndScores();
-      this.partieService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent, stopJ1, stopJ2);
+      this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent, stopJ1, stopJ2);
       this.updateEffetsContinusAndScores();
     }
   }
@@ -342,13 +344,13 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
     this.updateEffetsContinusAndScores();
-    this.partieService.sendUpdatedGameAfterDefausse(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
+    this.partieEventService.sendUpdatedGameAfterDefausse(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
   }
 
   finDeTour() {
     if (this.estJoueurActif) {
-      let event = this.partieService.createEndTurnEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
-      this.partieService.sendEvent(event);
+      let event = this.partieEventService.createEndTurnEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
+      this.partieEventService.sendEvent(event);
     }
   }
 
@@ -364,10 +366,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.carteEffetService.handleHeroisme(carte, this.adversaire);
           break;
         case EffetEnum.IMMUNISE:
-          this.carteEffetService.handleImmunise(carte);
+          this.carteEffetService.addImmunise(carte);
           break;
         case EffetEnum.INSENSIBLE:
-          this.carteEffetService.handleInsensible(carte);
+          this.carteEffetService.addInsensible(carte);
           break;
         case EffetEnum.SACRIFICE:
           this.carteEffetService.handleSacrifice(this.joueur, this.partie.id);
@@ -635,10 +637,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.BOUCLIERPLUS:
-          this.carteEffetService.handleBouclierPlusEffect(carte);
+          this.carteEffetService.addBouclierPlus(carte);
           break;
         case EffetEnum.INSENSIBLEPLUS:
-          this.carteEffetService.handleInsensiblePlusEffect(carte);
+          this.carteEffetService.addInsensiblePlus(carte);
           break;
         default: {
           //statements;
@@ -1345,8 +1347,8 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.vainqueur = 'égalité';
     }
 
-    const event = this.partieService.createEndEvent(vainqueurId, this.partie, this.joueur, this.adversaire);
-    this.partieService.enregistrerResultatFinPartie(event).subscribe({
+    const event = this.partieEventService.createEndEvent(vainqueurId, this.partie, this.joueur, this.adversaire);
+    this.partieEventService.enregistrerResultatFinPartie(event).subscribe({
       next: response => {
         // Traitement après enregistrement du résultat
       },
@@ -1357,7 +1359,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private getPartie() {
-    this.partieService.getPartie(this.partieId).subscribe({
+    this.partieEventService.getPartie(this.partieId).subscribe({
       next: (partie: IPartie) => {
         this.partie = partie;
         this.initValues();
@@ -1384,7 +1386,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   getEventsPartie() {
-    this.partieService.getEventsPartie(this.partieId).subscribe({
+    this.partieEventService.getEventsPartie(this.partieId).subscribe({
       next: (evenementsPartie: IEvenementPartie[]) => {
         // @ts-ignore
         this.lastEvent = evenementsPartie.at(-1);
@@ -1418,7 +1420,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   abandon() {
-    let event = this.partieService.createAbandonEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
+    let event = this.partieEventService.createAbandonEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
       next: response => {
@@ -1426,7 +1428,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.joueurAbandon = this.joueur.nom;
         this.vainqueur = this.adversaire.nom;
 
-        this.partieService.sendAbandonResult(this.joueur, this.adversaire, this.partie);
+        this.partieEventService.sendAbandonResult(this.joueur, this.adversaire, this.partie);
       },
       error: error => {
         console.error('There was an error!', error);

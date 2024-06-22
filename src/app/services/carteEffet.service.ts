@@ -16,21 +16,21 @@ export class CarteEffetService {
   constructor(private joueurService: JoueurService, private carteService: CarteService,
               private tchatService: TchatService, private partieService: PartieService) { }
 
-  handleImmunise(carte: ICarte) {
+  addImmunise(carte: ICarte) {
     carte.bouclier = true;
   }
 
-  handleInsensible(carte: ICarte) {
+  addInsensible(carte: ICarte) {
     carte.bouclier = true;
     carte.insensible = true;
   }
 
-  handleBouclierPlusEffect(carte: ICarte) {
+  addBouclierPlus(carte: ICarte) {
     carte.bouclier = true;
     carte.diffPuissanceInstant += 1;
   }
 
-  handleInsensiblePlusEffect(carte: ICarte) {
+  addInsensiblePlus(carte: ICarte) {
     carte.bouclier = true;
     carte.insensible = true;
     carte.diffPuissanceInstant += 1;
