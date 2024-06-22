@@ -602,11 +602,48 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private handleEnterrement() {
     if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      [this.adversaire.deck.shift()].forEach(carteDessusDeck => {
-        if (carteDessusDeck) {
-          this.defausseCarte(carteDessusDeck, this.adversaire.defausse, this.adversaire.deck);
+      const carteDessusDeck = this.adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
+          this.adversaire.deck.push(carteDessusDeck);
+          this.partieService.melangerDeck(this.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
+          this.adversaire.defausse.push(carteDessusDeck);
         }
-      });
+      }
+    }
+  }
+
+  private handleDuoterrementEffect() {
+    if (!this.joueurService.hasCitadelle(this.adversaire)) {
+      const carteDessusDeck = this.adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
+          this.adversaire.deck.push(carteDessusDeck);
+          this.partieService.melangerDeck(this.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
+          this.adversaire.defausse.push(carteDessusDeck);
+        }
+      }
+
+      const carteDessusDeck2 = this.adversaire.deck.shift();
+
+      if (carteDessusDeck2) {
+        if (this.carteService.isFidelite(carteDessusDeck2)) {
+          this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck');
+          this.adversaire.deck.push(carteDessusDeck2);
+          this.partieService.melangerDeck(this.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse');
+          this.adversaire.defausse.push(carteDessusDeck2);
+        }
+      }
     }
   }
 
@@ -834,36 +871,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-    }
-  }
-
-  private handleDuoterrementEffect() {
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      const carteDessusDeck = this.adversaire.deck.shift();
-
-      if (carteDessusDeck) {
-        if (this.carteService.isFidelite(carteDessusDeck)) {
-          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
-          this.adversaire.deck.push(carteDessusDeck);
-          this.partieService.melangerDeck(this.adversaire.deck);
-        } else {
-          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
-          this.adversaire.defausse.push(carteDessusDeck);
-        }
-      }
-
-      const carteDessusDeck2 = this.adversaire.deck.shift();
-
-      if (carteDessusDeck2) {
-        if (this.carteService.isFidelite(carteDessusDeck2)) {
-          this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck');
-          this.adversaire.deck.push(carteDessusDeck2);
-          this.partieService.melangerDeck(this.adversaire.deck);
-        } else {
-          this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse');
-          this.adversaire.defausse.push(carteDessusDeck2);
-        }
-      }
     }
   }
 
