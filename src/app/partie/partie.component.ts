@@ -602,7 +602,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private handleEnterrement() {
     if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      [this.adversaire.deck.shift(), this.adversaire.deck.shift()].forEach(carteDessusDeck => {
+      [this.adversaire.deck.shift()].forEach(carteDessusDeck => {
         if (carteDessusDeck) {
           this.defausseCarte(carteDessusDeck, this.adversaire.defausse, this.adversaire.deck);
         }
