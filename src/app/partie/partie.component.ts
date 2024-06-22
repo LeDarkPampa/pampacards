@@ -590,11 +590,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.DEVOREUR: {
-          this.handleDevoreur(carte);
+          this.carteEffetService.handleDevoreur(carte, this.joueur, this.adversaire);
           break;
         }
         case EffetEnum.PARI: {
-          this.handlePari(carte);
+          this.carteEffetService.handlePari(carte, this.joueur);
           break;
         }
         case EffetEnum.ABSORPTION: {
@@ -618,7 +618,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SEPT: {
-          this.handleSeptEffect(carte);
+          this.carteEffetService.handleSeptEffect(carte, this.joueur, this.adversaire);
 
           break;
         }
@@ -647,25 +647,6 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
       }
-    }
-  }
-
-  private handlePari(carte: ICarte) {
-    const nbParis = this.joueur.terrain.filter(c => c.effet && c.effet.code === EffetEnum.PARI).length;
-    if (nbParis === 2) {
-      this.joueur.terrain.forEach(c => {
-        if (c.effet && c.effet.code === EffetEnum.PARI) {
-          c.puissance = 7;
-        }
-      });
-      carte.puissance = 7;
-    }
-  }
-
-  private handleDevoreur(carte: ICarte) {
-    if (!this.joueurService.hasCrypte(this.adversaire)) {
-      carte.diffPuissanceInstant += this.joueur.defausse.length;
-      this.joueur.defausse = [];
     }
   }
 
@@ -770,22 +751,6 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private handleSixEffect(carte: ICarte) {
     carte.puissance = parseInt("6");
-    if (!this.joueurService.hasCitadelle(this.adversaire)) {
-      const temp = this.joueur.deck.slice();
-      this.joueur.deck = this.adversaire.deck;
-      this.adversaire.deck = temp;
-    }
-  }
-
-  private handleSeptEffect(carte: ICarte) {
-    carte.puissance = parseInt("7");
-
-    if (!this.joueurService.hasPalissade(this.adversaire)) {
-      const temp = this.joueur.main.slice();
-      this.joueur.main = this.adversaire.main;
-      this.adversaire.main = temp;
-    }
-
     if (!this.joueurService.hasCitadelle(this.adversaire)) {
       const temp = this.joueur.deck.slice();
       this.joueur.deck = this.adversaire.deck;

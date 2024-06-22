@@ -143,6 +143,41 @@ export class CarteEffetService {
     });
   }
 
+  handleDevoreur(carte: ICarte, joueur: IPlayerState, adversaire: IPlayerState) {
+    if (!this.joueurService.hasCrypte(adversaire)) {
+      carte.diffPuissanceInstant += joueur.defausse.length;
+      joueur.defausse = [];
+    }
+  }
+
+  handlePari(carte: ICarte, joueur: IPlayerState) {
+    const nbParis = joueur.terrain.filter(c => c.effet && c.effet.code === EffetEnum.PARI).length;
+    if (nbParis === 2) {
+      joueur.terrain.forEach(c => {
+        if (c.effet && c.effet.code === EffetEnum.PARI) {
+          c.puissance = 7;
+        }
+      });
+      carte.puissance = 7;
+    }
+  }
+
+  handleSeptEffect(carte: ICarte, joueur: IPlayerState, adversaire: IPlayerState) {
+    carte.puissance = parseInt("7");
+
+    if (!this.joueurService.hasPalissade(adversaire)) {
+      const temp = joueur.main.slice();
+      joueur.main = adversaire.main;
+      adversaire.main = temp;
+    }
+
+    if (!this.joueurService.hasCitadelle(adversaire)) {
+      const temp = joueur.deck.slice();
+      joueur.deck = adversaire.deck;
+      adversaire.deck = temp;
+    }
+  }
+
   resetBoucliersEtPuissances(joueur: IPlayerState) {
     const hasProtecteurForet = this.joueurService.getJoueurHasProtecteurForet(joueur);
 
