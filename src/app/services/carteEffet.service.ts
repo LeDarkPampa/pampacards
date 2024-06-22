@@ -65,7 +65,7 @@ export class CarteEffetService {
     for (let i = joueur.main.length - 1; i >= 0; i--) {
       const c = joueur.main[i];
       if (carte.id === c.id) {
-        joueur.terrain.push(c);
+        this.partieService.jouerCarteSurTerrain(joueur, c);
         joueur.main.splice(i, 1);
       }
     }
@@ -82,11 +82,11 @@ export class CarteEffetService {
     if (carteSacrifiee) {
       this.sendBotMessage(`${carteSacrifiee.nom} est sacrifiée`, partieId);
       if (this.carteService.isFidelite(carteSacrifiee)) {
-        joueur.deck.push(carteSacrifiee);
+        this.partieService.mettreCarteDansDeck(joueur, carteSacrifiee);
         this.sendBotMessage(`${carteSacrifiee.nom} est remise dans le deck`, partieId);
         this.partieService.melangerDeck(joueur.deck);
       } else {
-        joueur.defausse.push(carteSacrifiee);
+        this.partieService.jouerCarteDansDefausse(joueur, carteSacrifiee);
       }
     }
   }
@@ -112,7 +112,8 @@ export class CarteEffetService {
 
           const carteRetiree = joueur.terrain.splice(i, 1)[0];
           if (this.carteService.isCauchemard(carteRetiree)) {
-            adversaire.terrain.push(carteRetiree);
+
+            this.partieService.jouerCarteSurTerrain(adversaire, carteRetiree);
             this.sendBotMessage(`${carteRetiree.nom} est envoyée sur le terrain adverse`, partie.id);
           }
           i--;
@@ -125,13 +126,13 @@ export class CarteEffetService {
   handleReset(joueur: IPlayerState) {
     let tailleMain = joueur.main.length;
     while (joueur.main.length > 0) {
-      joueur.deck.push(<ICarte>joueur.main.shift());
+      this.partieService.mettreCarteDansDeck(joueur, <ICarte>joueur.main.shift());
     }
 
     this.partieService.melangerDeck(joueur.deck);
 
     for (let i = 0; i < tailleMain; i++) {
-      joueur.main.push(<ICarte>joueur.deck.shift());
+      this.partieService.mettreCarteDansMain(joueur, <ICarte>joueur.deck.shift());
     }
   }
 
@@ -147,18 +148,6 @@ export class CarteEffetService {
     if (!this.joueurService.hasCrypte(adversaire)) {
       carte.diffPuissanceInstant += joueur.defausse.length;
       joueur.defausse = [];
-    }
-  }
-
-  handlePari(carte: ICarte, joueur: IPlayerState) {
-    const nbParis = joueur.terrain.filter(c => c.effet && c.effet.code === EffetEnum.PARI).length;
-    if (nbParis === 2) {
-      joueur.terrain.forEach(c => {
-        if (c.effet && c.effet.code === EffetEnum.PARI) {
-          c.puissance = 7;
-        }
-      });
-      carte.puissance = 7;
     }
   }
 

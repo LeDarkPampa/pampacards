@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, of, throwError} from "rxjs";
 import {AuthentificationService} from "./authentification.service";
 import {ICarte} from "../interfaces/ICarte";
-import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {IPlayerState} from "../interfaces/IPlayerState";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
-import {IPartie} from "../interfaces/IPartie";
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +90,17 @@ export class PartieService {
 
   jouerCarteSurTerrain(joueur: IPlayerState, carte: ICarte) {
     joueur.terrain.push(carte);
+  }
+
+  jouerCarteDansDefausse(joueur: IPlayerState, carte: ICarte) {
+    joueur.defausse.push(carte);
+  }
+
+  mettreCarteDansMain(joueur: IPlayerState, carte: ICarte) {
+    joueur.main.push(carte);
+  }
+
+  mettreCarteDansDeck(joueur: IPlayerState, carte: ICarte) {
+    joueur.deck.push(carte);
   }
 }

@@ -203,7 +203,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   piocherCarte() {
     // @ts-ignore
-    this.joueur.main.push(this.joueur.deck.shift());
+    this.partieService.mettreCarteDansMain(this.joueur, this.joueur.deck.shift());
   }
 
   onJouerCarte(index: number) {
@@ -221,7 +221,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             carteJouee.puissance = -4;
             this.partieService.jouerCarteSurTerrain(this.adversaire, carteJouee);
           } else if (carteJouee && carteJouee.effet && carteJouee.effet.code == EffetEnum.KAMIKAZE) {
-            this.joueur.defausse.push(carteJouee);
+            this.partieService.jouerCarteDansDefausse(this.joueur, carteJouee);
           } else {
             this.partieService.jouerCarteSurTerrain(this.joueur, carteJouee);
           }
@@ -238,7 +238,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent, stopJ1, stopJ2);
         });
       } else {
-        this.joueur.terrain.push(carteJouee);
+        this.partieService.jouerCarteSurTerrain(this.joueur, carteJouee);
         this.updateEffetsContinusAndScores();
         this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
       }
@@ -257,7 +257,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             carte.puissance = -4;
             this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.KAMIKAZE) {
-            this.joueur.defausse.push(carte);
+            this.partieService.jouerCarteDansDefausse(this.joueur, carte);
           } else {
             this.partieService.jouerCarteSurTerrain(this.joueur, carte);
           }
@@ -295,19 +295,18 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.playInstantEffect(carte).then(r => {
           // @ts-ignore
           if (carte.effet.code == EffetEnum.SABOTEUR) {
-            this.adversaire.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
           } else if (carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
             carte.puissance = -4;
-            this.adversaire.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
           } else if (carte && carte.effet && carte.effet.code == EffetEnum.KAMIKAZE) {
-            this.joueur.defausse.push(carte);
+            this.partieService.jouerCarteDansDefausse(this.joueur, carte);
           } else {
-            this.joueur.terrain.push(carte);
+            this.partieService.jouerCarteSurTerrain(this.joueur, carte);
           }
           }
         );
-      } else {
-        this.joueur.terrain.push(carte);
+      } else {this.partieService.jouerCarteSurTerrain(this.joueur, carte);
       }
     }
 
@@ -322,9 +321,9 @@ export class PartieComponent implements OnInit, OnDestroy {
         if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
-        this.joueur.deck.push(carte);
+        this.partieService.mettreCarteDansDeck(this.joueur, carte);
       } else {
-        this.joueur.deck.push(carte);
+        this.partieService.mettreCarteDansDeck(this.joueur, carte);
       }
     }
     this.updateEffetsContinusAndScores();
@@ -337,10 +336,10 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.carteDefaussee = true;
       if (this.carteService.isFidelite(carteJouee)) {
         this.sendBotMessage(carteJouee.nom + ' est remise dans le deck');
-        this.joueur.deck.push(carteJouee);
+        this.partieService.mettreCarteDansDeck(this.joueur, carteJouee);
         this.partieService.melangerDeck(this.joueur.deck);
       } else {
-        this.joueur.defausse.push(carteJouee);
+        this.partieService.jouerCarteDansDefausse(this.joueur, carteJouee);
       }
     }
     this.updateEffetsContinusAndScores();
@@ -409,7 +408,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             break;
           }
 
-          const carteSelectionneeSub = this.carteSelectionnee$
+          this.carteSelectionnee$
             .pipe(
               first(),
               tap(selectedCarte => {
@@ -421,8 +420,9 @@ export class PartieComponent implements OnInit, OnDestroy {
                   const carteJoueur = this.joueur.main.splice(indexCarte, 1)[0];
                   const carteAdversaire = this.adversaire.main.splice(randomIndex, 1)[0];
 
-                  this.adversaire.main.push(carteJoueur);
-                  this.joueur.main.push(carteAdversaire);
+                  this.partieService.mettreCarteDansMain(this.adversaire, carteJoueur);
+                  this.partieService.mettreCarteDansMain(this.joueur, carteAdversaire);
+
                 } else {
                   this.sendBotMessage('Aucune carte sélectionnée');
                 }
@@ -668,7 +668,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   private handlePoisson(carte: ICarte) {
     if (!this.joueurService.hasCitadelle(this.adversaire)) {
       for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
-        this.adversaire.deck.push(this.partieService.getPoissonPourri());
+        this.partieService.mettreCarteDansDeck(this.adversaire, this.partieService.getPoissonPourri());
       }
       this.partieService.melangerDeck(this.adversaire.deck);
     }
@@ -689,11 +689,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carteDessusDeck) {
         if (this.carteService.isFidelite(carteDessusDeck)) {
           this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
-          this.adversaire.deck.push(carteDessusDeck);
+          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck);
           this.partieService.melangerDeck(this.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
-          this.adversaire.defausse.push(carteDessusDeck);
+          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck);
         }
       }
     }
@@ -706,11 +706,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carteDessusDeck) {
         if (this.carteService.isFidelite(carteDessusDeck)) {
           this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck');
-          this.adversaire.deck.push(carteDessusDeck);
+          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck);
           this.partieService.melangerDeck(this.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse');
-          this.adversaire.defausse.push(carteDessusDeck);
+          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck);
         }
       }
 
@@ -719,11 +719,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (carteDessusDeck2) {
         if (this.carteService.isFidelite(carteDessusDeck2)) {
           this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck');
-          this.adversaire.deck.push(carteDessusDeck2);
+          this.partieService.mettreCarteDansDeck(this.adversaire, carteDessusDeck2);
           this.partieService.melangerDeck(this.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse');
-          this.adversaire.defausse.push(carteDessusDeck2);
+          this.partieService.jouerCarteDansDefausse(this.adversaire, carteDessusDeck2);
         }
       }
     }
@@ -745,8 +745,8 @@ export class PartieComponent implements OnInit, OnDestroy {
         const carteJoueur = this.joueur.main.splice(randomIndexJoueur, 1)[0];
         const carteAdversaire = this.adversaire.main.splice(randomIndexAdversaire, 1)[0];
 
-        this.adversaire.main.push(carteJoueur);
-        this.joueur.main.push(carteAdversaire);
+        this.partieService.mettreCarteDansMain(this.adversaire, carteJoueur);
+        this.partieService.mettreCarteDansMain(this.joueur, carteAdversaire);
       } else {
         this.sendBotMessage('Pas de cible disponible pour le pouvoir');
       }
@@ -812,14 +812,14 @@ export class PartieComponent implements OnInit, OnDestroy {
             const carte = this.joueur.terrain[indexCarte];
 
             if (this.carteService.isFidelite(carte)) {
-              this.joueur.deck.push(carte);
+              this.partieService.mettreCarteDansDeck(this.joueur, carte);
               this.sendBotMessage(carte.nom + ' est remise dans le deck');
               this.partieService.melangerDeck(this.joueur.deck);
             } else if (this.carteService.isCauchemard(carte)) {
-              this.adversaire.terrain.push(carte);
+              this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
               this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
             } else {
-              this.joueur.defausse.push(carte);
+              this.partieService.jouerCarteDansDefausse(this.joueur, carte);
             }
             this.joueur.terrain.splice(indexCarte, 1);
           }
@@ -834,14 +834,14 @@ export class PartieComponent implements OnInit, OnDestroy {
                   const carte = this.adversaire.terrain[indexCarte];
 
                   if (this.carteService.isFidelite(carte)) {
-                    this.adversaire.deck.push(carte);
+                    this.partieService.mettreCarteDansDeck(this.adversaire, carte);
                     this.sendBotMessage(carte.nom + ' est remise dans le deck');
                     this.partieService.melangerDeck(this.adversaire.deck);
                   } else if (this.carteService.isCauchemard(carte)) {
-                    this.joueur.terrain.push(carte);
+                    this.partieService.jouerCarteSurTerrain(this.joueur, carte);
                     this.sendBotMessage(carte.nom + ' est envoyée sur le terrain');
                   } else {
-                    this.adversaire.defausse.push(carte);
+                    this.partieService.jouerCarteDansDefausse(this.adversaire, carte);
                   }
 
                   this.adversaire.terrain.splice(indexCarte, 1);
@@ -910,14 +910,14 @@ export class PartieComponent implements OnInit, OnDestroy {
             const carte = this.joueur.terrain[indexCarte];
 
             if (this.carteService.isFidelite(carte)) {
-              this.joueur.deck.push(carte);
+              this.partieService.mettreCarteDansDeck(this.joueur, carte);
               this.sendBotMessage(carte.nom + ' est remise dans le deck');
               this.partieService.melangerDeck(this.joueur.deck);
             } else if (this.carteService.isCauchemard(carte)) {
-              this.adversaire.terrain.push(carte);
+              this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
               this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
             } else {
-              this.joueur.defausse.push(carte);
+              this.partieService.jouerCarteDansDefausse(this.joueur, carte);
             }
 
             this.joueur.terrain.splice(indexCarte, 1);
@@ -1068,11 +1068,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       const carteAleatoire = this.adversaire.main[indexCarteAleatoire];
 
       if (this.carteService.isFidelite(carteAleatoire)) {
-        this.adversaire.deck.push(carteAleatoire);
+        this.partieService.mettreCarteDansDeck(this.adversaire, carteAleatoire);
         this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`);
         this.partieService.melangerDeck(this.adversaire.deck);
       } else {
-        this.adversaire.defausse.push(carteAleatoire);
+        this.partieService.jouerCarteDansDefausse(this.adversaire, carteAleatoire);
       }
 
       this.adversaire.main.splice(indexCarteAleatoire, 1);
@@ -1129,7 +1129,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         });
         applyEffect = (selectedCarte: ICarte) => {
           const indexCarte = this.adversaire.terrain.findIndex((carteCheck: ICarte) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-          this.joueur.terrain.push(this.adversaire.terrain[indexCarte]);
+          this.partieService.jouerCarteSurTerrain(this.joueur, this.adversaire.terrain[indexCarte]);
           this.adversaire.terrain.splice(indexCarte, 1);
         };
         break;
@@ -1232,9 +1232,9 @@ export class PartieComponent implements OnInit, OnDestroy {
         if (carte.effet.code === EffetEnum.SURVIVANT) {
           carte.diffPuissanceInstant += 2;
         }
-        this.joueur.main.push(carte);
+        this.partieService.mettreCarteDansMain(this.joueur, carte);
       } else {
-        this.joueur.main.push(carte);
+        this.partieService.mettreCarteDansMain(this.joueur, carte);
       }
     }
 
