@@ -476,7 +476,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.PRISON: {
-          this.handlePrisonEffect();
+          this.handlePrisonEffect(this.joueur, this.adversaire);
           break;
         }
         case EffetEnum.VISION: {
@@ -524,7 +524,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.DUOTERREMENT: {
-          this.carteEffetService.handleDuoterrementEffect(this.adversaire, this.partie.id);
+          this.carteEffetService.handleDuoterrement(this.adversaire, this.partie.id);
           break;
         }
         case EffetEnum.MEUTE: {
@@ -540,7 +540,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.TRAHISON: {
-          this.handleTrahisonEffect();
+          this.handleTrahisonEffect(this.joueur, this.adversaire, this.partieId);
           break;
         }
         case EffetEnum.TARDIF: {
@@ -564,7 +564,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.PARI: {
-          this.carteEffetService.handlePariEffect(this.joueur, carte);
+          this.carteEffetService.handlePari(this.joueur, carte);
           break;
         }
         case EffetEnum.ABSORPTION: {
@@ -572,15 +572,15 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.VOIX: {
-          this.handleVoixEffect();
+          this.handleVoixEffect(this.joueur);
           break;
         }
         case EffetEnum.MEURTRE: {
-          this.handleMeurtreEffect();
+          this.handleMeurtreEffect(this.joueur, this.adversaire);
           break;
         }
         case EffetEnum.CHROPIE: {
-          this.handleChropieEffect(carte);
+          this.handleChropieEffect(carte, this.adversaire);
           break;
         }
         case EffetEnum.RESISTANCE_INSTANT: {
@@ -588,7 +588,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.SEPT: {
-          this.carteEffetService.handleSeptEffect(carte, this.joueur, this.adversaire);
+          this.carteEffetService.handleSept(carte, this.joueur, this.adversaire);
 
           break;
         }
@@ -620,11 +620,11 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleChropieEffect(carte: ICarte) {
-    const cartesAvecEffet = this.adversaire.defausse.filter(c => c.effet);
+  private handleChropieEffect(carte: ICarte, adversaire: IPlayerState) {
+    const cartesAvecEffet = adversaire.defausse.filter(c => c.effet);
     if (cartesAvecEffet.length > 0) {
       this.handleSelection(carte, () => true, selectedCarte => {
-        const indexCarteSelectionnee = this.adversaire.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+        const indexCarteSelectionnee = adversaire.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
         carte.effet = this.adversaire.defausse[indexCarteSelectionnee].effet;
         this.playInstantEffect(carte).then(() => this.updateEffetsContinusAndScores());
       });
@@ -648,57 +648,57 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.showSelectionCarteDialog(this.joueur.terrain.filter(filterCondition));
   }
 
-  private handleMeurtreEffect() {
-    if (this.joueur.terrain.filter(c => !c.insensible).length > 0) {
+  private handleMeurtreEffect(joueur: IPlayerState, adversaire: IPlayerState) {
+    if (joueur.terrain.filter(c => !c.insensible).length > 0) {
       let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
         (selectedCarte: ICarte) => {
           if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
+            this.sendBotMessage(joueur.nom + ' détruit la carte ' + selectedCarte.nom);
             const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-            const carte = this.joueur.terrain[indexCarte];
+            const carte = joueur.terrain[indexCarte];
 
             if (this.carteService.isFidelite(carte)) {
-              this.partieService.mettreCarteDansDeck(this.joueur, carte);
+              this.partieService.mettreCarteDansDeck(joueur, carte);
               this.sendBotMessage(carte.nom + ' est remise dans le deck');
-              this.partieService.melangerDeck(this.joueur.deck);
+              this.partieService.melangerDeck(joueur.deck);
             } else if (this.carteService.isCauchemard(carte)) {
-              this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
+              this.partieService.jouerCarteSurTerrain(adversaire, carte);
               this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
             } else {
-              this.partieService.jouerCarteDansDefausse(this.joueur, carte);
+              this.partieService.jouerCarteDansDefausse(joueur, carte);
             }
-            this.joueur.terrain.splice(indexCarte, 1);
+            joueur.terrain.splice(indexCarte, 1);
           }
 
-          if (this.adversaire.terrain.filter(c => !c.bouclier).length > 0) {
+          if (adversaire.terrain.filter(c => !c.bouclier).length > 0) {
             let carteSelectionneeSub = this.secondeCarteSelectionnee$.subscribe(
               (selectedCarte: ICarte) => {
                 if (selectedCarte != null) {
-                  this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  this.sendBotMessage(joueur.nom + ' détruit la carte ' + selectedCarte.nom);
+                  const indexCarte = adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
 
-                  const carte = this.adversaire.terrain[indexCarte];
+                  const carte = adversaire.terrain[indexCarte];
 
                   if (this.carteService.isFidelite(carte)) {
-                    this.partieService.mettreCarteDansDeck(this.adversaire, carte);
+                    this.partieService.mettreCarteDansDeck(adversaire, carte);
                     this.sendBotMessage(carte.nom + ' est remise dans le deck');
-                    this.partieService.melangerDeck(this.adversaire.deck);
+                    this.partieService.melangerDeck(adversaire.deck);
                   } else if (this.carteService.isCauchemard(carte)) {
-                    this.partieService.jouerCarteSurTerrain(this.joueur, carte);
+                    this.partieService.jouerCarteSurTerrain(joueur, carte);
                     this.sendBotMessage(carte.nom + ' est envoyée sur le terrain');
                   } else {
-                    this.partieService.jouerCarteDansDefausse(this.adversaire, carte);
+                    this.partieService.jouerCarteDansDefausse(adversaire, carte);
                   }
 
-                  this.adversaire.terrain.splice(indexCarte, 1);
+                  adversaire.terrain.splice(indexCarte, 1);
                 }
                 this.updateEffetsContinusAndScores();
               },
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier));
+            this.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier));
 
             this.secondeCarteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -722,13 +722,13 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleVoixEffect() {
-    if (this.joueur.terrain.filter(c => c.silence).length > 0) {
+  private handleVoixEffect(joueur: IPlayerState) {
+    if (joueur.terrain.filter(c => c.silence).length > 0) {
       let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
         (selectedCarte: ICarte) => {
           if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            this.sendBotMessage(joueur.nom + ' cible la carte ' + selectedCarte.nom);
+            const indexCarte = joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
             this.joueur.terrain[indexCarte].silence = false;
           }
           this.updateEffetsContinusAndScores();
@@ -736,7 +736,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(this.joueur.terrain.filter(c => c.silence));
+      this.showSelectionCarteDialog(joueur.terrain.filter(c => c.silence));
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
@@ -746,17 +746,17 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleTrahisonEffect() {
-    if (this.joueur.terrain.filter(c => !c.insensible).length > 0) {
+  private handleTrahisonEffect(joueur: IPlayerState, adversaire: IPlayerState, partieId: number) {
+    if (joueur.terrain.filter(c => !c.insensible).length > 0) {
       let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
         (selectedCarte: ICarte) => {
-          this.carteEffetService.trahisonCarte(selectedCarte, this.joueur, this.adversaire, this.partieId);
+          this.carteEffetService.trahisonCarte(selectedCarte, joueur, adversaire, partieId);
           this.updateEffetsContinusAndScores();
         },
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
+      this.showSelectionCarteDialog(joueur.terrain.filter(c => !c.insensible));
 
       this.carteSelectionnee$.subscribe(selectedCarte => {
         carteSelectionneeSub.unsubscribe();
@@ -766,21 +766,21 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handlePrisonEffect() {
-    if (this.adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
+  private handlePrisonEffect(joueur: IPlayerState, adversaire: IPlayerState) {
+    if (adversaire.terrain.filter(c => !c.bouclier && !c.prison).length > 0) {
       let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
         (selectedCarte: ICarte) => {
           if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-            this.adversaire.terrain[indexCarte].prison = true;
+            this.sendBotMessage(joueur.nom + ' cible la carte ' + selectedCarte.nom);
+            const indexCarte = adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            adversaire.terrain[indexCarte].prison = true;
           }
           this.updateEffetsContinusAndScores();
         },
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => !c.bouclier && !c.prison));
+      this.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier && !c.prison));
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();

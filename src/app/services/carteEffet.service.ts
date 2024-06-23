@@ -93,7 +93,7 @@ export class CarteEffetService {
     }
   }
 
-  handlePariEffect(joueur: IPlayerState, carte: ICarte) {
+  handlePari(joueur: IPlayerState, carte: ICarte) {
     let nbParis = 0;
     for (let c of joueur.terrain) {
       if (c.effet && c.effet.code === EffetEnum.PARI) {
@@ -191,7 +191,7 @@ export class CarteEffetService {
     }
   }
 
-  handleSeptEffect(carte: ICarte, joueur: IPlayerState, adversaire: IPlayerState) {
+  handleSept(carte: ICarte, joueur: IPlayerState, adversaire: IPlayerState) {
     carte.puissance = parseInt("7");
 
     if (!this.joueurService.hasPalissade(adversaire)) {
@@ -241,7 +241,7 @@ export class CarteEffetService {
     }
   }
 
-  handleDuoterrementEffect(adversaire: IPlayerState, partieId: number) {
+  handleDuoterrement(adversaire: IPlayerState, partieId: number) {
     if (!this.joueurService.hasCitadelle(adversaire)) {
       const carteDessusDeck = adversaire.deck.shift();
 

@@ -52,11 +52,11 @@ export class PopupService {
           first(),
           tap(selectedCarte => {
             if (selectedCarte) {
-              this.sendBotMessage(`${joueur.nom} cible la carte ${selectedCarte.nom}`, partieId);
+              this.tchatService.sendMessage(`${joueur.nom} cible la carte ${selectedCarte.nom}`, partieId);
               const indexCarte = cards.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
               observer.next(selectedCarte);
             } else {
-              this.sendBotMessage('Aucune carte sélectionnée', partieId);
+              this.tchatService.sendMessage('Aucune carte sélectionnée', partieId);
             }
           }),
           catchError(error => {
@@ -70,10 +70,6 @@ export class PopupService {
         )
         .subscribe();
     });
-  }
-
-  sendBotMessage(message: string, partieId: number) {
-    this.tchatService.sendMessage(message, partieId);
   }
 
 }
