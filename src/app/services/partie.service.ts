@@ -6,6 +6,8 @@ import {IPlayerState} from "../interfaces/IPlayerState";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
 import {CarteService} from "./carte.service";
+import {IPartie} from "../interfaces/IPartie";
+import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 
 @Injectable({
   providedIn: 'root'
@@ -118,5 +120,31 @@ export class PartieService {
 
     joueur.score = sommePuissancesJoueur;
     adversaire.score = sommePuissancesAdversaire;
+  }
+
+  updatePlayerAndOpponent(partie: IPartie, joueur: IPlayerState, adversaire: IPlayerState, lastEvent: IEvenementPartie, userId: number) {
+    const isJoueurUn = partie.joueurUn.id === userId;
+    const joueurId = isJoueurUn ? partie.joueurUn.id : partie.joueurDeux.id;
+    const adversaireId = isJoueurUn ? partie.joueurDeux.id : partie.joueurUn.id;
+    const joueurDeck = isJoueurUn ? lastEvent.cartesDeckJoueurUn : lastEvent.cartesDeckJoueurDeux;
+    const adversaireDeck = isJoueurUn ? lastEvent.cartesDeckJoueurDeux : lastEvent.cartesDeckJoueurUn;
+    const joueurMain = isJoueurUn ? lastEvent.cartesMainJoueurUn : lastEvent.cartesMainJoueurDeux;
+    const adversaireMain = isJoueurUn ? lastEvent.cartesMainJoueurDeux : lastEvent.cartesMainJoueurUn;
+    const joueurTerrain = isJoueurUn ? lastEvent.cartesTerrainJoueurUn : lastEvent.cartesTerrainJoueurDeux;
+    const adversaireTerrain = isJoueurUn ? lastEvent.cartesTerrainJoueurDeux : lastEvent.cartesTerrainJoueurUn;
+    const joueurDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurUn : lastEvent.cartesDefausseJoueurDeux;
+    const adversaireDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurDeux : lastEvent.cartesDefausseJoueurUn;
+
+    joueur.id = joueurId;
+    joueur.deck = joueurDeck.length > 0 ? JSON.parse(joueurDeck) : [];
+    joueur.main = joueurMain.length > 0 ? JSON.parse(joueurMain) : [];
+    joueur.terrain = joueurTerrain.length > 0 ? JSON.parse(joueurTerrain) : [];
+    joueur.defausse = joueurDefausse.length > 0 ? JSON.parse(joueurDefausse) : [];
+
+    adversaire.id = adversaireId;
+    adversaire.deck = adversaireDeck.length > 0 ? JSON.parse(adversaireDeck) : [];
+    adversaire.main = adversaireMain.length > 0 ? JSON.parse(adversaireMain) : [];
+    adversaire.terrain = adversaireTerrain.length > 0 ? JSON.parse(adversaireTerrain) : [];
+    adversaire.defausse = adversaireDefausse.length > 0 ? JSON.parse(adversaireDefausse) : [];
   }
 }

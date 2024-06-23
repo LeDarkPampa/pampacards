@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {finalize, first, Observable, Observer, of, Subject, Subscription, tap} from "rxjs";
+import {first, of, Subject, Subscription, tap} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {HttpClient} from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
@@ -102,7 +102,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       || (this.joueur.terrain.length === 0 && this.joueur.deck.length === 0);
 
     if (isNotTourEnCoursOrEmptyDeck) {
-      this.updatePlayerAndOpponent(lastEvent);
+      this.partieService.updatePlayerAndOpponent(this.partie, this.joueur, this.adversaire, lastEvent, this.userId);
     }
 
     if (this.lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
@@ -115,32 +115,6 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     this.updateEffetsContinusAndScores();
     this.cd.detectChanges();
-  }
-
-  private updatePlayerAndOpponent(lastEvent: IEvenementPartie) {
-    const isJoueurUn = this.partie.joueurUn.id === this.userId;
-    const joueurId = isJoueurUn ? this.partie.joueurUn.id : this.partie.joueurDeux.id;
-    const adversaireId = isJoueurUn ? this.partie.joueurDeux.id : this.partie.joueurUn.id;
-    const joueurDeck = isJoueurUn ? lastEvent.cartesDeckJoueurUn : lastEvent.cartesDeckJoueurDeux;
-    const adversaireDeck = isJoueurUn ? lastEvent.cartesDeckJoueurDeux : lastEvent.cartesDeckJoueurUn;
-    const joueurMain = isJoueurUn ? lastEvent.cartesMainJoueurUn : lastEvent.cartesMainJoueurDeux;
-    const adversaireMain = isJoueurUn ? lastEvent.cartesMainJoueurDeux : lastEvent.cartesMainJoueurUn;
-    const joueurTerrain = isJoueurUn ? lastEvent.cartesTerrainJoueurUn : lastEvent.cartesTerrainJoueurDeux;
-    const adversaireTerrain = isJoueurUn ? lastEvent.cartesTerrainJoueurDeux : lastEvent.cartesTerrainJoueurUn;
-    const joueurDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurUn : lastEvent.cartesDefausseJoueurDeux;
-    const adversaireDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurDeux : lastEvent.cartesDefausseJoueurUn;
-
-    this.joueur.id = joueurId;
-    this.joueur.deck = joueurDeck.length > 0 ? JSON.parse(joueurDeck) : [];
-    this.joueur.main = joueurMain.length > 0 ? JSON.parse(joueurMain) : [];
-    this.joueur.terrain = joueurTerrain.length > 0 ? JSON.parse(joueurTerrain) : [];
-    this.joueur.defausse = joueurDefausse.length > 0 ? JSON.parse(joueurDefausse) : [];
-
-    this.adversaire.id = adversaireId;
-    this.adversaire.deck = adversaireDeck.length > 0 ? JSON.parse(adversaireDeck) : [];
-    this.adversaire.main = adversaireMain.length > 0 ? JSON.parse(adversaireMain) : [];
-    this.adversaire.terrain = adversaireTerrain.length > 0 ? JSON.parse(adversaireTerrain) : [];
-    this.adversaire.defausse = adversaireDefausse.length > 0 ? JSON.parse(adversaireDefausse) : [];
   }
 
   private startNewTurn() {
@@ -1014,23 +988,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.partieService.updateScores(this.joueur, this.adversaire);
   }
 
-  recupererCarteEnMainDepuisDefausse(carte: ICarte) {
-    const index = this.joueur.defausse.findIndex(c => c.id === carte.id);
-    if (index !== -1) {
-      this.joueur.defausse.splice(index, 1)[0];
-      if (carte.effet.code != 'NO' && !carte.effet.continu) {
-        if (carte.effet.code === EffetEnum.SURVIVANT) {
-          carte.diffPuissanceInstant += 2;
-        }
-        this.partieService.mettreCarteDansMain(this.joueur, carte);
-      } else {
-        this.partieService.mettreCarteDansMain(this.joueur, carte);
-      }
-    }
-
-    this.updateEffetsContinusAndScores();
-  }
-
   private async handleResurrectionEffect(carte: ICarte) {
     if (!this.joueurService.hasCrypte(this.adversaire)) {
       if (this.joueur.defausse.filter(c => this.carteService.memeTypeOuClan(c, carte)).length > 0) {
@@ -1057,35 +1014,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
     }
-  }
-
-  private selectAndHandleCard(cards: ICarte[]): Observable<ICarte> {
-    this.showSelectionCarteDialog(cards);
-
-    return new Observable((observer: Observer<ICarte>) => {
-      const carteSelectionneeSub = this.carteSelectionnee$
-        .pipe(
-          first(),
-          tap(selectedCarte => {
-            if (selectedCarte) {
-              this.sendBotMessage(`${this.joueur.nom} cible la carte ${selectedCarte.nom}`);
-              const indexCarte = cards.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-              observer.next(selectedCarte);
-            } else {
-              this.sendBotMessage('Aucune carte sélectionnée');
-            }
-          }),
-          catchError(error => {
-            console.error(error);
-            observer.error(error);
-            return of(null);
-          }),
-          finalize(() => {
-            carteSelectionneeSub.unsubscribe();
-          })
-        )
-        .subscribe();
-    });
   }
 
   voirDefausse(defausse: ICarte[]) {
