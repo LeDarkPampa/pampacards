@@ -878,7 +878,6 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private handleTargetSelectionEffect(carte: ICarte, effetCode: EffetEnum) {
     let targetTerrain: ICarte[] = [];
-
     let applyEffect: (selectedCarte: ICarte) => void;
 
     switch (effetCode) {
@@ -933,7 +932,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     if (targetTerrain.length > 0) {
-      let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
+      this.popupService.showSelectionCarteDialog(targetTerrain).subscribe(
         (selectedCarte: ICarte) => {
           if (selectedCarte != null) {
             this.sendBotMessage(`${this.joueur.nom} cible la carte ${selectedCarte.nom}`);
@@ -943,12 +942,6 @@ export class PartieComponent implements OnInit, OnDestroy {
         },
         (error: any) => console.error(error)
       );
-
-      this.popupService.showSelectionCarteDialog(targetTerrain);
-
-      this.carteSelectionnee$.subscribe(() => {
-        carteSelectionneeSub.unsubscribe();
-      });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
     }

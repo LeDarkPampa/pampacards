@@ -15,10 +15,10 @@ export class PopupService {
 
   constructor(private dialogService: DialogService, private tchatService: TchatService) { }
 
-  carteSelectionneeSubject = new Subject<ICarte>();
+  private carteSelectionneeSubject = new Subject<ICarte>();
   carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
 
-  showSelectionCarteDialog(cartes: ICarte[]): void {
+  showSelectionCarteDialog(cartes: ICarte[]): Observable<ICarte> {
     const ref = this.dialogService.open(SelectionCarteDialogComponent, {
       header: 'Sélectionnez une carte cible',
       width: '50%',
@@ -26,8 +26,15 @@ export class PopupService {
       closable: false
     });
 
-    ref.onClose.subscribe(selectedCarte => {
-      this.carteSelectionneeSubject.next(selectedCarte);
+    return new Observable<ICarte>((observer) => {
+      ref.onClose.subscribe((selectedCarte) => {
+        if (selectedCarte) {
+          observer.next(selectedCarte);
+          observer.complete();
+        } else {
+          observer.error('No card selected');
+        }
+      });
     });
   }
 
