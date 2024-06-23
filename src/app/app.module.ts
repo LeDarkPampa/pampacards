@@ -77,7 +77,6 @@ import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-di
 import {PartieService} from "./services/partie.service";
 import {CarteEffetService} from "./services/carteEffet.service";
 import {TchatService} from "./services/tchat.service";
-import {PopupService} from "./services/popup.service";
 
 @NgModule({
   declarations: [
@@ -194,8 +193,7 @@ import {PopupService} from "./services/popup.service";
     CookieService,
     PartieService,
     TchatService,
-    CarteEffetService,
-    PopupService
+    CarteEffetService
   ],
   bootstrap: [AppComponent]
 })

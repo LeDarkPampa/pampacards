@@ -152,16 +152,4 @@ export class PartieEventService {
       cartesDefausseJoueurDeux: JSON.stringify(partie.joueurDeux.id == userId ? joueur.defausse : adversaire.defausse)
     };
   }
-
-  sendResultatFinal(partie: IPartie, joueur: IPlayerState, adversaire: IPlayerState, vainqueurId: number) {
-    const event = this.createEndEvent(vainqueurId, partie, joueur, adversaire);
-    this.enregistrerResultatFinPartie(event).subscribe({
-      next: response => {
-        // Traitement après enregistrement du résultat
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
 }
