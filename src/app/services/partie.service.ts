@@ -5,13 +5,14 @@ import {ICarte} from "../interfaces/ICarte";
 import {IPlayerState} from "../interfaces/IPlayerState";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
+import {CarteService} from "./carte.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartieService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient, private authService: AuthentificationService, private carteService: CarteService) { }
 
   nomCorrompu = 'Corrompu';
 
@@ -55,7 +56,6 @@ export class PartieService {
     diffPuissanceContinue: 0,
     released: false
   };
-
 
   getPoissonPourri(): ICarte {
     return this.poissonPourri;
@@ -102,5 +102,21 @@ export class PartieService {
 
   mettreCarteDansDeck(joueur: IPlayerState, carte: ICarte) {
     joueur.deck.push(carte);
+  }
+
+  updateScores(joueur: IPlayerState, adversaire: IPlayerState) {
+    let sommePuissancesJoueur = 0;
+    let sommePuissancesAdversaire = 0;
+
+    for (let carte of joueur.terrain) {
+      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
+    }
+
+    for (let carte of adversaire.terrain) {
+      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
+    }
+
+    joueur.score = sommePuissancesJoueur;
+    adversaire.score = sommePuissancesAdversaire;
   }
 }

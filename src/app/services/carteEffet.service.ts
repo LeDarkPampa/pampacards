@@ -7,6 +7,7 @@ import {CarteService} from "./carte.service";
 import {IPartie} from "../interfaces/IPartie";
 import {TchatService} from "./tchat.service";
 import {PartieService} from "./partie.service";
+import {PopupService} from "./popup.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ import {PartieService} from "./partie.service";
 export class CarteEffetService {
 
   constructor(private joueurService: JoueurService, private carteService: CarteService,
-              private tchatService: TchatService, private partieService: PartieService) { }
+              private tchatService: TchatService, private partieService: PartieService,
+              private popupService: PopupService, private carteEffetService: CarteEffetService) { }
 
   addImmunise(carte: ICarte) {
     carte.bouclier = true;
@@ -68,6 +70,44 @@ export class CarteEffetService {
         this.partieService.jouerCarteSurTerrain(joueur, c);
         joueur.main.splice(i, 1);
       }
+    }
+  }
+
+  handleTardif(carte: ICarte, tour: number) {
+    carte.diffPuissanceInstant += tour;
+  }
+
+  handleMatinal(carte: ICarte, tour: number) {
+    carte.diffPuissanceInstant -= tour;
+  }
+
+  handleTroisieme(carte: ICarte, tour: number) {
+    if (tour === 3) {
+      carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+    }
+  }
+
+  handleSecond(carte: ICarte, tour: number) {
+    if (tour === 2) {
+      carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+    }
+  }
+
+  handlePariEffect(joueur: IPlayerState, carte: ICarte) {
+    let nbParis = 0;
+    for (let c of joueur.terrain) {
+      if (c.effet && c.effet.code === EffetEnum.PARI) {
+        nbParis = nbParis + 1;
+      }
+    }
+
+    if (nbParis == 2) {
+      for (let c of joueur.terrain) {
+        if (c.effet && c.effet.code === EffetEnum.PARI) {
+          c.puissance = 7;
+        }
+      }
+      carte.puissance = 7;
     }
   }
 
@@ -286,6 +326,101 @@ export class CarteEffetService {
     }
   }
 
+  handleMentalisme(adversaire: IPlayerState) {
+    if (!this.joueurService.hasPalissade(adversaire) && adversaire.main.length > 0) {
+      this.popupService.showVisionCartesDialog(adversaire.main);
+    }
+  }
+
+  handleEspionEffect(joueur: IPlayerState, adversaire: IPlayerState) {
+    if (adversaire.deck.filter.length > 0) {
+      this.popupService.showVisionCartesDialog(adversaire.deck);
+      this.partieService.melangerDeck(adversaire.deck);
+      this.updateEffetsContinusAndScores(joueur, adversaire);
+    }
+  }
+
+  handleVisionEffect(joueur: IPlayerState) {
+    if (joueur.deck.filter.length > 0) {
+      const troisPremieresCartes: ICarte[] = joueur.deck.slice(0, 3);
+      this.popupService.showVisionCartesDialog(troisPremieresCartes);
+    }
+  }
+
+  handleSecteEffect(carte: ICarte, adversaire: IPlayerState) {
+    const valeur = carte.effet.valeurBonusMalus;
+    carte.diffPuissanceInstant += valeur * adversaire.terrain.length;
+  }
+
+  handleCruauteEffect(carte: ICarte, adversaire: IPlayerState) {
+    const valeur = carte.effet.valeurBonusMalus;
+    carte.diffPuissanceInstant += valeur * adversaire.defausse.length;
+  }
+
+  handleHeritageEffect(carte: ICarte, joueur: IPlayerState) {
+    const valeur = carte.effet.valeurBonusMalus;
+    carte.diffPuissanceInstant += valeur * joueur.defausse.length;
+  }
+
+  handleEgoismeEffect(carte: ICarte, joueur: IPlayerState) {
+    const valeur = carte.effet.valeurBonusMalus;
+    carte.diffPuissanceInstant -= valeur * joueur.terrain.length;
+  }
+
+  handleSilenceEffect(joueur: IPlayerState, adversaire: IPlayerState, partieId: number) {
+    if (adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)).length > 0) {
+      const carteSelectionneeSub = this.popupService.selectAndHandleCard(adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)), joueur, partieId)
+        .subscribe((selectedCarte: ICarte) => {
+          if (selectedCarte != null) {
+            this.sendBotMessage(joueur.nom + ' cible la carte ' + selectedCarte.nom, partieId);
+            const indexCarte = adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            adversaire.terrain[indexCarte].silence = true;
+          }
+          this.updateEffetsContinusAndScores(joueur, adversaire);
+        });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieId);
+    }
+  }
+
+  handleSauvetageEffect(joueur: IPlayerState, adversaire: IPlayerState, partieId: number) {
+    if (!this.joueurService.hasCrypte(adversaire) && joueur.defausse.length > 0) {
+      const carteSelectionneeSub = this.popupService.selectAndHandleCard(joueur.defausse, joueur, partieId)
+        .subscribe((selectedCarte: ICarte) => {
+          if (selectedCarte != null) {
+            this.sendBotMessage(joueur.nom + ' cible la carte ' + selectedCarte.nom, partieId);
+            const indexCarte = joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            this.carteEffetService.recupererCarteEnMainDepuisDefausse(joueur.defausse[indexCarte], joueur);
+          }
+          this.carteEffetService.updateEffetsContinusAndScores(joueur, adversaire);
+        });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieId);
+    }
+  }
+
+  trahisonCarte(selectedCarte: ICarte, joueur: IPlayerState, adversaire: IPlayerState, partieId: number) {
+    if (selectedCarte != null) {
+      this.sendBotMessage(joueur.nom + ' trahit la carte ' + selectedCarte.nom, partieId);
+      const indexCarte = joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+
+      const carte = joueur.terrain[indexCarte];
+
+      if (this.carteService.isFidelite(carte)) {
+        this.partieService.mettreCarteDansDeck(joueur, carte);
+        this.sendBotMessage(carte.nom + ' est remise dans le deck', partieId);
+        this.partieService.melangerDeck(joueur.deck);
+      } else if (this.carteService.isCauchemard(carte)) {
+        this.partieService.jouerCarteSurTerrain(adversaire, carte);
+        this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse', partieId);
+      } else {
+        this.partieService.jouerCarteDansDefausse(joueur, carte);
+      }
+
+      joueur.terrain.splice(indexCarte, 1);
+    }
+  }
+
   resetBoucliersEtPuissances(joueur: IPlayerState) {
     const hasProtecteurForet = this.joueurService.getJoueurHasProtecteurForet(joueur);
 
@@ -363,7 +498,33 @@ export class CarteEffetService {
     });
   }
 
+  recupererCarteEnMainDepuisDefausse(carte: ICarte, joueur: IPlayerState) {
+    const index = joueur.defausse.findIndex(c => c.id === carte.id);
+    if (index !== -1) {
+      joueur.defausse.splice(index, 1)[0];
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
+        if (carte.effet.code === EffetEnum.SURVIVANT) {
+          carte.diffPuissanceInstant += 2;
+        }
+        this.partieService.mettreCarteDansMain(joueur, carte);
+      } else {
+        this.partieService.mettreCarteDansMain(joueur, carte);
+      }
+    }
+  }
+
+
   sendBotMessage(message: string, partieId: number) {
     this.tchatService.sendMessage(message, partieId);
+  }
+
+  updateEffetsContinusAndScores(joueur: IPlayerState, adversaire: IPlayerState) {
+    this.resetBoucliersEtPuissances(joueur);
+    this.resetBoucliersEtPuissances(adversaire);
+
+    this.appliquerEffetsContinus(joueur, adversaire);
+    this.appliquerEffetsContinus(adversaire, joueur);
+
+    this.partieService.updateScores(joueur, adversaire);
   }
 }

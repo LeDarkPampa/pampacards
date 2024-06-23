@@ -392,10 +392,10 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.handleTargetSelectionEffect(carte, carte.effet.code);
           break;
         case EffetEnum.SILENCE:
-          this.handleSilenceEffect();
+          this.carteEffetService.handleSilenceEffect(this.joueur, this.adversaire, this.partieId);
           break;
         case EffetEnum.SAUVETAGE:
-          this.handleSauvetageEffect();
+          this.carteEffetService.handleSauvetageEffect(this.joueur, this.adversaire, this.partieId);
           break;
         case EffetEnum.TROC: {
           if (this.joueurService.hasPalissade(this.adversaire)) {
@@ -506,23 +506,23 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.VISION: {
-          this.handleVisionEffect();
+          this.carteEffetService.handleVisionEffect(this.joueur);
           break;
         }
         case EffetEnum.ESPION: {
-          this.handleEspionEffect();
+          this.carteEffetService.handleEspionEffect(this.joueur, this.adversaire);
           break;
         }
         case EffetEnum.MENTALISME: {
-          this.handleMentalisme();
+          this.carteEffetService.handleMentalisme(this.adversaire);
           break;
         }
         case EffetEnum.SECTE: {
-          carte.diffPuissanceInstant += carte.effet.valeurBonusMalus * this.adversaire.terrain.length;
+          this.carteEffetService.handleSecteEffect(carte, this.adversaire);
           break;
         }
         case EffetEnum.CRUAUTE: {
-          carte.diffPuissanceInstant += carte.effet.valeurBonusMalus * this.adversaire.defausse.length;
+          this.carteEffetService.handleCruauteEffect(carte, this.adversaire);
           break;
         }
         case EffetEnum.TERREUR: {
@@ -530,11 +530,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.HERITAGE: {
-          carte.diffPuissanceInstant += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
+          this.carteEffetService.handleHeritageEffect(carte, this.joueur);
           break;
         }
         case EffetEnum.EGOISME: {
-          carte.diffPuissanceInstant -= carte.effet.valeurBonusMalus * this.joueur.terrain.length;
+          this.carteEffetService.handleEgoismeEffect(carte, this.joueur);
           break;
         }
         case EffetEnum.SOUTIEN: {
@@ -570,23 +570,19 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.TARDIF: {
-          carte.diffPuissanceInstant += this.getTourAffiche();
+          this.carteEffetService.handleTardif(carte, this.getTourAffiche());
           break;
         }
         case EffetEnum.MATINAL: {
-          carte.diffPuissanceInstant -= this.getTourAffiche();
+          this.carteEffetService.handleMatinal(carte, this.getTourAffiche());
           break;
         }
         case EffetEnum.SECOND: {
-          if (this.getTourAffiche() === 2) {
-            carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
-          }
+          this.carteEffetService.handleSecond(carte, this.getTourAffiche());
           break;
         }
         case EffetEnum.TROISIEME: {
-          if (this.getTourAffiche() === 3) {
-            carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
-          }
+          this.carteEffetService.handleTroisieme(carte, this.getTourAffiche());
           break;
         }
         case EffetEnum.DEVOREUR: {
@@ -594,22 +590,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
         case EffetEnum.PARI: {
-          let nbParis = 0;
-          for (let c of this.joueur.terrain) {
-            if (c.effet &&  c.effet.code === EffetEnum.PARI) {
-              nbParis = nbParis + 1;
-            }
-          }
-
-          if (nbParis == 2) {
-            for (let c of this.joueur.terrain) {
-              if (c.effet &&  c.effet.code === EffetEnum.PARI) {
-                c.puissance = 7;
-              }
-            }
-            carte.puissance = 7;
-          }
-
+          this.carteEffetService.handlePariEffect(this.joueur, carte);
           break;
         }
         case EffetEnum.ABSORPTION: {
@@ -662,12 +643,6 @@ export class PartieComponent implements OnInit, OnDestroy {
           break;
         }
       }
-    }
-  }
-
-  private handleMentalisme() {
-    if (!this.joueurService.hasPalissade(this.adversaire) && this.adversaire.main.length > 0) {
-      this.showVisionCartesDialog(this.adversaire.main);
     }
   }
 
@@ -801,25 +776,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (this.joueur.terrain.filter(c => !c.insensible).length > 0) {
       let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
         (selectedCarte: ICarte) => {
-          if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' trahit la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-
-            const carte = this.joueur.terrain[indexCarte];
-
-            if (this.carteService.isFidelite(carte)) {
-              this.partieService.mettreCarteDansDeck(this.joueur, carte);
-              this.sendBotMessage(carte.nom + ' est remise dans le deck');
-              this.partieService.melangerDeck(this.joueur.deck);
-            } else if (this.carteService.isCauchemard(carte)) {
-              this.partieService.jouerCarteSurTerrain(this.adversaire, carte);
-              this.sendBotMessage(carte.nom + ' est envoyée sur le terrain adverse');
-            } else {
-              this.partieService.jouerCarteDansDefausse(this.joueur, carte);
-            }
-
-            this.joueur.terrain.splice(indexCarte, 1);
-          }
+          this.carteEffetService.trahisonCarte(selectedCarte, this.joueur, this.adversaire, this.partieId);
           this.updateEffetsContinusAndScores();
         },
         (error: any) => console.error(error)
@@ -832,22 +789,6 @@ export class PartieComponent implements OnInit, OnDestroy {
       });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-    }
-  }
-
-  private handleEspionEffect() {
-    if (this.adversaire.deck.filter.length > 0) {
-      this.showVisionCartesDialog(this.adversaire.deck);
-      this.partieService.melangerDeck(this.adversaire.deck);
-      this.updateEffetsContinusAndScores();
-    }
-  }
-
-  private handleVisionEffect() {
-    if (this.joueur.deck.filter.length > 0) {
-      const troisPremieresCartes: ICarte[] = this.joueur.deck.slice(0, 3);
-      this.showVisionCartesDialog(troisPremieresCartes);
-      this.updateEffetsContinusAndScores();
     }
   }
 
@@ -1070,39 +1011,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.carteEffetService.appliquerEffetsContinus(this.joueur, this.adversaire);
     this.carteEffetService.appliquerEffetsContinus(this.adversaire, this.joueur);
 
-    this.updateScores();
-  }
-
-  private handleSilenceEffect() {
-    if (this.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)).length > 0) {
-      const carteSelectionneeSub = this.selectAndHandleCard(this.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu)))
-        .subscribe((selectedCarte: ICarte) => {
-          if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-            this.adversaire.terrain[indexCarte].silence = true;
-          }
-          this.updateEffetsContinusAndScores();
-        });
-    } else {
-      this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-    }
-  }
-
-  private handleSauvetageEffect() {
-    if (!this.joueurService.hasCrypte(this.adversaire) && this.joueur.defausse.length > 0) {
-      const carteSelectionneeSub = this.selectAndHandleCard(this.joueur.defausse)
-        .subscribe((selectedCarte: ICarte) => {
-          if (selectedCarte != null) {
-            this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-            this.recupererCarteEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
-          }
-          this.updateEffetsContinusAndScores();
-        });
-    } else {
-      this.sendBotMessage('Pas de cible disponible pour le pouvoir');
-    }
+    this.partieService.updateScores(this.joueur, this.adversaire);
   }
 
   recupererCarteEnMainDepuisDefausse(carte: ICarte) {
@@ -1179,29 +1088,12 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
-  private updateScores() {
-    let sommePuissancesJoueur = 0;
-    let sommePuissancesAdversaire = 0;
-
-    for (let carte of this.joueur.terrain) {
-      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
-    }
-
-    for (let carte of this.adversaire.terrain) {
-      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
-    }
-
-    this.joueur.score = sommePuissancesJoueur;
-    this.adversaire.score = sommePuissancesAdversaire;
-    this.cd.detectChanges();
-  }
-
   voirDefausse(defausse: ICarte[]) {
     this.showVisionCartesDialog(defausse);
   }
 
   terminerPartie(): void {
-    this.updateScores();
+    this.partieService.updateScores(this.joueur, this.adversaire);
     let scoreJoueur = this.joueur.score;
     let scoreAdversaire = this.adversaire.score;
     let vainqueurId = 0;
