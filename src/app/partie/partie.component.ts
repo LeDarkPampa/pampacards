@@ -20,6 +20,7 @@ import {PartieService} from "../services/partie.service";
 import {CarteEffetService} from "../services/carteEffet.service";
 import {TchatService} from "../services/tchat.service";
 import {PartieEventService} from "../services/partieEvent.service";
+import {PopupService} from "../services/popup.service";
 
 @Component({
   selector: 'app-partie',
@@ -59,7 +60,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
-              private partieEventService: PartieEventService,
+              private partieEventService: PartieEventService, private popupService: PopupService,
               private tchatService: TchatService, private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
     this.userId = authService.getUserId();
@@ -409,7 +410,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             )
             .subscribe();
 
-          this.showSelectionCarteDialog(this.joueur.main);
+          this.popupService.showSelectionCarteDialog(this.joueur.main);
           break;
         }
         case EffetEnum.CASSEMURAILLE: {
@@ -429,7 +430,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (error: any) => console.error(error)
               );
 
-              this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
+              this.popupService.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
 
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
@@ -451,7 +452,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (error: any) => console.error(error)
               );
 
-              this.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
+              this.popupService.showSelectionCarteDialog(this.adversaire.terrain.filter(c => c.bouclier));
 
               this.carteSelectionnee$.subscribe(selectedCarte => {
                 carteSelectionneeSub.unsubscribe();
@@ -466,7 +467,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           await this.handleResurrectionEffect(carte);
           break;
         case EffetEnum.RENFORT:
-          this.handleRenfortEffect(carte);
+          this.handleRenfortEffect(carte, this.joueur);
           break;
         case EffetEnum.IMPOSTEUR:
           this.handleImposteurEffect(carte);
@@ -645,7 +646,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       (error: any) => console.error(error)
     );
 
-    this.showSelectionCarteDialog(this.joueur.terrain.filter(filterCondition));
+    this.popupService.showSelectionCarteDialog(this.joueur.terrain.filter(filterCondition));
   }
 
   private handleMeurtreEffect(joueur: IPlayerState, adversaire: IPlayerState) {
@@ -698,7 +699,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (error: any) => console.error(error)
             );
 
-            this.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier));
+            this.popupService.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier));
 
             this.secondeCarteSelectionnee$.subscribe(selectedCarte => {
               carteSelectionneeSub.unsubscribe();
@@ -712,7 +713,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
+      this.popupService.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
 
       this.carteSelectionnee$.subscribe(selectedCarte => {
         carteSelectionneeSub.unsubscribe();
@@ -736,7 +737,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(joueur.terrain.filter(c => c.silence));
+      this.popupService.showSelectionCarteDialog(joueur.terrain.filter(c => c.silence));
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
@@ -756,7 +757,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(joueur.terrain.filter(c => !c.insensible));
+      this.popupService.showSelectionCarteDialog(joueur.terrain.filter(c => !c.insensible));
 
       this.carteSelectionnee$.subscribe(selectedCarte => {
         carteSelectionneeSub.unsubscribe();
@@ -780,7 +781,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier && !c.prison));
+      this.popupService.showSelectionCarteDialog(adversaire.terrain.filter(c => !c.bouclier && !c.prison));
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
@@ -805,7 +806,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
+      this.popupService.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible));
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
@@ -815,28 +816,28 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleRenfortEffect(carte: ICarte) {
-    if (this.joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)).length > 0) {
-      this.handleRenfortSelection(carte);
+  private handleRenfortEffect(carte: ICarte, joueur: IPlayerState) {
+    if (joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)).length > 0) {
+      this.handleRenfortSelection(carte, joueur);
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
     }
   }
 
-  private handleRenfortSelection(carte: ICarte) {
+  private handleRenfortSelection(carte: ICarte, joueur: IPlayerState) {
     let carteSelectionneeSub = this.carteSelectionnee$.subscribe(
       (selectedCarte: ICarte) => {
         if (selectedCarte != null) {
-          this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-          const indexCarte = this.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-          this.jouerNouvelleCarte(this.joueur.main[indexCarte]);
+          this.sendBotMessage(joueur.nom + ' cible la carte ' + selectedCarte.nom);
+          const indexCarte = joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.jouerNouvelleCarte(joueur.main[indexCarte]);
         }
         this.updateEffetsContinusAndScores();
       },
       (error: any) => console.error(error)
     );
 
-    this.showSelectionCarteDialog(this.joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)));
+    this.popupService.showSelectionCarteDialog(joueur.main.filter(c => this.carteService.memeTypeOuClan(c, carte)));
 
     this.carteSelectionnee$.subscribe(() => {
       carteSelectionneeSub.unsubscribe();
@@ -868,7 +869,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       (error: any) => console.error(error)
     );
 
-    this.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible && !c.silence && c.effet && this.carteService.memeTypeOuClan(c, carte)));
+    this.popupService.showSelectionCarteDialog(this.joueur.terrain.filter(c => !c.insensible && !c.silence && c.effet && this.carteService.memeTypeOuClan(c, carte)));
 
     this.carteSelectionnee$.subscribe(() => {
       carteSelectionneeSub.unsubscribe();
@@ -943,7 +944,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (error: any) => console.error(error)
       );
 
-      this.showSelectionCarteDialog(targetTerrain);
+      this.popupService.showSelectionCarteDialog(targetTerrain);
 
       this.carteSelectionnee$.subscribe(() => {
         carteSelectionneeSub.unsubscribe();
@@ -951,31 +952,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
     }
-  }
-
-  showSelectionCarteDialog(cartes: ICarte[]): void {
-    const ref = this.dialogService.open(SelectionCarteDialogComponent, {
-      header: 'Sélectionnez une carte cible',
-      width: '50%',
-      data: { cartes },
-      closable: false
-    });
-
-    ref.onClose.subscribe(selectedCarte => {
-      this.carteSelectionneeSubject.next(selectedCarte);
-    });
-  }
-
-  showVisionCartesDialog(cartes: ICarte[]): void {
-    const ref = this.dialogService.open(VisionCartesDialogComponent, {
-      header: '',
-      width: '50%',
-      data: { cartes },
-      closable: false
-    });
-
-    ref.onClose.subscribe(() => {
-    });
   }
 
   private updateEffetsContinusAndScores() {
@@ -1003,7 +979,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           (error: any) => console.error(error)
         );
 
-        this.showSelectionCarteDialog(this.joueur.defausse.filter(c => this.carteService.memeTypeOuClan(c, carte)));
+        this.popupService.showSelectionCarteDialog(this.joueur.defausse.filter(c => this.carteService.memeTypeOuClan(c, carte)));
 
         this.carteSelectionnee$.subscribe(selectedCarte => {
           carteSelectionneeSub.unsubscribe();
@@ -1017,7 +993,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   voirDefausse(defausse: ICarte[]) {
-    this.showVisionCartesDialog(defausse);
+    this.popupService.showVisionCartesDialog(defausse);
   }
 
   terminerPartie(): void {
