@@ -52,6 +52,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteJouee = false;
   carteDefaussee = false;
   clickedCartePath: string = '';
+  
   isFlashing: boolean = false;
   enAttente: boolean = true;
   joueurAbandon: string = '';
