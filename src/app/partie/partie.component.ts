@@ -52,7 +52,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteJouee = false;
   carteDefaussee = false;
   clickedCartePath: string = '';
-  
+
   isFlashing: boolean = false;
   enAttente: boolean = true;
   joueurAbandon: string = '';
@@ -61,7 +61,8 @@ export class PartieComponent implements OnInit, OnDestroy {
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
               private partieEventService: PartieEventService,
-              private tchatService: TchatService, private carteEffetService: CarteEffetService,
+              private tchatService: TchatService,
+              private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
     this.userId = authService.getUserId();
   }
