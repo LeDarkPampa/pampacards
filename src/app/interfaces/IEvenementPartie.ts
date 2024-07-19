@@ -20,5 +20,4 @@ export interface IEvenementPartie {
   stopJ2: boolean;
   carteJouee: boolean;
   carteDefaussee: boolean;
-
 }
