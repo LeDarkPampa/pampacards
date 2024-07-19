@@ -109,6 +109,9 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     if (this.lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
       this.startNewTurn();
+    } else {
+      this.carteJouee = lastEvent.carteJouee;
+      this.carteDefaussee = lastEvent.carteDefaussee;
     }
 
     if (lastEvent.status === "DEBUT_PARTIE") {
