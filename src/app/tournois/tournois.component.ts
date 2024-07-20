@@ -39,7 +39,6 @@ export class TournoisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
     this.utilisateur = this.authService.getUser();
     this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
       this.allDecks = playerDecks;
@@ -62,7 +61,6 @@ export class TournoisComponent implements OnInit {
 
       ref.onClose.subscribe((inscriptionCompetition: IinscriptionCompetition) => {
         if (inscriptionCompetition.status === "OK") {
-          // @ts-ignore
           const inscriptionValues: IUserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
 
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/inscription', inscriptionValues).subscribe({

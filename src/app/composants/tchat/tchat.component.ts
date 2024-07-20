@@ -14,8 +14,6 @@ import {IPlayerState} from "../../interfaces/IPlayerState";
 export class TchatComponent implements OnInit, OnDestroy {
 
   @Input() partieId: number = 0;
-  // @ts-ignore
-  @Input() joueur: IPlayerState;
 
   // @ts-ignore
   private tchatSubscription: Subscription;
@@ -40,7 +38,6 @@ export class TchatComponent implements OnInit, OnDestroy {
     this.sseService.getChatMessagesFlux(this.partieId);
     this.tchatSubscription = this.sseService.chatMessages$.subscribe(
       (chatPartieMessages: IChatPartieMessage[]) => {
-        // @ts-ignore
         this.chatMessages = chatPartieMessages;
         this.cd.detectChanges();
       },
@@ -51,7 +48,6 @@ export class TchatComponent implements OnInit, OnDestroy {
   private getChatPartieMessages() {
     this.http.get<IChatPartieMessage[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages?partieId=' + this.partieId).subscribe({
       next: chatMessages => {
-        // @ts-ignore
         this.chatMessages = chatMessages;
       },
       error: error => {

@@ -10,8 +10,7 @@ export class CarteTerrainComponent {
 
   // @ts-ignore
   @Input() carte: ICarte;
-  // @ts-ignore
-  @Input() estJoueurActif: boolean;
+  @Input() estJoueurActif: boolean = false;
   @Input() taille: string = 'terrain';
   @Output() clickedCarte = new EventEmitter();
 

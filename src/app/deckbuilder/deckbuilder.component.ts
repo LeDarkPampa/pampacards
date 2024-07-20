@@ -11,6 +11,7 @@ import {DeckService} from "../services/deck.service";
 import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {PropertiesService} from "../services/properties.service";
+import {Message} from "primeng/api";
 
 const API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
 
@@ -42,10 +43,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   totalRarete: number = 0;
 
-  // @ts-ignore
-  message: Message[];
-  // @ts-ignore
-  hasExceededLimitation: Boolean;
+  message: Message[] = [];
+  hasExceededLimitation: Boolean = false;
   filtersAndSortsValues: IFiltersAndSortsValues = {
     selectedClans: [],
     selectedTypes: [],

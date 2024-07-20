@@ -20,14 +20,10 @@ export class CarteMainComponent implements OnInit, OnChanges {
 
   // @ts-ignore
   @Input() carte: ICarte;
-  // @ts-ignore
-  @Input() estJoueurActif: boolean;
-  // @ts-ignore
-  @Input() carteJouee: boolean;
-  // @ts-ignore
-  @Input() carteDefaussee: boolean;
-  // @ts-ignore
-  @Input() index: number;
+  @Input() estJoueurActif: boolean = false;
+  @Input() carteJouee: boolean = false;
+  @Input() carteDefaussee: boolean = false;
+  @Input() index: number = 0;
   @Output() jouer = new EventEmitter();
   @Output() defausser = new EventEmitter();
   @Output() clickedCarte = new EventEmitter();

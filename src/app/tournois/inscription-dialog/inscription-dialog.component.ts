@@ -15,10 +15,8 @@ export class InscriptionDialogComponent implements OnInit {
   inscription: IinscriptionCompetition;
   // @ts-ignore
   competition: any;
-  // @ts-ignore
-  decks: IDeck[];
-  // @ts-ignore
-  selectedDecks: any[];
+  decks: IDeck[] = [];
+  selectedDecks: any[] = [];
   hasValidDeck: boolean = true;
   userId = 0;
 

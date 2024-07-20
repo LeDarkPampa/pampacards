@@ -14,10 +14,8 @@ import {DialogService} from "primeng/dynamicdialog";
 })
 export class AdministrationPartiesComponent {
 
-  // @ts-ignore
-  partiesEnCours: IPartie[];
-  // @ts-ignore
-  resultatsParties: IResultatPartie[];
+  partiesEnCours: IPartie[] = [];
+  resultatsParties: IResultatPartie[] = [];
 
   constructor(private http: HttpClient, private router: Router, private dialogService: DialogService) {
     this.http.get<IPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partiesEnCours').subscribe({
@@ -46,7 +44,6 @@ export class AdministrationPartiesComponent {
   }
 
   showDeck(jsonDeck: string) {
-    // @ts-ignore
     const deck = jsonDeck.length > 0 ? JSON.parse(jsonDeck) : [];
 
     this.showVisionCartesDialog(deck);

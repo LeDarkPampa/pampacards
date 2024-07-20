@@ -5,7 +5,6 @@ import {finalize, first, Observable, Observer, of, Subject, Subscription, tap} f
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {HttpClient} from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
-import {IPlayerState} from "../interfaces/IPlayerState";
 import {AuthentificationService} from "../services/authentification.service";
 import {EffetEnum} from "../interfaces/EffetEnum";
 import {ICarte} from "../interfaces/ICarte";
@@ -147,11 +146,12 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.updatePlayerAndOpponent(lastEvent, this.partie);
     }
 
+    this.carteJouee = lastEvent.carteJouee;
+    this.carteDefaussee = lastEvent.carteDefaussee;
+
+
     if (lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
       this.startNewTurn();
-    } else {
-      this.carteJouee = lastEvent.carteJouee;
-      this.carteDefaussee = lastEvent.carteDefaussee;
     }
 
     if (lastEvent.status === "DEBUT_PARTIE") {
@@ -247,8 +247,10 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   piocherCarte() {
-    // @ts-ignore
-    this.joueur.main.push(this.joueur.deck.shift());
+    let carte = this.partieDatas.joueur.deck.shift();
+    if (carte) {
+      this.partieDatas.joueur.main.push(carte);
+    }
   }
 
   onJouerCarte(index: number) {
@@ -338,7 +340,6 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
 
         this.playInstantEffect(carte).then(r => {
-          // @ts-ignore
           if (carte.effet.code == EffetEnum.SABOTEUR) {
             this.partieDatas.adversaire.terrain.push(carte);
           } else if (carte.effet && carte.effet.code == EffetEnum.SABOTEURPLUS) {
