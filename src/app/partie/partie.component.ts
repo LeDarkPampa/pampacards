@@ -159,7 +159,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.estPremierJoueur = this.partie.joueurUn.id === this.userId;
   }
 
-
   finDeTour() {
     if (this.estJoueurActif) {
       let event = this.partieEventService.createEndTurnEvent(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
