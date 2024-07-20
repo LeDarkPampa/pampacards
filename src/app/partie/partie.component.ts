@@ -222,6 +222,8 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.piocherCarte();
     }
 
+    this.partieEventService.sendUpdatedGame(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
+
     // Désactivez l'animation de flash après un certain délai
     setTimeout(() => {
       this.isFlashing = false;

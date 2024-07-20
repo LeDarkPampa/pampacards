@@ -87,6 +87,11 @@ export class PartieEventService {
     };
   }
 
+  sendUpdatedGame(partie: IPartie, userId: number, joueur: IPlayerState, adversaire: IPlayerState, lastEvent: IEvenementPartie, stopJ1 = false, stopJ2 = false) {
+    let event = this.createNextEvent(stopJ1, stopJ2, partie, userId, joueur, adversaire, lastEvent);
+    this.sendEvent(event);
+  }
+
   sendUpdatedGameAfterPlay(partie: IPartie, userId: number, joueur: IPlayerState, adversaire: IPlayerState, lastEvent: IEvenementPartie, stopJ1 = false, stopJ2 = false) {
     let event = this.createNextEvent(stopJ1, stopJ2, partie, userId, joueur, adversaire, lastEvent);
     event.carteJouee = true;
