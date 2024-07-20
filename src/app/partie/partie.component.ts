@@ -95,7 +95,6 @@ export class PartieComponent implements OnInit, OnDestroy {
   isFlashing: boolean = false;
   enAttente: boolean = true;
 
-
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
@@ -143,12 +142,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       || (this.partieDatas.joueur.terrain.length === 0 && this.partieDatas.joueur.deck.length === 0);
 
     if (isNotTourEnCoursOrEmptyDeck) {
-      this.updatePlayerAndOpponent(lastEvent, this.partie);
+      this.updatePlayerAndOpponent(lastEvent, this.partie, this.partieDatas);
     }
 
     this.carteJouee = lastEvent.carteJouee;
     this.carteDefaussee = lastEvent.carteDefaussee;
-
 
     if (lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
       this.startNewTurn();
@@ -162,7 +160,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  private updatePlayerAndOpponent(lastEvent: IEvenementPartie, partie: IPartie) {
+  private updatePlayerAndOpponent(lastEvent: IEvenementPartie, partie: IPartie, partieDatas: IPartieDatas) {
     const isJoueurUn = partie.joueurUn.id === this.userId;
     const joueurId = isJoueurUn ? partie.joueurUn.id : partie.joueurDeux.id;
     const adversaireId = isJoueurUn ? partie.joueurDeux.id : partie.joueurUn.id;
@@ -175,17 +173,17 @@ export class PartieComponent implements OnInit, OnDestroy {
     const joueurDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurUn : lastEvent.cartesDefausseJoueurDeux;
     const adversaireDefausse = isJoueurUn ? lastEvent.cartesDefausseJoueurDeux : lastEvent.cartesDefausseJoueurUn;
 
-    this.partieDatas.joueur.id = joueurId;
-    this.partieDatas.joueur.deck = joueurDeck.length > 0 ? JSON.parse(joueurDeck) : [];
-    this.partieDatas.joueur.main = joueurMain.length > 0 ? JSON.parse(joueurMain) : [];
-    this.partieDatas.joueur.terrain = joueurTerrain.length > 0 ? JSON.parse(joueurTerrain) : [];
-    this.partieDatas.joueur.defausse = joueurDefausse.length > 0 ? JSON.parse(joueurDefausse) : [];
+    partieDatas.joueur.id = joueurId;
+    partieDatas.joueur.deck = joueurDeck.length > 0 ? JSON.parse(joueurDeck) : [];
+    partieDatas.joueur.main = joueurMain.length > 0 ? JSON.parse(joueurMain) : [];
+    partieDatas.joueur.terrain = joueurTerrain.length > 0 ? JSON.parse(joueurTerrain) : [];
+    partieDatas.joueur.defausse = joueurDefausse.length > 0 ? JSON.parse(joueurDefausse) : [];
 
-    this.partieDatas.adversaire.id = adversaireId;
-    this.partieDatas.adversaire.deck = adversaireDeck.length > 0 ? JSON.parse(adversaireDeck) : [];
-    this.partieDatas.adversaire.main = adversaireMain.length > 0 ? JSON.parse(adversaireMain) : [];
-    this.partieDatas.adversaire.terrain = adversaireTerrain.length > 0 ? JSON.parse(adversaireTerrain) : [];
-    this.partieDatas.adversaire.defausse = adversaireDefausse.length > 0 ? JSON.parse(adversaireDefausse) : [];
+    partieDatas.adversaire.id = adversaireId;
+    partieDatas.adversaire.deck = adversaireDeck.length > 0 ? JSON.parse(adversaireDeck) : [];
+    partieDatas.adversaire.main = adversaireMain.length > 0 ? JSON.parse(adversaireMain) : [];
+    partieDatas.adversaire.terrain = adversaireTerrain.length > 0 ? JSON.parse(adversaireTerrain) : [];
+    partieDatas.adversaire.defausse = adversaireDefausse.length > 0 ? JSON.parse(adversaireDefausse) : [];
   }
 
   private startNewTurn() {
@@ -282,11 +280,13 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
 
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
           this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent, stopJ1, stopJ2);
         });
       } else {
         this.partieDatas.joueur.terrain.push(carteJouee);
         this.updateEffetsContinusAndScores();
+        this.cd.detectChanges();
         this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
       }
     }
@@ -325,8 +325,10 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
 
       this.updateEffetsContinusAndScores();
+      this.cd.detectChanges();
       this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent, stopJ1, stopJ2);
       this.updateEffetsContinusAndScores();
+      this.cd.detectChanges();
     }
   }
 
@@ -358,6 +360,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     this.updateEffetsContinusAndScores();
+    this.cd.detectChanges();
   }
 
   mettreCarteEnDeckEnMainDepuisDefausse(carte: ICarte) {
@@ -374,6 +377,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
     this.updateEffetsContinusAndScores();
+    this.cd.detectChanges();
   }
 
   onDefausserCarte(index: number) {
@@ -390,6 +394,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
     this.updateEffetsContinusAndScores();
+    this.cd.detectChanges();
     this.partieEventService.sendUpdatedGameAfterDefausse(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
   }
 
@@ -473,6 +478,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                   this.sendBotMessage('Aucune carte sélectionnée');
                 }
                 this.updateEffetsContinusAndScores();
+                this.cd.detectChanges();
               }),
               catchError(error => {
                 console.error(error);
@@ -497,6 +503,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                     this.partieDatas.adversaire.terrain[indexCarte].bouclier = false;
                   }
                   this.updateEffetsContinusAndScores();
+                  this.cd.detectChanges();
                 },
                 (error: any) => console.error(error)
               );
@@ -519,6 +526,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                     this.partieDatas.adversaire.terrain[indexCarte].bouclier = false;
                   }
                   this.updateEffetsContinusAndScores();
+                  this.cd.detectChanges();
                 },
                 (error: any) => console.error(error)
               );
@@ -825,7 +833,11 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.handleSelection(carte, () => true, selectedCarte => {
         const indexCarteSelectionnee = this.partieDatas.adversaire.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
         carte.effet = this.partieDatas.adversaire.defausse[indexCarteSelectionnee].effet;
-        this.playInstantEffect(carte).then(() => this.updateEffetsContinusAndScores());
+        this.playInstantEffect(carte).then(() => {
+          this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
+        });
+
       });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
@@ -838,6 +850,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         if (selectedCarte) {
           callback(selectedCarte);
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         }
         carteSelectionneeSub.unsubscribe();
       },
@@ -893,6 +906,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                   this.partieDatas.adversaire.terrain.splice(indexCarte, 1);
                 }
                 this.updateEffetsContinusAndScores();
+                this.cd.detectChanges();
               },
               (error: any) => console.error(error)
             );
@@ -907,6 +921,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           }
 
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -931,6 +946,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.partieDatas.joueur.terrain[indexCarte].silence = false;
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -969,6 +985,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.partieDatas.joueur.terrain.splice(indexCarte, 1);
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -988,6 +1005,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.showVisionCartesDialog(this.partieDatas.adversaire.deck);
       this.partieService.melangerDeck(this.partieDatas.adversaire.deck);
       this.updateEffetsContinusAndScores();
+      this.cd.detectChanges();
     }
   }
 
@@ -996,6 +1014,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       const troisPremieresCartes: ICarte[] = this.partieDatas.joueur.deck.slice(0, 3);
       this.showVisionCartesDialog(troisPremieresCartes);
       this.updateEffetsContinusAndScores();
+      this.cd.detectChanges();
     }
   }
 
@@ -1009,6 +1028,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.partieDatas.adversaire.terrain[indexCarte].prison = true;
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -1034,6 +1054,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.partieDatas.joueur.terrain[indexCarte].clan = carte.clan;
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -1065,6 +1086,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.jouerNouvelleCarte(this.partieDatas.joueur.main[indexCarte]);
         }
         this.updateEffetsContinusAndScores();
+        this.cd.detectChanges();
       },
       (error: any) => console.error(error)
     );
@@ -1094,9 +1116,11 @@ export class PartieComponent implements OnInit, OnDestroy {
 
           this.playInstantEffect(carte).then(r => {
             this.updateEffetsContinusAndScores();
+            this.cd.detectChanges();
           });
         }
         this.updateEffetsContinusAndScores();
+        this.cd.detectChanges();
       },
       (error: any) => console.error(error)
     );
@@ -1189,6 +1213,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             applyEffect(selectedCarte);
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         },
         (error: any) => console.error(error)
       );
@@ -1235,7 +1260,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     this.carteEffetService.appliquerEffetsContinus(this.partieDatas.joueur, this.partieDatas.adversaire);
     this.carteEffetService.appliquerEffetsContinus(this.partieDatas.adversaire, this.partieDatas.joueur);
 
-    this.updateScores();
+    this.partieService.updateScores(this.partieDatas);
   }
 
   private handleSilenceEffect() {
@@ -1248,6 +1273,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.partieDatas.adversaire.terrain[indexCarte].silence = true;
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
@@ -1264,6 +1290,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             this.recupererCarteEnMainDepuisDefausse(this.partieDatas.joueur.defausse[indexCarte]);
           }
           this.updateEffetsContinusAndScores();
+          this.cd.detectChanges();
         });
     } else {
       this.sendBotMessage('Pas de cible disponible pour le pouvoir');
@@ -1285,6 +1312,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     }
 
     this.updateEffetsContinusAndScores();
+    this.cd.detectChanges();
   }
 
   private async handleResurrectionEffect(carte: ICarte) {
@@ -1298,6 +1326,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               this.jouerNouvelleCarteDepuisDefausse(this.partieDatas.joueur.defausse[indexCarte]);
             }
             this.updateEffetsContinusAndScores();
+            this.cd.detectChanges();
           },
           (error: any) => console.error(error)
         );
@@ -1344,29 +1373,13 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
-  private updateScores() {
-    let sommePuissancesJoueur = 0;
-    let sommePuissancesAdversaire = 0;
-
-    for (let carte of this.partieDatas.joueur.terrain) {
-      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
-    }
-
-    for (let carte of this.partieDatas.adversaire.terrain) {
-      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
-    }
-
-    this.partieDatas.joueur.score = sommePuissancesJoueur;
-    this.partieDatas.adversaire.score = sommePuissancesAdversaire;
-    this.cd.detectChanges();
-  }
-
   voirDefausse(defausse: ICarte[]) {
     this.showVisionCartesDialog(defausse);
   }
 
   terminerPartie(): void {
-    this.updateScores();
+    this.partieService.updateScores(this.partieDatas);
+    this.cd.detectChanges();
     let scoreJoueur = this.partieDatas.joueur.score;
     let scoreAdversaire = this.partieDatas.adversaire.score;
     let vainqueurId = 0;
@@ -1455,18 +1468,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   abandon() {
     let event = this.partieEventService.createAbandonEvent(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
-      next: response => {
-        this.partieDatas.finDePartie = true;
-        this.partieDatas.nomJoueurAbandon = this.partieDatas.joueur.nom;
-        this.partieDatas.nomVainqueur = this.partieDatas.adversaire.nom;
-
-        this.partieEventService.sendAbandonResult(this.partieDatas.joueur, this.partieDatas.adversaire, this.partie);
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+    this.partieEventService.sendAbandonEvent(event, this.partieDatas, this.partie);
   }
 
   clickedCarte(cardPath: string) {

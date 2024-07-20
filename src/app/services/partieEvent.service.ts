@@ -8,6 +8,7 @@ import {IPlayerState} from "../interfaces/IPlayerState";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
 import {IPartie} from "../interfaces/IPartie";
+import {IPartieDatas} from "../interfaces/IPartieDatas";
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,37 @@ export class PartieEventService {
       scoreJ1: scoreJ1,
       scoreJ2: scoreJ2
     };
+  }
+
+  sendAbandonEvent(event: {
+    cartesDefausseJoueurUn: string;
+    partie: IPartie;
+    cartesDeckJoueurDeux: string;
+    cartesMainJoueurUn: string;
+    cartesDeckJoueurUn: string;
+    cartesTerrainJoueurUn: string;
+    tour: number;
+    cartesDefausseJoueurDeux: string;
+    joueurActifId: number;
+    premierJoueurId: number;
+    cartesTerrainJoueurDeux: string;
+    cartesMainJoueurDeux: string;
+    stopJ1: boolean;
+    stopJ2: boolean;
+    status: string
+  }, partieDatas: IPartieDatas, partie: IPartie) {
+    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+      next: response => {
+        partieDatas.finDePartie = true;
+        partieDatas.nomJoueurAbandon = partieDatas.joueur.nom;
+        partieDatas.nomVainqueur = partieDatas.adversaire.nom;
+
+        this.sendAbandonResult(partieDatas.joueur, partieDatas.adversaire, partie);
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   createAbandonEvent(partie: IPartie, userId: number, joueur: IPlayerState, adversaire: IPlayerState, lastEvent: IEvenementPartie) {

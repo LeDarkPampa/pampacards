@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, of, throwError} from "rxjs";
 import {AuthentificationService} from "./authentification.service";
 import {ICarte} from "../interfaces/ICarte";
-import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {IPlayerState} from "../interfaces/IPlayerState";
 import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
-import {IPartie} from "../interfaces/IPartie";
+import {IPartieDatas} from "../interfaces/IPartieDatas";
+import {CarteService} from "./carte.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartieService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient, private authService: AuthentificationService,
+              private carteService: CarteService) { }
 
   nomCorrompu = 'Corrompu';
 
@@ -90,4 +90,20 @@ export class PartieService {
     player.deck.forEach(initCardProperties);
     player.main.forEach(initCardProperties);
   };
+
+  updateScores(partieDatas: IPartieDatas) {
+    let sommePuissancesJoueur = 0;
+    let sommePuissancesAdversaire = 0;
+
+    for (let carte of partieDatas.joueur.terrain) {
+      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
+    }
+
+    for (let carte of partieDatas.adversaire.terrain) {
+      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
+    }
+
+    partieDatas.joueur.score = sommePuissancesJoueur;
+    partieDatas.adversaire.score = sommePuissancesAdversaire;
+  }
 }
