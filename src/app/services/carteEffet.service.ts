@@ -150,18 +150,6 @@ export class CarteEffetService {
     }
   }
 
-  handlePari(carte: ICarte, joueur: IPlayerState) {
-    const nbParis = joueur.terrain.filter(c => c.effet && c.effet.code === EffetEnum.PARI).length;
-    if (nbParis === 2) {
-      joueur.terrain.forEach(c => {
-        if (c.effet && c.effet.code === EffetEnum.PARI) {
-          c.puissance = 7;
-        }
-      });
-      carte.puissance = 7;
-    }
-  }
-
   handleSeptEffect(carte: ICarte, joueur: IPlayerState, adversaire: IPlayerState) {
     carte.puissance = parseInt("7");
 
