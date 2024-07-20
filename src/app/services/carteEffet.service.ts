@@ -63,6 +63,323 @@ export class CarteEffetService {
     }
   }
 
+  handleSilenceEffect(partieDatas: IPartieDatas) {
+    const targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu));
+    if (targetTerrain.length > 0) {
+      this.customDialogService.selectionnerCarte(targetTerrain).then(selectedCarte => {
+        if (selectedCarte != null) {
+          this.sendBotMessage(partieDatas.joueur.nom + ' cible la carte ' + selectedCarte.nom, partieDatas.partieId);
+          const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.adversaire.terrain[indexCarte].silence = true;
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleSauvetageEffect(partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasCrypte(partieDatas.adversaire) && partieDatas.joueur.defausse.length > 0) {
+      this.customDialogService.selectionnerCarte(partieDatas.joueur.defausse).then(selectedCarte => {
+        if (selectedCarte != null) {
+          this.sendBotMessage(partieDatas.joueur.nom + ' cible la carte ' + selectedCarte.nom, partieDatas.partieId);
+          const indexCarte = partieDatas.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.recupererCarteEnMainDepuisDefausse(partieDatas.joueur.defausse[indexCarte], partieDatas);
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleCasseMuraille(partieDatas: IPartieDatas) {
+    const adversaireHasProtecteurForet = partieDatas.adversaire.terrain.some(c => c.effet && c.effet.code === EffetEnum.PROTECTEURFORET);
+
+    const bouclierCartesFiltre = (carte: ICarte) => carte.bouclier && (!adversaireHasProtecteurForet || !(carte.clan.id === 1 || carte.type.id === 8));
+
+    if (partieDatas.adversaire.terrain.some(bouclierCartesFiltre)) {
+      this.customDialogService.selectionnerCarte(partieDatas.adversaire.terrain.filter(bouclierCartesFiltre)).then(selectedCarte => {
+        if (selectedCarte) {
+          this.sendBotMessage(`${partieDatas.joueur.nom} cible la carte ${selectedCarte.nom}`, partieDatas.partieId);
+          const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.adversaire.terrain[indexCarte].bouclier = false;
+        } else {
+          this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleConversionEffect(carte: ICarte, partieDatas: IPartieDatas) {
+    const targetCards = partieDatas.joueur.terrain.filter(c => !c.insensible);
+
+    if (targetCards.length > 0) {
+      this.customDialogService.selectionnerCarte(targetCards)
+        .then(selectedCarte => {
+          if (selectedCarte != null) {
+            this.sendBotMessage(partieDatas.joueur.nom + ' cible la carte ' + selectedCarte.nom, partieDatas.partieId);
+            const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+
+            if (indexCarte !== -1) {
+              partieDatas.joueur.terrain[indexCarte].type = carte.type;
+              partieDatas.joueur.terrain[indexCarte].clan = carte.clan;
+            }
+          }
+          this.updateEffetsContinusAndScores(partieDatas);
+        })
+        .catch(error => {
+          console.error(error);
+          this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+        });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handlePrisonEffect(partieDatas: IPartieDatas) {
+    const targetCards = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !c.prison);
+
+    if (targetCards.length > 0) {
+      this.customDialogService.selectionnerCarte(targetCards)
+        .then(selectedCarte => {
+          if (selectedCarte != null) {
+            this.sendBotMessage(partieDatas.joueur.nom + ' cible la carte ' + selectedCarte.nom, partieDatas.partieId);
+            const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+
+            if (indexCarte !== -1) {
+              partieDatas.adversaire.terrain[indexCarte].prison = true;
+            }
+          }
+          this.updateEffetsContinusAndScores(partieDatas);
+        })
+        .catch(error => {
+          console.error(error);
+          this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+        });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleTargetSelectionEffect(partieDatas: IPartieDatas, carte: ICarte, effetCode: EffetEnum) {
+    let targetTerrain: ICarte[] = [];
+    let applyEffect: (selectedCarte: ICarte) => void;
+
+    switch (effetCode) {
+      case EffetEnum.SABOTAGE:
+      case EffetEnum.KAMIKAZE:
+        targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !c.prison);
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
+        };
+        break;
+      case EffetEnum.SERVIABLE:
+        targetTerrain = partieDatas.joueur.terrain.filter(c => !c.insensible && !c.prison && this.carteService.memeTypeOuClan(c, carte));
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
+        };
+        break;
+      case EffetEnum.BOUCLIER:
+        targetTerrain = partieDatas.joueur.terrain.filter(c => !c.insensible && !c.bouclier);
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.joueur.terrain[indexCarte].bouclier = true;
+        };
+        break;
+      case EffetEnum.RECYCLAGE:
+        targetTerrain = partieDatas.joueur.defausse;
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          this.mettreCarteEnDeckEnMainDepuisDefausse(partieDatas, partieDatas.joueur.defausse[indexCarte]);
+        };
+        break;
+      case EffetEnum.CORRUPTION:
+        targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.carteService.getNomCorrompu()));
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.adversaire.terrain[indexCarte].clan = this.partieService.getClanCorrompu();
+          partieDatas.adversaire.terrain[indexCarte].type = this.partieService.getTypeCorrompu();
+        };
+        break;
+      case EffetEnum.POSSESSION:
+        targetTerrain = partieDatas.adversaire.terrain.filter(c => {
+          return this.carteService.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse && !c.bouclier && (c.clan.nom === this.carteService.getNomCorrompu());
+        });
+        applyEffect = (selectedCarte: ICarte) => {
+          const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.joueur.terrain.push(partieDatas.adversaire.terrain[indexCarte]);
+          partieDatas.adversaire.terrain.splice(indexCarte, 1);
+        };
+        break;
+    }
+
+    if (targetTerrain.length > 0) {
+      this.customDialogService.selectionnerCarte(targetTerrain).then(selectedCarte => {
+        if (selectedCarte) {
+          this.sendBotMessage(`${partieDatas.joueur.nom} cible la carte ${selectedCarte.nom}`, partieDatas.partieId);
+          applyEffect(selectedCarte);
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleEspionEffect(partieDatas: IPartieDatas) {
+    if (partieDatas.adversaire.deck.filter.length > 0) {
+      this.customDialogService.showVisionCartesDialog(partieDatas.adversaire.deck);
+      this.partieService.melangerDeck(partieDatas.adversaire.deck);
+      this.updateEffetsContinusAndScores(partieDatas);
+    }
+  }
+
+  handleVisionEffect(partieDatas: IPartieDatas) {
+    if (partieDatas.joueur.deck.filter.length > 0) {
+      const troisPremieresCartes: ICarte[] = partieDatas.joueur.deck.slice(0, 3);
+      this.customDialogService.showVisionCartesDialog(troisPremieresCartes);
+      this.updateEffetsContinusAndScores(partieDatas);
+    }
+  }
+
+  handleMentalisme(partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasPalissade(partieDatas.adversaire) && partieDatas.adversaire.main.length > 0) {
+      this.customDialogService.showVisionCartesDialog(partieDatas.adversaire.main);
+    }
+  }
+
+  handleVoixEffect(partieDatas: IPartieDatas) {
+    const cartesAvecSilence = partieDatas.joueur.terrain.filter(c => c.silence);
+    if (cartesAvecSilence.length > 0) {
+      this.customDialogService.selectionnerCarte(cartesAvecSilence).then(selectedCarte => {
+        if (selectedCarte) {
+          this.sendBotMessage(`${partieDatas.joueur.nom} cible la carte ${selectedCarte.nom}`, partieDatas.partieId);
+          const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          partieDatas.joueur.terrain[indexCarte].silence = false;
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleTrocEffect(partieDatas: IPartieDatas) {
+    if (this.joueurService.hasPalissade(partieDatas.adversaire)) {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    } else if (partieDatas.joueur.main.length === 0) {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    } else {
+      this.customDialogService.selectionnerCarte(partieDatas.joueur.main).then(selectedCarte => {
+        if (selectedCarte) {
+          this.sendBotMessage(`${partieDatas.joueur.nom} cible la carte ${selectedCarte.nom}`, partieDatas.partieId);
+          const indexCarte = partieDatas.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const randomIndex = Math.floor(Math.random() * partieDatas.adversaire.main.length);
+
+          const carteJoueur = partieDatas.joueur.main.splice(indexCarte, 1)[0];
+          const carteAdversaire = partieDatas.adversaire.main.splice(randomIndex, 1)[0];
+
+          partieDatas.adversaire.main.push(carteJoueur);
+          partieDatas.joueur.main.push(carteAdversaire);
+        } else {
+          this.sendBotMessage('Aucune carte sélectionnée', partieDatas.partieId);
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    }
+  }
+
+  handleTrahisonEffect(partieDatas: IPartieDatas) {
+    const cartesNonInsensibles = partieDatas.joueur.terrain.filter(c => !c.insensible);
+    if (cartesNonInsensibles.length > 0) {
+      this.customDialogService.selectionnerCarte(cartesNonInsensibles).then(selectedCarte => {
+        if (selectedCarte) {
+          this.sendBotMessage(`${partieDatas.joueur.nom} trahit la carte ${selectedCarte.nom}`, partieDatas.partieId);
+          const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+
+          const carte = partieDatas.joueur.terrain[indexCarte];
+
+          if (this.carteService.isFidelite(carte)) {
+            partieDatas.joueur.deck.push(carte);
+            this.sendBotMessage(`${carte.nom} est remise dans le deck`, partieDatas.partieId);
+            this.partieService.melangerDeck(partieDatas.joueur.deck);
+          } else if (this.carteService.isCauchemard(carte)) {
+            partieDatas.adversaire.terrain.push(carte);
+            this.sendBotMessage(`${carte.nom} est envoyée sur le terrain adverse`, partieDatas.partieId);
+          } else {
+            partieDatas.joueur.defausse.push(carte);
+          }
+
+          partieDatas.joueur.terrain.splice(indexCarte, 1);
+        }
+        this.updateEffetsContinusAndScores(partieDatas);
+      }).catch(error => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  mettreCarteEnDeckEnMainDepuisDefausse(partieDatas: IPartieDatas, carte: ICarte) {
+    const index = partieDatas.joueur.defausse.findIndex(c => c.id === carte.id);
+    if (index !== -1) {
+      partieDatas.joueur.defausse.splice(index, 1)[0];
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
+        if (carte.effet.code && carte.effet.code === EffetEnum.SURVIVANT) {
+          carte.diffPuissanceInstant += 2;
+        }
+        partieDatas.joueur.deck.push(carte);
+      } else {
+        partieDatas.joueur.deck.push(carte);
+      }
+    }
+    this.updateEffetsContinusAndScores(partieDatas);
+  }
+
+  recupererCarteEnMainDepuisDefausse(carte: ICarte, partieDatas: IPartieDatas) {
+    const index = partieDatas.joueur.defausse.findIndex(c => c.id === carte.id);
+    if (index !== -1) {
+      partieDatas.joueur.defausse.splice(index, 1)[0];
+      if (carte.effet.code != 'NO' && !carte.effet.continu) {
+        if (carte.effet.code === EffetEnum.SURVIVANT) {
+          carte.diffPuissanceInstant += 2;
+        }
+        partieDatas.joueur.main.push(carte);
+      } else {
+        partieDatas.joueur.main.push(carte);
+      }
+    }
+
+    this.updateEffetsContinusAndScores(partieDatas);
+  }
+
   private detruireCarte(partieDatas: IPartieDatas, selectedCarte: ICarte, joueurType: 'joueur' | 'adversaire') {
     const joueur = joueurType === 'joueur' ? partieDatas.joueur : partieDatas.adversaire;
     const adversaire = joueurType === 'joueur' ? partieDatas.adversaire : partieDatas.joueur;
