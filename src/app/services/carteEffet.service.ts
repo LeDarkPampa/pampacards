@@ -46,6 +46,16 @@ export class CarteEffetService {
     }
   }
 
+  updateEffetsContinusAndScores(partieDatas: IPartieDatas) {
+    this.resetBoucliersEtPuissances(partieDatas.joueur);
+    this.resetBoucliersEtPuissances(partieDatas.adversaire);
+
+    this.appliquerEffetsContinus(partieDatas.joueur, partieDatas.adversaire);
+    this.appliquerEffetsContinus(partieDatas.adversaire, partieDatas.joueur);
+
+    this.partieService.updateScores(partieDatas);
+  }
+
   handleAmitie(carte: ICarte, joueur: IPlayerState) {
     joueur.terrain.forEach(c => {
       if (!carte.insensible && !carte.prison && this.carteService.memeTypeOuClan(carte, c)) {

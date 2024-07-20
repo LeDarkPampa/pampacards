@@ -9,7 +9,6 @@ import {AuthentificationService} from "../services/authentification.service";
 import {EffetEnum} from "../interfaces/EffetEnum";
 import {ICarte} from "../interfaces/ICarte";
 import {DialogService} from "primeng/dynamicdialog";
-import {SelectionCarteDialogComponent} from "./selection-carte-dialog/selection-carte-dialog.component";
 import {VisionCartesDialogComponent} from "./vision-cartes-dialog/vision-cartes-dialog.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {CarteService} from "../services/carte.service";
@@ -212,7 +211,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.initCards();
     }
 
-    this.updateEffetsContinusAndScores();
+    this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     this.cd.detectChanges();
   }
 
@@ -294,13 +293,13 @@ export class PartieComponent implements OnInit, OnDestroy {
             }
           }
 
-          this.updateEffetsContinusAndScores();
+          this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
           this.cd.detectChanges();
           this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent, stopJ1, stopJ2);
         });
       } else {
         this.partieDatas.joueur.terrain.push(carteJouee);
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
         this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
       }
@@ -339,10 +338,10 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
       }
 
-      this.updateEffetsContinusAndScores();
+      this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
       this.cd.detectChanges();
       this.partieEventService.sendUpdatedGameAfterPlay(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent, stopJ1, stopJ2);
-      this.updateEffetsContinusAndScores();
+      this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
       this.cd.detectChanges();
     }
   }
@@ -374,7 +373,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.updateEffetsContinusAndScores();
+    this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     this.cd.detectChanges();
   }
 
@@ -391,7 +390,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.partieDatas.joueur.deck.push(carte);
       }
     }
-    this.updateEffetsContinusAndScores();
+    this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     this.cd.detectChanges();
   }
 
@@ -408,7 +407,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.partieDatas.joueur.defausse.push(carteJouee);
       }
     }
-    this.updateEffetsContinusAndScores();
+    this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     this.cd.detectChanges();
     this.partieEventService.sendUpdatedGameAfterDefausse(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
   }
@@ -477,7 +476,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             } else {
               this.sendBotMessage('Aucune carte sélectionnée');
             }
-            this.updateEffetsContinusAndScores();
+            this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
             this.cd.detectChanges();
           }).catch(error => {
             console.error(error);
@@ -666,7 +665,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         } else {
           this.sendBotMessage('Pas de cible disponible pour le pouvoir');
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -691,7 +690,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           const indexCarteSelectionnee = partieDatas.adversaire.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
           carte.effet = partieDatas.adversaire.defausse[indexCarteSelectionnee].effet;
           this.playInstantEffect(carte).then(() => {
-            this.updateEffetsContinusAndScores();
+            this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
             this.cd.detectChanges();
           });
         }
@@ -752,7 +751,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         this.sendBotMessage('Erreur lors de la sélection de la carte');
       });
     } else {
-      this.updateEffetsContinusAndScores();
+      this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     }
   }
 
@@ -765,7 +764,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           const indexCarte = partieDatas.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
           partieDatas.joueur.terrain[indexCarte].silence = false;
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -799,7 +798,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
           partieDatas.joueur.terrain.splice(indexCarte, 1);
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -814,7 +813,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (partieDatas.adversaire.deck.filter.length > 0) {
       this.showVisionCartesDialog(partieDatas.adversaire.deck);
       this.partieService.melangerDeck(partieDatas.adversaire.deck);
-      this.updateEffetsContinusAndScores();
+      this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
       this.cd.detectChanges();
     }
   }
@@ -823,7 +822,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (partieDatas.joueur.deck.filter.length > 0) {
       const troisPremieresCartes: ICarte[] = partieDatas.joueur.deck.slice(0, 3);
       this.showVisionCartesDialog(troisPremieresCartes);
-      this.updateEffetsContinusAndScores();
+      this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
       this.cd.detectChanges();
     }
   }
@@ -837,7 +836,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
             partieDatas.adversaire.terrain[indexCarte].prison = true;
           }
-          this.updateEffetsContinusAndScores();
+          this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
           this.cd.detectChanges();
         },
         (error: any) => console.error(error)
@@ -868,7 +867,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               partieDatas.joueur.terrain[indexCarte].clan = carte.clan;
             }
           }
-          this.updateEffetsContinusAndScores();
+          this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
           this.cd.detectChanges();
         })
         .catch(error => {
@@ -896,7 +895,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           const indexCarte = this.partieDatas.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
           this.jouerNouvelleCarte(this.partieDatas.joueur.main[indexCarte]);
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       },
       (error: any) => console.error(error)
@@ -926,11 +925,11 @@ export class PartieComponent implements OnInit, OnDestroy {
           carte.effet = this.partieDatas.joueur.terrain[indexCarteSelectionnee].effet;
 
           this.playInstantEffect(carte).then(r => {
-            this.updateEffetsContinusAndScores();
+            this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
             this.cd.detectChanges();
           });
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       },
       (error: any) => console.error(error)
@@ -1003,7 +1002,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.sendBotMessage(`${this.partieDatas.joueur.nom} cible la carte ${selectedCarte.nom}`);
           applyEffect(selectedCarte);
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -1028,16 +1027,6 @@ export class PartieComponent implements OnInit, OnDestroy {
     });
   }
 
-  private updateEffetsContinusAndScores() {
-    this.carteEffetService.resetBoucliersEtPuissances(this.partieDatas.joueur);
-    this.carteEffetService.resetBoucliersEtPuissances(this.partieDatas.adversaire);
-
-    this.carteEffetService.appliquerEffetsContinus(this.partieDatas.joueur, this.partieDatas.adversaire);
-    this.carteEffetService.appliquerEffetsContinus(this.partieDatas.adversaire, this.partieDatas.joueur);
-
-    this.partieService.updateScores(this.partieDatas);
-  }
-
   private handleSilenceEffect(partieDatas: IPartieDatas) {
     const targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !c.silence && (c.effet && c.effet.continu));
     if (targetTerrain.length > 0) {
@@ -1047,7 +1036,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
           partieDatas.adversaire.terrain[indexCarte].silence = true;
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -1066,7 +1055,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           const indexCarte = partieDatas.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
           this.recupererCarteEnMainDepuisDefausse(partieDatas.joueur.defausse[indexCarte], partieDatas);
         }
-        this.updateEffetsContinusAndScores();
+        this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
         this.cd.detectChanges();
       }).catch(error => {
         console.error(error);
@@ -1091,7 +1080,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.updateEffetsContinusAndScores();
+    this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
     this.cd.detectChanges();
   }
 
@@ -1106,7 +1095,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             const indexCarte = partieDatas.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
             this.jouerNouvelleCarteDepuisDefausse(partieDatas.joueur.defausse[indexCarte]);
           }
-          this.updateEffetsContinusAndScores();
+          this.carteEffetService.updateEffetsContinusAndScores(this.partieDatas);
           this.cd.detectChanges();
         } catch (error) {
           console.error(error);
