@@ -6,12 +6,10 @@ import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {HttpClient} from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
 import {AuthentificationService} from "../services/authentification.service";
-import {EffetEnum} from "../interfaces/EffetEnum";
 import {ICarte} from "../interfaces/ICarte";
 import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {CarteService} from "../services/carte.service";
-import {JoueurService} from "../services/joueur.service";
 import {PartieService} from "../services/partie.service";
 import {CarteEffetService} from "../services/carteEffet.service";
 import {TchatService} from "../services/tchat.service";
@@ -96,7 +94,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
-              private joueurService: JoueurService, private partieService: PartieService,
+              private partieService: PartieService,
               private partieEventService: PartieEventService,
               private tchatService: TchatService, private customDialogService: CustomDialogService,
               private carteEffetService: CarteEffetService,
@@ -246,7 +244,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       if (this.carteService.isFidelite(carteJouee)) {
         this.sendBotMessage(carteJouee.nom + ' est remise dans le deck');
         this.partieDatas.joueur.deck.push(carteJouee);
-        this.partieService.melangerDeck(this.partieDatas.joueur.deck);
+        this.carteEffetService.melangerDeck(this.partieDatas.joueur.deck);
       } else {
         this.partieDatas.joueur.defausse.push(carteJouee);
       }

@@ -10,15 +10,65 @@ import {PartieService} from "./partie.service";
 import {IPartieDatas} from "../interfaces/IPartieDatas";
 import {CustomDialogService} from "./customDialog.service";
 import {PartieEventService} from "./partieEvent.service";
+import {IClan} from "../interfaces/IClan";
+import {IType} from "../interfaces/IType";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarteEffetService {
 
+  nomCorrompu = 'Corrompu';
+
+  clanCorrompu: IClan = {
+    id: 0,
+    nom: this.nomCorrompu
+  };
+
+  typeCorrompu: IType = {
+    id: 0,
+    nom: this.nomCorrompu
+  };
+
+  poissonPourri: ICarte = {
+    id: 0,
+    nom: 'Poisson pourri',
+    clan: {
+      id: -1,
+      nom: 'Mafia'
+    },
+    type: {
+      id: -1,
+      nom: 'Eau'
+    },
+    rarete: 0,
+    effet: {
+      id: 79,
+      code: 'NO',
+      continu: false,
+      conditionPuissanceAdverse: 0,
+      valeurBonusMalus: 0,
+      description: 'Aucun effet'
+    },
+    puissance: -1,
+    image_path: 'poissonpourri.png',
+    silence: false,
+    bouclier: false,
+    insensible: false,
+    prison: false,
+    diffPuissanceInstant: 0,
+    diffPuissanceContinue: 0,
+    released: false
+  };
+
+  getNomCorrompu(): string {
+    return this.nomCorrompu;
+  }
+
   constructor(private joueurService: JoueurService, private carteService: CarteService,
               private tchatService: TchatService, private partieService: PartieService,
-              private customDialogService: CustomDialogService, private partieEventService: PartieEventService) { }
+              private customDialogService: CustomDialogService, private partieEventService: PartieEventService) {
+  }
 
   addImmunise(carte: ICarte) {
     carte.bouclier = true;
@@ -211,16 +261,16 @@ export class CarteEffetService {
         };
         break;
       case EffetEnum.CORRUPTION:
-        targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.carteService.getNomCorrompu()));
+        targetTerrain = partieDatas.adversaire.terrain.filter(c => !c.bouclier && !(c.clan.nom === this.getNomCorrompu()));
         applyEffect = (selectedCarte: ICarte) => {
           const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
-          partieDatas.adversaire.terrain[indexCarte].clan = this.partieService.getClanCorrompu();
-          partieDatas.adversaire.terrain[indexCarte].type = this.partieService.getTypeCorrompu();
+          partieDatas.adversaire.terrain[indexCarte].clan = this.getClanCorrompu();
+          partieDatas.adversaire.terrain[indexCarte].type = this.getTypeCorrompu();
         };
         break;
       case EffetEnum.POSSESSION:
         targetTerrain = partieDatas.adversaire.terrain.filter(c => {
-          return this.carteService.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse && !c.bouclier && (c.clan.nom === this.carteService.getNomCorrompu());
+          return this.carteService.getPuissanceTotale(c) <= carte.effet.conditionPuissanceAdverse && !c.bouclier && (c.clan.nom === this.getNomCorrompu());
         });
         applyEffect = (selectedCarte: ICarte) => {
           const indexCarte = partieDatas.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
@@ -249,7 +299,7 @@ export class CarteEffetService {
   handleEspionEffect(partieDatas: IPartieDatas) {
     if (partieDatas.adversaire.deck.filter.length > 0) {
       this.customDialogService.showVisionCartesDialog(partieDatas.adversaire.deck);
-      this.partieService.melangerDeck(partieDatas.adversaire.deck);
+      this.melangerDeck(partieDatas.adversaire.deck);
       this.updateEffetsContinusAndScores(partieDatas);
     }
   }
@@ -328,7 +378,7 @@ export class CarteEffetService {
           if (this.carteService.isFidelite(carte)) {
             partieDatas.joueur.deck.push(carte);
             this.sendBotMessage(`${carte.nom} est remise dans le deck`, partieDatas.partieId);
-            this.partieService.melangerDeck(partieDatas.joueur.deck);
+            this.melangerDeck(partieDatas.joueur.deck);
           } else if (this.carteService.isCauchemard(carte)) {
             partieDatas.adversaire.terrain.push(carte);
             this.sendBotMessage(`${carte.nom} est envoyée sur le terrain adverse`, partieDatas.partieId);
@@ -392,7 +442,7 @@ export class CarteEffetService {
     if (this.carteService.isFidelite(carte)) {
       joueur.deck.push(carte);
       this.sendBotMessage(`${carte.nom} est remise dans le deck`, partieDatas.partieId);
-      this.partieService.melangerDeck(joueur.deck);
+      this.melangerDeck(joueur.deck);
     } else if (this.carteService.isCauchemard(carte)) {
       adversaire.terrain.push(carte);
       this.sendBotMessage(`${carte.nom} est envoyée sur le terrain adverse`, partieDatas.partieId);
@@ -423,7 +473,7 @@ export class CarteEffetService {
     this.appliquerEffetsContinus(partieDatas.joueur, partieDatas.adversaire);
     this.appliquerEffetsContinus(partieDatas.adversaire, partieDatas.joueur);
 
-    this.partieService.updateScores(partieDatas);
+    this.updateScores(partieDatas);
   }
 
   handleAmitie(carte: ICarte, joueur: IPlayerState) {
@@ -465,7 +515,7 @@ export class CarteEffetService {
       if (this.carteService.isFidelite(carteSacrifiee)) {
         joueur.deck.push(carteSacrifiee);
         this.sendBotMessage(`${carteSacrifiee.nom} est remise dans le deck`, partieId);
-        this.partieService.melangerDeck(joueur.deck);
+        this.melangerDeck(joueur.deck);
       } else {
         joueur.defausse.push(carteSacrifiee);
       }
@@ -529,7 +579,7 @@ export class CarteEffetService {
       if (this.carteService.isFidelite(carteAleatoire)) {
         partieDatas.adversaire.deck.push(carteAleatoire);
         this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`, partieDatas.partieId);
-        this.partieService.melangerDeck(partieDatas.adversaire.deck);
+        this.melangerDeck(partieDatas.adversaire.deck);
       } else {
         partieDatas.adversaire.defausse.push(carteAleatoire);
       }
@@ -546,7 +596,7 @@ export class CarteEffetService {
         if (this.carteService.isFidelite(carteDessusDeck)) {
           this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck', partieDatas.partieId);
           partieDatas.adversaire.deck.push(carteDessusDeck);
-          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+          this.melangerDeck(partieDatas.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse', partieDatas.partieId);
           partieDatas.adversaire.defausse.push(carteDessusDeck);
@@ -563,7 +613,7 @@ export class CarteEffetService {
         if (this.carteService.isFidelite(carteDessusDeck)) {
           this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck', partieDatas.partieId);
           partieDatas.adversaire.deck.push(carteDessusDeck);
-          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+          this.melangerDeck(partieDatas.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse', partieDatas.partieId);
           partieDatas.adversaire.defausse.push(carteDessusDeck);
@@ -576,7 +626,7 @@ export class CarteEffetService {
         if (this.carteService.isFidelite(carteDessusDeck2)) {
           this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck', partieDatas.partieId);
           partieDatas.adversaire.deck.push(carteDessusDeck2);
-          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+          this.melangerDeck(partieDatas.adversaire.deck);
         } else {
           this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse', partieDatas.partieId);
           partieDatas.adversaire.defausse.push(carteDessusDeck2);
@@ -588,9 +638,9 @@ export class CarteEffetService {
   handlePoisson(carte: ICarte, partieDatas: IPartieDatas) {
     if (!this.joueurService.hasCitadelle(partieDatas.adversaire)) {
       for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
-        partieDatas.adversaire.deck.push(this.partieService.getPoissonPourri());
+        partieDatas.adversaire.deck.push(this.poissonPourri);
       }
-      this.partieService.melangerDeck(partieDatas.adversaire.deck);
+      this.melangerDeck(partieDatas.adversaire.deck);
     }
   }
 
@@ -647,7 +697,7 @@ export class CarteEffetService {
       joueur.deck.push(<ICarte>joueur.main.shift());
     }
 
-    this.partieService.melangerDeck(joueur.deck);
+    this.melangerDeck(joueur.deck);
 
     for (let i = 0; i < tailleMain; i++) {
       joueur.main.push(<ICarte>joueur.deck.shift());
@@ -742,7 +792,7 @@ export class CarteEffetService {
             break;
           case EffetEnum.DOMINATION:
             cible.terrain.forEach(carteCible => {
-              if (!carteCible.bouclier && carteCible.clan.nom === this.carteService.getNomCorrompu()) {
+              if (!carteCible.bouclier && carteCible.clan.nom === this.getNomCorrompu()) {
                 carteCible.diffPuissanceContinue--;
               }
             });
@@ -1150,4 +1200,36 @@ export class CarteEffetService {
   getTourAffiche(partieDatas: IPartieDatas) {
     return Math.ceil((partieDatas.lastEvent ? partieDatas.lastEvent.tour : 0) / 2);
   }
+
+  updateScores(partieDatas: IPartieDatas) {
+    let sommePuissancesJoueur = 0;
+    let sommePuissancesAdversaire = 0;
+
+    for (let carte of partieDatas.joueur.terrain) {
+      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
+    }
+
+    for (let carte of partieDatas.adversaire.terrain) {
+      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
+    }
+
+    partieDatas.joueur.score = sommePuissancesJoueur;
+    partieDatas.adversaire.score = sommePuissancesAdversaire;
+  }
+
+  melangerDeck(deck: ICarte[]) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+  }
+
+  getClanCorrompu(): IClan {
+    return this.clanCorrompu;
+  }
+
+  getTypeCorrompu(): IType {
+    return this.typeCorrompu;
+  }
+
 }

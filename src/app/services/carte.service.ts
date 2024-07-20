@@ -9,11 +9,7 @@ export class CarteService {
 
   constructor() { }
 
-  nomCorrompu = 'Corrompu';
 
-  getNomCorrompu(): string {
-    return this.nomCorrompu;
-  }
 
   isFidelite(carte: ICarte) {
     return carte.effet && carte.effet.code == EffetEnum.FIDELITE && !carte.silence;
