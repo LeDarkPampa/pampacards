@@ -24,6 +24,7 @@ export class CarteMainComponent implements OnInit, OnChanges {
   @Input() carteJouee: boolean = false;
   @Input() carteDefaussee: boolean = false;
   @Input() index: number = 0;
+  @Input() taille: string = 'normal';
   @Output() jouer = new EventEmitter();
   @Output() defausser = new EventEmitter();
   @Output() clickedCarte = new EventEmitter();

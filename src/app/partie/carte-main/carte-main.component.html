@@ -1,4 +1,4 @@
-<div class="card" [ngClass]="{
+<div class="card" [ngClass]="[{
   'air': carte.type.nom === 'Air',
   'champignon': carte.type.nom === 'Champignon',
   'eau': carte.type.nom === 'Eau',
@@ -12,7 +12,7 @@
   'roche': carte.type.nom === 'Roche',
   'espace': carte.type.nom === 'Espace',
   'nuit': carte.type.nom === 'Nuit',
-  'casino': carte.type.nom === 'Casino'}" (click)="ouvrirCadre()">
+  'casino': carte.type.nom === 'Casino'}, taille]" (click)="ouvrirCadre()">
   <div class="card-content">
     <div class="card-header">
       <h3 class="card-title">{{ carte.nom }}</h3>
