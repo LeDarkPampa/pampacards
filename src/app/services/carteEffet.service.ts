@@ -7,6 +7,7 @@ import {CarteService} from "./carte.service";
 import {IPartie} from "../interfaces/IPartie";
 import {TchatService} from "./tchat.service";
 import {PartieService} from "./partie.service";
+import {IPartieDatas} from "../interfaces/IPartieDatas";
 
 @Injectable({
   providedIn: 'root'
@@ -121,6 +122,144 @@ export class CarteEffetService {
       carte.diffPuissanceInstant += puissanceAjoutee;
     }
   }
+
+  handlePari(carte: ICarte, partieDatas: IPartieDatas) {
+    let nbParis = 0;
+    for (let c of partieDatas.joueur.terrain) {
+      if (c.effet && c.effet.code === EffetEnum.PARI) {
+        nbParis = nbParis + 1;
+      }
+    }
+
+    if (nbParis == 2) {
+      for (let c of partieDatas.joueur.terrain) {
+        if (c.effet && c.effet.code === EffetEnum.PARI) {
+          c.puissance = 7;
+        }
+      }
+      carte.puissance = 7;
+    }
+  }
+
+  handleElectrocution(partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasPalissade(partieDatas.adversaire)) {
+      const indexCarteAleatoire = Math.floor(Math.random() * partieDatas.adversaire.main.length);
+      const carteAleatoire = partieDatas.adversaire.main[indexCarteAleatoire];
+
+      if (this.carteService.isFidelite(carteAleatoire)) {
+        partieDatas.adversaire.deck.push(carteAleatoire);
+        this.sendBotMessage(`${carteAleatoire.nom} est remise dans le deck`, partieDatas.partieId);
+        this.partieService.melangerDeck(partieDatas.adversaire.deck);
+      } else {
+        partieDatas.adversaire.defausse.push(carteAleatoire);
+      }
+
+      partieDatas.adversaire.main.splice(indexCarteAleatoire, 1);
+    }
+  }
+
+  handleEnterrement(partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasCitadelle(partieDatas.adversaire)) {
+      const carteDessusDeck = partieDatas.adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck', partieDatas.partieId);
+          partieDatas.adversaire.deck.push(carteDessusDeck);
+          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse', partieDatas.partieId);
+          partieDatas.adversaire.defausse.push(carteDessusDeck);
+        }
+      }
+    }
+  }
+
+  handleDuoterrementEffect(partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasCitadelle(partieDatas.adversaire)) {
+      const carteDessusDeck = partieDatas.adversaire.deck.shift();
+
+      if (carteDessusDeck) {
+        if (this.carteService.isFidelite(carteDessusDeck)) {
+          this.sendBotMessage(carteDessusDeck.nom + ' est remise dans le deck', partieDatas.partieId);
+          partieDatas.adversaire.deck.push(carteDessusDeck);
+          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck.nom + ' est envoyée dans la défausse', partieDatas.partieId);
+          partieDatas.adversaire.defausse.push(carteDessusDeck);
+        }
+      }
+
+      const carteDessusDeck2 = partieDatas.adversaire.deck.shift();
+
+      if (carteDessusDeck2) {
+        if (this.carteService.isFidelite(carteDessusDeck2)) {
+          this.sendBotMessage(carteDessusDeck2.nom + ' est remise dans le deck', partieDatas.partieId);
+          partieDatas.adversaire.deck.push(carteDessusDeck2);
+          this.partieService.melangerDeck(partieDatas.adversaire.deck);
+        } else {
+          this.sendBotMessage(carteDessusDeck2.nom + ' est envoyée dans la défausse', partieDatas.partieId);
+          partieDatas.adversaire.defausse.push(carteDessusDeck2);
+        }
+      }
+    }
+  }
+
+  handlePoisson(carte: ICarte, partieDatas: IPartieDatas) {
+    if (!this.joueurService.hasCitadelle(partieDatas.adversaire)) {
+      for (let i = 0; i < carte.effet.valeurBonusMalus; i++) {
+        partieDatas.adversaire.deck.push(this.partieService.getPoissonPourri());
+      }
+      this.partieService.melangerDeck(partieDatas.adversaire.deck);
+    }
+  }
+
+  handleNuee(carte: ICarte, partieDatas: IPartieDatas) {
+    partieDatas.joueur.terrain.forEach(c => {
+      if (c.id === carte.id) {
+        carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
+      }
+    });
+  }
+
+  handleQuatreEffect(carte: ICarte, partieDatas: IPartieDatas) {
+    carte.puissance = 4;
+    if (!this.joueurService.hasPalissade(partieDatas.adversaire)) {
+      if (partieDatas.joueur.main.length > 0 && partieDatas.adversaire.main.length > 0) {
+        const randomIndexJoueur = Math.floor(Math.random() * partieDatas.joueur.main.length);
+        const randomIndexAdversaire = Math.floor(Math.random() * partieDatas.adversaire.main.length);
+
+        const carteJoueur = partieDatas.joueur.main.splice(randomIndexJoueur, 1)[0];
+        const carteAdversaire = partieDatas.adversaire.main.splice(randomIndexAdversaire, 1)[0];
+
+        partieDatas.adversaire.main.push(carteJoueur);
+        partieDatas.joueur.main.push(carteAdversaire);
+      } else {
+        this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+      }
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  handleCinqEffect(carte: ICarte, partieDatas: IPartieDatas) {
+    carte.puissance = parseInt("5");
+    if (!this.joueurService.hasPalissade(partieDatas.adversaire)) {
+      const temp = partieDatas.joueur.main.slice();
+      partieDatas.joueur.main = partieDatas.adversaire.main;
+      partieDatas.adversaire.main = temp;
+    }
+  }
+
+  handleSixEffect(carte: ICarte, partieDatas: IPartieDatas) {
+    carte.puissance = parseInt("6");
+    if (!this.joueurService.hasCitadelle(partieDatas.adversaire)) {
+      const temp = partieDatas.joueur.deck.slice();
+      partieDatas.joueur.deck = partieDatas.adversaire.deck;
+      partieDatas.adversaire.deck = temp;
+    }
+  }
+
 
   handleReset(joueur: IPlayerState) {
     let tailleMain = joueur.main.length;
