@@ -8,15 +8,16 @@
       <app-pampa-icon-button [icone]="'navigate_before'" [couleur]="'gris'" (clickBouton)="precedent()"></app-pampa-icon-button>
     </div>
     <div *ngIf="partieDatas.adversaire" class="ligne-centree height-total">
-      <span *ngFor="let carte of partieDatas.adversaire.main">
-        <app-carte-main-adv [carte]="carte"></app-carte-main-adv>
-      </span>
+      <div *ngFor="let carte of partieDatas.adversaire.main; let i = index">
+        <app-carte-main [carte]="carte" [index]="i"></app-carte-main>
+      </div>
     </div>
     <div *ngIf="typeEcran === 'replay'">
       <app-pampa-icon-button [icone]="'navigate_next'" [couleur]="'gris'" (clickBouton)="suivant()"></app-pampa-icon-button>
       <app-pampa-icon-button [icone]="'fast_forward'" [couleur]="'gris'" (clickBouton)="dernier()"></app-pampa-icon-button>
     </div>
   </div>
+
   <div *ngIf="partieDatas.lastEvent && !actuaLEvent" class="center infos-tours">
     <app-pampa-tour-animation [tour]="partieDatas.lastEvent ? partieDatas.lastEvent.tour : 0"></app-pampa-tour-animation>
     <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
