@@ -4,19 +4,17 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  Output,
-  SimpleChanges
+  Output
 } from '@angular/core';
 import {ICarte} from "../../interfaces/ICarte";
 
 @Component({
-  selector: 'app-carte-main',
-  templateUrl: './carte-main.component.html',
-  styleUrls: ['./carte-main.component.css', '../../app.component.css']
+  selector: 'app-carte-main-obs',
+  templateUrl: './carte-main-obs.component.html',
+  styleUrls: ['./carte-main-obs.component.css', '../../app.component.css']
 })
-export class CarteMainComponent implements OnInit, OnChanges {
+export class CarteMainObsComponent implements OnInit {
 
   // @ts-ignore
   @Input() carte: ICarte;
@@ -24,9 +22,6 @@ export class CarteMainComponent implements OnInit, OnChanges {
   @Input() carteJouee: boolean = false;
   @Input() carteDefaussee: boolean = false;
   @Input() index: number = 0;
-  @Output() jouer = new EventEmitter();
-  @Output() defausser = new EventEmitter();
-  @Output() clickedCarte = new EventEmitter();
 
   cadreOuvert = false;
 
@@ -47,25 +42,6 @@ export class CarteMainComponent implements OnInit, OnChanges {
       this.cadreOuvert = false;
     }
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.cd.detectChanges();
-  }
-
-  ouvrirCadre() {
-    this.cadreOuvert = true;
-  }
-
-  jouerCarte() {
-    this.jouer.emit(this.index);
-    this.cadreOuvert = false;
-  }
-
-  defausserCarte() {
-    this.defausser.emit(this.index);
-    this.cadreOuvert = false;
-  }
-
   generateStars(rarete: number): number[] {
     return Array(rarete).fill(0);
   }

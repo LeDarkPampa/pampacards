@@ -12,7 +12,7 @@
   'roche': carte.type.nom === 'Roche',
   'espace': carte.type.nom === 'Espace',
   'nuit': carte.type.nom === 'Nuit',
-  'casino': carte.type.nom === 'Casino'}" (click)="ouvrirCadre()">
+  'casino': carte.type.nom === 'Casino'}">
   <div class="card-content">
     <div class="card-header">
       <h3 class="card-title">{{ carte.nom }}</h3>
@@ -51,8 +51,4 @@
       </div>
     </div>
   </div>
-</div>
-<div class="cadre" *ngIf="cadreOuvert && estJoueurActif">
-  <div *ngIf="!carteJouee"><button (click)="jouerCarte()">Jouer</button></div>
-  <div *ngIf="!carteDefaussee"><button (click)="defausserCarte()">Défausser</button></div>
 </div>

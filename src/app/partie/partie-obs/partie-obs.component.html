@@ -9,7 +9,7 @@
     </div>
     <div *ngIf="partieDatas.adversaire" class="ligne-centree height-total">
       <div *ngFor="let carte of partieDatas.adversaire.main; let i = index">
-        <app-carte-main [carte]="carte" [index]="i" [taille]="'petit'"></app-carte-main>
+        <app-carte-main-obs [carte]="carte" [index]="i"></app-carte-main-obs>
       </div>
     </div>
     <div *ngIf="typeEcran === 'replay'">
@@ -91,7 +91,7 @@
   <div class="center main-joueur">
     <div *ngIf="partieDatas.joueur" class="ligne-centree">
       <div *ngFor="let carte of partieDatas.joueur.main; let i = index">
-        <app-carte-main [carte]="carte" [index]="i"></app-carte-main>
+        <app-carte-main-obs [carte]="carte" [index]="i"></app-carte-main-obs>
       </div>
     </div>
   </div>

@@ -77,6 +77,7 @@ import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-di
 import {PartieService} from "./services/partie.service";
 import {CarteEffetService} from "./services/carteEffet.service";
 import {TchatService} from "./services/tchat.service";
+import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import {TchatService} from "./services/tchat.service";
     DetailsLigueComponent,
     AdministrationTournoisComponent,
     InscriptionDialogComponent,
-    OpenAffrontementDialogComponent
+    OpenAffrontementDialogComponent,
+    CarteMainObsComponent
   ],
   imports: [
     RouterModule.forRoot([
