@@ -8,6 +8,7 @@ import {IPartie} from "../interfaces/IPartie";
 import {TchatService} from "./tchat.service";
 import {PartieService} from "./partie.service";
 import {IPartieDatas} from "../interfaces/IPartieDatas";
+import {CustomDialogService} from "./customDialog.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ import {IPartieDatas} from "../interfaces/IPartieDatas";
 export class CarteEffetService {
 
   constructor(private joueurService: JoueurService, private carteService: CarteService,
-              private tchatService: TchatService, private partieService: PartieService) { }
+              private tchatService: TchatService, private partieService: PartieService,
+              private customDialogService: CustomDialogService) { }
 
   addImmunise(carte: ICarte) {
     carte.bouclier = true;
@@ -43,6 +45,56 @@ export class CarteEffetService {
       if (atLeastOne) {
         carte.diffPuissanceInstant += carte.effet.valeurBonusMalus;
       }
+    }
+  }
+
+  handleMeurtreEffect(partieDatas: IPartieDatas) {
+    if (partieDatas.joueur.terrain.filter(c => !c.insensible).length > 0) {
+      this.customDialogService.selectionnerCarte(partieDatas.joueur.terrain.filter(c => !c.insensible)).then((selectedCarte) => {
+        if (selectedCarte) {
+          this.detruireCarte(partieDatas, selectedCarte, 'joueur');
+        }
+      }).catch((error) => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.sendBotMessage('Pas de cible disponible pour le pouvoir', partieDatas.partieId);
+    }
+  }
+
+  private detruireCarte(partieDatas: IPartieDatas, selectedCarte: ICarte, joueurType: 'joueur' | 'adversaire') {
+    const joueur = joueurType === 'joueur' ? partieDatas.joueur : partieDatas.adversaire;
+    const adversaire = joueurType === 'joueur' ? partieDatas.adversaire : partieDatas.joueur;
+
+    this.sendBotMessage(`${joueur.nom} détruit la carte ${selectedCarte.nom}`, partieDatas.partieId);
+    const indexCarte = joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+    const carte = joueur.terrain[indexCarte];
+
+    if (this.carteService.isFidelite(carte)) {
+      joueur.deck.push(carte);
+      this.sendBotMessage(`${carte.nom} est remise dans le deck`, partieDatas.partieId);
+      this.partieService.melangerDeck(joueur.deck);
+    } else if (this.carteService.isCauchemard(carte)) {
+      adversaire.terrain.push(carte);
+      this.sendBotMessage(`${carte.nom} est envoyée sur le terrain adverse`, partieDatas.partieId);
+    } else {
+      joueur.defausse.push(carte);
+    }
+
+    joueur.terrain.splice(indexCarte, 1);
+
+    if (joueurType === 'joueur' && adversaire.terrain.filter(c => !c.bouclier).length > 0) {
+      this.customDialogService.selectionnerCarte(adversaire.terrain.filter(c => !c.bouclier)).then((selectedCarte) => {
+        if (selectedCarte) {
+          this.detruireCarte(partieDatas, selectedCarte, 'adversaire');
+        }
+      }).catch((error) => {
+        console.error(error);
+        this.sendBotMessage('Erreur lors de la sélection de la carte', partieDatas.partieId);
+      });
+    } else {
+      this.updateEffetsContinusAndScores(partieDatas);
     }
   }
 

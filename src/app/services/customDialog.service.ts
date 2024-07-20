@@ -11,6 +11,7 @@ import {IPartieDatas} from "../interfaces/IPartieDatas";
 import {SelectionCarteDialogComponent} from "../partie/selection-carte-dialog/selection-carte-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {Subject} from "rxjs";
+import {VisionCartesDialogComponent} from "../partie/vision-cartes-dialog/vision-cartes-dialog.component";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,18 @@ export class CustomDialogService {
 
     ref.onClose.subscribe(selectedCarte => {
       this.carteSelectionneeSubject.next(selectedCarte);
+    });
+  }
+
+  showVisionCartesDialog(cartes: ICarte[]): void {
+    const ref = this.dialogService.open(VisionCartesDialogComponent, {
+      header: '',
+      width: '50%',
+      data: { cartes },
+      closable: false
+    });
+
+    ref.onClose.subscribe(() => {
     });
   }
 }
