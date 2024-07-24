@@ -170,12 +170,27 @@ export class TournoiService {
     }
   }
 
+  // @ts-ignore
   getAffrontement(joueurId1: number, joueurId2: number, competition: ILigue | ITournoi): IAffrontement {
-    // @ts-ignore
-    return competition.affrontements.find(affrontement =>
-      (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
-      (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
-    );
+    if (this.isTournoi(competition)) {
+      // Si competition est de type ITournoi, recherchez dans les rounds
+      for (const round of competition.rounds) {
+        const affrontement = round.affrontements.find(affrontement => {
+            return (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
+              (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1);
+          }
+        );
+        if (affrontement) {
+          return affrontement;
+        }
+      }
+    } else {
+      // @ts-ignore
+      return competition.affrontements.find(affrontement =>
+        (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
+        (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
+      );
+    }
   }
 
   getActivePartieId(affrontement: IAffrontement): number | undefined {
@@ -237,4 +252,7 @@ export class TournoiService {
     return deck;
   }
 
+  isTournoi(competition: ILigue | ITournoi): competition is ITournoi {
+    return (competition as ITournoi).rounds !== undefined;
+  }
 }

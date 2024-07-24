@@ -16,7 +16,7 @@
         </div>
       </div>
       <div *ngIf="playerInAffrontement(match.joueur1Id, match.joueur2Id)">
-        <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(match.joueur1Id, match.scoreJ2)"></app-pampa-button>
+        <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(match.joueur1Id, match.joueur2Id)"></app-pampa-button>
       </div>
     </div>
   </div>

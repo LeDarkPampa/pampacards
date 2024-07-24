@@ -7,12 +7,7 @@ import {interval, startWith, Subscription, switchMap} from "rxjs";
 import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {AuthentificationService} from "../../services/authentification.service";
 import {IAffrontement} from "../../interfaces/IAffrontement";
-import {IPartie} from "../../interfaces/IPartie";
 import {DialogService} from "primeng/dynamicdialog";
-import {IDeck} from "../../interfaces/IDeck";
-import {OpenAffrontementDialogComponent} from "../open-affrontement-dialog/open-affrontement-dialog.component";
-import {ICarte} from "../../interfaces/ICarte";
-import {IEvenementPartie} from "../../interfaces/IEvenementPartie";
 import {TournoiService} from "../../services/tournoi.service";
 
 @Component({
