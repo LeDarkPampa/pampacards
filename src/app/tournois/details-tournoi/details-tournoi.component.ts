@@ -6,6 +6,7 @@ import { ICompetitionParticipant } from "../../interfaces/ICompetitionParticipan
 import { interval, startWith, Subscription, switchMap } from "rxjs";
 import {IAffrontement} from "../../interfaces/IAffrontement";
 import {AuthentificationService} from "../../services/authentification.service";
+import {TournoiService} from "../../services/tournoi.service";
 
 @Component({
   selector: 'app-details-tournoi',
@@ -24,7 +25,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
   private subscription: Subscription | undefined;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-              private authService: AuthentificationService) { }
+              private authService: AuthentificationService, private tournoiService: TournoiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -59,10 +60,15 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     return (this.userId === joueur1Id || this.userId === joueur2Id);
   }
 
+  openAffrontementPartie(joueurId1: number, joueurId2: number) {
+    if (this.tournoi) {
+      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, this.tournoi, this.authService.getUser());
+    }
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
-
 }
