@@ -66,6 +66,10 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     }
   }
 
+  affontementTermine(affrontement: IAffrontement) {
+    return (affrontement.vainqueurId != null);
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();

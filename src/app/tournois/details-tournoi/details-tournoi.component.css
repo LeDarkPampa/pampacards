@@ -28,3 +28,21 @@
   padding-right: 10px;
   background: grey;
 }
+
+.scoreVainqueur {
+  display: inline;
+  float: right;
+  border-left: 1px solid #AAA;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: forestgreen;
+}
+
+.scorePerdant {
+  display: inline;
+  float: right;
+  border-left: 1px solid #AAA;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: indianred;
+}

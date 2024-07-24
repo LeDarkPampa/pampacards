@@ -2,21 +2,33 @@
 <div class="tableau" *ngIf="tournoi">
   <div class="tour" *ngFor="let round of tournoi.rounds">
     Round : {{round.roundNumber}}
-    <div class="bracket-game" *ngFor="let match of round.affrontements">
+    <div class="bracket-game" *ngFor="let affrontement of round.affrontements">
       <div class="player">
-        {{ findParticipantById(match.joueur1Id) }}
-        <div class="score">
-          {{ match.scoreJ1 }}
+        {{ findParticipantById(affrontement.joueur1Id) }}
+        <div *ngIf="affontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2" class="scoreVainqueur">
+          {{ affrontement.scoreJ1 }}
+        </div>
+        <div *ngIf="affontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2" class="scorePerdant">
+          {{ affrontement.scoreJ1 }}
+        </div>
+        <div *ngIf="!affontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2" class="score">
+          {{ affrontement.scoreJ1 }}
         </div>
       </div>
       <div class="player">
-        {{ findParticipantById(match.joueur2Id) }}
-        <div class="score">
-          {{ match.scoreJ2 }}
+        {{ findParticipantById(affrontement.joueur2Id) }}
+        <div *ngIf="affontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2" class="scorePerdant">
+          {{ affrontement.scoreJ2 }}
+        </div>
+        <div *ngIf="affontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2" class="scoreVainqueur">
+          {{ affrontement.scoreJ2 }}
+        </div>
+        <div *ngIf="!affontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2" class="score">
+          {{ affrontement.scoreJ2 }}
         </div>
       </div>
-      <div *ngIf="playerInAffrontement(match.joueur1Id, match.joueur2Id)">
-        <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(match.joueur1Id, match.joueur2Id)"></app-pampa-button>
+      <div *ngIf="!affontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)">
+        <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(affrontement.joueur1Id, affrontement.joueur2Id)"></app-pampa-button>
       </div>
     </div>
   </div>
