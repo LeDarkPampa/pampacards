@@ -5,7 +5,7 @@ import { ITournoi } from "../../interfaces/ITournoi";
 import { ICompetitionParticipant } from "../../interfaces/ICompetitionParticipant";
 import { interval, startWith, Subscription, switchMap } from "rxjs";
 import {IAffrontement} from "../../interfaces/IAffrontement";
-import {IRound} from "../../interfaces/IRound";
+import {AuthentificationService} from "../../services/authentification.service";
 
 @Component({
   selector: 'app-details-tournoi',
@@ -14,20 +14,23 @@ import {IRound} from "../../interfaces/IRound";
 })
 export class DetailsTournoiComponent implements OnInit, OnDestroy {
 
+  userId = 0;
   tournoiId: number = 0;
   tournoi: ITournoi | undefined;
   players: ICompetitionParticipant[] = [];
   affrontements: IAffrontement[] = [];
-  rounds: IRound[] = [];
 
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+              private authService: AuthentificationService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tournoiId = params['id'];
+
+      this.userId = this.authService.getUserId();
 
       this.subscription = interval(5000)
         .pipe(
@@ -38,8 +41,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
           next: tournoi => {
             this.tournoi = tournoi;
             this.players = this.tournoi.participants;
-            this.affrontements = this.tournoi.rounds[0].affrontements; // Assuming affrontements are directly available
-            this.organizeRounds();
+            this.affrontements = this.tournoi.rounds[0].affrontements;
           },
           error: error => {
             console.error('There was an error!', error);
@@ -48,21 +50,13 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     });
   }
 
-  organizeRounds() {
-    if (this.tournoi) {
-      // Reset rounds
-      this.rounds = [];
-
-      // Organize affrontements in pairs (assuming they are already in order)
-      for (let i = 0; i < this.affrontements.length; i += 2) {
-        // this.rounds.push({affrontements: this.affrontements});
-      }
-    }
+  findParticipantById(id: number): string {
+    const participant = this.players.find(player => player.utilisateur.id == id);
+    return participant ? participant.utilisateur.pseudo : 'Aucun';
   }
 
-  findParticipantById(id: number): string {
-    const participant = this.players.find(player => player.id === id);
-    return participant ? participant.utilisateur.pseudo : 'Aucun';
+  playerInAffrontement(joueur1Id: number, joueur2Id: number): boolean {
+    return (this.userId === joueur1Id || this.userId === joueur2Id);
   }
 
   ngOnDestroy() {

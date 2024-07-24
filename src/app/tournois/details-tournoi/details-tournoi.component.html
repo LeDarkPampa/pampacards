@@ -1,18 +1,21 @@
+<div class="ligne-centree"><h3 *ngIf="tournoi">Tournoi {{tournoi.nom}}</h3></div>
 <div class="tableau" *ngIf="tournoi">
-  <div class="tour" *ngFor="let round of rounds">
+  <div class="tour" *ngFor="let round of tournoi.rounds">
+    Round : {{round.roundNumber}}
     <div class="bracket-game" *ngFor="let match of round.affrontements">
       <div class="player">
-        {{ match.joueur1Id }}
+        {{ findParticipantById(match.joueur1Id) }}
         <div class="score">
           {{ match.scoreJ1 }}
         </div>
       </div>
       <div class="player">
-        {{ match.joueur2Id }}
+        {{ findParticipantById(match.joueur2Id) }}
         <div class="score">
           {{ match.scoreJ2 }}
         </div>
       </div>
+      <div *ngIf="playerInAffrontement(match.joueur1Id, match.joueur2Id)"><app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'"></app-pampa-button></div>
     </div>
   </div>
 </div>
