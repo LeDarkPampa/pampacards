@@ -1,5 +1,8 @@
 <div class="ligne-centree"><h3 *ngIf="tournoi">Tournoi {{tournoi.nom}}</h3></div>
 <div class="tableau" *ngIf="tournoi">
+  <div *ngfIf="isTournoiTermine()">
+    Vainqeur du tournoi :  {{ findParticipantById(getVainqueurId()) }}
+  </div>
   <div class="tour" *ngFor="let round of tournoi.rounds">
     Round : {{round.roundNumber}}
     <div class="bracket-game" *ngFor="let affrontement of round.affrontements">
