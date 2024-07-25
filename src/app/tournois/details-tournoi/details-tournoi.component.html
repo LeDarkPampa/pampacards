@@ -30,7 +30,7 @@
             {{ affrontement.scoreJ2 }}
           </span>
         </div>
-        <div *ngIf="!affontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action">
+        <div *ngIf="!affontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action ligne-centree">
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(affrontement.joueur1Id, affrontement.joueur2Id)"></app-pampa-button>
         </div>
       </div>
