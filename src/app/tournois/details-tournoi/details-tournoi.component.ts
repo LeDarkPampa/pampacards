@@ -74,7 +74,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     if (this.tournoi) {
       for (const round of this.tournoi.rounds) {
         for (const affrontement of round.affrontements) {
-          if (!affrontement.vainqueurId) {
+          if (affrontement.vainqueurId == null) {
             return false;
           }
         }
