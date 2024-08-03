@@ -16,8 +16,8 @@ export class InscriptionDialogComponent implements OnInit {
   // @ts-ignore
   competition: any;
   decks: IDeck[] = [];
-  selectedDecks: any[] = [];
   hasValidDeck: boolean = true;
+  selectedDecks: any[] = [];
   userId = 0;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,

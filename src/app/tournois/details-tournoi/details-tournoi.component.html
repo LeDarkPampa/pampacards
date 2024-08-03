@@ -1,13 +1,13 @@
 <div class="container">
-  <div *ngIf="tournoi" class="header">
-    <h3>Tournoi {{tournoi.nom}}</h3>
-    <div *ngIf="isTournoiTermine(tournoi)" class="vainqueur">
-      Vainqueur du tournoi : {{ findParticipantById(getTournoiVainqueurId(tournoi)) }}
+  <div *ngIf="tournoi()" class="header">
+    <h3>Tournoi {{tournoi()!.nom}}</h3>
+    <div *ngIf="isTournoiTermine(tournoi()!)" class="vainqueur">
+      Vainqueur du tournoi : {{ findParticipantById(getTournoiVainqueurId(tournoi()!)) }}
     </div>
   </div>
-
-  <div class="tableau" *ngIf="tournoi">
-    <div class="tour" *ngFor="let round of tournoi.rounds">
+s
+  <div class="tableau" *ngIf="tournoi()">
+    <div class="tour" *ngFor="let round of tournoi()!.rounds">
       <div class="round-header">Round : {{round.roundNumber}}</div>
       <div class="bracket-game" *ngFor="let affrontement of round.affrontements">
         <div class="player">

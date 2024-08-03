@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let tournoi of tournoisOuverts">
+        <tr *ngFor="let tournoi of tournoisOuverts()">
           <td>{{ tournoi.nom }}</td>
           <td>{{ tournoi.nombreDeJoueurs }}</td>
           <td>{{ tournoi.format.nom }}</td>
@@ -57,7 +57,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ligue of liguesOuvertes">
+        <tr *ngFor="let ligue of liguesOuvertes()">
           <td>{{ ligue.nom }}</td>
           <td>{{ ligue.format.nom }}</td>
           <td>{{ ligue.typeCombat.nom }}</td>
@@ -93,7 +93,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let tournoi of registeredTournaments">
+        <tr *ngFor="let tournoi of registeredTournaments()">
           <td>{{ tournoi.nom }}</td>
           <td><span [ngClass]="{'status-active': tournoi.statut === 'En cours',
           'status-pending': tournoi.statut === 'En attente',
@@ -119,7 +119,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ligue of registeredLigues">
+        <tr *ngFor="let ligue of registeredLigues()">
           <td>{{ ligue.nom }}</td>
           <td><span [ngClass]="{'status-active': ligue.statut === 'En cours',
           'status-pending': ligue.statut === 'En attente',

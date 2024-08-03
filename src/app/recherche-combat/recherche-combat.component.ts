@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {IDeck} from "../interfaces/IDeck";
 import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
@@ -21,8 +21,8 @@ import {IFormat} from "../interfaces/IFormat";
   styleUrls: ['./recherche-combat.component.css', '../app.component.css']
 })
 export class RechercheCombatComponent implements OnInit, OnDestroy {
-  opponentList: IUtilisateur[] = [];
-  demandesCombats: IDemandeCombat[] = [];
+  opponentList = signal<IUtilisateur[]>([]);
+  demandesCombats = signal<IDemandeCombat[]>([]);
   searching = false;
   userId = 0;
   // @ts-ignore
@@ -96,7 +96,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   getUsersSearchingFight() {
     this.http.get<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/usersToFight').subscribe({
       next: data => {
-        this.opponentList = data;
+        this.opponentList.set(data);
       },
       error: error => {
         console.error('There was an error!', error);
@@ -147,8 +147,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.sseService.getRechercheAdversairesFlux();
     this.usersToFightSubscription = this.sseService.usersToFight$.subscribe(
       (utilisateurs: IUtilisateur[]) => {
-        this.opponentList = utilisateurs;
-        this.cd.detectChanges();
+        this.opponentList.set(utilisateurs);
       },
       (error: any) => console.error(error)
     );
@@ -158,7 +157,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.sseService.getDemandeCombatFlux();
     this.demandesDeCombatSubscription = this.sseService.demandesDeCombat$.subscribe(
       (demandes: IDemandeCombat[]) => {
-        this.demandesCombats = [];
+        this.demandesCombats.set([]);
         this.tableauDemandesEnvoyees = [];
         this.tableauDemandesRecues = [];
         for (let demande of demandes) {
@@ -171,7 +170,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
           if (demande.joueurDeuxId == this.userId && demande.status == DemandeCombatStatusEnum.DEMANDE_ENVOYEE) {
             demande.status = DemandeCombatStatusEnum.DEMANDE_RECUE;
             this.updateDemandeCombat(demande);
-            this.demandesCombats.push(demande);
+            this.demandesCombats.update((currentDemandes) => [...currentDemandes, demande]);
           }
 
           if (demande.joueurUnId == this.userId && demande.status == DemandeCombatStatusEnum.PARTIE_CREEE) {
@@ -197,7 +196,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       });
 
       ref.onClose.subscribe((demandeCombat: IDemandeCombat) => {
-        this.demandesCombats.push(demandeCombat);
+        this.demandesCombats.update((currentDemandes) => [...currentDemandes, demandeCombat]);
         if (demandeCombat.status === DemandeCombatStatusEnum.DEMANDE_ACCEPTEE) {
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createPartie', demandeCombat).subscribe({
             next: response => {
@@ -272,15 +271,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
 
   refuserDemande(demande: IDemandeCombat) {
     demande.status = DemandeCombatStatusEnum.DEMANDE_REFUSEE;
-    let index = this.demandesCombats.findIndex(d => d.id === demande.id);
+    let index = this.demandesCombats().findIndex(d => d.id === demande.id);
     if (index !== -1) {
-      this.demandesCombats.splice(index, 1);
+      this.demandesCombats().splice(index, 1);
     }
-    index = this.demandesCombats.findIndex(d => d.id === demande.id);
+    index = this.demandesCombats().findIndex(d => d.id === demande.id);
     if (index !== -1) {
-      this.demandesCombats.splice(index, 1);
+      this.demandesCombats().splice(index, 1);
     }
-    this.cd.detectChanges();
     this.updateDemandeCombat(demande);
   }
 

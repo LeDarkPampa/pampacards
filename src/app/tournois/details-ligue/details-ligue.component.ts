@@ -1,13 +1,12 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {ILigue} from "../../interfaces/ILigue";
 import {ICompetitionParticipant} from "../../interfaces/ICompetitionParticipant";
 import {interval, startWith, Subscription, switchMap} from "rxjs";
 import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {AuthentificationService} from "../../services/authentification.service";
 import {IAffrontement} from "../../interfaces/IAffrontement";
-import {DialogService} from "primeng/dynamicdialog";
 import {TournoiService} from "../../services/tournoi.service";
 
 @Component({
@@ -17,19 +16,18 @@ import {TournoiService} from "../../services/tournoi.service";
 })
 export class DetailsLigueComponent implements OnInit, OnDestroy {
 
-  // @ts-ignore
-  utilisateur: IUtilisateur;
-  ligueId: number = 0;
-  // @ts-ignore
-  ligue: ILigue;
-  players: ICompetitionParticipant[] = [];
-  sortedPlayers: ICompetitionParticipant[] = [];
-  hasAffrontement: boolean = false;
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
+  // @ts-ignore
+  utilisateur: IUtilisateur;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private zone: NgZone, private router: Router,
-              private dialogService: DialogService, private authService: AuthentificationService, private tournoiService: TournoiService) {
+  ligue= signal<ILigue | null>(null);
+  players= signal<ICompetitionParticipant[]>([]);
+  sortedPlayers = signal<ICompetitionParticipant[]>([]);
+  hasAffrontement= signal(false);
+
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+              private authService: AuthentificationService, private tournoiService: TournoiService) {
 
   }
 
@@ -37,20 +35,20 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     // @ts-ignore
     this.utilisateur = this.authService.getUser();
     this.route.params.subscribe(params => {
-      this.ligueId = params['id'];
+      const ligueId = params['id'];
       this.subscription = interval(5000)
         .pipe(
           startWith(0),
-          switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + this.ligueId))
+          switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + ligueId))
         )
         .subscribe({
           next: ligue => {
-            this.ligue = ligue;
-            this.players = this.ligue.participants.filter(player => player.utilisateur !== null).sort(this.compareByPseudo);
-            this.hasAffrontement = this.checkIfAffrontement(this.utilisateur.id, this.ligue.affrontements);
+            this.ligue.set(ligue);
+            this.players.set(ligue.participants.filter(player => player.utilisateur !== null).sort(this.compareByPseudo));
+            this.hasAffrontement.set(this.checkIfAffrontement(this.utilisateur.id, ligue.affrontements));
 
             // Trier les joueurs pour le classement
-            this.sortedPlayers = this.players.slice().sort((a, b) => this.comparePlayers(a, b));
+            this.sortedPlayers.set(this.players().slice().sort((a, b) => this.comparePlayers(a, b)));
           },
           error: error => {
             console.error('There was an error!', error);
@@ -64,7 +62,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   isAffrontement(joueurId1: number, joueurId2: number): boolean {
-    return this.ligue.affrontements.some(affrontement =>
+    return this.ligue()!.affrontements.some(affrontement =>
       ((affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
       (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1))
     );
@@ -79,7 +77,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getScoreAffrontement(joueurId1: number, joueurId2: number): string {
-    const affrontementRecherche = this.tournoiService.getAffrontement(joueurId1, joueurId2, this.ligue);
+    const affrontementRecherche = this.tournoiService.getAffrontement(joueurId1, joueurId2, this.ligue()!);
 
     if (affrontementRecherche) {
       return affrontementRecherche.scoreJ1 + ' - ' + affrontementRecherche.scoreJ2;
@@ -132,23 +130,23 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getNombreVictoires(joueurId: number): number {
-    return this.ligue.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
+    return this.ligue()!.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
   }
 
   getNombreNuls(joueurId: number): number {
-    return this.ligue.affrontements.filter(affrontement =>
+    return this.ligue()!.affrontements.filter(affrontement =>
       (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
       && (affrontement.vainqueurId !== null && affrontement.vainqueurId === 0)).length;
   }
 
   getNombreDefaites(joueurId: number): number {
-    return this.ligue.affrontements.filter(affrontement =>
+    return this.ligue()!.affrontements.filter(affrontement =>
       (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
       && (affrontement.vainqueurId !== null && affrontement.vainqueurId !== 0 && affrontement.vainqueurId !== joueurId)).length;
   }
 
   getNombreManchesGagnees(joueurId: number): number {
-    return this.ligue.affrontements
+    return this.ligue()!.affrontements
       .filter(affrontement =>
         ((affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId))
       )
@@ -158,7 +156,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   getNombreManchesPerdues(joueurId: number): number {
-    return this.ligue.affrontements
+    return this.ligue()!.affrontements
       .filter(affrontement =>
         ((affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId))
       )
@@ -177,7 +175,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
     if (this.ligue) {
-      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, this.ligue, this.authService.getUser());
+      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, this.ligue()!, this.authService.getUser());
     }
   }
 

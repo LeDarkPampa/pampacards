@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IDeck} from "../../interfaces/IDeck";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 
@@ -7,7 +7,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
   templateUrl: './open-affrontement-dialog.component.html',
   styleUrls: ['./open-affrontement-dialog.component.css']
 })
-export class OpenAffrontementDialogComponent {
+export class OpenAffrontementDialogComponent implements OnInit {
   // @ts-ignore
   decks: IDeck[];
   // @ts-ignore

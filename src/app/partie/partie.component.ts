@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {Subject, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import { HttpClient } from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
@@ -81,13 +81,13 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   lastEventId: number = 0;
   estJoueurActif = signal(false);
-  estPremierJoueur: boolean = false;
+  estPremierJoueur = signal(false);
   carteJouee = signal(false);
   carteDefaussee = signal(false);
   clickedCartePath: string = '';
 
   isFlashing: boolean = false;
-  enAttente: boolean = true;
+  enAttente = signal(true);
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
@@ -153,7 +153,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       score: 0
     };
 
-    this.estPremierJoueur = this.partie.joueurUn.id === this.userId;
+    this.estPremierJoueur.set(this.partie.joueurUn.id === this.userId);
   }
 
   finDeTour() {
@@ -165,12 +165,11 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
     if (this.partieDatas.lastEvent.status === "EN_ATTENTE") {
-      this.enAttente = true;
-      this.cd.detectChanges();
+      this.enAttente.set(true);
       return;
     }
 
-    this.enAttente = false;
+    this.enAttente.set(false);
 
     if (lastEvent.status === "FIN_PARTIE" && !this.partieDatas.finDePartie) {
       this.partieDatas.finDePartie = true;
@@ -346,21 +345,21 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getJoueurColorClass(): string {
     if (this.partieDatas.finDePartie) {
-      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+      return this.estPremierJoueur() ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
     } else if (this.estJoueurActif()) {
-      return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
+      return this.estPremierJoueur() ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
     } else {
-      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+      return this.estPremierJoueur() ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
     }
   }
 
   getAdvColorClass(): string {
     if (this.partieDatas.finDePartie) {
-      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+      return this.estPremierJoueur() ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else if (this.estJoueurActif()) {
-      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+      return this.estPremierJoueur() ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else {
-      return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+      return this.estPremierJoueur() ? 'terrain-adv-autre' : 'terrain-adv-premier';
     }
   }
 

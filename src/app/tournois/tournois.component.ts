@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, signal} from '@angular/core';
 import {TournoiService} from "../services/tournoi.service";
 import {ITournoi} from "../interfaces/ITournoi";
 import {ILigue} from "../interfaces/ILigue";
@@ -21,16 +21,15 @@ import {IinscriptionCompetition} from "../interfaces/IinscriptionCompetition";
   styleUrls: ['./tournois.component.css', '../app.component.css']
 })
 export class TournoisComponent implements OnInit {
-  tournoisOuverts: ITournoi[] = [];
-  liguesOuvertes: ILigue[] = [];
+  tournoisOuverts= signal<ITournoi[]>([]);
+  liguesOuvertes= signal<ILigue[]>([]);
 
-  registeredTournaments: ITournoi[] = [];
-  registeredLigues: ILigue[] = [];
+  registeredTournaments= signal<ITournoi[]>([]);
+  registeredLigues= signal<ILigue[]>([]);
 
-  // @ts-ignore
-  utilisateur: IUtilisateur;
-  // @ts-ignore
-  allDecks: IDeck[] = [];
+  utilisateur = signal<IUtilisateur | null>(null);
+
+  allDecks= signal<IDeck[]>([]);
 
 
   constructor(private http: HttpClient, private router: Router, private zone: NgZone,
@@ -39,9 +38,9 @@ export class TournoisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.utilisateur = this.authService.getUser();
+    this.utilisateur.set(this.authService.getUser());
     this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-      this.allDecks = playerDecks;
+      this.allDecks.set(playerDecks);
     });
     this.refreshTournoisLigueListes();
   }
@@ -52,7 +51,7 @@ export class TournoisComponent implements OnInit {
         header: 'Inscription pour ' + tournoi.nom,
         width: '60%',
         height: '60%',
-        data: { competition: tournoi, decks: this.allDecks.filter(deck =>
+        data: { competition: tournoi, decks: this.allDecks().filter(deck =>
             deck.formats.some(format => format.formatId === tournoi.format.formatId)
           )
         },
@@ -85,7 +84,7 @@ export class TournoisComponent implements OnInit {
         header: 'Inscription pour ' + ligue.nom,
         width: '60%',
         height: '60%',
-        data: { competition: ligue, decks: this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  ligue.format.formatId)) },
+        data: { competition: ligue, decks: this.allDecks().filter(deck => deck.formats.some(format => format.formatId ===  ligue.format.formatId)) },
         closable: false
       });
 
@@ -143,11 +142,21 @@ export class TournoisComponent implements OnInit {
   }
 
   isUserInTournoiParticipants(tournoi: ITournoi): boolean {
-    return tournoi.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === this.utilisateur.id);
+    if (this.utilisateur()) {
+      const utilisateur = this.utilisateur()!;
+      return tournoi.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === utilisateur.id);
+    } else {
+      return false;
+    }
   }
 
   isUserInLigueParticipants(ligue: ILigue): boolean {
-    return ligue.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === this.utilisateur.id);
+    if (this.utilisateur()) {
+      const utilisateur = this.utilisateur()!;
+      return ligue.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === utilisateur.id);
+    } else {
+      return false;
+    }
   }
 
   inscriptionTournoiOuverte(tournoi: ITournoi): boolean {
@@ -177,7 +186,7 @@ export class TournoisComponent implements OnInit {
   refreshTournoisLigueListes() {
     this.tournoiService.getTournoisAVenir().subscribe({
       next: (data) => {
-          this.tournoisOuverts = data;
+          this.tournoisOuverts.set(data);
         },
       error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
@@ -186,30 +195,33 @@ export class TournoisComponent implements OnInit {
 
     this.tournoiService.getLiguesAVenir().subscribe({
       next: (data) => {
-        this.liguesOuvertes = data;
+        this.liguesOuvertes.set(data);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
     });
 
-    this.tournoiService.getTournoisValidesForUser(this.utilisateur.id).subscribe({
-      next: (data) => {
-        this.registeredTournaments = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
-      }
-    });
+    if (this.utilisateur() !== null) {
+      const utilisateur = this.utilisateur()!;
+      this.tournoiService.getTournoisValidesForUser(utilisateur.id).subscribe({
+        next: (data) => {
+          this.registeredTournaments.set(data);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        }
+      });
 
-    this.tournoiService.getLiguesValidesForUser(this.utilisateur.id).subscribe({
-      next: (data) => {
-        this.registeredLigues = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
-      }
-    });
+      this.tournoiService.getLiguesValidesForUser(utilisateur.id).subscribe({
+        next: (data) => {
+          this.registeredLigues.set(data);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        }
+      });
+    }
   }
 
   voirTournoi(tournoi: ITournoi) {
