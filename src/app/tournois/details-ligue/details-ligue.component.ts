@@ -26,7 +26,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   sortedPlayers: ICompetitionParticipant[] = [];
   hasAffrontement: boolean = false;
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
-  private API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
   private subscription: Subscription | undefined;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private zone: NgZone, private router: Router,

@@ -1,13 +1,5 @@
 import { Injectable } from '@angular/core';
 import {ICarte} from "../interfaces/ICarte";
-import {EffetEnum} from "../interfaces/EffetEnum";
-import {IPlayerState} from "../interfaces/IPlayerState";
-import {JoueurService} from "./joueur.service";
-import {CarteService} from "./carte.service";
-import {IPartie} from "../interfaces/IPartie";
-import {TchatService} from "./tchat.service";
-import {PartieService} from "./partie.service";
-import {IPartieDatas} from "../interfaces/IPartieDatas";
 import {SelectionCarteDialogComponent} from "../partie/selection-carte-dialog/selection-carte-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {Subject} from "rxjs";
@@ -20,7 +12,6 @@ export class CustomDialogService {
 
   carteSelectionneeSubject = new Subject<ICarte>();
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
-  public secondeCarteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
 
   constructor(private dialogService: DialogService) { }
 

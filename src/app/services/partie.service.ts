@@ -3,8 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "./authentification.service";
 import {ICarte} from "../interfaces/ICarte";
 import {IPlayerState} from "../interfaces/IPlayerState";
-import {IClan} from "../interfaces/IClan";
-import {IType} from "../interfaces/IType";
 import {IPartieDatas} from "../interfaces/IPartieDatas";
 import {CarteService} from "./carte.service";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";

@@ -73,7 +73,7 @@ export class TournoiService {
 
               if ((partie.joueurUn?.id === utilisateur?.id && !partie.deckJoueurUnId) ||
                 (partie.joueurDeux?.id === utilisateur?.id && !partie.deckJoueurDeuxId)) {
-                const decks = this.getDecksForUser(utilisateur?.id, affrontement, competition, utilisateur);
+                const decks = this.getDecksToSelectForUser(utilisateur?.id, affrontement, competition, utilisateur);
 
                 if (decks) {
                   this.zone.run(() => {
@@ -211,7 +211,7 @@ export class TournoiService {
     }
   }
 
-  getDecksForUser(id: number, affrontement: IAffrontement, competition: ILigue | ITournoi, utilisateur: IUtilisateur): IDeck[] | undefined {
+  getDecksToSelectForUser(id: number, affrontement: IAffrontement, competition: ILigue | ITournoi, utilisateur: IUtilisateur): IDeck[] | undefined {
     let filteredDecks: IDeck[] = [];
 
     const participant = competition.participants.filter(player => player.utilisateur !== null).find(participant => participant.utilisateur.id === id);
@@ -254,5 +254,43 @@ export class TournoiService {
 
   isTournoi(competition: ILigue | ITournoi): competition is ITournoi {
     return (competition as ITournoi).rounds !== undefined;
+  }
+
+  isTournoiTermine(tournoi: ITournoi): boolean {
+    if (tournoi) {
+      for (const round of tournoi.rounds) {
+        for (const affrontement of round.affrontements) {
+          if (affrontement.vainqueurId == null) {
+            return false;
+          }
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getTournoiVainqueurId(tournoi: ITournoi): number {
+    if (tournoi) {
+      if (tournoi.rounds.length === 0) {
+        return 0; // Si le tournoi n'a pas de rounds, retourner 0
+      }
+
+      // Trouver le round avec le numéro le plus élevé
+      const dernierRound = tournoi.rounds.reduce((prev, current) => {
+        return (prev.roundNumber > current.roundNumber) ? prev : current;
+      });
+
+      // Vérifier si le dernier round a des affrontements et retourner le vainqueurId du premier affrontement trouvé
+      for (const affrontement of dernierRound.affrontements) {
+        if (affrontement.vainqueurId) {
+          return affrontement.vainqueurId;
+        }
+      }
+    }
+
+    // Si aucun vainqueurId n'est trouvé dans les affrontements du dernier round, retourner 0
+    return 0;
   }
 }

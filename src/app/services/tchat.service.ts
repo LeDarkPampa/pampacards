@@ -1,16 +1,5 @@
 import { Injectable } from '@angular/core';
-import {IDeck} from "../interfaces/IDeck";
 import {HttpClient} from "@angular/common/http";
-import {Observable, of, throwError} from "rxjs";
-import {AuthentificationService} from "./authentification.service";
-import { catchError, map } from 'rxjs/operators';
-import {IFormat} from "../interfaces/IFormat";
-import {ICarte} from "../interfaces/ICarte";
-import {IEvenementPartie} from "../interfaces/IEvenementPartie";
-import {IUtilisateur} from "../interfaces/IUtilisateur";
-import {IPlayerState} from "../interfaces/IPlayerState";
-import {IClan} from "../interfaces/IClan";
-import {IType} from "../interfaces/IType";
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
 
 @Injectable({

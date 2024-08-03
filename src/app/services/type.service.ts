@@ -5,6 +5,7 @@ import { IType } from '../interfaces/IType';
 import {catchError} from "rxjs/operators";
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
+import {Cacheable, LocalStorageStrategy} from "ts-cacheable";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class TypeService {
   constructor(private http: HttpClient, private authService: AuthentificationService,
               private propertiesService: PropertiesService) { }
 
+  @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllTypes(): Observable<IType[]> {
     let url = this.typessUrl;
 

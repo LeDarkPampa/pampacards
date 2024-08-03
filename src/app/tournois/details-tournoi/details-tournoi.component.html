@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="header">
-    <h3 *ngIf="tournoi">Tournoi {{tournoi.nom}}</h3>
-    <div *ngIf="isTournoiTermine()" class="vainqueur">
-      Vainqueur du tournoi : {{ findParticipantById(getVainqueurId()) }}
+  <div *ngIf="tournoi" class="header">
+    <h3>Tournoi {{tournoi.nom}}</h3>
+    <div *ngIf="isTournoiTermine(tournoi)" class="vainqueur">
+      Vainqueur du tournoi : {{ findParticipantById(getTournoiVainqueurId(tournoi)) }}
     </div>
   </div>
 
@@ -13,9 +13,9 @@
         <div class="player">
           <span>{{ findParticipantById(affrontement.joueur1Id) }}</span>
           <span [ngClass]="{
-              'scoreVainqueur': affontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2,
-              'scorePerdant': affontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2,
-              'score': !affontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2,
+              'score': !isAffontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
             }">
             {{ affrontement.scoreJ1 }}
           </span>
@@ -23,14 +23,14 @@
         <div class="player">
           <span>{{ findParticipantById(affrontement.joueur2Id) }}</span>
           <span [ngClass]="{
-              'scoreVainqueur': affontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2,
-              'scorePerdant': affontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2,
-              'score': !affontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.scoreJ1 < affrontement.scoreJ2,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.scoreJ1 > affrontement.scoreJ2,
+              'score': !isAffontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
             }">
             {{ affrontement.scoreJ2 }}
           </span>
         </div>
-        <div *ngIf="!affontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action ligne-centree">
+        <div *ngIf="!isAffontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action ligne-centree">
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(affrontement.joueur1Id, affrontement.joueur2Id)"></app-pampa-button>
         </div>
       </div>

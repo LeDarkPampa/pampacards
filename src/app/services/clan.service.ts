@@ -5,6 +5,7 @@ import { IClan } from '../interfaces/IClan';
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
 import {catchError} from "rxjs/operators";
+import {Cacheable, LocalStorageStrategy} from "ts-cacheable";
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,7 @@ export class ClanService {
   constructor(private http: HttpClient, private authService: AuthentificationService,
               private propertiesService: PropertiesService) { }
 
+  @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllClans(): Observable<IClan[]> {
     let url = this.clansUrl;
 

@@ -28,6 +28,7 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
               private authService: AuthentificationService, private tournoiService: TournoiService) { }
 
   ngOnInit() {
+    // On met à jour l'affichage de l'écran toutes les 5 secondes
     this.route.params.subscribe(params => {
       this.tournoiId = params['id'];
 
@@ -66,46 +67,16 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     }
   }
 
-  affontementTermine(affrontement: IAffrontement) {
+  isAffontementTermine(affrontement: IAffrontement) {
     return (affrontement.vainqueurId != null);
   }
 
-  isTournoiTermine(): boolean {
-    if (this.tournoi) {
-      for (const round of this.tournoi.rounds) {
-        for (const affrontement of round.affrontements) {
-          if (affrontement.vainqueurId == null) {
-            return false;
-          }
-        }
-      }
-      return true;
-    } else {
-      return false;
-    }
+  isTournoiTermine(tournoi: ITournoi): boolean {
+    return this.tournoiService.isTournoiTermine(tournoi);
   }
 
-  getVainqueurId(): number {
-    if (this.tournoi) {
-      if (this.tournoi.rounds.length === 0) {
-        return 0; // Si le tournoi n'a pas de rounds, retourner 0
-      }
-
-      // Trouver le round avec le numéro le plus élevé
-      const dernierRound = this.tournoi.rounds.reduce((prev, current) => {
-        return (prev.roundNumber > current.roundNumber) ? prev : current;
-      });
-
-      // Vérifier si le dernier round a des affrontements et retourner le vainqueurId du premier affrontement trouvé
-      for (const affrontement of dernierRound.affrontements) {
-        if (affrontement.vainqueurId) {
-          return affrontement.vainqueurId;
-        }
-      }
-    }
-
-    // Si aucun vainqueurId n'est trouvé dans les affrontements du dernier round, retourner 0
-    return 0;
+  getTournoiVainqueurId(tournoi: ITournoi): number {
+    return this.tournoiService.getTournoiVainqueurId(tournoi);
   }
 
   ngOnDestroy() {

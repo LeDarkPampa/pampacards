@@ -736,7 +736,7 @@ export class CarteEffetService {
   }
 
   resetBoucliersEtPuissances(joueur: IPlayerState) {
-    const hasProtecteurForet = this.joueurService.getJoueurHasProtecteurForet(joueur);
+    const hasProtecteurForet = this.joueurService.hasProtecteurForet(joueur);
 
     for (let carte of joueur.terrain) {
       carte.diffPuissanceContinue = 0;

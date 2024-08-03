@@ -175,41 +175,41 @@ export class TournoisComponent implements OnInit {
   }
 
   refreshTournoisLigueListes() {
-    this.tournoiService.getTournoisAVenir().subscribe(
-      (data) => {
-        this.tournoisOuverts = data;
-      },
-      (error) => {
+    this.tournoiService.getTournoisAVenir().subscribe({
+      next: (data) => {
+          this.tournoisOuverts = data;
+        },
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
 
-    this.tournoiService.getLiguesAVenir().subscribe(
-      (data) => {
+    this.tournoiService.getLiguesAVenir().subscribe({
+      next: (data) => {
         this.liguesOuvertes = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
 
-    this.tournoiService.getTournoisValidesForUser(this.utilisateur.id).subscribe(
-      (data) => {
+    this.tournoiService.getTournoisValidesForUser(this.utilisateur.id).subscribe({
+      next: (data) => {
         this.registeredTournaments = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
 
-    this.tournoiService.getLiguesValidesForUser(this.utilisateur.id).subscribe(
-      (data) => {
+    this.tournoiService.getLiguesValidesForUser(this.utilisateur.id).subscribe({
+      next: (data) => {
         this.registeredLigues = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
   }
 
   voirTournoi(tournoi: ITournoi) {

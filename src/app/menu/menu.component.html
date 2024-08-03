@@ -60,9 +60,6 @@
     <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/tournois" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Tournois</a>
     </li>
-    <!--
-    <a class="button" routerLink="/classements" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Classements</a>
-    -->
     <li *ngIf="authService.isLoggedIn$ | async">
       <a class="button" routerLink="/mon-compte" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Mon compte</a>
     </li>

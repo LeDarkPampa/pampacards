@@ -45,7 +45,7 @@ export class JoueurService {
     return result;
   }
 
-  getJoueurHasProtecteurForet(joueur: IPlayerState) {
+  hasProtecteurForet(joueur: IPlayerState) {
     return joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
   }
 }
