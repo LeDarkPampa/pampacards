@@ -12,7 +12,7 @@ import {Cacheable, LocalStorageStrategy} from "ts-cacheable";
 })
 export class TypeService {
   private typesTestUrl = 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes';
-  
+
   private typessUrl = 'https://pampacardsback-57cce2502b80.herokuapp.com/api/types';
 
   constructor(private http: HttpClient, private authService: AuthentificationService,

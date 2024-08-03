@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../services/sse.service";
 import {Subject, Subscription} from "rxjs";
@@ -23,9 +23,6 @@ import {CustomDialogService} from "../services/customDialog.service";
   styleUrls: ['./partie.component.css', '../app.component.css']
 })
 export class PartieComponent implements OnInit, OnDestroy {
-
-  carteSelectionneeSubject = new Subject<ICarte>();
-  public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
 
   partieDatas: IPartieDatas = {
     partieId: 0,
@@ -83,10 +80,10 @@ export class PartieComponent implements OnInit, OnDestroy {
   private evenementsPartieSubscription: Subscription;
 
   lastEventId: number = 0;
-  estJoueurActif = false;
+  estJoueurActif = signal(false);
   estPremierJoueur: boolean = false;
-  carteJouee = false;
-  carteDefaussee = false;
+  carteJouee = signal(false);
+  carteDefaussee = signal(false);
   clickedCartePath: string = '';
 
   isFlashing: boolean = false;
@@ -160,7 +157,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   finDeTour() {
-    if (this.estJoueurActif) {
+    if (this.estJoueurActif()) {
       let event = this.partieEventService.createEndTurnEvent(this.partie, this.userId, this.partieDatas.joueur, this.partieDatas.adversaire, this.partieDatas.lastEvent);
       this.partieEventService.sendEvent(event);
     }
@@ -186,7 +183,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.partieDatas.finDePartie = true;
     }
 
-    this.estJoueurActif = lastEvent.joueurActifId === this.userId;
+    this.estJoueurActif.set(lastEvent.joueurActifId === this.userId);
 
     const isNotTourEnCoursOrEmptyDeck = lastEvent.joueurActifId !== this.partieDatas.joueur.id
       || lastEvent.status !== "TOUR_EN_COURS"
@@ -196,10 +193,10 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.partieService.updatePlayerAndOpponent(lastEvent, this.partie, this.partieDatas, this.userId);
     }
 
-    this.carteJouee = lastEvent.carteJouee;
-    this.carteDefaussee = lastEvent.carteDefaussee;
+    this.carteJouee.set(lastEvent.carteJouee);
+    this.carteDefaussee.set(lastEvent.carteDefaussee);
 
-    if (lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
+    if (lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif()) {
       this.startNewTurn();
     }
 
@@ -212,8 +209,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private startNewTurn() {
-    this.carteJouee = false;
-    this.carteDefaussee = false;
+    this.carteJouee.set(false);
+    this.carteDefaussee.set(false);
 
     this.isFlashing = true; // Activez l'animation de flash
 
@@ -241,7 +238,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       const carteJouee = this.partieDatas.joueur.main.splice(index, 1)[0];
       this.sendBotMessage(this.partieDatas.joueur.nom + ' défausse la carte ' + carteJouee.nom);
-      this.carteDefaussee = true;
+      this.carteDefaussee.set(true);
       if (this.carteService.isFidelite(carteJouee)) {
         this.sendBotMessage(carteJouee.nom + ' est remise dans le deck');
         this.partieDatas.joueur.deck.push(carteJouee);
@@ -257,7 +254,7 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   onJouerCarte(index: number) {
     if (index !== -1) {
-      this.carteJouee = true;
+      this.carteJouee.set(true);
       const carte = this.partieDatas.joueur.main.splice(index, 1)[0];
 
       this.sendBotMessage(this.partieDatas.joueur.nom + ' joue la carte ' + carte.nom);
@@ -350,7 +347,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   getJoueurColorClass(): string {
     if (this.partieDatas.finDePartie) {
       return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
-    } else if (this.estJoueurActif) {
+    } else if (this.estJoueurActif()) {
       return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
     } else {
       return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
@@ -360,7 +357,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   getAdvColorClass(): string {
     if (this.partieDatas.finDePartie) {
       return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
-    } else if (this.estJoueurActif) {
+    } else if (this.estJoueurActif()) {
       return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else {
       return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';

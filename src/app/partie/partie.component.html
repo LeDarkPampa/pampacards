@@ -55,7 +55,7 @@
   <div  *ngIf="partieDatas.lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && partieDatas.lastEvent.status === 'NOUVEAU_TOUR'}" class="ligne-centree terrain terrain-joueur">
     <div *ngIf="partieDatas.joueur" class="ligne-centree">
       <div *ngFor="let carte of partieDatas.joueur.terrain">
-        <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
+        <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif()" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
       </div>
     </div>
   </div>
@@ -79,8 +79,8 @@
     <div *ngIf="partieDatas.joueur && !enAttente" class="ligne-centree">
       <div *ngFor="let carte of partieDatas.joueur.main; let i = index">
         <app-carte-main (jouer)="onJouerCarte($event)" (defausser)="onDefausserCarte($event)" [carte]="carte"
-                        [estJoueurActif]="estJoueurActif" [carteJouee]="carteJouee"
-                        [carteDefaussee]="carteDefaussee" (clickedCarte)="clickedCarte($event)"
+                        [estJoueurActif]="estJoueurActif()" [carteJouee]="carteJouee()"
+                        [carteDefaussee]="carteDefaussee()" (clickedCarte)="clickedCarte($event)"
                         [index]="i"></app-carte-main>
       </div>
       <div *ngIf="enAttente">En attente de votre adversaire</div>
