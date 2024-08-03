@@ -7,7 +7,6 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { RouterModule } from '@angular/router';
 import { RechercheCombatComponent } from './recherche-combat/recherche-combat.component';
 import { TournoisComponent } from './tournois/tournois.component';
-import { ClassementsComponent } from './classements/classements.component';
 import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -87,7 +86,6 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
     AccueilComponent,
     RechercheCombatComponent,
     TournoisComponent,
-    ClassementsComponent,
     MonCompteComponent,
     DeconnexionComponent,
     PageNotFoundComponent,
@@ -155,7 +153,6 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
       {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
       {path: 'tournoi/:id', component: DetailsTournoiComponent, canActivate: [AuthGuard]},
       {path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard]},
-      {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
       {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
       {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
       {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
