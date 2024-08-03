@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ITournoi} from "../interfaces/ITournoi";
 import {ILigue} from "../interfaces/ILigue";

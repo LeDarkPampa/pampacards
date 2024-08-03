@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {IDeck} from "../../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
 @Component({
   selector: 'app-attribution-deck',

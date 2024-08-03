@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ICarte} from "../interfaces/ICarte";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {IDeck} from "../interfaces/IDeck";
 import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";

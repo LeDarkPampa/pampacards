@@ -5,7 +5,7 @@ import {Subject, Subscription} from "rxjs";
 import {IEvenementPartie} from "../../interfaces/IEvenementPartie";
 import {ICarte} from "../../interfaces/ICarte";
 import {IChatPartieMessage} from "../../interfaces/IChatPartieMessage";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "./authentification.service";
 import {ICarte} from "../interfaces/ICarte";
 import {IPlayerState} from "../interfaces/IPlayerState";

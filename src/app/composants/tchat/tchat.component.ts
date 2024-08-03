@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {IChatPartieMessage} from "../../interfaces/IChatPartieMessage";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../../services/sse.service";
 import {Subscription} from "rxjs";

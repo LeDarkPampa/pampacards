@@ -3,7 +3,7 @@ import {TournoiService} from "../services/tournoi.service";
 import {ITournoi} from "../interfaces/ITournoi";
 import {ILigue} from "../interfaces/ILigue";
 import {AuthentificationService} from "../services/authentification.service";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {IUserAndTournoi} from "../interfaces/IUserAndTournoi";
 import {IUserAndLigue} from "../interfaces/IUserAndLigue";
 import {IUtilisateur} from "../interfaces/IUtilisateur";

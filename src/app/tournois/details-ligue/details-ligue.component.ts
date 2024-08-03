@@ -1,5 +1,5 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ILigue} from "../../interfaces/ILigue";
 import {ICompetitionParticipant} from "../../interfaces/ICompetitionParticipant";

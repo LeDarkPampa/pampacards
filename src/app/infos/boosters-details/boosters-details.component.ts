@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {IBooster} from "../../interfaces/IBooster";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-boosters-details',

@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../services/sse.service";
 import {Subject, Subscription} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
 import {AuthentificationService} from "../services/authentification.service";
 import {ICarte} from "../interfaces/ICarte";

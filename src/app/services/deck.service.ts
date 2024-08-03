@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {IDeck} from "../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {AuthentificationService} from "./authentification.service";
 import { catchError, map } from 'rxjs/operators';

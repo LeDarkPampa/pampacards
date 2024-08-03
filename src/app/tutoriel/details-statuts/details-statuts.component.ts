@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ICarte} from "../../interfaces/ICarte";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {IClan} from "../../interfaces/IClan";
 import {IType} from "../../interfaces/IType";
 

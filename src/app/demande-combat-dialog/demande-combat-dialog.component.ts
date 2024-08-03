@@ -5,7 +5,7 @@ import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
 import {IDeck} from "../interfaces/IDeck";
 import {AuthentificationService} from "../services/authentification.service";
 import {IFormat} from "../interfaces/IFormat";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-demande-combat-dialog',

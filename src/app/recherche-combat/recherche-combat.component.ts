@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {IDeck} from "../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {SseService} from "../services/sse.service";

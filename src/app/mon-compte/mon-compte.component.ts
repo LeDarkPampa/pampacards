@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {IUtilisateur} from "../interfaces/IUtilisateur";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 
 @Component({

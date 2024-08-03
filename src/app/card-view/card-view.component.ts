@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {ICarte} from "../interfaces/ICarte";
 import {IPartie} from "../interfaces/IPartie";
