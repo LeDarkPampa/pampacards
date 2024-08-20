@@ -14,6 +14,9 @@ import {DeckService} from "../services/deck.service";
 import { Router } from '@angular/router';
 import {IPartie} from "../interfaces/IPartie";
 import {IFormat} from "../interfaces/IFormat";
+import {DemandeCombatService} from "../services/demandeCombat.service";
+import {ReferentielService} from "../services/referentiel.service";
+import {IType} from "../interfaces/IType";
 
 @Component({
   selector: 'app-recherche-combat',
@@ -24,31 +27,25 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   opponentList = signal<IUtilisateur[]>([]);
   demandesCombats = signal<IDemandeCombat[]>([]);
   searching = false;
-  userId = 0;
-  // @ts-ignore
-  private usersToFightSubscription: Subscription;
-  // @ts-ignore
-  private demandesDeCombatSubscription: Subscription;
-  // @ts-ignore
-  selectedDeck: IDeck;
-  // @ts-ignore
+  userId: number = 0;
+  usersToFightSubscription?: Subscription;
+  demandesDeCombatSubscription?: Subscription;
+  selectedDeck?: IDeck;
   allDecks: IDeck[] = [];
   filteredDecks: IDeck[] = [];
-  // @ts-ignore
-  selectedFormat: IFormat;
-  // @ts-ignore
+  selectedFormat?: IFormat;
   formats: IFormat[] = [];
   tableauDemandesRecues: IDemandeCombat[] = [];
   tableauDemandesEnvoyees: IDemandeCombat[] = [];
   chooseFirstPlayer: boolean = false;
   firstPlayerChoices = ['Vous', 'Votre adversaire'];
-  // @ts-ignore
   selectedFirstPlayer: string = 'Vous';
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,
+  constructor(private http: HttpClient, private combatService: DemandeCombatService,
+              private referentielService: ReferentielService,
+              private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
               private deckService: DeckService, private router: Router) {
-    // @ts-ignore
     this.userId = authService.getUserId();
   }
 
@@ -56,8 +53,16 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.checkSiDejaPartieEncours();
     this.getUsersSearchingFight();
     this.subscribeToUserStream();
-    this.subscribeToDemandeCombatFlux()
-    this.getAllFormats();
+    this.subscribeToDemandeCombatFlux();
+
+    this.referentielService.getAllFormats().subscribe(
+      (formats: IFormat[]) => {
+        this.formats = formats;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des types', error);
+      }
+    );
     this.chooseFirstPlayer = false;
 
     this.searching = true;
@@ -80,68 +85,44 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   startSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.getUserId()).subscribe(data => {
-    })
-
+    this.combatService.addUserToFight(this.userId).subscribe();
     this.searching = true;
   }
 
   stopSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.getUserId()).subscribe(data => {
-    })
-
+    this.combatService.removeUserToFight(this.userId).subscribe();
     this.searching = false;
   }
 
   getUsersSearchingFight() {
-    this.http.get<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/usersToFight').subscribe({
-      next: data => {
-        this.opponentList.set(data);
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
-
-  updateDemandeCombat(demandeCombat: IDemandeCombat) {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateDemandeCombat', demandeCombat).subscribe({
-      next: () => {
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.combatService.getUsersSearchingFight().subscribe({
+      next: data => this.opponentList.set(data),
+      error: error => console.error('There was an error!', error)
     });
   }
 
   challengeOpponent(opponent: IUtilisateur) {
-
-    let firstPlayerId;
-
-    if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
-      firstPlayerId = this.userId;
-    } else if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
-      firstPlayerId = opponent.id;
-    }
+    const firstPlayerId = this.chooseFirstPlayer && this.selectedFirstPlayer === 'Vous' ? this.userId : opponent.id;
 
     const data = {
       joueurUnId: this.userId,
       joueurDeuxId: opponent.id,
-      deckUnId: this.selectedDeck.id,
-      firstPlayerId: firstPlayerId,
-      formatId: this.selectedFormat.formatId,
+      deckUnId: this.selectedDeck?.id,
+      firstPlayerId,
+      formatId: this.selectedFormat?.formatId,
       message: 'message'
     };
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createChallenge', data).subscribe({
-      next: response => {
-        alert('Demande de combat envoyée');
-      },
+
+    this.combatService.createChallenge(data).subscribe({
+      next: () => alert('Demande de combat envoyée'),
       error: error => {
-        console.error('There was an error!', error);
+        console.error('Erreur lors de la demande de combat', error);
         alert('Erreur lors de la demande de combat');
       }
     });
   }
+
+
 
   private subscribeToUserStream() {
     this.sseService.getRechercheAdversairesFlux();
@@ -157,32 +138,48 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.sseService.getDemandeCombatFlux();
     this.demandesDeCombatSubscription = this.sseService.demandesDeCombat$.subscribe(
       (demandes: IDemandeCombat[]) => {
-        this.demandesCombats.set([]);
-        this.tableauDemandesEnvoyees = [];
-        this.tableauDemandesRecues = [];
-        for (let demande of demandes) {
-          if (demande.joueurUnId == this.userId) {
-            this.tableauDemandesEnvoyees.push(demande);
-          } else if (demande.joueurDeuxId == this.userId && demande.status != DemandeCombatStatusEnum.DEMANDE_REFUSEE) {
-            this.tableauDemandesRecues.push(demande);
-          }
-
-          if (demande.joueurDeuxId == this.userId && demande.status == DemandeCombatStatusEnum.DEMANDE_ENVOYEE) {
-            demande.status = DemandeCombatStatusEnum.DEMANDE_RECUE;
-            this.updateDemandeCombat(demande);
-            this.demandesCombats.update((currentDemandes) => [...currentDemandes, demande]);
-          }
-
-          if (demande.joueurUnId == this.userId && demande.status == DemandeCombatStatusEnum.PARTIE_CREEE) {
-            demande.status = DemandeCombatStatusEnum.DEMANDE_CLOSE;
-            this.deleteDemandeCombat(demande);
-            alert('Demande de combat acceptée par ' + demande.joueurDeuxPseudo);
-            this.router.navigate(['/partie', demande.partieId]);
-          }
-        }
+        this.resetDemandes();
+        demandes.forEach(demande => this.processDemande(demande));
       },
       (error: any) => console.error(error)
     );
+  }
+
+  private resetDemandes() {
+    this.demandesCombats.set([]);
+    this.tableauDemandesEnvoyees = [];
+    this.tableauDemandesRecues = [];
+  }
+
+  private processDemande(demande: IDemandeCombat) {
+    if (demande.joueurUnId === this.userId) {
+      this.tableauDemandesEnvoyees.push(demande);
+    } else if (demande.joueurDeuxId === this.userId && demande.status !== DemandeCombatStatusEnum.DEMANDE_REFUSEE) {
+      this.tableauDemandesRecues.push(demande);
+    }
+
+    this.handleDemandeStatus(demande);
+  }
+
+  private handleDemandeStatus(demande: IDemandeCombat) {
+    if (demande.joueurDeuxId === this.userId && demande.status === DemandeCombatStatusEnum.DEMANDE_ENVOYEE) {
+      this.updateDemandeCombatStatus(demande, DemandeCombatStatusEnum.DEMANDE_RECUE);
+    } else if (demande.joueurUnId === this.userId && demande.status === DemandeCombatStatusEnum.PARTIE_CREEE) {
+      this.closeDemandeAndRedirect(demande);
+    }
+  }
+
+  private updateDemandeCombatStatus(demande: IDemandeCombat, status: DemandeCombatStatusEnum) {
+    demande.status = status;
+    this.combatService.updateDemandeCombat(demande);
+    this.demandesCombats.update(currentDemandes => [...currentDemandes, demande]);
+  }
+
+  private closeDemandeAndRedirect(demande: IDemandeCombat) {
+    demande.status = DemandeCombatStatusEnum.DEMANDE_CLOSE;
+    this.deleteDemandeCombat(demande);
+    alert(`Demande de combat acceptée par ${demande.joueurDeuxPseudo}`);
+    this.router.navigate(['/partie', demande.partieId]);
   }
 
   showDialog(demande: IDemandeCombat, decks: IDeck[]) {
@@ -202,7 +199,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
             next: response => {
               demandeCombat.partieId = response;
               demandeCombat.status = DemandeCombatStatusEnum.PARTIE_CREEE;
-              this.updateDemandeCombat(demandeCombat);
+              this.combatService.updateDemandeCombat(demandeCombat);
               this.router.navigate(['/partie', response]);
             },
             error: error => {
@@ -210,7 +207,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
             }
           });
         } else {
-          this.updateDemandeCombat(demandeCombat);
+          this.combatService.updateDemandeCombat(demandeCombat);
         }
       });
     });
@@ -249,17 +246,6 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
-  }
-
   deleteDemande(demande: IDemandeCombat) {
     this.deleteDemandeCombat(demande);
   }
@@ -279,11 +265,11 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.demandesCombats().splice(index, 1);
     }
-    this.updateDemandeCombat(demande);
+    this.combatService.updateDemandeCombat(demande);
   }
 
   onFormatChange() {
-    this.filteredDecks = this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  this.selectedFormat.formatId));
+    this.filteredDecks = this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  this.selectedFormat?.formatId));
   }
 
   getStatusLabel(status: string) {

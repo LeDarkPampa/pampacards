@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { AuthentificationService } from "../services/authentification.service";
-import { ClanService } from "../services/clan.service";
-import { TypeService } from "../services/type.service";
 import { IClan } from "../interfaces/IClan";
 import { IType } from "../interfaces/IType";
 import { IFiltersAndSortsValues } from "../interfaces/IFiltersAndSortsValues";
+import {ReferentielService} from "../services/referentiel.service";
 
 @Component({
   selector: 'app-bandeau-filtres-cartes',
@@ -38,7 +37,7 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   resetSort: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthentificationService,
-    private clanService: ClanService, private typeService: TypeService) {}
+    private referentielService: ReferentielService) {}
 
   ngOnInit() {
     this.initializeData();
@@ -55,7 +54,7 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   }
 
   private initializeData() {
-    this.clanService.getAllClans().subscribe(
+    this.referentielService.getAllClans().subscribe(
       (clans: IClan[]) => {
         this.clans = clans.map(clan => clan.nom);
       },
@@ -64,7 +63,7 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
       }
     );
 
-    this.typeService.getAllTypes().subscribe(
+    this.referentielService.getAllTypes().subscribe(
       (types: IType[]) => {
         this.types = types.map(type => type.nom);
       },

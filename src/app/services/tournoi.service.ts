@@ -12,15 +12,17 @@ import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {Router} from "@angular/router";
 import {DialogService} from "primeng/dynamicdialog";
 import {ICarte} from "../interfaces/ICarte";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TournoiService {
+export class TournoiService extends ApiService {
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
-  private API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
 
-  constructor(private http: HttpClient, private zone: NgZone, private router: Router, private dialogService: DialogService) { }
+  constructor(private http: HttpClient, private zone: NgZone, private router: Router, private dialogService: DialogService) {
+    super();
+  }
 
   getAllTournois(): Observable<ITournoi[]> {
     return this.http.get<ITournoi[]>(`${this.BACKEND_URL}/tournois/all`);
@@ -67,7 +69,7 @@ export class TournoiService {
     if (affrontement && affrontement.vainqueurId == null) {
       const activePartieId = this.getActivePartieId(affrontement);
       if (activePartieId) {
-        this.http.get<IPartie>(this.API_BASE_URL + '/partie?partieId=' + activePartieId).subscribe({
+        this.http.get<IPartie>(this.API_URL + '/partie?partieId=' + activePartieId).subscribe({
           next: partie => {
             if (partie && partie.id) {
 
@@ -88,7 +90,7 @@ export class TournoiService {
                       if (deck) {
                         const deckMelange = this.melangerDeck(deck.cartes);
 
-                        this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + partie.id).subscribe({
+                        this.http.get<IEvenementPartie[]>(this.API_URL + '/partieEvents?partieId=' + partie.id).subscribe({
                           next: evenementsPartie => {
                             // @ts-ignore
                             const lastEvent = evenementsPartie.at(-1);
@@ -135,7 +137,7 @@ export class TournoiService {
                                 };
                               }
 
-                              this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+                              this.http.post<any>(this.API_URL + '/partieEvent', event).subscribe({
                                 next: response => {
                                   this.router.navigate(['/partie', partie.id]);
                                 },

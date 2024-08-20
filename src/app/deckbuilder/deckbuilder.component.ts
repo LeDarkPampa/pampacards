@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ICarte} from "../interfaces/ICarte";
-import { HttpClient } from "@angular/common/http";
 import {IDeck} from "../interfaces/IDeck";
-import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
 import {IFormat} from "../interfaces/IFormat";
@@ -12,8 +10,7 @@ import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {PropertiesService} from "../services/properties.service";
 import {Message} from "primeng/api";
-
-const API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
+import {DeckbuilderService} from "../services/deckBuilder.service";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -53,9 +50,12 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   };
 
 
-  constructor(private http: HttpClient, private authService: AuthentificationService,
-    private deckService: DeckService, private propertiesService: PropertiesService)
-  {
+  constructor(
+    private authService: AuthentificationService,
+    private deckService: DeckService,
+    private propertiesService: PropertiesService,
+    private deckbuilderService: DeckbuilderService
+  ) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
@@ -158,8 +158,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     })
 
-    this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
-      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.deckbuilderService.saveDeck(deck).subscribe(data => {
+      this.deckbuilderService.getAllPlayerDecks().subscribe(playerDecks => {
         this.decks = playerDecks;
         this.message = [{ severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' }];
       });
@@ -180,54 +180,70 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   duplicateDeck() {
-    let deck = this.selectedDeck;
+    if (!this.validateDeckBeforeDuplication()) {
+      return;
+    }
+
+    const duplicatedDeck: IDeck = this.createDuplicatedDeck();
+    this.copyCardsToDuplicatedDeck(duplicatedDeck);
+
+    this.deckbuilderService.saveDeck(duplicatedDeck).subscribe(() => {
+      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+        this.decks = playerDecks;
+      });
+    });
+  }
+
+  private validateDeckBeforeDuplication(): boolean {
+    const deck = this.selectedDeck;
+
     if (!deck.nom) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
-    } else if (!(deck.cartes.length == 20)) {
+      return false;
+    } else if (deck.cartes.length !== 20) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
+      return false;
     } else if (!this.selectedFormat) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
+      return false;
     } else if (this.hasExceededLimitation) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
-    } else {
-      // @ts-ignore
-      const user:IUtilisateur = this.authService.getUser();
-      // @ts-ignore
-      let duplicatedDeck: IDeck = {
-        id: 0,
-        nom: deck.nom + '-dupl',
-        cartes: [],
-        utilisateur: user,
-        formats: deck.formats,
-        dateCreation: new Date(Date.now())
-        }
-      ;
-
-      deck.cartes.forEach(carte => {
-        // @ts-ignore
-        duplicatedDeck.cartes.push(carte);
-      });
-
-      this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', duplicatedDeck).subscribe(data => {
-        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-          this.decks = playerDecks;
-        });
-      })
+      return false;
     }
+
+    return true;
   }
 
+  private createDuplicatedDeck(): IDeck {
+    const user: IUtilisateur = this.authService.getUser(); // @ts-ignore
+
+    return {
+      id: 0,
+      nom: `${this.selectedDeck.nom}-dupl`,
+      cartes: [],
+      utilisateur: user,
+      formats: this.selectedDeck.formats,
+      dateCreation: new Date(),
+    };
+  }
+
+  private copyCardsToDuplicatedDeck(duplicatedDeck: IDeck): void {
+    this.selectedDeck.cartes.forEach(carte => {
+      duplicatedDeck.cartes.push(carte); // @ts-ignore
+    });
+  }
 
   getUserCollectionFiltered() {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${this.authService.getUserId()}`;
-    this.http.get<ICollection>(url).subscribe({
+    const userId = this.authService.getUserId();
+    this.deckbuilderService.getUserCollectionFiltered(userId).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
           // @ts-ignore
@@ -263,7 +279,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>(`${API_BASE_URL}/formats`).subscribe({
+    this.deckbuilderService.getAllFormats().subscribe({
       next: data => {
         this.formats = data;
       },
@@ -282,9 +298,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
             { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
           ];
         } else {
-          this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', { body: selectedDeck }).subscribe({
+          this.deckbuilderService.deleteDeck(selectedDeck).subscribe({
             next: data => {
-              this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+              this.deckbuilderService.getAllPlayerDecks().subscribe(playerDecks => {
                 this.decks = playerDecks;
               });
               // @ts-ignore

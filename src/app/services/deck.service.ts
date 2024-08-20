@@ -6,16 +6,19 @@ import {AuthentificationService} from "./authentification.service";
 import { catchError, map } from 'rxjs/operators';
 import {IFormat} from "../interfaces/IFormat";
 import {ICarte} from "../interfaces/ICarte";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DeckService {
+export class DeckService extends ApiService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient, private authService: AuthentificationService) {
+    super();
+  }
 
   getAllPlayerDecks(): Observable<IDeck[]> {
-    return this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks?userId=' + this.authService.getUserId()).pipe(
+    return this.http.get<IDeck[]>(this.API_URL + '/decks?userId=' + this.authService.getUserId()).pipe(
       map((decks: IDeck[]) => {
         return decks.sort((a, b) => {
           const date1 = new Date(a.dateCreation);
@@ -31,7 +34,7 @@ export class DeckService {
   }
 
   isDeckUtilise(selectedDeck: IDeck): Observable<boolean> {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/isDeckUtilise?deckId=${selectedDeck.id}`;
+    const url = this.API_URL + `/isDeckUtilise?deckId=${selectedDeck.id}`;
     return this.http.get<boolean>(url).pipe(
       map((data: boolean) => data),
       catchError((error) => {

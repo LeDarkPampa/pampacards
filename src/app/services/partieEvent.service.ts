@@ -9,24 +9,27 @@ import {IClan} from "../interfaces/IClan";
 import {IType} from "../interfaces/IType";
 import {IPartie} from "../interfaces/IPartie";
 import {IPartieDatas} from "../interfaces/IPartieDatas";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartieEventService {
+export class PartieEventService extends ApiService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   getPartie(partieId: number): Observable<IPartie> {
-    return this.http.get<IPartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + partieId);
+    return this.http.get<IPartie>(this.API_URL + '/partie?partieId=' + partieId);
   }
 
   getEventsPartie(partieId: number): Observable<IEvenementPartie[]> {
-    return this.http.get<IEvenementPartie[]>(`https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=${partieId}`);
+    return this.http.get<IEvenementPartie[]>(this.API_URL + `/partieEvents?partieId=${partieId}`);
   }
 
   sendEvent(event: any) {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+    this.http.post<any>(this.API_URL + '/partieEvent', event).subscribe({
       next: response => {
       },
       error: error => {
@@ -38,7 +41,7 @@ export class PartieEventService {
   sendAbandonResult(joueur: IPlayerState, adversaire: IPlayerState, partie: IPartie) {
     let event = this.createAbandonResult(joueur, adversaire, partie);
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/enregistrerResultat', event).subscribe({
+    this.http.post<any>(this.API_URL + '/enregistrerResultat', event).subscribe({
       next: response => {
       },
       error: error => {
@@ -70,7 +73,7 @@ export class PartieEventService {
   }
 
   enregistrerResultatFinPartie(event: any): Observable<any> {
-    return this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/enregistrerResultat', event);
+    return this.http.post<any>(this.API_URL + '/enregistrerResultat', event);
   }
 
   createEndTurnEvent(partie: IPartie, userId: number, joueur: IPlayerState, adversaire: IPlayerState, lastEvent: IEvenementPartie) {
@@ -149,7 +152,7 @@ export class PartieEventService {
     stopJ2: boolean;
     status: string
   }, partieDatas: IPartieDatas, partie: IPartie) {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
+    this.http.post<any>(this.API_URL + '/partieEvent', event).subscribe({
       next: response => {
         partieDatas.finDePartie = true;
         partieDatas.nomJoueurAbandon = partieDatas.joueur.nom;

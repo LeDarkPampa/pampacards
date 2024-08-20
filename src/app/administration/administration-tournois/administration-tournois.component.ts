@@ -8,6 +8,7 @@ import { ITournoi } from "../../interfaces/ITournoi";
 import {ILigue} from "../../interfaces/ILigue";
 import {LigueTournoiStatutEnum} from "../../interfaces/LigueTournoiStatutEnum";
 import {Message} from "primeng/api";
+import {ReferentielService} from "../../services/referentiel.service";
 
 @Component({
   selector: 'app-administration-tournois',
@@ -26,7 +27,8 @@ export class AdministrationTournoisComponent implements OnInit {
   statutsTournoi: string[] = Object.values(LigueTournoiStatutEnum);
   message: Message[] = [];
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService,
+              private referentielService: ReferentielService) {
     this.tournoiForm = this.fb.group({
       nom: ['', Validators.required],
       nombreDeJoueurs: [4, Validators.min(4)],
@@ -93,24 +95,14 @@ export class AdministrationTournoisComponent implements OnInit {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.referentielService.getAllFormats().subscribe(formats => {
+      this.formats = formats;
     });
   }
 
   private getAllTypesCombat() {
-    this.http.get<ITypeCombat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/typesCombat').subscribe({
-      next: data => {
-        data.forEach(typeCombat => this.typesCombat.push(typeCombat));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.referentielService.getAllTypesCombat().subscribe(typesCombat => {
+      this.typesCombat = typesCombat;
     });
   }
 

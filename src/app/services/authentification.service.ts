@@ -5,17 +5,19 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {NavigationEnd, Router} from "@angular/router";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {CookieService} from "ngx-cookie-service";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthentificationService {
-  private apiUrl = 'https://pampacardsback-57cce2502b80.herokuapp.com/api/authenticate';
+export class AuthentificationService extends ApiService {
+  private url = '/authenticate';
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.cookieService.get('isLoggedIn') === 'true');
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {
+    super();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Mettez à jour l'état de connexion et de l'utilisateur à chaque changement de route.
@@ -28,7 +30,7 @@ export class AuthentificationService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = { login, password };
 
-    return this.http.post<any>(this.apiUrl, body, { headers }).pipe(
+    return this.http.post<any>(this.API_URL + this.url, body, { headers }).pipe(
       map(response => {
         const user = response.user;
         if (user) {

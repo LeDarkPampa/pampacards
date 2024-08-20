@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TchatService {
+export class TchatService extends ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   sendMessage(message: string, partieId: number) {
     if (message && message != '') {
       let messageTchat: IChatPartieMessage = {id: 0, partieId: partieId, auteur: 'PampaBot', texte: message};
 
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages', messageTchat).subscribe({
+      this.http.post<any>(this.API_URL + '/chatMessages', messageTchat).subscribe({
         next: () => {
 
         },

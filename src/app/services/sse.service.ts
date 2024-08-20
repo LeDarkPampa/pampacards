@@ -4,13 +4,12 @@ import { IUtilisateur } from '../interfaces/IUtilisateur';
 import {IDemandeCombat} from "../interfaces/IDemandeCombat";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root',
 })
-export class SseService implements OnDestroy {
-  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
-
+export class SseService extends  ApiService implements OnDestroy {
 
   // @ts-ignore
   // userListEventSource : une instance de EventSource qui est responsable de la réception des messages SSE de la liste des utilisateurs du serveur
@@ -43,7 +42,8 @@ export class SseService implements OnDestroy {
   public chatMessages$ = this.evenementsChatSource.asObservable();
 
 
-  constructor() {}
+  constructor() {
+    super();}
 
   /**
    * La méthode getUsersSearchingFight() est responsable de la création et de l'initialisation de l'instance de EventSource
@@ -52,7 +52,7 @@ export class SseService implements OnDestroy {
    */
   public getRechercheAdversairesFlux(): void {
     this.userListEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-utilisateurs'
+      this.API_URL + '/flux-utilisateurs'
     );
     this.userListEventSource.onopen = (event) =>
     this.userListEventSource.onerror = (error) => {
@@ -66,7 +66,7 @@ export class SseService implements OnDestroy {
 
   public getDemandeCombatFlux(): void {
     this.demandeCombatEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-demandesCombats'
+      this.API_URL + '/flux-demandesCombats'
     );
     this.demandeCombatEventSource.onopen = (event) => console.log(event);
     this.demandeCombatEventSource.onerror = (error) => {
@@ -80,7 +80,7 @@ export class SseService implements OnDestroy {
 
   public getEvenementsPartieFlux(partieId: number): void {
     this.evenementsPartieEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-partieEvents?partieId=' + partieId
+      this.API_URL + '/flux-partieEvents?partieId=' + partieId
     );
     this.evenementsPartieEventSource.onopen = (event) => {
     }
@@ -95,7 +95,7 @@ export class SseService implements OnDestroy {
 
   public getChatMessagesFlux(partieId: number): void {
     this.chatMessagesEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-chatMessages?partieId=' + partieId
+      this.API_URL + '/flux-chatMessages?partieId=' + partieId
     );
     this.chatMessagesEventSource.onopen = (event) => {
     }
