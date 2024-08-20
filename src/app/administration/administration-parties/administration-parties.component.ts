@@ -6,6 +6,7 @@ import {IResultatPartie} from "../../interfaces/IResultatPartie";
 import {ICarte} from "../../interfaces/ICarte";
 import {VisionCartesDialogComponent} from "../../partie/vision-cartes-dialog/vision-cartes-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
+import {AdministrationService} from "../../services/administration.service";
 
 @Component({
   selector: 'app-administration-parties',
@@ -17,8 +18,9 @@ export class AdministrationPartiesComponent {
   partiesEnCours: IPartie[] = [];
   resultatsParties: IResultatPartie[] = [];
 
-  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService) {
-    this.http.get<IPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partiesEnCours').subscribe({
+  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService,
+              private administrationService: AdministrationService) {
+    this.administrationService.getPartiesEnCours().subscribe({
       next: data => {
         this.partiesEnCours = data;
       },
@@ -28,7 +30,7 @@ export class AdministrationPartiesComponent {
       }
     });
 
-    this.http.get<IResultatPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/resultatsPartiesTerminees').subscribe({
+    this.administrationService.getResultatsParties().subscribe({
       next: data => {
         this.resultatsParties = data;
       },

@@ -16,7 +16,7 @@ import {CarteEffetService} from "./carteEffet.service";
 })
 export class PartieService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService,
+  constructor(private http: HttpClient, 
               private carteService: CarteService, private partieEventService: PartieEventService,
               private carteEffetService: CarteEffetService) { }
 
@@ -31,6 +31,8 @@ export class PartieService {
     player.deck.forEach(initCardProperties);
     player.main.forEach(initCardProperties);
   };
+
+
 
   updatePlayerAndOpponent(lastEvent: IEvenementPartie, partie: IPartie, partieDatas: IPartieDatas, userId: number) {
     const isJoueurUn = partie.joueurUn.id === userId;

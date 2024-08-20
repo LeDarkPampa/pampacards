@@ -15,6 +15,7 @@ import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes
 import {IPartieDatas} from "../../interfaces/IPartieDatas";
 import {CarteEffetService} from "../../services/carteEffet.service";
 import {PartieService} from "../../services/partie.service";
+import {PartieEventService} from "../../services/partieEvent.service";
 
 @Component({
   selector: 'app-partie-obs',
@@ -92,7 +93,8 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteEffetService: CarteEffetService,
-              private sseService: SseService, private cd: ChangeDetectorRef,private  partieService: PartieService) {
+              private sseService: SseService, private cd: ChangeDetectorRef,private  partieService: PartieService,
+              private partieEventService: PartieEventService) {
   }
 
   ngOnInit() {
@@ -182,8 +184,8 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private getPartie() {
-    this.http.get<IPartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + this.partieId).subscribe({
-      next: partie => {
+    this.partieEventService.getPartie(this.partieId).subscribe({
+      next: (partie: IPartie) => {
         this.partie = partie;
         this.initValues();
         this.getEventsPartie();
@@ -240,7 +242,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private getEventsPartie() {
-    this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
+    this.partieEventService.getEventsPartie(this.partieId).subscribe({
       next: evenementsPartie => {
 
         if (this.typeEcran === 'obs') {

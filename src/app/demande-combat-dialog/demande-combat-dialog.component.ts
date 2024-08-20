@@ -6,6 +6,7 @@ import {IDeck} from "../interfaces/IDeck";
 import {AuthentificationService} from "../services/authentification.service";
 import {IFormat} from "../interfaces/IFormat";
 import { HttpClient } from "@angular/common/http";
+import {ReferentielService} from "../services/referentiel.service";
 
 @Component({
   selector: 'app-demande-combat-dialog',
@@ -25,7 +26,8 @@ export class DemandeCombatDialogComponent implements OnInit {
   userId = 0;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
-              private authService: AuthentificationService, private http: HttpClient) {
+              private authService: AuthentificationService, private http: HttpClient,
+              private referentielService: ReferentielService) {
     this.userId = authService.getUserId();
   }
 
@@ -55,13 +57,8 @@ export class DemandeCombatDialogComponent implements OnInit {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
+    this.referentielService.getAllFormats().subscribe(formats => {
+      this.formats = formats;
+    });
   }
 }

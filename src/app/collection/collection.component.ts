@@ -4,8 +4,6 @@ import { ICarte } from '../interfaces/ICarte';
 import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {PropertiesService} from "../services/properties.service";
-import {ClanService} from "../services/clan.service";
-import {TypeService} from "../services/type.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
 
 @Component({
@@ -25,8 +23,7 @@ export class CollectionComponent implements OnInit{
   filtrerCartesPossedees: boolean = false;
   filtrerCartesExtension: boolean = false;
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private clanService: ClanService,
-              private typeService: TypeService, private propertiesService: PropertiesService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService, private propertiesService: PropertiesService) {
     this.cartes = [];
     this.getAllCollection();
   }

@@ -12,24 +12,25 @@ import {ApiService} from "./api.service";
 import {ICarte} from "../interfaces/ICarte";
 import {IEffet} from "../interfaces/IEffet";
 import {ITypeCombat} from "../interfaces/ITypeCombat";
+import {IBooster} from "../interfaces/IBooster";
+import {IUtilisateur} from "../interfaces/IUtilisateur";
+import {IDeck} from "../interfaces/IDeck";
 @Injectable({
   providedIn: 'root'
 })
 export class ReferentielService extends ApiService {
   private clansTestUrl = '/testClans';
   private clansUrl = '/clans';
-
   private typesTestUrl = '/testTypes';
   private typessUrl = '/types';
-
   private formatsUrl = '/formats';
-
   cartesTestUrl = '/testCartes';
   private cartesUrl = '/cartes';
-
   private effetsUrl = '/effets';
-
   private typeCombatUrl = '/typesCombat';
+  private boosterUrl = '/boosters';
+  private usersUrl = '/users';
+  private deckBaseUrl = '/decks-base';
 
 
   constructor(private http: HttpClient, private authService: AuthentificationService,
@@ -104,6 +105,30 @@ export class ReferentielService extends ApiService {
 
   getAllTypesCombat(): Observable<ITypeCombat[]> {
     return this.http.get<ITypeCombat[]>(this.API_URL + this.typeCombatUrl).pipe(
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
+  getAllBoosters(): Observable<IBooster[]> {
+    return this.http.get<IBooster[]>(this.API_URL + this.boosterUrl).pipe(
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
+  getAllUsers(): Observable<IUtilisateur[]> {
+    return this.http.get<IUtilisateur[]>(this.API_URL + this.usersUrl).pipe(
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
+  getDecksBase(): Observable<IDeck[]> {
+    return this.http.get<IDeck[]>(this.API_URL + this.deckBaseUrl).pipe(
       catchError((error) => {
         return throwError(error);
       })

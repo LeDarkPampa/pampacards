@@ -3,13 +3,14 @@ import {IUtilisateur} from "../../interfaces/IUtilisateur";
 import {IDeck} from "../../interfaces/IDeck";
 import { HttpClient } from "@angular/common/http";
 import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
+import {ReferentielService} from "../../services/referentiel.service";
 
 @Component({
   selector: 'app-decks-base-details',
   templateUrl: './decks-base-details.component.html',
   styleUrls: ['./decks-base-details.component.css', '../../app.component.css']
 })
-export class DecksBaseDetailsComponent implements OnInit {
+export class DecksBaseDetailsComponent {
   utilisateurs: IUtilisateur[] = [];
   decksDeBase: IDeck[] = [];
   selectedUserName: string = '';
@@ -18,8 +19,8 @@ export class DecksBaseDetailsComponent implements OnInit {
   // @ts-ignore
   deckSelectionne: IDeck;
 
-  constructor(private http: HttpClient) {
-    this.http.get<IUtilisateur[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/users').subscribe({
+  constructor(private http: HttpClient, private referentielService: ReferentielService) {
+    this.referentielService.getAllUsers().subscribe({
       next: data => {
         this.utilisateurs = data;
         this.pseudosUtilisateurs = data.map(user => user.pseudo);
@@ -30,7 +31,7 @@ export class DecksBaseDetailsComponent implements OnInit {
       }
     });
 
-    this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks-base').subscribe({
+    this.referentielService.getDecksBase().subscribe({
       next: data => {
         this.decksDeBase = data;
       },
@@ -41,32 +42,7 @@ export class DecksBaseDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-  }
-
   selectionnerDeck(deck: IDeck) {
     this.deckSelectionne = deck;
-  }
-
-  ajouterCartesAuDeck() {
-    if (this.selectedUserName) {
-      let userPseudoAndCards: IUserPseudoAndCards = {
-        pseudo: this.selectedUserName,
-        cartes: [],
-      };
-
-      userPseudoAndCards.cartes.push(...this.deckSelectionne.cartes);
-
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addCartesToCollection', userPseudoAndCards).subscribe({
-        next: () => {
-          alert('Cartes ajoutées à la collection');
-        },
-        error: error => {
-          console.error('There was an error!', error);
-          alert('Erreur lors de la sauvegarde');
-        }
-      });
-    }
   }
 }
