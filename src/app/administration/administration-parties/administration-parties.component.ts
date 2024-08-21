@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IPartie} from "../../interfaces/IPartie";
 import { HttpClient } from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -7,19 +7,26 @@ import {ICarte} from "../../interfaces/ICarte";
 import {VisionCartesDialogComponent} from "../../partie/vision-cartes-dialog/vision-cartes-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {AdministrationService} from "../../services/administration.service";
+import * as console from "node:console";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import * as console from "node:console";
 
 @Component({
   selector: 'app-administration-parties',
   templateUrl: './administration-parties.component.html',
   styleUrls: ['./administration-parties.component.css', '../../app.component.css']
 })
-export class AdministrationPartiesComponent {
+export class AdministrationPartiesComponent implements OnInit {
 
   partiesEnCours: IPartie[] = [];
   resultatsParties: IResultatPartie[] = [];
 
   constructor(private http: HttpClient, private router: Router, private dialogService: DialogService,
               private administrationService: AdministrationService) {
+
+  }
+
+  ngOnInit(): void {
     this.administrationService.getPartiesEnCours().subscribe({
       next: data => {
         this.partiesEnCours = data;
