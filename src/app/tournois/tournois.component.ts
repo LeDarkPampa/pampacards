@@ -14,6 +14,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {InscriptionDialogComponent} from "./inscription-dialog/inscription-dialog.component";
 import {DeckService} from "../services/deck.service";
 import {IinscriptionCompetition} from "../interfaces/IinscriptionCompetition";
+import {UtilisateurService} from "../services/utilisateur.service";
 
 @Component({
   selector: 'app-tournois',
@@ -34,12 +35,12 @@ export class TournoisComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router, private zone: NgZone,
               private dialogService: DialogService, private tournoiService: TournoiService,
-              private authService: AuthentificationService, private deckService: DeckService) {
+              private authService: AuthentificationService, private utilisateurService: UtilisateurService) {
   }
 
   ngOnInit(): void {
     this.utilisateur.set(this.authService.getUser());
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
       this.allDecks.set(playerDecks);
     });
     this.refreshTournoisLigueListes();

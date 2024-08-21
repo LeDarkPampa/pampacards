@@ -18,7 +18,6 @@ import {ApiService} from "./api.service";
   providedIn: 'root'
 })
 export class TournoiService extends ApiService {
-  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
 
   constructor(private http: HttpClient, private zone: NgZone, private router: Router, private dialogService: DialogService) {
     super();

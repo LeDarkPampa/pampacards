@@ -10,7 +10,6 @@ export class CarteService {
   constructor() { }
 
 
-
   isFidelite(carte: ICarte) {
     return carte.effet && carte.effet.code == EffetEnum.FIDELITE && !carte.silence;
   }

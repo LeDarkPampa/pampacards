@@ -87,7 +87,6 @@ export class ReferentielService extends ApiService {
 
   @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllFormats(): Observable<IFormat[]> {
-
     return this.http.get<IFormat[]>(this.API_URL + this.formatsUrl).pipe(
       catchError((error) => {
         return throwError(error);

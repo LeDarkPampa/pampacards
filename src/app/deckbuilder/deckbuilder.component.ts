@@ -10,7 +10,8 @@ import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
 import {IUtilisateur} from "../interfaces/IUtilisateur";
 import {PropertiesService} from "../services/properties.service";
 import {Message} from "primeng/api";
-import {DeckbuilderService} from "../services/deckBuilder.service";
+import {UtilisateurService} from "../services/utilisateur.service";
+import {ReferentielService} from "../services/referentiel.service";
 
 @Component({
   selector: 'app-deckbuilder',
@@ -54,7 +55,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     private authService: AuthentificationService,
     private deckService: DeckService,
     private propertiesService: PropertiesService,
-    private deckbuilderService: DeckbuilderService
+    private utilisateurService: UtilisateurService,
+    private referentielService: ReferentielService
   ) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
@@ -64,7 +66,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   ngOnInit() {
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
       this.decks = playerDecks;
       this.getAllFormats();
       this.getUserCollectionFiltered();
@@ -158,8 +160,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     })
 
-    this.deckbuilderService.saveDeck(deck).subscribe(data => {
-      this.deckbuilderService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.deckService.saveDeck(deck).subscribe(data => {
+      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
         this.decks = playerDecks;
         this.message = [{ severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' }];
       });
@@ -187,8 +189,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     const duplicatedDeck: IDeck = this.createDuplicatedDeck();
     this.copyCardsToDuplicatedDeck(duplicatedDeck);
 
-    this.deckbuilderService.saveDeck(duplicatedDeck).subscribe(() => {
-      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.deckService.saveDeck(duplicatedDeck).subscribe(() => {
+      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
         this.decks = playerDecks;
       });
     });
@@ -243,7 +245,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   getUserCollectionFiltered() {
     const userId = this.authService.getUserId();
-    this.deckbuilderService.getUserCollectionFiltered(userId).subscribe({
+    this.utilisateurService.getCollection(userId).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
           // @ts-ignore
@@ -279,7 +281,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   private getAllFormats() {
-    this.deckbuilderService.getAllFormats().subscribe({
+    this.referentielService.getAllFormats().subscribe({
       next: data => {
         this.formats = data;
       },
@@ -298,9 +300,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
             { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
           ];
         } else {
-          this.deckbuilderService.deleteDeck(selectedDeck).subscribe({
+          this.deckService.deleteDeck(selectedDeck).subscribe({
             next: data => {
-              this.deckbuilderService.getAllPlayerDecks().subscribe(playerDecks => {
+              this.utilisateurService.getAllDecks().subscribe(playerDecks => {
                 this.decks = playerDecks;
               });
               // @ts-ignore

@@ -17,20 +17,12 @@ export class DeckService extends ApiService {
     super();
   }
 
-  getAllPlayerDecks(): Observable<IDeck[]> {
-    return this.http.get<IDeck[]>(this.API_URL + '/decks?userId=' + this.authService.getUserId()).pipe(
-      map((decks: IDeck[]) => {
-        return decks.sort((a, b) => {
-          const date1 = new Date(a.dateCreation);
-          const date2 = new Date(b.dateCreation);
-          return date1.valueOf() - date2.valueOf();
-        });
-      }),
-      catchError(error => {
-        console.error('There was an error!', error);
-        return throwError(error);
-      })
-    );
+  saveDeck(deck: IDeck): Observable<IDeck[]> {
+    return this.http.post<IDeck[]>(this.API_URL + '/deck', deck);
+  }
+
+  deleteDeck(deck: IDeck): Observable<void> {
+    return this.http.request<void>('delete', this.API_URL + '/decks', { body: deck });
   }
 
   isDeckUtilise(selectedDeck: IDeck): Observable<boolean> {

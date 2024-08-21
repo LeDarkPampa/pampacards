@@ -6,6 +6,7 @@ import { IFormat } from '../../interfaces/IFormat';
 import { DeckService } from '../../services/deck.service';
 import { catchError, defaultIfEmpty } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {ReferentielService} from "../../services/referentiel.service";
 
 @Component({
   selector: 'app-data-management',
@@ -22,7 +23,8 @@ export class DataManagementComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private propertiesService: PropertiesService,
-    private deckService: DeckService
+    private deckService: DeckService,
+    private referentielService: ReferentielService
   ) {}
 
   ngOnInit(): void {
@@ -68,10 +70,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   private getAllFormats(): void {
-    this.http.get<IFormat[]>(`${this.API_BASE_URL}/formats`).pipe(
-      defaultIfEmpty([]), // Remplace null par un tableau vide en cas d'erreur
-      catchError(error => this.handleError(error, 'Erreur lors de la récupération des formats'))
-    ).subscribe(data => {
+    this.referentielService.getAllFormats().subscribe(data => {
       this.formats = data!;
     });
   }

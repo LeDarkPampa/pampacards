@@ -5,13 +5,15 @@ import {ICollection} from "../interfaces/ICollection";
 import {AuthentificationService} from "../services/authentification.service";
 import {PropertiesService} from "../services/properties.service";
 import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
+import {ReferentielService} from "../services/referentiel.service";
+import {UtilisateurService} from "../services/utilisateur.service";
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.css', '../app.component.css']
 })
-export class CollectionComponent implements OnInit{
+export class CollectionComponent implements OnInit {
 
   collection: ICollection | undefined;
   cartes: ICarte[];
@@ -23,7 +25,9 @@ export class CollectionComponent implements OnInit{
   filtrerCartesPossedees: boolean = false;
   filtrerCartesExtension: boolean = false;
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private propertiesService: PropertiesService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService,
+              private propertiesService: PropertiesService, private referentielService: ReferentielService,
+              private utilisateurService: UtilisateurService) {
     this.cartes = [];
     this.getAllCollection();
   }
@@ -39,75 +43,35 @@ export class CollectionComponent implements OnInit{
   }
 
   getAllCollection() {
-    // @ts-ignore
-    if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
-      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes').subscribe({
-        next: data => {
-          // @ts-ignore
-          if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
-            this.cartes = data;
-          } else {
-            this.cartes = data.filter(carte => carte.released);
+    this.referentielService.getAllCartes().subscribe({
+      next: data => {
+        this.cartes = data;
+
+        this.cartesFiltrees = data;
+
+        this.cartesFiltrees.sort((carteA, carteB) => {
+          let value1;
+          let value2;
+          value1 = carteA.clan.nom;
+          value2 = carteB.clan.nom;
+          if (value1 < value2) {
+            return -1;
           }
-
-          this.cartesFiltrees = data;
-
-          this.cartesFiltrees.sort((carteA, carteB) => {
-            let value1;
-            let value2;
-            value1 = carteA.clan.nom;
-            value2 = carteB.clan.nom;
-            if (value1 < value2) {
-              return -1;
-            }
-            if (value1 > value2) {
-              return 1;
-            }
-            return 0;
-          });
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    } else {
-      this.http.get<ICarte[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes').subscribe({
-        next: data => {
-          // @ts-ignore
-          if (this.authService.getUser().testeur && this.propertiesService.isTestModeOn()) {
-            this.cartes = data;
-          } else {
-            this.cartes = data.filter(carte => carte.released);
+          if (value1 > value2) {
+            return 1;
           }
-
-          this.cartesFiltrees = data;
-          this.cartesFiltrees.sort((carteA, carteB) => {
-            let value1;
-            let value2;
-            value1 = carteA.clan.nom;
-            value2 = carteB.clan.nom;
-            if (value1 < value2) {
-              return -1;
-            }
-            if (value1 > value2) {
-              return 1;
-            }
-            return 0;
-          });
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      })
-    }
+          return 0;
+        });
+      },
+      error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    })
   }
 
   getUserCollection(userId: number) {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${userId}`;
-
-    this.http.get<ICollection>(url).subscribe({
+    this.utilisateurService.getCollection(userId).subscribe({
       next: data => {
         // @ts-ignore
         if (!(this.authService.getUser().testeur && this.propertiesService.isTestModeOn())) {

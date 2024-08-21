@@ -53,7 +53,6 @@ export class AuthentificationService extends ApiService {
 
   isAdmin(): boolean {
     // Utilisez l'observable user$ pour éviter de déclencher une exception si getUser() renvoie null.
-
     return this.getUser() && this.getUser().pseudo === "Pampa";
   }
 

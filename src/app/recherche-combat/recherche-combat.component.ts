@@ -17,6 +17,7 @@ import {IFormat} from "../interfaces/IFormat";
 import {DemandeCombatService} from "../services/demandeCombat.service";
 import {ReferentielService} from "../services/referentiel.service";
 import {IType} from "../interfaces/IType";
+import {UtilisateurService} from "../services/utilisateur.service";
 
 @Component({
   selector: 'app-recherche-combat',
@@ -45,7 +46,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
               private referentielService: ReferentielService,
               private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
-              private deckService: DeckService, private router: Router) {
+              private utilisateurService: UtilisateurService, private router: Router) {
     this.userId = authService.getUserId();
   }
 
@@ -71,7 +72,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.tableauDemandesEnvoyees = [];
     this.tableauDemandesRecues = [];
 
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
       this.allDecks = playerDecks;
     });
   }
