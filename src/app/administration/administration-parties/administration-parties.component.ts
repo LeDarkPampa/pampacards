@@ -7,9 +7,6 @@ import {ICarte} from "../../interfaces/ICarte";
 import {VisionCartesDialogComponent} from "../../partie/vision-cartes-dialog/vision-cartes-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {AdministrationService} from "../../services/administration.service";
-import * as console from "node:console";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import * as console from "node:console";
 
 @Component({
   selector: 'app-administration-parties',
