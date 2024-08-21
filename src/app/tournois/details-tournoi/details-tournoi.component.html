@@ -12,8 +12,8 @@
         <div class="player">
           <span>{{ findParticipantById(affrontement.joueur1Id) }}</span>
           <span [ngClass]="{
-              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId === affrontement.joueur1Id,
-              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId === affrontement.joueur2Id,
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
               'score': !isAffontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
             }">
             {{ affrontement.scoreJ1 }}
@@ -22,8 +22,8 @@
         <div class="player">
           <span>{{ findParticipantById(affrontement.joueur2Id) }}</span>
           <span [ngClass]="{
-              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId === affrontement.joueur2Id,
-              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId === affrontement.joueur1Id,
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
               'score': !isAffontementTermine(affrontement) || affrontement.scoreJ1 == affrontement.scoreJ2
             }">
             {{ affrontement.scoreJ2 }}
