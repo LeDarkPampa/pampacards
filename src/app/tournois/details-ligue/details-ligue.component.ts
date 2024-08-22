@@ -21,10 +21,10 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   // @ts-ignore
   utilisateur: IUtilisateur;
 
-  ligue= signal<ILigue | null>(null);
-  players= signal<ICompetitionParticipant[]>([]);
+  ligue = signal<ILigue | null>(null);
+  players = signal<ICompetitionParticipant[]>([]);
   sortedPlayers = signal<ICompetitionParticipant[]>([]);
-  hasAffrontement= signal(false);
+  hasAffrontement = signal(false);
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
               private authService: AuthentificationService, private tournoiService: TournoiService) {
@@ -32,29 +32,30 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // @ts-ignore
     this.utilisateur = this.authService.getUser();
-    this.route.params.subscribe(params => {
-      const ligueId = params['id'];
+
+    this.route.params.subscribe(({ id: ligueId }) => {
       this.subscription = interval(5000)
         .pipe(
           startWith(0),
-          switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=` + ligueId))
+          switchMap(() => this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=${ligueId}`))
         )
         .subscribe({
-          next: ligue => {
-            this.ligue.set(ligue);
-            this.players.set(ligue.participants.filter(player => player.utilisateur !== null).sort(this.compareByPseudo));
-            this.hasAffrontement.set(this.checkIfAffrontement(this.utilisateur.id, ligue.affrontements));
-
-            // Trier les joueurs pour le classement
-            this.sortedPlayers.set(this.players().slice().sort((a, b) => this.comparePlayers(a, b)));
-          },
-          error: error => {
-            console.error('There was an error!', error);
-          }
+          next: ligue => this.updateLigueData(ligue),
+          error: error => console.error('There was an error!', error),
         });
     });
+  }
+
+  private updateLigueData(ligue: ILigue) {
+    this.ligue.set(ligue);
+
+    const participants = ligue.participants.filter(p => p.utilisateur).sort(this.compareByPseudo);
+    this.players.set(participants);
+
+    this.hasAffrontement.set(this.checkIfAffrontement(this.utilisateur.id, ligue.affrontements));
+
+    this.sortedPlayers.set([...participants].sort(this.comparePlayers));
   }
 
   playerInAffrontement(joueurId1: number, joueurId2: number): boolean {
@@ -68,8 +69,12 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     );
   }
 
-  isAffrontementTermine(affrontement: IAffrontement): boolean {
-    return affrontement.vainqueurId != null;
+  isAffrontementTermine(affrontement: IAffrontement | undefined): boolean {
+    if (affrontement) {
+      return affrontement.vainqueurId != null;
+    } else {
+      return true;
+    }
   }
 
   private checkIfAffrontement(id: number, affrontements: IAffrontement[]) {
@@ -165,12 +170,15 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       }, 0);
   }
 
-  getAffrontement(joueurId1: number, joueurId2: number): IAffrontement {
-    // @ts-ignore
-    return this.ligue.affrontements.find(affrontement =>
-      (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
-      (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
-    );
+  getAffrontement(joueurId1: number, joueurId2: number): IAffrontement | undefined {
+    if (this.ligue()! && this.ligue()!.affrontements) {
+      return this.ligue()!.affrontements.find(affrontement =>
+        (affrontement.joueur1Id === joueurId1 && affrontement.joueur2Id === joueurId2) ||
+        (affrontement.joueur1Id === joueurId2 && affrontement.joueur2Id === joueurId1)
+      );
+    } else {
+      return undefined;
+    }
   }
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
