@@ -1,5 +1,5 @@
 <div class="round-robin-tournament" *ngIf="ligue">
-  <h2><div class="ligne-centree">Ligue {{ligue()!.nom}}</div></h2>
+  <h2><div class="ligne-centree">Ligue {{ligue?.nom}}</div></h2>
   <div class="has-affrontement" *ngIf="hasAffrontement()">Vous avez un combat à jouer !</div>
   <div class="has-affrontement" *ngIf="!hasAffrontement()">En attente du prochain tour</div>
   <div *ngFor="let player of players(); let i = index">
