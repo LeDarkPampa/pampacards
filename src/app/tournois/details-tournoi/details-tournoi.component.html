@@ -8,26 +8,28 @@
   <div class="tableau" *ngIf="tournoi()">
     <div class="tour" *ngFor="let round of tournoi()!.rounds">
       <div class="round-header">Round : {{round.roundNumber}}</div>
-      <div class="bracket-game" *ngFor="let affrontement of round.affrontements">
-        <div class="player">
-          <span>{{ findParticipantById(affrontement.joueur1Id) }}</span>
-          <span [ngClass]="{
+      <div class="affrontement" *ngFor="let affrontement of round.affrontements">
+        <div class="bracket-game">
+          <div class="player">
+            <span>{{ findParticipantById(affrontement.joueur1Id) }}</span>
+            <span [ngClass]="{
               'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
               'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
               'score': !isAffontementTermine(affrontement)
             }">
             {{ affrontement.scoreJ1 }}
           </span>
-        </div>
-        <div class="player">
-          <span>{{ findParticipantById(affrontement.joueur2Id) }}</span>
-          <span [ngClass]="{
+          </div>
+          <div class="player">
+            <span>{{ findParticipantById(affrontement.joueur2Id) }}</span>
+            <span [ngClass]="{
               'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
               'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
               'score': !isAffontementTermine(affrontement)
             }">
             {{ affrontement.scoreJ2 }}
           </span>
+          </div>
         </div>
         <div *ngIf="!isAffontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action ligne-centree">
           <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(affrontement.joueur1Id, affrontement.joueur2Id)"></app-pampa-button>

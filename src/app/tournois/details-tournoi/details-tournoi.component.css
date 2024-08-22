@@ -37,15 +37,19 @@
   font-size: 1.2em;
 }
 
+.affrontement {
+  margin-bottom: 10px;
+}
+
 .bracket-game {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
   padding: 10px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
 }
 
 .player {
