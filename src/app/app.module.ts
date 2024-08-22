@@ -77,6 +77,7 @@ import {PartieService} from "./services/partie.service";
 import {CarteEffetService} from "./services/carteEffet.service";
 import {TchatService} from "./services/tchat.service";
 import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
+import {TutoTournoisComponent} from "./tutoriel/tournois/tuto-tournois.component";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -131,7 +132,8 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
         AdministrationTournoisComponent,
         InscriptionDialogComponent,
         OpenAffrontementDialogComponent,
-        CarteMainObsComponent
+        CarteMainObsComponent,
+        TutoTournoisComponent
     ],
     bootstrap: [AppComponent], imports: [RouterModule.forRoot([
             { path: 'accueil', component: AccueilComponent },
@@ -142,6 +144,7 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
             { path: 'tutoriel/debuter', component: HowToStartComponent },
             { path: 'tutoriel/jouer', component: HowToPlayComponent },
             { path: 'tutoriel/details-statuts', component: DetailsStatutsComponent },
+            { path: 'tutoriel/tournois', component: TutoTournoisComponent },
             { path: 'infos', component: InfosComponent },
             { path: 'infos/boosters-details', component: BoostersDetailsComponent },
             { path: 'infos/deck-base-details', component: DecksBaseDetailsComponent },
