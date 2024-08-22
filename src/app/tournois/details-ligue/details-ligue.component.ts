@@ -18,11 +18,8 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
 
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
-  // @ts-ignore
-  utilisateur: IUtilisateur;
-
-  // @ts-ignore
-  ligue: ILigue;
+  utilisateur!: IUtilisateur;
+  ligue!: ILigue;
   players = signal<ICompetitionParticipant[]>([]);
   sortedPlayers = signal<ICompetitionParticipant[]>([]);
   hasAffrontement = signal(false);
@@ -50,14 +47,66 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
 
   private updateLigueData(ligue: ILigue) {
     this.ligue = ligue;
-
-    const participants = ligue.participants.filter(p => p.utilisateur).sort(this.compareByPseudo);
+    const participants = this.getSortedParticipants(ligue);
     this.players.set(participants);
-
     this.hasAffrontement.set(this.checkIfAffrontement(this.utilisateur.id, ligue.affrontements));
-
-    this.sortedPlayers.set([...participants].sort(this.comparePlayers));
+    this.sortedPlayers.set(this.sortPlayers(participants));
   }
+
+  private getSortedParticipants(ligue: ILigue): ICompetitionParticipant[] {
+    return ligue.participants
+      .filter(p => p.utilisateur)
+      .sort(this.compareByPseudo);
+  }
+
+  private sortPlayers(players: ICompetitionParticipant[]): ICompetitionParticipant[] {
+    return players.sort(this.comparePlayers.bind(this));
+  }
+
+  private compareByPseudo(a: ICompetitionParticipant, b: ICompetitionParticipant): number {
+    return a.utilisateur?.pseudo.localeCompare(b.utilisateur?.pseudo ?? '') || 0;
+  }
+
+  private comparePlayers(playerA: ICompetitionParticipant, playerB: ICompetitionParticipant): number {
+    const victoriesA = this.getNombreVictoires(playerA.utilisateur.id);
+    const victoriesB = this.getNombreVictoires(playerB.utilisateur.id);
+
+    if (victoriesA !== victoriesB) return victoriesB - victoriesA;
+
+    const defeatsA = this.getNombreDefaites(playerA.utilisateur.id);
+    const defeatsB = this.getNombreDefaites(playerB.utilisateur.id);
+
+    if (defeatsA !== defeatsB) return defeatsA - defeatsB;
+
+    const scoreA = this.getNombreManchesPerdues(playerA.utilisateur.id);
+    const scoreB = this.getNombreManchesPerdues(playerB.utilisateur.id);
+
+    return scoreA - scoreB;
+  }
+
+  private checkIfAffrontement(id: number, affrontements: IAffrontement[]): boolean {
+    return affrontements.some(affrontement =>
+      (affrontement.joueur1Id === id || affrontement.joueur2Id === id) &&
+      !affrontement.vainqueurId
+    );
+  }
+
+  getScoreAffrontement(joueurId1: number, joueurId2: number): string {
+    const affrontement = this.tournoiService.getAffrontement(joueurId1, joueurId2, this.ligue);
+    return affrontement ? `${affrontement.scoreJ1} - ${affrontement.scoreJ2}` : 'A venir';
+  }
+
+  getNombreVictoires(joueurId: number): number {
+    return this.ligue.affrontements.filter(a => a.vainqueurId === joueurId).length;
+  }
+
+  getNombreDefaites(joueurId: number): number {
+    return this.ligue.affrontements.filter(a =>
+      (a.joueur1Id === joueurId || a.joueur2Id === joueurId) &&
+      a.vainqueurId && a.vainqueurId !== joueurId
+    ).length;
+  }
+
 
   playerInAffrontement(joueurId1: number, joueurId2: number): boolean {
     return (this.utilisateur.id === joueurId1 || this.utilisateur.id === joueurId2);
@@ -78,77 +127,16 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
     }
   }
 
-  private checkIfAffrontement(id: number, affrontements: IAffrontement[]) {
-    return affrontements.some(affrontement => ((affrontement.joueur1Id === id || affrontement.joueur2Id === id) && affrontement.vainqueurId == null));
-  }
-
-  getScoreAffrontement(joueurId1: number, joueurId2: number): string {
-    const affrontementRecherche = this.tournoiService.getAffrontement(joueurId1, joueurId2, this.ligue);
-
-    if (affrontementRecherche) {
-      return affrontementRecherche.scoreJ1 + ' - ' + affrontementRecherche.scoreJ2;
-    } else {
-      return 'A venir';
-    }
-  }
-
-  compareByPseudo(a: ICompetitionParticipant, b: ICompetitionParticipant): number {
-    if (a.utilisateur && b.utilisateur) {
-      const pseudoA = a.utilisateur.pseudo.toUpperCase();
-      const pseudoB = b.utilisateur.pseudo.toUpperCase();
-
-      if (pseudoA < pseudoB) {
-        return -1;
-      }
-      if (pseudoA > pseudoB) {
-        return 1;
-      }
-      return 0;
-    } else if (!a.utilisateur) {
-     return 1;
-    } else {
-      return -1;
-    }
-  }
-
-  comparePlayers(playerA: ICompetitionParticipant, playerB: ICompetitionParticipant): number {
-    const victoriesA = this.getNombreVictoires(playerA.utilisateur.id);
-    const victoriesB = this.getNombreVictoires(playerB.utilisateur.id);
-
-    // Comparer le nombre de victoires
-    if (victoriesB !== victoriesA) {
-      return victoriesB - victoriesA; // Tri décroissant par nombre de victoires
-    }
-
-    const lostA = this.getNombreDefaites(playerA.utilisateur.id);
-    const lostB = this.getNombreDefaites(playerB.utilisateur.id);
-
-    // Comparer le nombre de défaites
-    if (lostA !== lostB) {
-      return lostA - lostB;
-    }
-
-    // En cas d'égalité, comparer le nombre de manches perdues
-    const scoreA = this.getNombreManchesPerdues(playerA.utilisateur.id);
-    const scoreB = this.getNombreManchesPerdues(playerB.utilisateur.id);
-
-    return scoreA - scoreB; // Tri croissant par nombre de manches perdues
-  }
-
-  getNombreVictoires(joueurId: number): number {
-    return this.ligue.affrontements.filter(affrontement => affrontement.vainqueurId === joueurId).length;
-  }
-
   getNombreNuls(joueurId: number): number {
     return this.ligue.affrontements.filter(affrontement =>
       (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
       && (affrontement.vainqueurId !== null && affrontement.vainqueurId === 0)).length;
   }
 
-  getNombreDefaites(joueurId: number): number {
-    return this.ligue.affrontements.filter(affrontement =>
-      (affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId)
-      && (affrontement.vainqueurId !== null && affrontement.vainqueurId !== 0 && affrontement.vainqueurId !== joueurId)).length;
+  getNombreManchesPerdues(joueurId: number): number {
+    return this.ligue.affrontements
+      .filter(a => a.joueur1Id === joueurId || a.joueur2Id === joueurId)
+      .reduce((total, a) => total + (a.joueur1Id === joueurId ? a.scoreJ2 : a.scoreJ1), 0);
   }
 
   getNombreManchesGagnees(joueurId: number): number {
@@ -158,16 +146,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       )
       .reduce((totalManchesGagnees, affrontement) => {
         return totalManchesGagnees + ((affrontement.joueur1Id == joueurId) ? affrontement.scoreJ1 : affrontement.scoreJ2);
-      }, 0);
-  }
-
-  getNombreManchesPerdues(joueurId: number): number {
-    return this.ligue.affrontements
-      .filter(affrontement =>
-        ((affrontement.joueur1Id === joueurId || affrontement.joueur2Id === joueurId))
-      )
-      .reduce((totalManchesGagnees, affrontement) => {
-        return totalManchesGagnees + ((affrontement.joueur1Id == joueurId) ? affrontement.scoreJ2 : affrontement.scoreJ1);
       }, 0);
   }
 
@@ -189,8 +167,6 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription?.unsubscribe();
   }
 }
