@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {Observable, of, Subscription, switchMap} from "rxjs";
+import {Observable, of, Subscription, switchMap, throwError} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import { HttpClient } from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
@@ -19,7 +19,7 @@ import {CustomDialogService} from "../services/customDialog.service";
 import {TournoiService} from "../services/tournoi.service";
 import {ITournoi} from "../interfaces/ITournoi";
 import {ILigue} from "../interfaces/ILigue";
-import {map} from "rxjs/operators";
+import {catchError, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-partie',
@@ -416,10 +416,9 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getCompetition(id: number): Observable<{ type: string, data: ITournoi | ILigue }> {
     return this.tournoiService.getTournoi(id).pipe(
-      switchMap(tournoi => {
-        if (tournoi) {
-          return of({ type: 'tournoi', data: tournoi });
-        } else {
+      catchError(err => {
+        // Si l'erreur est une 404 (tournoi non trouvé), essayer de récupérer la ligue
+        if (err.status === 404) {
           return this.tournoiService.getLigue(id).pipe(
             map(ligue => {
               if (ligue) {
@@ -429,11 +428,14 @@ export class PartieComponent implements OnInit, OnDestroy {
               }
             })
           );
+        } else {
+          // Si c'est une autre erreur, la propager
+          return throwError(() => err);
         }
-      })
+      }),
+      map(tournoi => ({ type: 'tournoi', data: tournoi })) // Si on arrive ici, c'est un tournoi valide
     );
   }
-
 
   ngOnDestroy() {
     if (this.evenementsPartieSubscription) {
