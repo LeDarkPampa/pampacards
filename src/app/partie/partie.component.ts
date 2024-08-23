@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {Subscription} from "rxjs";
+import {Observable, of, Subscription, switchMap} from "rxjs";
 import {IEvenementPartie} from "../interfaces/IEvenementPartie";
 import { HttpClient } from "@angular/common/http";
 import {IPartie} from "../interfaces/IPartie";
@@ -16,6 +16,10 @@ import {TchatService} from "../services/tchat.service";
 import {PartieEventService} from "../services/partieEvent.service";
 import {IPartieDatas} from "../interfaces/IPartieDatas";
 import {CustomDialogService} from "../services/customDialog.service";
+import {TournoiService} from "../services/tournoi.service";
+import {ITournoi} from "../interfaces/ITournoi";
+import {ILigue} from "../interfaces/ILigue";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-partie',
@@ -91,8 +95,8 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
-              private partieService: PartieService,
-              private partieEventService: PartieEventService,
+              private partieService: PartieService, private router: Router,
+              private partieEventService: PartieEventService, private tournoiService: TournoiService,
               private tchatService: TchatService, private customDialogService: CustomDialogService,
               private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
@@ -392,6 +396,44 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     return texteVainqueur;
   }
+
+  retourCompetition() {
+    if (this.partie.competitionId) {
+      this.getCompetition(this.partie.competitionId).subscribe({
+        next: competition => {
+          if (competition.type === 'tournoi') {
+            this.router.navigate(['/tournoi', competition.data.id]);
+          } else if (competition.type === 'ligue') {
+            this.router.navigate(['/ligue', competition.data.id]);
+          }
+        },
+        error: err => {
+          console.error('Erreur lors de la récupération de la compétition:', err);
+        }
+      });
+    }
+  }
+
+  getCompetition(id: number): Observable<{ type: string, data: ITournoi | ILigue }> {
+    return this.tournoiService.getTournoi(id).pipe(
+      switchMap(tournoi => {
+        if (tournoi) {
+          return of({ type: 'tournoi', data: tournoi });
+        } else {
+          return this.tournoiService.getLigue(id).pipe(
+            map(ligue => {
+              if (ligue) {
+                return { type: 'ligue', data: ligue };
+              } else {
+                throw new Error('Competition not found');
+              }
+            })
+          );
+        }
+      })
+    );
+  }
+
 
   ngOnDestroy() {
     if (this.evenementsPartieSubscription) {
