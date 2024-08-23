@@ -416,8 +416,8 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getCompetition(id: number): Observable<{ type: string, data: ITournoi | ILigue }> {
     return this.tournoiService.getTournoi(id).pipe(
+      map(tournoi => ({ type: 'tournoi', data: tournoi })),
       catchError(err => {
-        // Si l'erreur est une 404 (tournoi non trouvé), essayer de récupérer la ligue
         if (err.status === 404) {
           return this.tournoiService.getLigue(id).pipe(
             map(ligue => {
@@ -429,13 +429,12 @@ export class PartieComponent implements OnInit, OnDestroy {
             })
           );
         } else {
-          // Si c'est une autre erreur, la propager
           return throwError(() => err);
         }
-      }),
-      map(tournoi => ({ type: 'tournoi', data: tournoi })) // Si on arrive ici, c'est un tournoi valide
+      })
     );
   }
+
 
   ngOnDestroy() {
     if (this.evenementsPartieSubscription) {
