@@ -24,11 +24,11 @@ export class TournoiService extends ApiService {
   }
 
   getTournoi(id: number): Observable<ITournoi> {
-    return this.http.get<ITournoi>(`${this.BACKEND_URL}/tournoi?id=${id}`);
+    return this.http.get<ITournoi>(`${this.BACKEND_URL}/tournois/tournoi?id=${id}`);
   }
 
   getLigue(id: number): Observable<ILigue> {
-    return this.http.get<ILigue>(`${this.BACKEND_URL}/ligue?id=${id}`);
+    return this.http.get<ILigue>(`${this.BACKEND_URL}/ligues/ligue?id=${id}`);
   }
 
   getAllTournois(): Observable<ITournoi[]> {
