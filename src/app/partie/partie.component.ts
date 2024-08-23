@@ -402,9 +402,9 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.getCompetition(this.partie.competitionId).subscribe({
         next: competition => {
           if (competition.type === 'tournoi') {
-            this.router.navigate(['/tournoi', competition.data.id]);
+            this.router.navigate(['/tournois/tournoi', competition.data.id]);
           } else if (competition.type === 'ligue') {
-            this.router.navigate(['/ligue', competition.data.id]);
+            this.router.navigate(['/ligues/ligue', competition.data.id]);
           }
         },
         error: err => {
