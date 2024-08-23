@@ -416,17 +416,18 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getCompetition(id: number): Observable<{ type: string, data: ITournoi | ILigue }> {
     return this.tournoiService.getTournoi(id).pipe(
-      map(tournoi => ({ type: 'tournoi', data: tournoi })),
+      map(tournoi => ({ type: 'tournoi', data: tournoi } as { type: string, data: ITournoi | ILigue })),
       catchError(err => {
         if (err.status === 404) {
           return this.tournoiService.getLigue(id).pipe(
             map(ligue => {
               if (ligue) {
-                return { type: 'ligue', data: ligue };
+                return { type: 'ligue', data: ligue } as { type: string, data: ITournoi | ILigue };
               } else {
                 throw new Error('Competition not found');
               }
-            })
+            }),
+            catchError(ligueErr => throwError(() => ligueErr))
           );
         } else {
           return throwError(() => err);
