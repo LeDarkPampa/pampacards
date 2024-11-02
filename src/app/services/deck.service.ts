@@ -22,7 +22,7 @@ export class DeckService extends ApiService {
   }
 
   deleteDeck(deck: IDeck): Observable<void> {
-    return this.http.request<void>('delete', this.API_URL + '/decks', { body: deck });
+    return this.http.request<void>('delete', this.API_URL + '/deck', { body: deck });
   }
 
   isDeckUtilise(selectedDeck: IDeck): Observable<boolean> {
