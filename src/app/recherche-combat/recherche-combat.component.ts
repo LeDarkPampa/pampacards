@@ -10,13 +10,11 @@ import {DemandeCombatDialogComponent} from "../demande-combat-dialog/demande-com
 import { NgZone } from '@angular/core';
 import {Subscription} from "rxjs";
 import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
-import {DeckService} from "../services/deck.service";
 import { Router } from '@angular/router';
 import {IPartie} from "../interfaces/IPartie";
 import {IFormat} from "../interfaces/IFormat";
 import {DemandeCombatService} from "../services/demandeCombat.service";
 import {ReferentielService} from "../services/referentiel.service";
-import {IType} from "../interfaces/IType";
 import {UtilisateurService} from "../services/utilisateur.service";
 
 @Component({
@@ -259,10 +257,6 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   refuserDemande(demande: IDemandeCombat) {
     demande.status = DemandeCombatStatusEnum.DEMANDE_REFUSEE;
     let index = this.demandesCombats().findIndex(d => d.id === demande.id);
-    if (index !== -1) {
-      this.demandesCombats().splice(index, 1);
-    }
-    index = this.demandesCombats().findIndex(d => d.id === demande.id);
     if (index !== -1) {
       this.demandesCombats().splice(index, 1);
     }

@@ -43,7 +43,8 @@ export class SseService extends  ApiService implements OnDestroy {
 
 
   constructor() {
-    super();}
+    super();
+  }
 
   /**
    * La méthode getUsersSearchingFight() est responsable de la création et de l'initialisation de l'instance de EventSource
