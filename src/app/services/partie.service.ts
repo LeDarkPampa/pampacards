@@ -16,7 +16,7 @@ import {CarteEffetService} from "./carteEffet.service";
 })
 export class PartieService {
 
-  constructor(private http: HttpClient, 
+  constructor(private http: HttpClient,
               private carteService: CarteService, private partieEventService: PartieEventService,
               private carteEffetService: CarteEffetService) { }
 
