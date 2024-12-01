@@ -1,0 +1,15 @@
+
+<div class="container">
+  <div class="ligne-centree margin-bot-50 margin-top"><h2>Créer une partie</h2></div>
+
+  <div class="ligne-centree">
+    <div class="label-champs">
+      Nombre de joueurs maximum :
+    </div>
+    <div class="cadre-nom">
+      <input type="text" pInputText [(ngModel)]="nbJoueursMax"/>
+    </div>
+  </div>
+
+  <app-pampa-button [texte]="'Créer la partie'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="creerPartie()"></app-pampa-button>
+</div>

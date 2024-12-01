@@ -1,0 +1,10 @@
+
+<div class="container">
+  <div class="ligne-centree margin-bot-50 margin-top"><h2>Partie</h2></div>
+
+  <app-pampa-button [texte]="'Copier code'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="copyGameCode()"></app-pampa-button>
+
+  <div *ngIf="confirmationMessage && confirmationMessage != ''" style="margin-top: 10px; color: green;">
+    {{ confirmationMessage }}
+  </div>
+</div>

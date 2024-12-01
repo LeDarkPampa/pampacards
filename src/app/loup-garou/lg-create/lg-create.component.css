@@ -1,0 +1,31 @@
+.container {
+  padding: 20px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
+  background-repeat: repeat-y;
+}
+
+img {
+  height: 400px;
+}
+
+.small-image img {
+  height: 200px;
+}
+
+.legende {
+  font-size: 14px;
+  padding-bottom: 10px;
+  font-style: italic;
+}
+
+a {
+  padding-left: 5px;
+}
+
+.label-champs {
+  font-size: 14px;
+}
+
+.cadre-nom {
+  width: 120px;
+}
