@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {IDeck} from "../../interfaces/IDeck";
+import {Deck} from "../../classes/decks/Deck";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AuthentificationService} from "../../services/authentification.service";
-import {IinscriptionCompetition} from "../../interfaces/IinscriptionCompetition";
+import {InscriptionCompetition} from "../../classes/competitions/InscriptionCompetition";
 
 @Component({
   selector: 'app-inscription-dialog',
@@ -12,14 +12,12 @@ import {IinscriptionCompetition} from "../../interfaces/IinscriptionCompetition"
 export class InscriptionDialogComponent implements OnInit {
 
   // @ts-ignore
-  inscription: IinscriptionCompetition;
+  inscription: InscriptionCompetition;
   // @ts-ignore
   competition: any;
-  // @ts-ignore
-  decks: IDeck[];
-  // @ts-ignore
-  selectedDecks: any[];
+  decks: Deck[] = [];
   hasValidDeck: boolean = true;
+  selectedDecks: any[] = [];
   userId = 0;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,

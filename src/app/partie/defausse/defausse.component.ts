@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-defausse',
@@ -7,6 +7,6 @@ import {ICarte} from "../../interfaces/ICarte";
   styleUrls: ['./defausse.component.css', '../../app.component.css']
 })
 export class DefausseComponent {
-  @Input() cartes: ICarte[] = [];
+  @Input() cartes: CartePartie[] = [];
 
 }

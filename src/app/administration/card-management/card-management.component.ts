@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ICarte } from '../../interfaces/ICarte';
-import { IClan } from '../../interfaces/IClan';
-import { IType } from '../../interfaces/IType';
-import { IEffet } from '../../interfaces/IEffet';
+import { Effet } from '../../classes/cartes/Effet';
 import { AuthentificationService } from "../../services/authentification.service";
 import { PropertiesService } from "../../services/properties.service";
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { throwError, forkJoin } from 'rxjs';
+import {ReferentielService} from "../../services/referentiel.service";
+import {Carte} from "../../classes/cartes/Carte";
+import {Type} from "../../classes/cartes/Type";
+import {Clan} from "../../classes/cartes/Clan";
 
 @Component({
   selector: 'app-card-management',
@@ -15,17 +16,18 @@ import { throwError, forkJoin } from 'rxjs';
   styleUrls: ['./card-management.component.css', '../../app.component.css']
 })
 export class CardManagementComponent implements OnInit {
-  cartes: ICarte[] = [];
-  clans: IClan[] = [];
-  types: IType[] = [];
-  effets: IEffet[] = [];
+  cartes: Carte[] = [];
+  clans: Clan[] = [];
+  types: Type[] = [];
+  effets: Effet[] = [];
   selectedSort: string = 'clan';
   sortDirection: number = 1;
 
   constructor(
     private http: HttpClient,
     private authService: AuthentificationService,
-    private propertiesService: PropertiesService
+    private propertiesService: PropertiesService,
+    private referentielService: ReferentielService
   ) {}
 
   ngOnInit(): void {
@@ -34,22 +36,19 @@ export class CardManagementComponent implements OnInit {
 
   getAllCollection(): void {
     const isTestMode = this.authService.getUser().testeur && this.propertiesService.isTestModeOn();
-    const cartesUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testCartes' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/cartes';
-    const clansUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testClans' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/clans';
-    const typesUrl = isTestMode ? 'https://pampacardsback-57cce2502b80.herokuapp.com/api/testTypes' : 'https://pampacardsback-57cce2502b80.herokuapp.com/api/types';
 
     forkJoin({
-      cartes: this.http.get<ICarte[]>(cartesUrl),
-      clans: this.http.get<IClan[]>(clansUrl),
-      types: this.http.get<IType[]>(typesUrl),
-      effets: this.http.get<IEffet[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/effets')
+      cartes: this.referentielService.getAllCartes(),
+      clans: this.referentielService.getAllClans(),
+      types: this.referentielService.getAllTypes(),
+      effets: this.referentielService.getEffets()
     }).pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données', error);
         return throwError(error);
       })
     ).subscribe({
-      next: (data: { cartes: ICarte[], clans: IClan[], types: IType[], effets: IEffet[] }) => {
+      next: (data: { cartes: Carte[], clans: Clan[], types: Type[], effets: Effet[] }) => {
         this.cartes = data.cartes;
         this.clans = data.clans;
         this.types = data.types;
@@ -71,7 +70,7 @@ export class CardManagementComponent implements OnInit {
     });
   }
 
-  compareEffets(effet1: IEffet, effet2: IEffet): boolean {
+  compareEffets(effet1: Effet, effet2: Effet): boolean {
     return effet1?.id === effet2?.id;
   }
 
@@ -103,7 +102,7 @@ export class CardManagementComponent implements OnInit {
     });
   }
 
-  getContinuValue(carte: ICarte): string {
+  getContinuValue(carte: Carte): string {
     return carte.effet && carte.effet.continu ? "Oui" : "Non";
   }
 }

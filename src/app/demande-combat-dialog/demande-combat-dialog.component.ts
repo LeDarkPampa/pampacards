@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import {IDemandeCombat} from "../interfaces/IDemandeCombat";
-import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
-import {IDeck} from "../interfaces/IDeck";
+import {DemandeCombatStatusEnum} from "../enums/DemandeCombatStatusEnum";
+import {Deck} from "../classes/decks/Deck";
 import {AuthentificationService} from "../services/authentification.service";
-import {IFormat} from "../interfaces/IFormat";
-import {HttpClient} from "@angular/common/http";
+import {Format} from "../classes/decks/Format";
+import { HttpClient } from "@angular/common/http";
+import {ReferentielService} from "../services/referentiel.service";
 
 @Component({
   selector: 'app-demande-combat-dialog',
@@ -15,23 +15,24 @@ import {HttpClient} from "@angular/common/http";
 export class DemandeCombatDialogComponent implements OnInit {
 
   // @ts-ignore
-  demande: IDemandeCombat;
+  demande: DemandeCombat;
   // @ts-ignore
-  decks: IDeck[];
+  decks: Deck[];
   // @ts-ignore
-  selectedDeck: IDeck;
+  selectedDeck: Deck;
   hasValidDeck: boolean = true;
-  formats: IFormat[] = [];
+  formats: Format[] = [];
   userId = 0;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
-              private authService: AuthentificationService, private http: HttpClient) {
+              private authService: AuthentificationService, private http: HttpClient,
+              private referentielService: ReferentielService) {
     this.userId = authService.getUserId();
   }
 
   ngOnInit(): void {
     this.demande = this.config.data.demande;
-    const decksValides: IDeck[] = this.config.data.decks;
+    const decksValides: Deck[] = this.config.data.decks;
     this.decks = decksValides.filter(deck =>
       deck.formats.some(format => format.formatId === this.config.data.demande.formatId));
     this.hasValidDeck = this.decks.length > 0;
@@ -55,13 +56,8 @@ export class DemandeCombatDialogComponent implements OnInit {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
+    this.referentielService.getAllFormats().subscribe(formats => {
+      this.formats = formats;
+    });
   }
 }

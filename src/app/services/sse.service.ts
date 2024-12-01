@@ -1,60 +1,38 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IUtilisateur } from '../interfaces/IUtilisateur';
-import {IDemandeCombat} from "../interfaces/IDemandeCombat";
-import {IEvenementPartie} from "../interfaces/IEvenementPartie";
-import {IChatPartieMessage} from "../interfaces/IChatPartieMessage";
+import { Utilisateur } from '../classes/Utilisateur';
+import { EvenementPartie } from '../classes/parties/EvenementPartie';
+import { ChatPartieMessage } from '../classes/ChatPartieMessage';
+import { ApiService } from './api.service';
+import {DemandeCombat} from "../classes/combats/DemandeCombat";
 
 @Injectable({
   providedIn: 'root',
 })
-export class SseService implements OnDestroy {
-  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
+export class SseService extends ApiService implements OnDestroy {
 
+  private userListEventSource!: EventSource;
+  private demandeCombatEventSource!: EventSource;
+  private evenementsPartieEventSource!: EventSource;
+  private chatMessagesEventSource!: EventSource;
 
-  // @ts-ignore
-  // userListEventSource : une instance de EventSource qui est responsable de la réception des messages SSE de la liste des utilisateurs du serveur
-  private userListEventSource: EventSource;
+  private utilisateursSource = new Subject<Utilisateur[]>();
+  private demandeCombatSource = new Subject<DemandeCombat[]>();
+  private evenementsPartieSource = new Subject<EvenementPartie[]>();
+  private evenementsChatSource = new Subject<ChatPartieMessage[]>();
 
-  // @ts-ignore
-  private demandeCombatEventSource: EventSource;
-
-  // @ts-ignore
-  private evenementsPartieEventSource: EventSource;
-
-  // @ts-ignore
-  private chatMessagesEventSource: EventSource;
-
-  // utilisateursSource : une instance de Subject de type IUtilisateur[] qui émettra une liste de tous les utilisateurs connectés en temps réel
-  private utilisateursSource = new Subject<IUtilisateur[]>();
-
-  private demandeCombatSource = new Subject<IDemandeCombat[]>();
-
-  private evenementsPartieSource = new Subject<IEvenementPartie[]>();
-  private evenementsChatSource = new Subject<IChatPartieMessage[]>();
-
-  // usersToFight$ : un Observable de type IUtilisateur[] qui sera souscrit pour écouter les utilisateurs en temps réel connectés qui cherchent un combat
   public usersToFight$ = this.utilisateursSource.asObservable();
-
   public demandesDeCombat$ = this.demandeCombatSource.asObservable();
-
   public evenementsPartie$ = this.evenementsPartieSource.asObservable();
-
   public chatMessages$ = this.evenementsChatSource.asObservable();
 
+  constructor() {
+    super();
+  }
 
-  constructor() {}
-
-  /**
-   * La méthode getUsersSearchingFight() est responsable de la création et de l'initialisation de l'instance de EventSource
-   * pour la liste des utilisateurs en temps réel connectés qui cherchent un combat.
-   * Elle écoutera les messages SSE de la liste des utilisateurs du serveur et émettra la liste d'utilisateurs reçus sur utilisateursSource.
-   */
   public getRechercheAdversairesFlux(): void {
-    this.userListEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-utilisateurs'
-    );
-    this.userListEventSource.onopen = (event) =>
+    this.userListEventSource = new EventSource(this.API_URL + '/flux-utilisateurs');
+    this.userListEventSource.onopen = () => { };
     this.userListEventSource.onerror = (error) => {
       console.error('SSE error:', error);
     };
@@ -65,10 +43,8 @@ export class SseService implements OnDestroy {
   }
 
   public getDemandeCombatFlux(): void {
-    this.demandeCombatEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-demandesCombats'
-    );
-    this.demandeCombatEventSource.onopen = (event) => console.log(event);
+    this.demandeCombatEventSource = new EventSource(this.API_URL + '/flux-demandesCombats');
+    this.demandeCombatEventSource.onopen = () => { };
     this.demandeCombatEventSource.onerror = (error) => {
       console.error('SSE error:', error);
     };
@@ -80,10 +56,9 @@ export class SseService implements OnDestroy {
 
   public getEvenementsPartieFlux(partieId: number): void {
     this.evenementsPartieEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-partieEvents?partieId=' + partieId
+      `${this.API_URL}/flux-partieEvents?partieId=${partieId}`
     );
-    this.evenementsPartieEventSource.onopen = (event) => {
-    }
+    this.evenementsPartieEventSource.onopen = () => { };
     this.evenementsPartieEventSource.onerror = (error) => {
       console.error('SSE error:', error);
     };
@@ -95,10 +70,9 @@ export class SseService implements OnDestroy {
 
   public getChatMessagesFlux(partieId: number): void {
     this.chatMessagesEventSource = new EventSource(
-      this.BACKEND_URL + '/api/flux-chatMessages?partieId=' + partieId
+      `${this.API_URL}/flux-chatMessages?partieId=${partieId}`
     );
-    this.chatMessagesEventSource.onopen = (event) => {
-    }
+    this.chatMessagesEventSource.onopen = () => { };
     this.chatMessagesEventSource.onerror = (error) => {
       console.error('SSE error:', error);
     };
@@ -107,6 +81,7 @@ export class SseService implements OnDestroy {
       this.evenementsChatSource.next(chatMessages);
     };
   }
+
   closeUserListEventSource() {
     if (this.userListEventSource) {
       this.userListEventSource.close();
@@ -132,12 +107,9 @@ export class SseService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.userListEventSource) {
-      this.userListEventSource.close();
-    }
-
-    if (this.demandeCombatEventSource) {
-      this.demandeCombatEventSource.close();
-    }
+    this.closeUserListEventSource();
+    this.closeDemandeCombatEventSource();
+    this.closeEvenementsPartieEventSource();
+    this.closeEvenementsChatEventSource();
   }
 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-carte-terrain',
@@ -9,13 +9,12 @@ import {ICarte} from "../../interfaces/ICarte";
 export class CarteTerrainComponent {
 
   // @ts-ignore
-  @Input() carte: ICarte;
-  // @ts-ignore
-  @Input() estJoueurActif: boolean;
+  @Input() carte: CartePartie;
+  @Input() estJoueurActif: boolean = false;
   @Input() taille: string = 'terrain';
   @Output() clickedCarte = new EventEmitter();
 
-  getPuissanceTotale(carte: ICarte) {
+  getPuissanceTotale(carte: CartePartie) {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
@@ -23,7 +22,7 @@ export class CarteTerrainComponent {
     return Array(rarete).fill(0);
   }
 
-  isCarteCorrompu(carte: ICarte) {
+  isCarteCorrompu(carte: CartePartie) {
     return carte && carte.clan && carte.clan.nom === 'Corrompu';
   }
 }

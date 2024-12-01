@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
 
 @Component({
   selector: 'app-pampa-submit-button',

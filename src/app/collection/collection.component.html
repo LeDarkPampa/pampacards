@@ -12,14 +12,14 @@
       <li *ngFor="let carte of cartesFiltrees">
         <div *ngIf="isInCollection(carte)">
           <div class="cadre-carte">
-            <app-carte-terrain [carte]="carte" [taille]="'collection'"></app-carte-terrain>
+            <app-carte [carte]="carte" [taille]="'collection'"></app-carte>
             <div *ngIf="carte.image_path == null">Pas d'image pour cette carte {{carte.nom}}.</div>
             <div class="numberOfElements">(x{{countNumberInUserCollection(carte)}})</div>
           </div>
         </div>
         <div class="cadre-carte">
           <div *ngIf="!isInCollection(carte)" class="non-possede">
-            <app-carte-terrain [carte]="carte" [taille]="'collection'" [ngClass]="{'grise-image': true}"></app-carte-terrain>
+            <app-carte [carte]="carte" [taille]="'collection'" [ngClass]="{'grise-image': true}"></app-carte>
             <div *ngIf="carte.image_path == null">Pas d'image pour cette carte {{carte.nom}}.</div>
           </div>
         </div>

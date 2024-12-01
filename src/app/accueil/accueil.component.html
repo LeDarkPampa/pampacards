@@ -33,7 +33,7 @@
       <h2>Voir le détail des boosters</h2>
       <p>Découvrez dans quel booster trouver la carte de vos rêves.</p>
     </div>
-    <button class="explore-button" (click)="navigateTo('/infos/deck-base-details')">Boosters</button>
+    <button class="explore-button" (click)="navigateTo('/infos/boosters-details')">Boosters</button>
   </div>
 </div>
 <div *ngIf="authService.isLoggedIn$ | async" class="features-container">
@@ -42,7 +42,7 @@
       <h2>Construire un deck</h2>
       <p>Préparez votre armée pour le combat.</p>
     </div>
-    <button class="explore-button" (click)="navigateTo('/infos/boosters-details')">Deckbuilder</button>
+    <button class="explore-button" (click)="navigateTo('/deckbuilder')">Deckbuilder</button>
   </div>
   <div *ngIf="authService.isLoggedIn$ | async" class="feature-card">
     <div class="card-content">
@@ -57,5 +57,14 @@
       <p>Les vrais compétitions se trouvent ici.</p>
     </div>
     <button class="explore-button" (click)="navigateTo('/tournois')">Tournois</button>
+  </div>
+</div>
+<div class="features-container">
+  <div class="feature-card">
+    <div class="card-content">
+      <h2>Streamer Garou</h2>
+      <p>Mini jeu de Loup-Garou inventé par Chiips</p>
+    </div>
+    <button class="explore-button" (click)="navigateTo('/lg/accueil')">Jouer</button>
   </div>
 </div>

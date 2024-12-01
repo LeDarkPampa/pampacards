@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ICarte } from '../../interfaces/ICarte';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-vision-cartes-dialog',
@@ -9,7 +9,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class VisionCartesDialogComponent implements OnInit {
   // @ts-ignore
-  cartes: ICarte[];
+  cartes: CartePartie[];
 
   constructor(
     public ref: DynamicDialogRef,

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import { IType } from '../interfaces/IType';
 import {catchError} from "rxjs/operators";
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
+import {Type} from "../classes/cartes/Type";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class TypeService {
   constructor(private http: HttpClient, private authService: AuthentificationService,
               private propertiesService: PropertiesService) { }
 
-  getAllTypes(): Observable<IType[]> {
+  getAllTypes(): Observable<Type[]> {
     let url = this.typessUrl;
 
     // @ts-ignore
@@ -24,7 +24,7 @@ export class TypeService {
       url = this.typesTestUrl;
     }
 
-    return this.http.get<IType[]>(url).pipe(
+    return this.http.get<Type[]>(url).pipe(
       catchError((error) => {
         return throwError(error);
       })

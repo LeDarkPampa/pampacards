@@ -1,19 +1,21 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {IDeck} from "../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, signal} from '@angular/core';
+import {Deck} from "../classes/decks/Deck";
+import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
-import {IUtilisateur} from "../interfaces/IUtilisateur";
+import {Utilisateur} from "../classes/Utilisateur";
 import {SseService} from "../services/sse.service";
-import {IDemandeCombat} from "../interfaces/IDemandeCombat";
 import {DialogService} from "primeng/dynamicdialog";
 import {DemandeCombatDialogComponent} from "../demande-combat-dialog/demande-combat-dialog.component";
 import { NgZone } from '@angular/core';
 import {Subscription} from "rxjs";
-import {DemandeCombatStatusEnum} from "../interfaces/DemandeCombatStatusEnum";
-import {DeckService} from "../services/deck.service";
+import {DemandeCombatStatusEnum} from "../enums/DemandeCombatStatusEnum";
 import { Router } from '@angular/router';
-import {IPartie} from "../interfaces/IPartie";
-import {IFormat} from "../interfaces/IFormat";
+import {Partie} from "../classes/parties/Partie";
+import {Format} from "../classes/decks/Format";
+import {DemandeCombatService} from "../services/demandeCombat.service";
+import {ReferentielService} from "../services/referentiel.service";
+import {UtilisateurService} from "../services/utilisateur.service";
+import {DemandeCombat} from "../classes/combats/DemandeCombat";
 
 @Component({
   selector: 'app-recherche-combat',
@@ -21,34 +23,28 @@ import {IFormat} from "../interfaces/IFormat";
   styleUrls: ['./recherche-combat.component.css', '../app.component.css']
 })
 export class RechercheCombatComponent implements OnInit, OnDestroy {
-  opponentList: IUtilisateur[] = [];
-  demandesCombats: IDemandeCombat[] = [];
+  opponentList = signal<Utilisateur[]>([]);
+  demandesCombats = signal<DemandeCombat[]>([]);
   searching = false;
-  userId = 0;
-  // @ts-ignore
-  private usersToFightSubscription: Subscription;
-  // @ts-ignore
-  private demandesDeCombatSubscription: Subscription;
-  // @ts-ignore
-  selectedDeck: IDeck;
-  // @ts-ignore
-  allDecks: IDeck[] = [];
-  filteredDecks: IDeck[] = [];
-  // @ts-ignore
-  selectedFormat: IFormat;
-  // @ts-ignore
-  formats: IFormat[] = [];
-  tableauDemandesRecues: IDemandeCombat[] = [];
-  tableauDemandesEnvoyees: IDemandeCombat[] = [];
+  userId: number = 0;
+  usersToFightSubscription?: Subscription;
+  demandesDeCombatSubscription?: Subscription;
+  selectedDeck?: Deck;
+  allDecks: Deck[] = [];
+  filteredDecks: Deck[] = [];
+  selectedFormat?: Format;
+  formats: Format[] = [];
+  tableauDemandesRecues: DemandeCombat[] = [];
+  tableauDemandesEnvoyees: DemandeCombat[] = [];
   chooseFirstPlayer: boolean = false;
   firstPlayerChoices = ['Vous', 'Votre adversaire'];
-  // @ts-ignore
   selectedFirstPlayer: string = 'Vous';
 
-  constructor(private http: HttpClient, private authService: AuthentificationService, private cd: ChangeDetectorRef,
+  constructor(private http: HttpClient, private combatService: DemandeCombatService,
+              private referentielService: ReferentielService,
+              private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
-              private deckService: DeckService, private router: Router) {
-    // @ts-ignore
+              private utilisateurService: UtilisateurService, private router: Router) {
     this.userId = authService.getUserId();
   }
 
@@ -56,8 +52,16 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.checkSiDejaPartieEncours();
     this.getUsersSearchingFight();
     this.subscribeToUserStream();
-    this.subscribeToDemandeCombatFlux()
-    this.getAllFormats();
+    this.subscribeToDemandeCombatFlux();
+
+    this.referentielService.getAllFormats().subscribe(
+      (formats: Format[]) => {
+        this.formats = formats;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des types', error);
+      }
+    );
     this.chooseFirstPlayer = false;
 
     this.searching = true;
@@ -66,7 +70,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.tableauDemandesEnvoyees = [];
     this.tableauDemandesRecues = [];
 
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
       this.allDecks = playerDecks;
     });
   }
@@ -80,31 +84,23 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   startSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addUserToFight', this.authService.getUserId()).subscribe(data => {
-    })
-
+    this.combatService.addUserToFight(this.userId).subscribe();
     this.searching = true;
   }
 
   stopSearch() {
-    this.http.post<number>('https://pampacardsback-57cce2502b80.herokuapp.com/api/removeUserToFight', this.authService.getUserId()).subscribe(data => {
-    })
-
+    this.combatService.removeUserToFight(this.userId).subscribe();
     this.searching = false;
   }
 
   getUsersSearchingFight() {
-    this.http.get<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/usersToFight').subscribe({
-      next: data => {
-        this.opponentList = data;
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.combatService.getUsersSearchingFight().subscribe({
+      next: data => this.opponentList.set(data),
+      error: error => console.error('There was an error!', error)
     });
   }
 
-  updateDemandeCombat(demandeCombat: IDemandeCombat) {
+  updateDemandeCombat(demandeCombat: DemandeCombat) {
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateDemandeCombat', demandeCombat).subscribe({
       next: () => {
       },
@@ -114,30 +110,22 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     });
   }
 
-  challengeOpponent(opponent: IUtilisateur) {
-
-    let firstPlayerId;
-
-    if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
-      firstPlayerId = this.userId;
-    } else if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
-      firstPlayerId = opponent.id;
-    }
+  challengeOpponent(opponent: Utilisateur) {
+    const firstPlayerId = this.chooseFirstPlayer && this.selectedFirstPlayer === 'Vous' ? this.userId : opponent.id;
 
     const data = {
       joueurUnId: this.userId,
       joueurDeuxId: opponent.id,
-      deckUnId: this.selectedDeck.id,
-      firstPlayerId: firstPlayerId,
-      formatId: this.selectedFormat.formatId,
+      deckUnId: this.selectedDeck?.id,
+      firstPlayerId,
+      formatId: this.selectedFormat?.formatId,
       message: 'message'
     };
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createChallenge', data).subscribe({
-      next: response => {
-        alert('Demande de combat envoyée');
-      },
+
+    this.combatService.createChallenge(data).subscribe({
+      next: () => alert('Demande de combat envoyée'),
       error: error => {
-        console.error('There was an error!', error);
+        console.error('Erreur lors de la demande de combat', error);
         alert('Erreur lors de la demande de combat');
       }
     });
@@ -146,8 +134,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   private subscribeToUserStream() {
     this.sseService.getRechercheAdversairesFlux();
     this.usersToFightSubscription = this.sseService.usersToFight$.subscribe(
-      (utilisateurs: IUtilisateur[]) => {
-        this.opponentList = utilisateurs;
+      (utilisateurs: Utilisateur[]) => {
+        this.opponentList.set(utilisateurs);
         this.cd.detectChanges();
       },
       (error: any) => console.error(error)
@@ -157,8 +145,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   private subscribeToDemandeCombatFlux() {
     this.sseService.getDemandeCombatFlux();
     this.demandesDeCombatSubscription = this.sseService.demandesDeCombat$.subscribe(
-      (demandes: IDemandeCombat[]) => {
-        this.demandesCombats = [];
+      (demandes: DemandeCombat[]) => {
+        this.demandesCombats.set([]);
         this.tableauDemandesEnvoyees = [];
         this.tableauDemandesRecues = [];
         for (let demande of demandes) {
@@ -171,7 +159,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
           if (demande.joueurDeuxId == this.userId && demande.status == DemandeCombatStatusEnum.DEMANDE_ENVOYEE) {
             demande.status = DemandeCombatStatusEnum.DEMANDE_RECUE;
             this.updateDemandeCombat(demande);
-            this.demandesCombats.push(demande);
+            this.demandesCombats.update((currentDemandes) => [...currentDemandes, demande]);
           }
 
           if (demande.joueurUnId == this.userId && demande.status == DemandeCombatStatusEnum.PARTIE_CREEE) {
@@ -186,7 +174,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     );
   }
 
-  showDialog(demande: IDemandeCombat, decks: IDeck[]) {
+  showDialog(demande: DemandeCombat, decks: Deck[]) {
     this.zone.run(() => {
       const ref = this.dialogService.open(DemandeCombatDialogComponent, {
         header: demande.joueurUnPseudo + ' vous propose un combat !',
@@ -196,8 +184,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
         closable: false
       });
 
-      ref.onClose.subscribe((demandeCombat: IDemandeCombat) => {
-        this.demandesCombats.push(demandeCombat);
+      ref.onClose.subscribe((demandeCombat: DemandeCombat) => {
+        this.demandesCombats.update((currentDemandes) => [...currentDemandes, demandeCombat]);
         if (demandeCombat.status === DemandeCombatStatusEnum.DEMANDE_ACCEPTEE) {
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createPartie', demandeCombat).subscribe({
             next: response => {
@@ -217,7 +205,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteDemandeCombat(demandeCombat: IDemandeCombat) {
+  deleteDemandeCombat(demandeCombat: DemandeCombat) {
     let index = this.tableauDemandesEnvoyees.findIndex(d => d.id === demandeCombat.id);
     if (index !== -1) {
       this.tableauDemandesEnvoyees.splice(index, 1);
@@ -238,7 +226,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   private checkSiDejaPartieEncours() {
-    this.http.get<IPartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEnCours?utilisateurId=' + this.userId).subscribe({
+    this.http.get<Partie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEnCours?utilisateurId=' + this.userId).subscribe({
       next: partie => {
         if (partie && partie.id != null) {
           this.router.navigate(['/partie', partie.id]);
@@ -250,42 +238,27 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
-  }
-
-  deleteDemande(demande: IDemandeCombat) {
+  deleteDemande(demande: DemandeCombat) {
     this.deleteDemandeCombat(demande);
   }
 
-  voirDemande(demande: IDemandeCombat) {
+  voirDemande(demande: DemandeCombat) {
     this.showDialog(demande, this.allDecks);
     this.cd.detectChanges();
   }
 
-  refuserDemande(demande: IDemandeCombat) {
+  refuserDemande(demande: DemandeCombat) {
     demande.status = DemandeCombatStatusEnum.DEMANDE_REFUSEE;
-    let index = this.demandesCombats.findIndex(d => d.id === demande.id);
+    let index = this.demandesCombats().findIndex(d => d.id === demande.id);
     if (index !== -1) {
-      this.demandesCombats.splice(index, 1);
-    }
-    index = this.demandesCombats.findIndex(d => d.id === demande.id);
-    if (index !== -1) {
-      this.demandesCombats.splice(index, 1);
+      this.demandesCombats().splice(index, 1);
     }
     this.cd.detectChanges();
     this.updateDemandeCombat(demande);
   }
 
   onFormatChange() {
-    this.filteredDecks = this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  this.selectedFormat.formatId));
+    this.filteredDecks = this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  this.selectedFormat?.formatId));
   }
 
   getStatusLabel(status: string) {
@@ -306,7 +279,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
         return 'Close';
       }
       default:
-        return '';
+        return status;
     }
   }
 

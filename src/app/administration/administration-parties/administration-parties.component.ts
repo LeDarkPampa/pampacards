@@ -1,26 +1,30 @@
-import { Component } from '@angular/core';
-import {IPartie} from "../../interfaces/IPartie";
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {Partie} from "../../classes/parties/Partie";
+import { HttpClient } from "@angular/common/http";
 import {Router} from "@angular/router";
-import {IResultatPartie} from "../../interfaces/IResultatPartie";
-import {ICarte} from "../../interfaces/ICarte";
+
+import {ResultatPartie} from "../../classes/parties/ResultatPartie";
 import {VisionCartesDialogComponent} from "../../partie/vision-cartes-dialog/vision-cartes-dialog.component";
 import {DialogService} from "primeng/dynamicdialog";
+import {AdministrationService} from "../../services/administration.service";
+import {Carte} from "../../classes/cartes/Carte";
 
 @Component({
   selector: 'app-administration-parties',
   templateUrl: './administration-parties.component.html',
   styleUrls: ['./administration-parties.component.css', '../../app.component.css']
 })
-export class AdministrationPartiesComponent {
+export class AdministrationPartiesComponent implements OnInit {
+  partiesEnCours: Partie[] = [];
+  resultatsParties: ResultatPartie[] = [];
 
-  // @ts-ignore
-  partiesEnCours: IPartie[];
-  // @ts-ignore
-  resultatsParties: IResultatPartie[];
+  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService,
+              private administrationService: AdministrationService) {
 
-  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService) {
-    this.http.get<IPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partiesEnCours').subscribe({
+  }
+
+  ngOnInit(): void {
+    this.administrationService.getPartiesEnCours().subscribe({
       next: data => {
         this.partiesEnCours = data;
       },
@@ -30,7 +34,7 @@ export class AdministrationPartiesComponent {
       }
     });
 
-    this.http.get<IResultatPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/resultatsPartiesTerminees').subscribe({
+    this.administrationService.getResultatsParties().subscribe({
       next: data => {
         this.resultatsParties = data;
       },
@@ -46,13 +50,12 @@ export class AdministrationPartiesComponent {
   }
 
   showDeck(jsonDeck: string) {
-    // @ts-ignore
     const deck = jsonDeck.length > 0 ? JSON.parse(jsonDeck) : [];
 
     this.showVisionCartesDialog(deck);
   }
 
-  showVisionCartesDialog(cartes: ICarte[]): void {
+  showVisionCartesDialog(cartes: Carte[]): void {
     const ref = this.dialogService.open(VisionCartesDialogComponent, {
       header: '',
       width: '50%',

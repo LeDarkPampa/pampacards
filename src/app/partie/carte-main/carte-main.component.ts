@@ -4,35 +4,30 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  Output,
-  SimpleChanges
+  Output, signal
 } from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
+import {Carte} from "../../classes/cartes/Carte";
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-carte-main',
   templateUrl: './carte-main.component.html',
   styleUrls: ['./carte-main.component.css', '../../app.component.css']
 })
-export class CarteMainComponent implements OnInit, OnChanges {
+export class CarteMainComponent implements OnInit {
 
   // @ts-ignore
-  @Input() carte: ICarte;
-  // @ts-ignore
-  @Input() estJoueurActif: boolean;
-  // @ts-ignore
-  @Input() carteJouee: boolean;
-  // @ts-ignore
-  @Input() carteDefaussee: boolean;
-  // @ts-ignore
-  @Input() index: number;
+  @Input() carte: CartePartie;
+  @Input() estJoueurActif: boolean = false;
+  @Input() carteJouee: boolean = false;
+  @Input() carteDefaussee: boolean = false;
+  @Input() index: number = 0;
   @Output() jouer = new EventEmitter();
   @Output() defausser = new EventEmitter();
   @Output() clickedCarte = new EventEmitter();
 
-  cadreOuvert = false;
+  cadreOuvert = signal(false);
 
   constructor(private elementRef: ElementRef, private cd: ChangeDetectorRef) {}
 
@@ -48,37 +43,33 @@ export class CarteMainComponent implements OnInit, OnChanges {
     }
     const targetElement = event.target as HTMLElement;
     if (!this.elementRef.nativeElement.contains(targetElement)) {
-      this.cadreOuvert = false;
+      this.cadreOuvert.set(false);
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.cd.detectChanges();
-  }
-
   ouvrirCadre() {
-    this.cadreOuvert = true;
+    this.cadreOuvert.set(true);
   }
 
   jouerCarte() {
     this.jouer.emit(this.index);
-    this.cadreOuvert = false;
+    this.cadreOuvert.set(false);
   }
 
   defausserCarte() {
     this.defausser.emit(this.index);
-    this.cadreOuvert = false;
+    this.cadreOuvert.set(false);
   }
 
   generateStars(rarete: number): number[] {
     return Array(rarete).fill(0);
   }
 
-  getPuissanceTotale(carte: ICarte) {
+  getPuissanceTotale(carte: CartePartie) {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
-  isCarteCorrompu(carte: ICarte) {
+  isCarteCorrompu(carte: CartePartie) {
     return carte && carte.clan && carte.clan.nom === 'Corrompu';
   }
 }

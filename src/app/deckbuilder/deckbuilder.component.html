@@ -38,7 +38,7 @@
     <div class="creationdeck" *ngIf="selectedDeck">
       <ul class="cartes ligne-centree">
         <li *ngFor="let carteWithQuantity of collectionJoueurFiltreeTriee">
-          <app-carte-terrain [carte]="carteWithQuantity.carte" [taille]="'deckbuilder'" (click)="addCarte(carteWithQuantity.carte)"></app-carte-terrain>
+          <app-carte [carte]="carteWithQuantity.carte" [taille]="'deckbuilder'" (click)="addCarte(carteWithQuantity.carte)"></app-carte>
           <div *ngIf="carteWithQuantity.carte.image_path == null">Pas d'image pour cette carte {{carteWithQuantity.carte.nom}}.</div>
           <div class="numberOfElements">(x{{carteWithQuantity.quantity}})</div>
         </li>

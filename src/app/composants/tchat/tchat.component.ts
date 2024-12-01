@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {IChatPartieMessage} from "../../interfaces/IChatPartieMessage";
-import {HttpClient} from "@angular/common/http";
+import {ChatPartieMessage} from "../../classes/ChatPartieMessage";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../../services/sse.service";
 import {Subscription} from "rxjs";
-import {IPlayerState} from "../../interfaces/IPlayerState";
+import {PlayerState} from "../../classes/parties/PlayerState";
 
 @Component({
   selector: 'app-tchat',
@@ -14,13 +14,11 @@ import {IPlayerState} from "../../interfaces/IPlayerState";
 export class TchatComponent implements OnInit, OnDestroy {
 
   @Input() partieId: number = 0;
-  // @ts-ignore
-  @Input() joueur: IPlayerState;
 
   // @ts-ignore
   private tchatSubscription: Subscription;
 
-  chatMessages: IChatPartieMessage[] = [];
+  chatMessages: ChatPartieMessage[] = [];
   message: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
@@ -39,8 +37,7 @@ export class TchatComponent implements OnInit, OnDestroy {
   private subscribeToChatMessagesFlux() {
     this.sseService.getChatMessagesFlux(this.partieId);
     this.tchatSubscription = this.sseService.chatMessages$.subscribe(
-      (chatPartieMessages: IChatPartieMessage[]) => {
-        // @ts-ignore
+      (chatPartieMessages: ChatPartieMessage[]) => {
         this.chatMessages = chatPartieMessages;
         this.cd.detectChanges();
       },
@@ -49,9 +46,8 @@ export class TchatComponent implements OnInit, OnDestroy {
   }
 
   private getChatPartieMessages() {
-    this.http.get<IChatPartieMessage[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages?partieId=' + this.partieId).subscribe({
+    this.http.get<ChatPartieMessage[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/chatMessages?partieId=' + this.partieId).subscribe({
       next: chatMessages => {
-        // @ts-ignore
         this.chatMessages = chatMessages;
       },
       error: error => {

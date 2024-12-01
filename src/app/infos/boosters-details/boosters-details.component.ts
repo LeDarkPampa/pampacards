@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {IBooster} from "../../interfaces/IBooster";
-import {HttpClient} from "@angular/common/http";
+import {Booster} from "../../classes/Booster";
+import { HttpClient } from "@angular/common/http";
+import {ReferentielService} from "../../services/referentiel.service";
 
 @Component({
   selector: 'app-boosters-details',
@@ -9,23 +10,17 @@ import {HttpClient} from "@angular/common/http";
 })
 export class BoostersDetailsComponent {
 
-  boosters: IBooster[] = [];
+  boosters: Booster[] = [];
   // @ts-ignore
-  boosterSelectionne: IBooster;
+  boosterSelectionne: Booster;
 
-  constructor(private http: HttpClient) {
-    this.http.get<IBooster[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/boosters').subscribe({
-      next: data => {
-        this.boosters = data;
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des decks');
-      }
+  constructor(private http: HttpClient, private referentielService: ReferentielService) {
+    this.referentielService.getAllBoosters().subscribe(boosters => {
+      this.boosters = boosters;
     });
   }
 
-  selectionnerBooster(booster: IBooster) {
+  selectionnerBooster(booster: Booster) {
     this.boosterSelectionne = booster;
   }
 

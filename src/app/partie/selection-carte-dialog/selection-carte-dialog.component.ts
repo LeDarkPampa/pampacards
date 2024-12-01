@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ICarte } from '../../interfaces/ICarte';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-selection-carte-dialog',
@@ -9,9 +9,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class SelectionCarteDialogComponent implements OnInit {
   // @ts-ignore
-  cartes: ICarte[];
+  cartes: CartePartie[];
   // @ts-ignore
-  carteSelectionnee: ICarte;
+  carteSelectionnee: CartePartie;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -22,7 +22,7 @@ export class SelectionCarteDialogComponent implements OnInit {
     this.cartes = this.config.data.cartes;
   }
 
-  onCarteClick(carte: ICarte) {
+  onCarteClick(carte: CartePartie) {
     this.carteSelectionnee = carte;
   }
 

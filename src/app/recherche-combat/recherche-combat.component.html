@@ -31,8 +31,8 @@
       <div *ngIf="selectedDeck" class="opponent-select">
         Choisir un adversaire :
         <ul>
-          <ng-container *ngIf="opponentList && opponentList.length">
-            <div class="espace-haut" *ngFor="let opponent of opponentList">
+          <ng-container *ngIf="opponentList() && opponentList().length">
+            <div class="espace-haut" *ngFor="let opponent of opponentList()">
               <div class="ligne-gauche" *ngIf="opponent.id !== userId">
                 {{opponent.pseudo}}
                 <app-pampa-button [texte]="'Défier'" [couleur]="'bleu'" [taille]="'mini'" (click)="challengeOpponent(opponent)"></app-pampa-button>
@@ -43,7 +43,6 @@
       </div>
     </div>
   </div>
-
   <div class="middle">
     <div class="right">
       <div class="received-requests-panel">
@@ -73,7 +72,7 @@
           </ng-template>
         </p-table>
   </div>
-
+    </div>
   <div class="right">
     <div class="received-requests-panel">
       <h3>Demandes reçues :</h3>
@@ -104,4 +103,5 @@
       </p-table>
     </div>
   </div>
+</div>
 </div>

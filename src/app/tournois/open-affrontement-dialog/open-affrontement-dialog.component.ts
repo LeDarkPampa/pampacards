@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {IDeck} from "../../interfaces/IDeck";
+import {Component, OnInit} from '@angular/core';
+import {Deck} from "../../classes/decks/Deck";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
@@ -7,11 +7,11 @@ import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
   templateUrl: './open-affrontement-dialog.component.html',
   styleUrls: ['./open-affrontement-dialog.component.css']
 })
-export class OpenAffrontementDialogComponent {
+export class OpenAffrontementDialogComponent implements OnInit {
   // @ts-ignore
-  decks: IDeck[];
+  decks: Deck[];
   // @ts-ignore
-  selectedDeck: IDeck;
+  selectedDeck: Deck;
   hasValidDeck: boolean = true;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {

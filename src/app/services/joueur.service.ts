@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {EffetEnum} from "../interfaces/EffetEnum";
-import {IPlayerState} from "../interfaces/IPlayerState";
+import {PlayerState} from "../classes/parties/PlayerState";
+import {EffetEnum} from "../enums/EffetEnum";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class JoueurService {
 
   constructor() { }
 
-  hasCitadelle(joueur: IPlayerState) : boolean {
+  hasCitadelle(joueur: PlayerState) : boolean {
     let result = false;
 
     for (let carte of joueur.terrain) {
@@ -21,7 +21,7 @@ export class JoueurService {
     return result;
   }
 
-  hasCrypte(joueur: IPlayerState) : boolean {
+  hasCrypte(joueur: PlayerState) : boolean {
     let result = false;
 
     for (let carte of joueur.terrain) {
@@ -33,7 +33,7 @@ export class JoueurService {
     return result;
   }
 
-  hasPalissade(joueur: IPlayerState) : boolean {
+  hasPalissade(joueur: PlayerState) : boolean {
     let result = false;
 
     for (let carte of joueur.terrain) {
@@ -45,7 +45,7 @@ export class JoueurService {
     return result;
   }
 
-  getJoueurHasProtecteurForet(joueur: IPlayerState) {
+  hasProtecteurForet(joueur: PlayerState) {
     return joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
   }
 }

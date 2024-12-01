@@ -4,7 +4,6 @@ import {Observable, throwError} from 'rxjs';
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
 import {catchError} from "rxjs/operators";
-import {Cacheable, LocalStorageStrategy} from "ts-cacheable";
 import {Format} from "../classes/decks/Format";
 import {ApiService} from "./api.service";
 import {TypeCombat} from "../classes/TypeCombat";
@@ -38,7 +37,6 @@ export class ReferentielService extends ApiService {
     super();
   }
 
-  @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllClans(): Observable<Clan[]> {
     let url = this.API_URL + this.clansUrl;
 
@@ -54,7 +52,6 @@ export class ReferentielService extends ApiService {
     );
   }
 
-  @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllTypes(): Observable<Type[]> {
     let url = this.API_URL + this.typessUrl;
 
@@ -85,7 +82,6 @@ export class ReferentielService extends ApiService {
     );
   }
 
-  @Cacheable({storageStrategy: LocalStorageStrategy, maxAge: 3600000})
   getAllFormats(): Observable<Format[]> {
     return this.http.get<Format[]>(this.API_URL + this.formatsUrl).pipe(
       catchError((error) => {

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-carte-main-adv',
@@ -8,6 +8,6 @@ import {ICarte} from "../../interfaces/ICarte";
 })
 export class CarteMainAdvComponent {
   // @ts-ignore
-  @Input() carte: ICarte;
+  @Input() carte: CartePartie;
 
 }

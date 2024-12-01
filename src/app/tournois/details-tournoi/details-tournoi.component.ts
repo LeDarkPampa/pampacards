@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
-import { ITournoi } from "../../interfaces/ITournoi";
-import { ICompetitionParticipant } from "../../interfaces/ICompetitionParticipant";
+import { Tournoi } from "../../classes/competitions/Tournoi";
+import { CompetitionParticipant } from "../../classes/competitions/CompetitionParticipant";
 import { interval, startWith, Subscription, switchMap } from "rxjs";
-import {IAffrontement} from "../../interfaces/IAffrontement";
-import {IRound} from "../../interfaces/IRound";
+import {AuthentificationService} from "../../services/authentification.service";
+import {TournoiService} from "../../services/tournoi.service";
+import {Affrontement} from "../../classes/combats/Affrontement";
 
 @Component({
   selector: 'app-details-tournoi',
@@ -14,32 +15,32 @@ import {IRound} from "../../interfaces/IRound";
 })
 export class DetailsTournoiComponent implements OnInit, OnDestroy {
 
-  tournoiId: number = 0;
-  tournoi: ITournoi | undefined;
-  players: ICompetitionParticipant[] = [];
-  affrontements: IAffrontement[] = [];
-  rounds: IRound[] = [];
+  userId = 0;
+  tournoi= signal<Tournoi | null>(null);
+  players= signal<CompetitionParticipant[]>([]);
 
   private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+              private authService: AuthentificationService, private tournoiService: TournoiService) { }
 
   ngOnInit() {
+    // On met à jour l'affichage de l'écran toutes les 5 secondes
     this.route.params.subscribe(params => {
-      this.tournoiId = params['id'];
+      const tournoiId = params['id'];
+
+      this.userId = this.authService.getUserId();
 
       this.subscription = interval(5000)
         .pipe(
           startWith(0),
-          switchMap(() => this.http.get<ITournoi>(`${this.BACKEND_URL}/tournois/tournoi?id=` + this.tournoiId))
+          switchMap(() => this.http.get<Tournoi>(`${this.BACKEND_URL}/tournois/tournoi?id=` + tournoiId))
         )
         .subscribe({
           next: tournoi => {
-            this.tournoi = tournoi;
-            this.players = this.tournoi.participants;
-            this.affrontements = this.tournoi.rounds[0].affrontements; // Assuming affrontements are directly available
-            this.organizeRounds();
+            this.tournoi.set(tournoi);
+            this.players.set(tournoi.participants);
           },
           error: error => {
             console.error('There was an error!', error);
@@ -48,21 +49,32 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
     });
   }
 
-  organizeRounds() {
-    if (this.tournoi) {
-      // Reset rounds
-      this.rounds = [];
+  findParticipantById(id: number): string {
+    const participant = this.players().find(player => player.utilisateur.id == id);
+    return participant ? participant.utilisateur.pseudo : 'Aucun';
+  }
 
-      // Organize affrontements in pairs (assuming they are already in order)
-      for (let i = 0; i < this.affrontements.length; i += 2) {
-        // this.rounds.push({affrontements: this.affrontements});
-      }
+  playerInAffrontement(joueur1Id: number, joueur2Id: number): boolean {
+    return (this.userId === joueur1Id || this.userId === joueur2Id);
+  }
+
+  openAffrontementPartie(joueurId1: number, joueurId2: number) {
+    if (this.tournoi()) {
+      const tournoi = this.tournoi()!;
+      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, tournoi, this.authService.getUser());
     }
   }
 
-  findParticipantById(id: number): string {
-    const participant = this.players.find(player => player.id === id);
-    return participant ? participant.utilisateur.pseudo : 'Aucun';
+  isAffontementTermine(affrontement: Affrontement) {
+    return (affrontement.vainqueurId != null);
+  }
+
+  isTournoiTermine(tournoi: Tournoi): boolean {
+    return this.tournoiService.isTournoiTermine(tournoi);
+  }
+
+  getTournoiVainqueurId(tournoi: Tournoi): number {
+    return this.tournoiService.getTournoiVainqueurId(tournoi);
   }
 
   ngOnDestroy() {
@@ -70,5 +82,4 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
 }

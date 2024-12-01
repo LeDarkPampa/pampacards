@@ -1,16 +1,38 @@
-<div class="tableau" *ngIf="tournoi">
-  <div class="tour" *ngFor="let round of rounds">
-    <div class="bracket-game" *ngFor="let match of round.affrontements">
-      <div class="player">
-        {{ match.joueur1Id }}
-        <div class="score">
-          {{ match.scoreJ1 }}
+<div class="container">
+  <div *ngIf="tournoi()" class="header">
+    <h3>Tournoi {{tournoi()!.nom}}</h3>
+    <div *ngIf="isTournoiTermine(tournoi()!)" class="vainqueur">
+      Vainqueur du tournoi : {{ findParticipantById(getTournoiVainqueurId(tournoi()!)) }}
+    </div>
+  </div>
+  <div class="tableau" *ngIf="tournoi()">
+    <div class="tour" *ngFor="let round of tournoi()!.rounds">
+      <div class="round-header">Round : {{round.roundNumber}}</div>
+      <div class="affrontement" *ngFor="let affrontement of round.affrontements">
+        <div class="bracket-game">
+          <div class="player">
+            <span>{{ findParticipantById(affrontement.joueur1Id) }}</span>
+            <span [ngClass]="{
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
+              'score': !isAffontementTermine(affrontement)
+            }">
+            {{ affrontement.scoreJ1 }}
+          </span>
+          </div>
+          <div class="player">
+            <span>{{ findParticipantById(affrontement.joueur2Id) }}</span>
+            <span [ngClass]="{
+              'scoreVainqueur': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur2Id,
+              'scorePerdant': isAffontementTermine(affrontement) && affrontement.vainqueurId == affrontement.joueur1Id,
+              'score': !isAffontementTermine(affrontement)
+            }">
+            {{ affrontement.scoreJ2 }}
+          </span>
+          </div>
         </div>
-      </div>
-      <div class="player">
-        {{ match.joueur2Id }}
-        <div class="score">
-          {{ match.scoreJ2 }}
+        <div *ngIf="!isAffontementTermine(affrontement) && playerInAffrontement(affrontement.joueur1Id, affrontement.joueur2Id)" class="action ligne-centree">
+          <app-pampa-button [texte]="'Combattre'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="openAffrontementPartie(affrontement.joueur1Id, affrontement.joueur2Id)"></app-pampa-button>
         </div>
       </div>
     </div>

@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {IUtilisateur} from "../../interfaces/IUtilisateur";
-import {IDeck} from "../../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
-import {IUserPseudoAndCards} from "../../interfaces/IUserPseudoAndCards";
+import {Utilisateur} from "../../classes/Utilisateur";
+import {Deck} from "../../classes/decks/Deck";
+import { HttpClient } from "@angular/common/http";
+import {ReferentielService} from "../../services/referentiel.service";
 @Component({
   selector: 'app-attribution-deck',
   templateUrl: './attribution-deck.component.html',
   styleUrls: ['./attribution-deck.component.css', '../../app.component.css']
 })
 export class AttributionDeckComponent implements OnInit {
-  utilisateurs: IUtilisateur[] = [];
-  decksDeBase: IDeck[] = [];
+  utilisateurs: Utilisateur[] = [];
+  decksDeBase: Deck[] = [];
   selectedUserName: string = '';
   pseudosUtilisateurs: string[] = [];
 
   // @ts-ignore
-  deckSelectionne: IDeck;
+  deckSelectionne: Deck;
 
-  constructor(private http: HttpClient) {
-    this.http.get<IUtilisateur[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/users').subscribe({
+  constructor(private http: HttpClient, private referentielService: ReferentielService) {
+    this.referentielService.getAllUsers().subscribe({
       next: data => {
         this.utilisateurs = data;
         this.pseudosUtilisateurs = data.map(user => user.pseudo);
@@ -29,7 +29,7 @@ export class AttributionDeckComponent implements OnInit {
       }
     });
 
-    this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks-base').subscribe({
+    this.referentielService.getDecksBase().subscribe({
       next: data => {
         this.decksDeBase = data;
       },
@@ -44,17 +44,18 @@ export class AttributionDeckComponent implements OnInit {
 
   }
 
-  selectionnerDeck(deck: IDeck) {
+  selectionnerDeck(deck: Deck) {
     this.deckSelectionne = deck;
   }
 
   ajouterCartesAuDeck() {
     if (this.selectedUserName) {
-      let userPseudoAndCards: IUserPseudoAndCards = {
+      let userPseudoAndCards = {
         pseudo: this.selectedUserName,
         cartes: [],
       };
 
+      // @ts-ignore
       userPseudoAndCards.cartes.push(...this.deckSelectionne.cartes);
 
       this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/addCartesToCollection', userPseudoAndCards).subscribe({

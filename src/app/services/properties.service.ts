@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {IPropertie} from "../interfaces/IPropertie";
+import {Propertie} from "../classes/Propertie";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PropertiesService {
+export class PropertiesService extends ApiService {
   testModeOn = false;
 
   constructor(private http: HttpClient) {
+    super();
     this.loadProperties();
   }
 
@@ -17,8 +19,8 @@ export class PropertiesService {
   }
 
   private fetchProperties() {
-    this.http.get<IPropertie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/properties').subscribe({
-      next: (data: IPropertie[]) => {
+    this.http.get<Propertie[]>(this.API_URL + '/properties').subscribe({
+      next: (data: Propertie[]) => {
         const showTestProperty = data.find(property => property.code === 'SHOW_TEST');
 
         if (showTestProperty) {

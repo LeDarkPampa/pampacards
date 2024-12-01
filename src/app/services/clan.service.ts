@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import { IClan } from '../interfaces/IClan';
 import {AuthentificationService} from "./authentification.service";
 import {PropertiesService} from "./properties.service";
 import {catchError} from "rxjs/operators";
+import {Clan} from "../classes/cartes/Clan";
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +15,7 @@ export class ClanService {
   constructor(private http: HttpClient, private authService: AuthentificationService,
               private propertiesService: PropertiesService) { }
 
-  getAllClans(): Observable<IClan[]> {
+  getAllClans(): Observable<Clan[]> {
     let url = this.clansUrl;
 
     // @ts-ignore
@@ -23,7 +23,7 @@ export class ClanService {
       url = this.clansTestUrl;
     }
 
-    return this.http.get<IClan[]>(url).pipe(
+    return this.http.get<Clan[]>(url).pipe(
       catchError((error) => {
         return throwError(error);
       })

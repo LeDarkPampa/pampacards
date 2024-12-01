@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {ICarte} from "../interfaces/ICarte";
-import {HttpClient} from "@angular/common/http";
-import {IDeck} from "../interfaces/IDeck";
-import {ICollection} from "../interfaces/ICollection";
+import {Deck} from "../classes/decks/Deck";
 import {AuthentificationService} from "../services/authentification.service";
-import {ICarteAndQuantity} from "../interfaces/ICarteAndQuantity";
-import {IFormat} from "../interfaces/IFormat";
-import {IFiltersAndSortsValues} from "../interfaces/IFiltersAndSortsValues";
+import {CarteAndQuantity} from "../classes/decks/CarteAndQuantity";
+import {Format} from "../classes/decks/Format";
+import {FiltersAndSortsValues} from "../classes/FiltersAndSortsValues";
 import {DeckService} from "../services/deck.service";
-import {CanComponentDeactivate} from "../interfaces/CanComponentDeactivate";
-import {IUtilisateur} from "../interfaces/IUtilisateur";
+import {CanComponentDeactivate} from "../CanComponentDeactivate";
+import {Utilisateur} from "../classes/Utilisateur";
+import {Message} from "primeng/api";
 import {PropertiesService} from "../services/properties.service";
+import {UtilisateurService} from "../services/utilisateur.service";
+import {ReferentielService} from "../services/referentiel.service";
+import {Carte} from "../classes/cartes/Carte";
 
-const API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
 
 @Component({
   selector: 'app-deckbuilder',
@@ -22,18 +22,18 @@ const API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
 export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   unsavedChanges = false;
-  collectionJoueur: ICarteAndQuantity[];
-  collectionJoueurFiltree: ICarteAndQuantity[];
-  collectionJoueurFiltreeTriee: ICarteAndQuantity[];
-  decks: IDeck[] = [];
-  formats: IFormat[] = [];
+  collectionJoueur: CarteAndQuantity[];
+  collectionJoueurFiltree: CarteAndQuantity[];
+  collectionJoueurFiltreeTriee: CarteAndQuantity[];
+  decks: Deck[] = [];
+  formats: Format[] = [];
 
   // @ts-ignore
-  selectedDeck: IDeck;
+  selectedDeck: Deck;
   nomDeck: string = '';
 
   // @ts-ignore
-  selectedFormat: IFormat;
+  selectedFormat: Format;
   nullFormat = {
       formatId: 0,
       nom: '',
@@ -42,11 +42,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   totalRarete: number = 0;
 
-  // @ts-ignore
-  message: Message[];
-  // @ts-ignore
-  hasExceededLimitation: Boolean;
-  filtersAndSortsValues: IFiltersAndSortsValues = {
+  message: Message[] = [];
+  hasExceededLimitation: Boolean = false;
+  filtersAndSortsValues: FiltersAndSortsValues = {
     selectedClans: [],
     selectedTypes: [],
     selectedRaretes: [],
@@ -54,9 +52,13 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   };
 
 
-  constructor(private http: HttpClient, private authService: AuthentificationService,
-    private deckService: DeckService, private propertiesService: PropertiesService)
-  {
+  constructor(
+    private authService: AuthentificationService,
+    private deckService: DeckService,
+    private propertiesService: PropertiesService,
+    private utilisateurService: UtilisateurService,
+    private referentielService: ReferentielService
+  ) {
     this.collectionJoueur = [];
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
@@ -65,14 +67,14 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   ngOnInit() {
     this.collectionJoueurFiltree = [];
     this.collectionJoueurFiltreeTriee = [];
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
       this.decks = playerDecks;
       this.getAllFormats();
       this.getUserCollectionFiltered();
     });
   }
 
-  selectDeck(deck: IDeck) {
+  selectDeck(deck: Deck) {
     this.unsavedChanges = false;
     this.selectedDeck = deck;
     this.nomDeck = this.selectedDeck.nom;
@@ -88,8 +90,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     if (standardFormat) {
       this.selectedFormat = standardFormat;
     }
+
     // @ts-ignore
-    const user:IUtilisateur = this.authService.getUser();
+    const user:Utilisateur = this.authService.getUser();
     this.selectedDeck = {
       id: 0,
       nom:'',
@@ -106,7 +109,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.resetValues();
   }
 
-  addCarte(carte: ICarte) {
+  addCarte(carte: Carte) {
     if (this.selectedDeck && this.selectedFormat && this.selectedFormat.limitationCartes) {
       this.unsavedChanges = true;
 
@@ -125,7 +128,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   saveDeck() {
-    let deck: IDeck = this.selectedDeck;
+    let deck: Deck = this.selectedDeck;
 
     if (!this.nomDeck || this.nomDeck === '') {
       this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' }];
@@ -159,15 +162,15 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     })
 
-    this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', deck).subscribe(data => {
-      this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+    this.deckService.saveDeck(deck).subscribe(data => {
+      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
         this.decks = playerDecks;
         this.message = [{ severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' }];
       });
     });
   }
 
-  removeCard(carte: ICarte) {
+  removeCard(carte: Carte) {
     if (this.selectedDeck) {
       this.unsavedChanges = true;
       let indexCarte = this.selectedDeck.cartes.findIndex(card => card.id == carte.id);
@@ -181,54 +184,70 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   duplicateDeck() {
-    let deck = this.selectedDeck;
+    if (!this.validateDeckBeforeDuplication()) {
+      return;
+    }
+
+    const duplicatedDeck: Deck = this.createDuplicatedDeck();
+    this.copyCardsToDuplicatedDeck(duplicatedDeck);
+
+    this.deckService.saveDeck(duplicatedDeck).subscribe(() => {
+      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
+        this.decks = playerDecks;
+      });
+    });
+  }
+
+  private validateDeckBeforeDuplication(): boolean {
+    const deck = this.selectedDeck;
+
     if (!deck.nom) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
       ];
-    } else if (!(deck.cartes.length == 20)) {
+      return false;
+    } else if (deck.cartes.length !== 20) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
       ];
+      return false;
     } else if (!this.selectedFormat) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
       ];
+      return false;
     } else if (this.hasExceededLimitation) {
       this.message = [
         { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
       ];
-    } else {
-      // @ts-ignore
-      const user:IUtilisateur = this.authService.getUser();
-      // @ts-ignore
-      let duplicatedDeck: IDeck = {
-        id: 0,
-        nom: deck.nom + '-dupl',
-        cartes: [],
-        utilisateur: user,
-        formats: deck.formats,
-        dateCreation: new Date(Date.now())
-        }
-      ;
-
-      deck.cartes.forEach(carte => {
-        // @ts-ignore
-        duplicatedDeck.cartes.push(carte);
-      });
-
-      this.http.post<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', duplicatedDeck).subscribe(data => {
-        this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-          this.decks = playerDecks;
-        });
-      })
+      return false;
     }
+
+    return true;
   }
 
+  private createDuplicatedDeck(): Deck {
+    const user: Utilisateur = this.authService.getUser(); // @ts-ignore
+
+    return {
+      id: 0,
+      nom: `${this.selectedDeck.nom}-dupl`,
+      cartes: [],
+      utilisateur: user,
+      formats: this.selectedDeck.formats,
+      dateCreation: new Date(),
+    };
+  }
+
+  private copyCardsToDuplicatedDeck(duplicatedDeck: Deck): void {
+    this.selectedDeck.cartes.forEach(carte => {
+      duplicatedDeck.cartes.push(carte); // @ts-ignore
+    });
+  }
 
   getUserCollectionFiltered() {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/collection?userId=${this.authService.getUserId()}`;
-    this.http.get<ICollection>(url).subscribe({
+    const userId = this.authService.getUserId();
+    this.utilisateurService.getCollection(userId).subscribe({
       next: data => {
         if (data && data.cartes && data.cartes.length > 0) {
           // @ts-ignore
@@ -264,7 +283,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>(`${API_BASE_URL}/formats`).subscribe({
+    this.referentielService.getAllFormats().subscribe({
       next: data => {
         this.formats = data;
       },
@@ -283,9 +302,9 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
             { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
           ];
         } else {
-          this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/deck', { body: selectedDeck }).subscribe({
+          this.deckService.deleteDeck(selectedDeck).subscribe({
             next: data => {
-              this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
+              this.utilisateurService.getAllDecks().subscribe(playerDecks => {
                 this.decks = playerDecks;
               });
               // @ts-ignore
@@ -328,8 +347,8 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     }
   }
 
-  applyFilters(filtersAndSortsValues: IFiltersAndSortsValues) {
-    this.collectionJoueurFiltreeTriee = this.collectionJoueurFiltree.filter((carte: ICarteAndQuantity) => {
+  applyFilters(filtersAndSortsValues: FiltersAndSortsValues) {
+    this.collectionJoueurFiltreeTriee = this.collectionJoueurFiltree.filter((carte: CarteAndQuantity) => {
       if (filtersAndSortsValues.selectedClans && filtersAndSortsValues.selectedClans.length > 0
         && filtersAndSortsValues.selectedClans.indexOf(carte.carte.clan.nom) == -1) {
         return false;
@@ -435,7 +454,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     this.applyFilters(this.filtersAndSortsValues);
   }
 
-  calculRarete(deck: IDeck) {
+  calculRarete(deck: Deck) {
     return deck.cartes.reduce((somme, carte) => somme + carte.rarete, 0);
   }
 
@@ -443,7 +462,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  getFormatsNomForDeck(deck: IDeck): string {
+  getFormatsNomForDeck(deck: Deck): string {
     let nomsFormats = '';
     for (const format of deck.formats) {
       this.formats.find(format => format.formatId ===  format.formatId);

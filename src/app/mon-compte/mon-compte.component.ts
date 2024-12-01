@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {IUtilisateur} from "../interfaces/IUtilisateur";
-import {HttpClient} from "@angular/common/http";
+import {Utilisateur} from "../classes/Utilisateur";
+import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
@@ -14,7 +14,7 @@ export class MonCompteComponent {
     password: ''
   };
 
-  utilisateur: IUtilisateur;
+  utilisateur: Utilisateur;
   newPassword: string = '';
   codePromo: string = '';
 

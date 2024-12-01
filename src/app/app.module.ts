@@ -7,12 +7,11 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { RouterModule } from '@angular/router';
 import { RechercheCombatComponent } from './recherche-combat/recherche-combat.component';
 import { TournoisComponent } from './tournois/tournois.component';
-import { ClassementsComponent } from './classements/classements.component';
 import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
-import {HttpClientModule} from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,7 +62,7 @@ import { InfosComponent } from './infos/infos.component';
 import { DecksBaseDetailsComponent } from './infos/decks-base-details/decks-base-details.component';
 import { DataManagementComponent } from './administration/data-management/data-management.component';
 import { PampaIconButtonComponent } from './composants/pampa-icon-button/pampa-icon-button.component';
-import {CanDeactivateGuard} from "./interfaces/CanComponentDeactivate";
+import {CanDeactivateGuard} from "./CanComponentDeactivate";
 import { DetailsStatutsComponent } from './tutoriel/details-statuts/details-statuts.component';
 import { TutorielComponent } from './tutoriel/tutoriel.component';
 import { HowToPlayComponent } from './tutoriel/how-to-play/how-to-play.component';
@@ -72,129 +71,140 @@ import { CookieService } from 'ngx-cookie-service';
 import { DetailsTournoiComponent } from './tournois/details-tournoi/details-tournoi.component';
 import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.component';
 import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
-import { InscriptionDialogComponent } from './tournois/inscription-dialog/inscription-dialog.component';
 import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-dialog/open-affrontement-dialog.component';
 import {PartieService} from "./services/partie.service";
 import {CarteEffetService} from "./services/carteEffet.service";
 import {TchatService} from "./services/tchat.service";
+import {TutoTournoisComponent} from "./tutoriel/tournois/tuto-tournois.component";
+import {CarteComponent} from "./carte/carte.component";
+import {LgAccueilComponent} from "./loup-garou/lg-accueil/lg-accueil.component";
+import {LgJoinComponent} from "./loup-garou/lg-join/lg-join.component";
+import {LgCreateComponent} from "./loup-garou/lg-create/lg-create.component";
+import {LgGameComponent} from "./loup-garou/lg-game/lg-game.component";
+import {InscriptionDialogComponent} from "./tournois/inscription-dialog/inscription-dialog.component";
+import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    CollectionComponent,
-    DeckbuilderComponent,
-    AccueilComponent,
-    RechercheCombatComponent,
-    TournoisComponent,
-    ClassementsComponent,
-    MonCompteComponent,
-    DeconnexionComponent,
-    PageNotFoundComponent,
-    LoginComponent,
-    MenuComponent,
-    SortCardsByNamePipe,
-    DemandeCombatDialogComponent,
-    PartieComponent,
-    CarteMainComponent,
-    CarteTerrainComponent,
-    DefausseComponent,
-    CarteMainAdvComponent,
-    SelectionCarteDialogComponent,
-    VisionCartesDialogComponent,
-    ConfirmationDialogComponent,
-    AdministrationComponent,
-    CreateAccountComponent,
-    CardManagementComponent,
-    AttributionDeckComponent,
-    DeckCardComponent,
-    PampaButtonComponent,
-    PampaSubmitButtonComponent,
-    AdministrationPartiesComponent,
-    PartieObsComponent,
-    PampaButtonCarreComponent,
-    PampaTourAnimationComponent,
-    BoostersDetailsComponent,
-    PampaOnOffComponent,
-    BandeauFiltresCartesComponent,
-    PampaSortButtonsComponent,
-    CardViewComponent,
-    LimitationsDeckComponent,
-    TchatComponent,
-    InfosComponent,
-    DecksBaseDetailsComponent,
-    DataManagementComponent,
-    PampaIconButtonComponent,
-    DetailsStatutsComponent,
-    TutorielComponent,
-    HowToPlayComponent,
-    HowToStartComponent,
-    DetailsTournoiComponent,
-    DetailsLigueComponent,
-    AdministrationTournoisComponent,
-    InscriptionDialogComponent,
-    OpenAffrontementDialogComponent
-  ],
-  imports: [
-    RouterModule.forRoot([
-      {path: 'accueil', component: AccueilComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
-      {path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
-      {path: 'tutoriel', component: TutorielComponent},
-      {path: 'tutoriel/debuter', component: HowToStartComponent},
-      {path: 'tutoriel/jouer', component: HowToPlayComponent},
-      {path: 'tutoriel/details-statuts', component: DetailsStatutsComponent},
-      {path: 'infos', component: InfosComponent},
-      {path: 'infos/boosters-details', component: BoostersDetailsComponent},
-      {path: 'infos/deck-base-details', component: DecksBaseDetailsComponent},
-      {path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard]},
-      {path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard]},
-      { path: 'partie-obs/:id/:type', component: PartieObsComponent, canActivate: [AuthGuard] },
-      {path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard]},
-      {path: 'tournoi/:id', component: DetailsTournoiComponent, canActivate: [AuthGuard]},
-      {path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard]},
-      {path: 'classements', component: ClassementsComponent, canActivate: [AuthGuard]},
-      {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
-      {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
-      {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
-      {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},
-      {path: 'data-management', component: DataManagementComponent, canActivate: [AuthGuard]},
-      {path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard]},
-      {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
-      {path: 'tournois-management', component: AdministrationTournoisComponent, canActivate: [AuthGuard]},
-      {path: 'card-view/:id', component: CardViewComponent},
-      {path: 'deconnexion', component: DeconnexionComponent},
-      {path: '', redirectTo: '/accueil', pathMatch: 'full'},
-      {path: '**', component: PageNotFoundComponent}
-    ]),
-    HttpClientModule,
-    FormsModule,
-    MultiSelectModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    DynamicDialogModule,
-    MessagesModule,
-    TableModule,
-    DialogModule,
-    MatIconModule,
-    CommonModule,
-    MatButtonModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    AuthGuard,
-    SseService,
-    ConfirmationService,
-    DialogService,
-    PropertiesService,
-    DeckService,
-    CookieService,
-    PartieService,
-    TchatService,
-    CarteEffetService
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        CollectionComponent,
+        DeckbuilderComponent,
+        AccueilComponent,
+        RechercheCombatComponent,
+        TournoisComponent,
+        MonCompteComponent,
+        DeconnexionComponent,
+        PageNotFoundComponent,
+        LoginComponent,
+        MenuComponent,
+        SortCardsByNamePipe,
+        DemandeCombatDialogComponent,
+        PartieComponent,
+        CarteMainComponent,
+        CarteTerrainComponent,
+        DefausseComponent,
+        CarteMainAdvComponent,
+        SelectionCarteDialogComponent,
+        VisionCartesDialogComponent,
+        ConfirmationDialogComponent,
+        AdministrationComponent,
+        CreateAccountComponent,
+        CardManagementComponent,
+        AttributionDeckComponent,
+        DeckCardComponent,
+        PampaButtonComponent,
+        PampaSubmitButtonComponent,
+        AdministrationPartiesComponent,
+        PartieObsComponent,
+        PampaButtonCarreComponent,
+        PampaTourAnimationComponent,
+        BoostersDetailsComponent,
+        PampaOnOffComponent,
+        BandeauFiltresCartesComponent,
+        PampaSortButtonsComponent,
+        CardViewComponent,
+        LimitationsDeckComponent,
+        TchatComponent,
+        InfosComponent,
+        DecksBaseDetailsComponent,
+        DataManagementComponent,
+        PampaIconButtonComponent,
+        DetailsStatutsComponent,
+        TutorielComponent,
+        HowToPlayComponent,
+        HowToStartComponent,
+        DetailsTournoiComponent,
+        DetailsLigueComponent,
+        AdministrationTournoisComponent,
+        InscriptionDialogComponent,
+        OpenAffrontementDialogComponent,
+        CarteMainObsComponent,
+        TutoTournoisComponent,
+        LgAccueilComponent,
+        LgJoinComponent,
+        LgCreateComponent,
+        LgGameComponent,
+        CarteComponent
+    ],
+    bootstrap: [AppComponent], imports: [RouterModule.forRoot([
+            { path: 'accueil', component: AccueilComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'collection', component: CollectionComponent, canActivate: [AuthGuard] },
+            { path: 'deckbuilder', component: DeckbuilderComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },
+            { path: 'tutoriel', component: TutorielComponent },
+            { path: 'tutoriel/debuter', component: HowToStartComponent },
+            { path: 'tutoriel/jouer', component: HowToPlayComponent },
+            { path: 'tutoriel/details-statuts', component: DetailsStatutsComponent },
+            { path: 'tutoriel/tournois', component: TutoTournoisComponent },
+            { path: 'infos', component: InfosComponent },
+            { path: 'infos/boosters-details', component: BoostersDetailsComponent },
+            { path: 'infos/deck-base-details', component: DecksBaseDetailsComponent },
+            { path: 'recherche-combat', component: RechercheCombatComponent, canActivate: [AuthGuard] },
+            { path: 'partie/:id', component: PartieComponent, canActivate: [AuthGuard] },
+            { path: 'partie-obs/:id/:type', component: PartieObsComponent, canActivate: [AuthGuard] },
+            { path: 'tournois', component: TournoisComponent, canActivate: [AuthGuard] },
+            { path: 'tournoi/:id', component: DetailsTournoiComponent, canActivate: [AuthGuard] },
+            { path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard] },
+            { path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard] },
+            { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard] },
+            { path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard] },
+            { path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard] },
+            { path: 'data-management', component: DataManagementComponent, canActivate: [AuthGuard] },
+            { path: 'parties-management', component: AdministrationPartiesComponent, canActivate: [AuthGuard] },
+            { path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard] },
+            { path: 'tournois-management', component: AdministrationTournoisComponent, canActivate: [AuthGuard] },
+            { path: 'card-view/:id', component: CardViewComponent },
+            { path: 'lg/accueil', component: LgAccueilComponent },
+            { path: 'lg/create', component: LgCreateComponent },
+            { path: 'lg/join', component: LgJoinComponent },
+            { path: 'lg/game/:id', component: LgGameComponent },
+            { path: 'deconnexion', component: DeconnexionComponent },
+            { path: '', redirectTo: '/accueil', pathMatch: 'full' },
+            { path: '**', component: PageNotFoundComponent }
+        ]),
+        FormsModule,
+        MultiSelectModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        ConfirmDialogModule,
+        DropdownModule,
+        DynamicDialogModule,
+        MessagesModule,
+        TableModule,
+        DialogModule,
+        MatIconModule,
+        CommonModule,
+        MatButtonModule,
+        ReactiveFormsModule], providers: [
+        AuthGuard,
+        SseService,
+        ConfirmationService,
+        DialogService,
+        PropertiesService,
+        DeckService,
+        CookieService,
+        PartieService,
+        TchatService,
+        CarteEffetService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

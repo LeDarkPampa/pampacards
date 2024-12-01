@@ -1,8 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
-import {HttpClient} from "@angular/common/http";
-import {IClan} from "../../interfaces/IClan";
-import {IType} from "../../interfaces/IType";
+import { HttpClient } from "@angular/common/http";
+import {Type} from "../../classes/cartes/Type";
+import {CartePartie} from "../../classes/cartes/CartePartie";
 
 @Component({
   selector: 'app-details-statuts',
@@ -12,25 +11,25 @@ import {IType} from "../../interfaces/IType";
 export class DetailsStatutsComponent implements OnInit {
 
   // @ts-ignore
-  normale: ICarte;
+  normale: CartePartie;
   // @ts-ignore
-  bouclier: ICarte;
+  bouclier: CartePartie;
   // @ts-ignore
-  insensible: ICarte;
+  insensible: CartePartie;
   // @ts-ignore
-  corrompu: ICarte;
+  corrompu: CartePartie;
   // @ts-ignore
-  silence: ICarte;
+  silence: CartePartie;
   // @ts-ignore
-  indestructible: ICarte;
+  indestructible: CartePartie;
   // @ts-ignore
-  prison: ICarte;
-  private clanCorrompu: IClan = {
+  prison: CartePartie;
+  private clanCorrompu: Type = {
     id: 0,
     nom: 'Corrompu'
   };
 
-  private typeCorrompu: IType = {
+  private typeCorrompu: Type = {
     id: 0,
     nom: 'Corrompu'
   };
@@ -39,7 +38,7 @@ export class DetailsStatutsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get<ICarte>('https://pampacardsback-57cce2502b80.herokuapp.com/api/carte?carteId=' + 1110).subscribe({
+    this.http.get<CartePartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/carte?carteId=' + 1110).subscribe({
       next: data => {
         let carte = data;
         carte.bouclier = false;
@@ -61,7 +60,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: false,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         }
         this.bouclier = {
           id: carte.id,
@@ -78,7 +78,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: true,
           insensible: false,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         };
         this.corrompu = {
           id: carte.id,
@@ -95,7 +96,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: false,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         };
         this.insensible = {
           id: carte.id,
@@ -112,7 +114,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: true,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         };
         this.silence = {
           id: carte.id,
@@ -129,7 +132,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: true,
           bouclier: false,
           insensible: false,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         };
         this.indestructible = {
           id: carte.id,
@@ -146,7 +150,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: true,
           insensible: false,
-          prison: false
+          prison: false,
+          cartePartieId: 0
         };
         this.prison = {
           id: carte.id,
@@ -163,7 +168,8 @@ export class DetailsStatutsComponent implements OnInit {
           silence: false,
           bouclier: false,
           insensible: false,
-          prison: true
+          prison: true,
+          cartePartieId: 0
         };
         this.cd.detectChanges();
       },

@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { AuthentificationService } from "../services/authentification.service";
-import { ClanService } from "../services/clan.service";
-import { TypeService } from "../services/type.service";
-import { IClan } from "../interfaces/IClan";
-import { IType } from "../interfaces/IType";
-import { IFiltersAndSortsValues } from "../interfaces/IFiltersAndSortsValues";
+import { FiltersAndSortsValues } from "../classes/FiltersAndSortsValues";
+import {ReferentielService} from "../services/referentiel.service";
+import {Type} from "../classes/cartes/Type";
+import {Clan} from "../classes/cartes/Clan";
 
 @Component({
   selector: 'app-bandeau-filtres-cartes',
@@ -19,14 +18,14 @@ import { IFiltersAndSortsValues } from "../interfaces/IFiltersAndSortsValues";
   styleUrls: ['./bandeau-filtres-cartes.component.css', '../app.component.css']
 })
 export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
-  @Input() filtersAndSortsValues: IFiltersAndSortsValues = {
+  @Input() filtersAndSortsValues: FiltersAndSortsValues = {
     selectedClans: [],
     selectedTypes: [],
     selectedRaretes: [],
     sortValue: 'no'
   };
 
-  @Output() applyFilters = new EventEmitter<IFiltersAndSortsValues>();
+  @Output() applyFilters = new EventEmitter<FiltersAndSortsValues>();
   @Output() sortCards = new EventEmitter<string>();
 
   clans: string[] = [];
@@ -38,7 +37,7 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   resetSort: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthentificationService,
-    private clanService: ClanService, private typeService: TypeService) {}
+    private referentielService: ReferentielService) {}
 
   ngOnInit() {
     this.initializeData();
@@ -55,8 +54,8 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
   }
 
   private initializeData() {
-    this.clanService.getAllClans().subscribe(
-      (clans: IClan[]) => {
+    this.referentielService.getAllClans().subscribe(
+      (clans: Clan[]) => {
         this.clans = clans.map(clan => clan.nom);
       },
       (error) => {
@@ -64,8 +63,8 @@ export class BandeauFiltresCartesComponent implements OnInit, OnChanges {
       }
     );
 
-    this.typeService.getAllTypes().subscribe(
-      (types: IType[]) => {
+    this.referentielService.getAllTypes().subscribe(
+      (types: Type[]) => {
         this.types = types.map(type => type.nom);
       },
       (error) => {

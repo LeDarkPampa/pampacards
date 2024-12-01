@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {IFormat} from "../../interfaces/IFormat";
+import {Format} from "../../classes/decks/Format";
 
 @Component({
   selector: 'app-limitations-deck',
@@ -9,6 +9,6 @@ import {IFormat} from "../../interfaces/IFormat";
 export class LimitationsDeckComponent {
 
   // @ts-ignore
-  @Input() selectedFormat: IFormat;
+  @Input() selectedFormat: Format;
 
 }

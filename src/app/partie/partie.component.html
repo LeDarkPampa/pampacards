@@ -14,7 +14,7 @@
     <div class="margin-left-30">Tour : {{getTourAffiche()}}</div>
   </div>
   <div *ngIf="joueur" class="bandeau-chat">
-    <app-tchat [partieId]="partieId" [joueur]="joueur"></app-tchat>
+    <app-tchat [partieId]="partieId"></app-tchat>
   </div>
   <div class="center deck-adv">
     <div *ngIf="adversaire" class="deck-container">

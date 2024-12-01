@@ -1,37 +1,32 @@
 import { Injectable } from '@angular/core';
-import {IDeck} from "../interfaces/IDeck";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {AuthentificationService} from "./authentification.service";
 import { catchError, map } from 'rxjs/operators';
-import {IFormat} from "../interfaces/IFormat";
-import {ICarte} from "../interfaces/ICarte";
+import {Format} from "../classes/decks/Format";
+import {ApiService} from "./api.service";
+import {Deck} from "../classes/decks/Deck";
+import {Carte} from "../classes/cartes/Carte";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DeckService {
+export class DeckService extends ApiService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
-
-  getAllPlayerDecks(): Observable<IDeck[]> {
-    return this.http.get<IDeck[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/decks?userId=' + this.authService.getUserId()).pipe(
-      map((decks: IDeck[]) => {
-        return decks.sort((a, b) => {
-          const date1 = new Date(a.dateCreation);
-          const date2 = new Date(b.dateCreation);
-          return date1.valueOf() - date2.valueOf();
-        });
-      }),
-      catchError(error => {
-        console.error('There was an error!', error);
-        return throwError(error);
-      })
-    );
+  constructor(private http: HttpClient, private authService: AuthentificationService) {
+    super();
   }
 
-  isDeckUtilise(selectedDeck: IDeck): Observable<boolean> {
-    const url = `https://pampacardsback-57cce2502b80.herokuapp.com/api/isDeckUtilise?deckId=${selectedDeck.id}`;
+  saveDeck(deck: Deck): Observable<Deck[]> {
+    return this.http.post<Deck[]>(this.API_URL + '/deck', deck);
+  }
+
+  deleteDeck(deck: Deck): Observable<void> {
+    return this.http.request<void>('delete', this.API_URL + '/deck', { body: deck });
+  }
+
+  isDeckUtilise(selectedDeck: Deck): Observable<boolean> {
+    const url = this.API_URL + `/isDeckUtilise?deckId=${selectedDeck.id}`;
     return this.http.get<boolean>(url).pipe(
       map((data: boolean) => data),
       catchError((error) => {
@@ -41,7 +36,7 @@ export class DeckService {
     );
   }
 
-  validateDeck(deck: IDeck, selectedFormat: IFormat, addedCard?: ICarte): string | null {
+  validateDeck(deck: Deck, selectedFormat: Format, addedCard?: Carte): string | null {
     const deckSizeLimit = 20;
     const cardLimit = 3;
     const rarityLimit44 = 44;

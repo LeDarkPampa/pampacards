@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { IUtilisateur } from "../../interfaces/IUtilisateur";
+import { UtilisateurService } from '../../services/utilisateur.service';
+import { Utilisateur } from "../../classes/Utilisateur";
 
 @Component({
   selector: 'app-create-account',
@@ -16,11 +16,11 @@ export class CreateAccountComponent {
   selectedUserName: string = '';
   selectedUserNameReinit: string = '';
   newPassword: string = '';
-  utilisateurs: IUtilisateur[] = [];
+  utilisateurs: Utilisateur[] = [];
   pseudosUtilisateurs: string[] = [];
 
-  constructor(private http: HttpClient) {
-    this.http.get<IUtilisateur[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/users').subscribe({
+  constructor(private utilisateurService: UtilisateurService) {
+    this.utilisateurService.getUtilisateurs().subscribe({
       next: data => {
         this.utilisateurs = data;
         this.pseudosUtilisateurs = data.map(user => user.pseudo);
@@ -33,53 +33,41 @@ export class CreateAccountComponent {
   }
 
   onSubmit() {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/user', this.user).subscribe({
+    this.utilisateurService.createUser(this.user).subscribe({
       next: response => {
         alert('Utilisateur créé');
+        this.resetForm();
       },
       error: error => {
         console.error('There was an error!', error);
         alert('Erreur lors de la création');
       }
     });
-
-    // Réinitialisation du formulaire après soumission
-    this.user = {
-      pseudo: '',
-      password: ''
-    };
   }
 
   onChangePassword() {
-    const selectedUserPseudo = this.selectedUserName;
+    const selectedUser = this.utilisateurs.find(user => user.pseudo === this.selectedUserName);
 
-    const selectedUserObject = this.utilisateurs.find(user => user.pseudo === selectedUserPseudo);
-
-    if (selectedUserObject) {
-      selectedUserObject.password = this.newPassword;
-
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updatePassword', selectedUserObject).subscribe({
+    if (selectedUser) {
+      selectedUser.password = this.newPassword;
+      this.utilisateurService.updatePassword(selectedUser).subscribe({
         next: response => {
           alert('Mot de passe modifié');
+          this.newPassword = '';
         },
         error: error => {
           console.error('There was an error!', error);
           alert('Erreur lors de la modification');
         }
       });
-
-      // Réinitialisation du formulaire après soumission
-      this.newPassword = '';
     } else {
       console.error('Utilisateur non trouvé');
     }
   }
 
   onReinitUser() {
-    const selectedUserPseudo = this.selectedUserNameReinit;
-
-    if (selectedUserPseudo) {
-      this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/reinituser', selectedUserPseudo).subscribe({
+    if (this.selectedUserNameReinit) {
+      this.utilisateurService.reinitUser(this.selectedUserNameReinit).subscribe({
         next: response => {
           alert('Utilisateur réinitialisé');
         },
@@ -88,9 +76,15 @@ export class CreateAccountComponent {
           alert('Erreur lors de la réinitialisation');
         }
       });
-
     } else {
       console.error('Utilisateur non trouvé');
     }
+  }
+
+  private resetForm() {
+    this.user = {
+      pseudo: '',
+      password: ''
+    };
   }
 }

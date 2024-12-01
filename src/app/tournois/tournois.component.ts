@@ -1,19 +1,19 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, signal} from '@angular/core';
 import {TournoiService} from "../services/tournoi.service";
-import {ITournoi} from "../interfaces/ITournoi";
-import {ILigue} from "../interfaces/ILigue";
+import {Tournoi} from "../classes/competitions/Tournoi";
+import {Ligue} from "../classes/competitions/Ligue";
 import {AuthentificationService} from "../services/authentification.service";
-import {HttpClient} from "@angular/common/http";
-import {IUserAndTournoi} from "../interfaces/IUserAndTournoi";
-import {IUserAndLigue} from "../interfaces/IUserAndLigue";
-import {IUtilisateur} from "../interfaces/IUtilisateur";
-import {LigueTournoiStatutEnum} from "../interfaces/LigueTournoiStatutEnum";
+import { HttpClient } from "@angular/common/http";
+import {UserAndLigue} from "../classes/competitions/UserAndLigue";
+import {Utilisateur} from "../classes/Utilisateur";
+import {LigueTournoiStatutEnum} from "../enums/LigueTournoiStatutEnum";
 import {Router} from "@angular/router";
-import {IDeck} from "../interfaces/IDeck";
+import {Deck} from "../classes/decks/Deck";
 import {DialogService} from "primeng/dynamicdialog";
 import {InscriptionDialogComponent} from "./inscription-dialog/inscription-dialog.component";
-import {DeckService} from "../services/deck.service";
-import {IinscriptionCompetition} from "../interfaces/IinscriptionCompetition";
+import {UtilisateurService} from "../services/utilisateur.service";
+import {InscriptionCompetition} from "../classes/competitions/InscriptionCompetition";
+import {UserAndTournoi} from "../classes/competitions/UserAndTournoi";
 
 @Component({
   selector: 'app-tournois',
@@ -21,49 +21,46 @@ import {IinscriptionCompetition} from "../interfaces/IinscriptionCompetition";
   styleUrls: ['./tournois.component.css', '../app.component.css']
 })
 export class TournoisComponent implements OnInit {
-  tournoisOuverts: ITournoi[] = [];
-  liguesOuvertes: ILigue[] = [];
+  tournoisOuverts= signal<Tournoi[]>([]);
+  liguesOuvertes= signal<Ligue[]>([]);
 
-  registeredTournaments: ITournoi[] = [];
-  registeredLigues: ILigue[] = [];
+  registeredTournaments= signal<Tournoi[]>([]);
+  registeredLigues= signal<Ligue[]>([]);
 
-  // @ts-ignore
-  utilisateur: IUtilisateur;
-  // @ts-ignore
-  allDecks: IDeck[] = [];
+  utilisateur = signal<Utilisateur | null>(null);
+
+  allDecks= signal<Deck[]>([]);
 
 
   constructor(private http: HttpClient, private router: Router, private zone: NgZone,
               private dialogService: DialogService, private tournoiService: TournoiService,
-              private authService: AuthentificationService, private deckService: DeckService) {
+              private authService: AuthentificationService, private utilisateurService: UtilisateurService) {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    this.utilisateur = this.authService.getUser();
-    this.deckService.getAllPlayerDecks().subscribe(playerDecks => {
-      this.allDecks = playerDecks;
+    this.utilisateur.set(this.authService.getUser());
+    this.utilisateurService.getAllDecks().subscribe(playerDecks => {
+      this.allDecks.set(playerDecks);
     });
     this.refreshTournoisLigueListes();
   }
 
-  registerForTournament(tournoi: ITournoi) {
+  registerForTournament(tournoi: Tournoi) {
     this.zone.run(() => {
       const ref = this.dialogService.open(InscriptionDialogComponent, {
         header: 'Inscription pour ' + tournoi.nom,
         width: '60%',
         height: '60%',
-        data: { competition: tournoi, decks: this.allDecks.filter(deck =>
+        data: { competition: tournoi, decks: this.allDecks().filter(deck =>
             deck.formats.some(format => format.formatId === tournoi.format.formatId)
           )
         },
         closable: false
       });
 
-      ref.onClose.subscribe((inscriptionCompetition: IinscriptionCompetition) => {
+      ref.onClose.subscribe((inscriptionCompetition: InscriptionCompetition) => {
         if (inscriptionCompetition.status === "OK") {
-          // @ts-ignore
-          const inscriptionValues: IUserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
+          const inscriptionValues: UserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
 
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/inscription', inscriptionValues).subscribe({
             next: response => {
@@ -81,20 +78,20 @@ export class TournoisComponent implements OnInit {
     });
   }
 
-  registerForLigue(ligue: ILigue) {
+  registerForLigue(ligue: Ligue) {
     this.zone.run(() => {
       const ref = this.dialogService.open(InscriptionDialogComponent, {
         header: 'Inscription pour ' + ligue.nom,
         width: '60%',
         height: '60%',
-        data: { competition: ligue, decks: this.allDecks.filter(deck => deck.formats.some(format => format.formatId ===  ligue.format.formatId)) },
+        data: { competition: ligue, decks: this.allDecks().filter(deck => deck.formats.some(format => format.formatId ===  ligue.format.formatId)) },
         closable: false
       });
 
-      ref.onClose.subscribe((inscriptionCompetition: IinscriptionCompetition) => {
+      ref.onClose.subscribe((inscriptionCompetition: InscriptionCompetition) => {
         if (inscriptionCompetition.status === "OK") {
           // @ts-ignore
-          const inscriptionValues: IUserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
+          const inscriptionValues: UserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
 
           this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/inscription', inscriptionValues).subscribe({
             next: response => {
@@ -112,9 +109,9 @@ export class TournoisComponent implements OnInit {
     });
   }
 
-  unregisterForTournament(tournoi: ITournoi) {
+  unregisterForTournament(tournoi: Tournoi) {
     // @ts-ignore
-    const inscriptionValues: IUserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser() };
+    const inscriptionValues: UserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser() };
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/desinscription', inscriptionValues).subscribe({
       next: response => {
@@ -128,9 +125,9 @@ export class TournoisComponent implements OnInit {
     });
   }
 
-  unregisterForLigue(ligue: ILigue) {
+  unregisterForLigue(ligue: Ligue) {
     // @ts-ignore
-    const inscriptionValues: IUserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser() };
+    const inscriptionValues: UserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser() };
 
     this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/desinscription', inscriptionValues).subscribe({
       next: response => {
@@ -144,81 +141,94 @@ export class TournoisComponent implements OnInit {
     });
   }
 
-  isUserInTournoiParticipants(tournoi: ITournoi): boolean {
-    return tournoi.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === this.utilisateur.id);
+  isUserInTournoiParticipants(tournoi: Tournoi): boolean {
+    if (this.utilisateur()) {
+      const utilisateur = this.utilisateur()!;
+      return tournoi.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === utilisateur.id);
+    } else {
+      return false;
+    }
   }
 
-  isUserInLigueParticipants(ligue: ILigue): boolean {
-    return ligue.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === this.utilisateur.id);
+  isUserInLigueParticipants(ligue: Ligue): boolean {
+    if (this.utilisateur()) {
+      const utilisateur = this.utilisateur()!;
+      return ligue.participants.filter(player => player.utilisateur !== null).some(participant => participant.utilisateur.id === utilisateur.id);
+    } else {
+      return false;
+    }
   }
 
-  inscriptionTournoiOuverte(tournoi: ITournoi): boolean {
+  inscriptionTournoiOuverte(tournoi: Tournoi): boolean {
     return tournoi.statut === LigueTournoiStatutEnum.INSCRIPTIONS_OUVERTES;
   }
 
-  inscriptionLigueOuverte(ligue: ILigue): boolean {
+  inscriptionLigueOuverte(ligue: Ligue): boolean {
     return ligue.statut === LigueTournoiStatutEnum.INSCRIPTIONS_OUVERTES;
   }
 
-  isTournoiEnCours(tournoi: ITournoi): boolean {
+  isTournoiEnCours(tournoi: Tournoi): boolean {
     return tournoi.statut === LigueTournoiStatutEnum.EN_COURS;
   }
 
-  isTournoiTermine(tournoi: ITournoi): boolean {
+  isTournoiTermine(tournoi: Tournoi): boolean {
     return tournoi.statut === LigueTournoiStatutEnum.TERMINE;
   }
 
-  isLigueEnCours(ligue: ILigue): boolean {
+  isLigueEnCours(ligue: Ligue): boolean {
     return ligue.statut === LigueTournoiStatutEnum.EN_COURS;
   }
 
-  isLigueTermine(ligue: ILigue): boolean {
+  isLigueTermine(ligue: Ligue): boolean {
     return ligue.statut === LigueTournoiStatutEnum.TERMINE;
   }
 
   refreshTournoisLigueListes() {
-    this.tournoiService.getTournoisAVenir().subscribe(
-      (data) => {
-        this.tournoisOuverts = data;
-      },
-      (error) => {
+    this.tournoiService.getTournoisAVenir().subscribe({
+      next: (data) => {
+          this.tournoisOuverts.set(data);
+        },
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
 
-    this.tournoiService.getLiguesAVenir().subscribe(
-      (data) => {
-        this.liguesOuvertes = data;
+    this.tournoiService.getLiguesAVenir().subscribe({
+      next: (data) => {
+        this.liguesOuvertes.set(data);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la récupération des tournois en attente :', error);
       }
-    );
+    });
 
-    this.tournoiService.getTournoisValidesForUser(this.utilisateur.id).subscribe(
-      (data) => {
-        this.registeredTournaments = data;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
-      }
-    );
+    if (this.utilisateur() !== null) {
+      const utilisateur = this.utilisateur()!;
+      this.tournoiService.getTournoisValidesForUser(utilisateur.id).subscribe({
+        next: (data) => {
+          this.registeredTournaments.set(data);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        }
+      });
 
-    this.tournoiService.getLiguesValidesForUser(this.utilisateur.id).subscribe(
-      (data) => {
-        this.registeredLigues = data;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
-      }
-    );
+      this.tournoiService.getLiguesValidesForUser(utilisateur.id).subscribe({
+        next: (data) => {
+          this.registeredLigues.set(data);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        }
+      });
+    }
   }
 
-  voirTournoi(tournoi: ITournoi) {
+  voirTournoi(tournoi: Tournoi) {
     this.router.navigate(['/tournoi', tournoi.id]);
   }
 
-  voirLigue(ligue: ILigue) {
+  voirLigue(ligue: Ligue) {
     this.router.navigate(['/ligue', ligue.id]);
   }
 }

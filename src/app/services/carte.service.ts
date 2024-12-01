@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {ICarte} from "../interfaces/ICarte";
-import {EffetEnum} from "../interfaces/EffetEnum";
+import {CartePartie} from "../classes/cartes/CartePartie";
+import {EffetEnum} from "../enums/EffetEnum";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarteService {
 
+  
   constructor() { }
 
   nomCorrompu = 'Corrompu';
@@ -15,19 +16,19 @@ export class CarteService {
     return this.nomCorrompu;
   }
 
-  isFidelite(carte: ICarte) {
+  isFidelite(carte: CartePartie) {
     return carte.effet && carte.effet.code == EffetEnum.FIDELITE && !carte.silence;
   }
 
-  isCauchemard(carte: ICarte) {
+  isCauchemard(carte: CartePartie) {
     return carte.effet && carte.effet.code == EffetEnum.CAUCHEMARD && !carte.silence;
   }
 
-  memeTypeOuClan(c: ICarte, carte: ICarte) {
+  memeTypeOuClan(c: CartePartie, carte: CartePartie) {
     return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
   }
 
-  getPuissanceTotale(carte: ICarte) {
+  getPuissanceTotale(carte: CartePartie) {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 

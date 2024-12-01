@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ICarte} from "../../interfaces/ICarte";
+import {Carte} from "../../classes/cartes/Carte";
 
 @Component({
   selector: 'app-deck-card',
@@ -9,7 +9,7 @@ import {ICarte} from "../../interfaces/ICarte";
 export class DeckCardComponent {
 
   // @ts-ignore
-  @Input() carte: ICarte;
+  @Input() carte: Carte;
 
   @Output() clickedCarte = new EventEmitter();
 

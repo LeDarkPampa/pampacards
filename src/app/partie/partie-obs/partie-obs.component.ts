@@ -1,17 +1,17 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {IPlayerState} from "../../interfaces/IPlayerState";
-import {IPartie} from "../../interfaces/IPartie";
 import {Subject, Subscription} from "rxjs";
-import {IEvenementPartie} from "../../interfaces/IEvenementPartie";
-import {ICarte} from "../../interfaces/ICarte";
-import {IChatPartieMessage} from "../../interfaces/IChatPartieMessage";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
-import {EffetEnum} from "../../interfaces/EffetEnum";
 import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes-dialog.component";
+import {EvenementPartie} from "../../classes/parties/EvenementPartie";
+import {ChatPartieMessage} from "../../classes/ChatPartieMessage";
+import {PlayerState} from "../../classes/parties/PlayerState";
+import {Partie} from "../../classes/parties/Partie";
+import {CartePartie} from "../../classes/cartes/CartePartie";
+import {EffetEnum} from "../../enums/EffetEnum";
 
 @Component({
   selector: 'app-partie-obs',
@@ -20,11 +20,11 @@ import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes
 })
 export class PartieObsComponent  implements OnInit, OnDestroy {
   // @ts-ignore
-  joueur: IPlayerState;
+  joueur: PlayerState;
   // @ts-ignore
-  adversaire: IPlayerState;
+  adversaire: PlayerState;
   // @ts-ignore
-  partie: IPartie;
+  partie: Partie;
   // @ts-ignore
   partieId: number;
   // @ts-ignore
@@ -33,15 +33,15 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   // @ts-ignore
   private evenementsPartieSubscription: Subscription;
   // @ts-ignore
-  lastEvent: IEvenementPartie;
+  lastEvent: EvenementPartie;
   // @ts-ignore
-  private firstEvent: IEvenementPartie;
+  private firstEvent: EvenementPartie;
   // @ts-ignore
-  actuaLEvent: IEvenementPartie;
-  listEvents: IEvenementPartie[] = [];
+  actuaLEvent: EvenementPartie;
+  listEvents: EvenementPartie[] = [];
   lastEventId: number = 0;
   vainqueur = "";
-  chatMessages: IChatPartieMessage[] = [];
+  chatMessages: ChatPartieMessage[] = [];
   message: string = '';
   tourAffiche = 0;
   nomCorrompu = 'Corrompu';
@@ -63,7 +63,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     });
   }
 
-  private updateGameFromLastEvent(lastEvent: IEvenementPartie) {
+  private updateGameFromLastEvent(lastEvent: EvenementPartie) {
     this.tourAffiche = Math.ceil(lastEvent.tour / 2);
 
     this.joueur.id = this.partie.joueurUn.id;
@@ -150,15 +150,15 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     });
   }
 
-  private memeTypeOuClan(c: ICarte, carte: ICarte) {
+  private memeTypeOuClan(c: CartePartie, carte: CartePartie) {
     return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
   }
 
-  private getPuissanceTotale(carte: ICarte) {
+  private getPuissanceTotale(carte: CartePartie) {
     return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
-  showVisionCartesDialog(cartes: ICarte[]): void {
+  showVisionCartesDialog(cartes: CartePartie[]): void {
     const ref = this.dialogService.open(VisionCartesDialogComponent, {
       header: '',
       width: '50%',
@@ -403,12 +403,12 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  voirDefausse(defausse: ICarte[]) {
+  voirDefausse(defausse: CartePartie[]) {
     this.showVisionCartesDialog(defausse);
   }
 
   private getPartie() {
-    this.http.get<IPartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + this.partieId).subscribe({
+    this.http.get<Partie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + this.partieId).subscribe({
       next: partie => {
         this.partie = partie;
         this.initValues();
@@ -447,7 +447,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   private subscribeToEvenementsPartieFlux() {
     this.sseService.getEvenementsPartieFlux(this.partieId);
     this.evenementsPartieSubscription = this.sseService.evenementsPartie$.subscribe(
-      (evenementsPartie: IEvenementPartie[]) => {
+      (evenementsPartie: EvenementPartie[]) => {
         // @ts-ignore
         this.lastEvent = evenementsPartie.at(-1);
         if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
@@ -460,7 +460,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private getEventsPartie() {
-    this.http.get<IEvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
+    this.http.get<EvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
       next: evenementsPartie => {
 
         if (this.typeEcran === 'obs') {

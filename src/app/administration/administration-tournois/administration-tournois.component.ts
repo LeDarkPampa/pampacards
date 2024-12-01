@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TournoiService } from "../../services/tournoi.service";
-import { IFormat } from "../../interfaces/IFormat";
+import { Format } from "../../classes/decks/Format";
 import { HttpClient } from "@angular/common/http";
-import { ITypeCombat } from "../../interfaces/ITypeCombat";
-import { ITournoi } from "../../interfaces/ITournoi";
-import {ILigue} from "../../interfaces/ILigue";
-import {LigueTournoiStatutEnum} from "../../interfaces/LigueTournoiStatutEnum";
+import { TypeCombat } from "../../classes/TypeCombat";
+import { Tournoi } from "../../classes/competitions/Tournoi";
+import {Ligue} from "../../classes/competitions/Ligue";
+import {LigueTournoiStatutEnum} from "../../enums/LigueTournoiStatutEnum";
 import {Message} from "primeng/api";
+import {ReferentielService} from "../../services/referentiel.service";
 
 @Component({
   selector: 'app-administration-tournois',
@@ -18,15 +19,16 @@ export class AdministrationTournoisComponent implements OnInit {
   tournoiForm: FormGroup;
   ligueForm: FormGroup;
 
-  formats: IFormat[] = [];
-  typesCombat: ITypeCombat[] = [];
-  tournois: ITournoi[] = [];
-  ligues: ILigue[] = [];
+  formats: Format[] = [];
+  typesCombat: TypeCombat[] = [];
+  tournois: Tournoi[] = [];
+  ligues: Ligue[] = [];
 
   statutsTournoi: string[] = Object.values(LigueTournoiStatutEnum);
   message: Message[] = [];
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private tournoiService: TournoiService,
+              private referentielService: ReferentielService) {
     this.tournoiForm = this.fb.group({
       nom: ['', Validators.required],
       nombreDeJoueurs: [4, Validators.min(4)],
@@ -93,24 +95,14 @@ export class AdministrationTournoisComponent implements OnInit {
   }
 
   private getAllFormats() {
-    this.http.get<IFormat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/formats').subscribe({
-      next: data => {
-        data.forEach(format => this.formats.push(format));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.referentielService.getAllFormats().subscribe(formats => {
+      this.formats = formats;
     });
   }
 
   private getAllTypesCombat() {
-    this.http.get<ITypeCombat[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/typesCombat').subscribe({
-      next: data => {
-        data.forEach(typeCombat => this.typesCombat.push(typeCombat));
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
+    this.referentielService.getAllTypesCombat().subscribe(typesCombat => {
+      this.typesCombat = typesCombat;
     });
   }
 
@@ -136,7 +128,7 @@ export class AdministrationTournoisComponent implements OnInit {
     );
   }
 
-  saveTournoi(tournoi: ITournoi) {
+  saveTournoi(tournoi: Tournoi) {
     this.tournoiService.saveTournoi(tournoi).subscribe(
       (modified) => {
         this.message = [
@@ -150,7 +142,7 @@ export class AdministrationTournoisComponent implements OnInit {
     );
   }
 
-  saveLigue(ligue: ILigue) {
+  saveLigue(ligue: Ligue) {
     this.tournoiService.saveLigue(ligue).subscribe(
       (modified) => {
         this.message = [
@@ -164,7 +156,7 @@ export class AdministrationTournoisComponent implements OnInit {
     );
   }
 
-  deleteTournoi(tournoi: ITournoi) {
+  deleteTournoi(tournoi: Tournoi) {
     this.tournoiService.deleteTournoi(tournoi.id).subscribe(
       (modified) => {
         this.loadTournois();
@@ -175,7 +167,7 @@ export class AdministrationTournoisComponent implements OnInit {
     );
   }
 
-  deleteLigue(ligue: ILigue) {
+  deleteLigue(ligue: Ligue) {
     this.tournoiService.deleteLigue(ligue.id).subscribe(
       (modified) => {
         this.loadLigues();

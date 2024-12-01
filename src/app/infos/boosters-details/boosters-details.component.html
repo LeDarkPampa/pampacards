@@ -23,7 +23,7 @@
     <h3>{{ boosterSelectionne.nom }}</h3>
     <ul class="carte-grid">
       <li *ngFor="let carte of boosterSelectionne.cartes">
-        <app-carte-terrain [taille]="'booster'" [carte]="carte"></app-carte-terrain>
+        <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
       </li>
     </ul>
   </div>
