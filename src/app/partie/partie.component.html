@@ -55,7 +55,7 @@
   <div  *ngIf="lastEvent" [class]="getJoueurColorClass()"  [ngClass]="{'flash-animation': isFlashing && this.lastEvent.status === 'NOUVEAU_TOUR'}" class="ligne-centree terrain terrain-joueur">
     <div *ngIf="joueur" class="ligne-centree">
       <div *ngFor="let carte of joueur.terrain">
-        <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
+        <app-carte-terrain [carte]="carte" [estJoueurActif]="estJoueurActif()" (clickedCarte)="clickedCarte($event)"></app-carte-terrain>
       </div>
     </div>
   </div>
@@ -76,14 +76,14 @@
     {{joueur.nom}}
   </div>
   <div class="center main-joueur">
-    <div *ngIf="joueur && !enAttente" class="ligne-centree">
+    <div *ngIf="joueur && !enAttente()" class="ligne-centree">
       <div *ngFor="let carte of joueur.main; let i = index">
         <app-carte-main (jouer)="onJouerCarte($event)" (defausser)="onDefausserCarte($event)" [carte]="carte"
-                        [estJoueurActif]="estJoueurActif" [carteJouee]="carteJouee"
-                        [carteDefaussee]="carteDefaussee" (clickedCarte)="clickedCarte($event)"
+                        [estJoueurActif]="estJoueurActif()" [carteJouee]="carteJouee()"
+                        [carteDefaussee]="carteDefaussee()" (clickedCarte)="clickedCarte($event)"
                         [index]="i"></app-carte-main>
       </div>
-      <div *ngIf="enAttente">En attente de votre adversaire</div>
+      <div *ngIf="enAttente()">En attente de votre adversaire</div>
     </div>
   </div>
   <div class="actions">
@@ -98,7 +98,7 @@
     <div *ngIf="finDePartie && partie.competitionId != null">
       <app-pampa-button [texte]="'Retour à la compétition'" [couleur]="'vert'" [taille]="'petit'" (clickBouton)="retourCompetition()"></app-pampa-button>
     </div>
-    <div *ngIf=" estJoueurActif && !finDePartie">
+    <div *ngIf=" estJoueurActif() && !finDePartie">
       <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="finDeTour()"></app-pampa-button>
     </div>
     <div class="ligne-centree" *ngIf="!finDePartie">

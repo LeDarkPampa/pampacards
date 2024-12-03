@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {SseService} from "../services/sse.service";
-import {finalize, first, Observable, Observer, of, Subject, Subscription, tap} from "rxjs";
+import {finalize, first, Observable, Observer, of, Subject, Subscription, tap, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
@@ -9,7 +9,7 @@ import {SelectionCarteDialogComponent} from "./selection-carte-dialog/selection-
 import {VisionCartesDialogComponent} from "./vision-cartes-dialog/vision-cartes-dialog.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {CarteService} from "../services/carte.service";
-import {catchError} from "rxjs/operators";
+import {catchError, map} from "rxjs/operators";
 import {JoueurService} from "../services/joueur.service";
 import {PartieService} from "../services/partie.service";
 import {CarteEffetService} from "../services/carteEffet.service";
@@ -20,6 +20,9 @@ import {PlayerState} from "../classes/parties/PlayerState";
 import {Partie} from "../classes/parties/Partie";
 import {CartePartie} from "../classes/cartes/CartePartie";
 import {EffetEnum} from "../enums/EffetEnum";
+import {TournoiService} from "../services/tournoi.service";
+import {Tournoi} from "../classes/competitions/Tournoi";
+import {Ligue} from "../classes/competitions/Ligue";
 
 @Component({
   selector: 'app-partie',
@@ -43,24 +46,25 @@ export class PartieComponent implements OnInit, OnDestroy {
   // @ts-ignore
   lastEvent: EvenementPartie;
   lastEventId: number = 0;
-  estJoueurActif = false;
-  estPremierJoueur: boolean = false;
+  estJoueurActif = signal(false);
+  estPremierJoueur = signal(false);
+  carteJouee = signal(false);
+  carteDefaussee = signal(false);
+  enAttente = signal(true);
   carteSelectionneeSubject = new Subject<CartePartie>();
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   public secondeCarteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   vainqueur = "";
-  carteJouee = false;
-  carteDefaussee = false;
   clickedCartePath: string = '';
 
   isFlashing: boolean = false;
-  enAttente: boolean = true;
   joueurAbandon: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
-              private partieEventService: PartieEventService,
+              private tournoiService: TournoiService,
+              private partieEventService: PartieEventService, private router: Router,
               private tchatService: TchatService, private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
     this.userId = authService.getUserId();
@@ -78,12 +82,12 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   private updateGameFromLastEvent(lastEvent: EvenementPartie) {
     if (this.lastEvent.status === "EN_ATTENTE") {
-      this.enAttente = true;
+      this.enAttente.set(true);
       this.cd.detectChanges();
       return;
     }
 
-    this.enAttente = false;
+    this.enAttente.set(false);
 
     if (this.lastEvent.status === "FIN_PARTIE" && !this.finDePartie) {
       this.finDePartie = true;
@@ -96,7 +100,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.finDePartie = true;
     }
 
-    this.estJoueurActif = lastEvent.joueurActifId === this.userId;
+    this.estJoueurActif.set(lastEvent.joueurActifId === this.userId);
 
     const isNotTourEnCoursOrEmptyDeck = this.lastEvent.joueurActifId !== this.joueur.id
       || this.lastEvent.status !== "TOUR_EN_COURS"
@@ -106,7 +110,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       this.updatePlayerAndOpponent(lastEvent);
     }
 
-    if (this.lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif) {
+    if (this.lastEvent.status === "NOUVEAU_TOUR" && this.estJoueurActif()) {
       this.startNewTurn();
     }
 
@@ -145,8 +149,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private startNewTurn() {
-    this.carteJouee = false;
-    this.carteDefaussee = false;
+    this.carteJouee.set(false);
+    this.carteDefaussee.set(false);
 
     this.isFlashing = true; // Activez l'animation de flash
 
@@ -199,7 +203,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       score: 0
     };
 
-    this.estPremierJoueur = this.partie.joueurUn.id === this.userId;
+    this.estPremierJoueur.set(this.partie.joueurUn.id === this.userId);
   }
 
   piocherCarte() {
@@ -212,7 +216,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     let stopJ2 = false;
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
-      this.carteJouee = true;
+      this.carteJouee.set(true);
       this.sendBotMessage(this.joueur.nom + ' joue la carte ' + carteJouee.nom);
       if (carteJouee.effet && !carteJouee.effet.continu) {
         this.playInstantEffect(carteJouee).then(r => {
@@ -335,7 +339,7 @@ export class PartieComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       const carteJouee = this.joueur.main.splice(index, 1)[0];
       this.sendBotMessage(this.joueur.nom + ' défausse la carte ' + carteJouee.nom);
-      this.carteDefaussee = true;
+      this.carteDefaussee.set(true);
       if (this.carteService.isFidelite(carteJouee)) {
         this.sendBotMessage(carteJouee.nom + ' est remise dans le deck');
         this.joueur.deck.push(carteJouee);
@@ -349,7 +353,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   finDeTour() {
-    if (this.estJoueurActif) {
+    if (this.estJoueurActif()) {
       let event = this.partieEventService.createEndTurnEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
       this.partieEventService.sendEvent(event);
     }
@@ -1430,21 +1434,21 @@ export class PartieComponent implements OnInit, OnDestroy {
 
   getJoueurColorClass(): string {
     if (this.finDePartie) {
-      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
-    } else if (this.estJoueurActif) {
-      return this.estPremierJoueur ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
+      return this.estPremierJoueur() ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+    } else if (this.estJoueurActif()) {
+      return this.estPremierJoueur() ? 'terrain-joueur-premier' : 'terrain-joueur-autre';
     } else {
-      return this.estPremierJoueur ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
+      return this.estPremierJoueur() ? 'terrain-joueur-premier-dark' : 'terrain-joueur-autre-dark';
     }
   }
 
   getAdvColorClass(): string {
     if (this.finDePartie) {
-      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
-    } else if (this.estJoueurActif) {
-      return this.estPremierJoueur ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+      return this.estPremierJoueur() ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
+    } else if (this.estJoueurActif()) {
+      return this.estPremierJoueur() ? 'terrain-adv-autre-dark' : 'terrain-adv-premier-dark';
     } else {
-      return this.estPremierJoueur ? 'terrain-adv-autre' : 'terrain-adv-premier';
+      return this.estPremierJoueur() ? 'terrain-adv-autre' : 'terrain-adv-premier';
     }
   }
 
@@ -1493,6 +1497,28 @@ export class PartieComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  getCompetition(id: number): Observable<{ type: string, data: Tournoi | Ligue }> {
+    return this.tournoiService.getTournoi(id).pipe(
+      map(tournoi => ({ type: 'tournoi', data: tournoi } as { type: string, data: Tournoi | Ligue })),
+      catchError(err => {
+        if (err.status === 404) {
+          return this.tournoiService.getLigue(id).pipe(
+            map(ligue => {
+              if (ligue) {
+                return { type: 'ligue', data: ligue } as { type: string, data: Tournoi | Ligue };
+              } else {
+                throw new Error('Competition not found');
+              }
+            }),
+            catchError(ligueErr => throwError(() => ligueErr))
+          );
+        } else {
+          return throwError(() => err);
+        }
+      })
+    );
   }
 
   ngOnDestroy() {
