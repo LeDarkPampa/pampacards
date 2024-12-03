@@ -95,6 +95,9 @@
         {{getVainqueurTexte()}}
       </div>
     </div>
+    <div *ngIf="finDePartie && partie.competitionId != null">
+      <app-pampa-button [texte]="'Retour à la compétition'" [couleur]="'vert'" [taille]="'petit'" (clickBouton)="retourCompetition()"></app-pampa-button>
+    </div>
     <div *ngIf=" estJoueurActif && !finDePartie">
       <app-pampa-button [texte]="'Fin de tour'" [couleur]="'bleu'" [taille]="'trespetit'" (clickBouton)="finDeTour()"></app-pampa-button>
     </div>

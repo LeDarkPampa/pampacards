@@ -1478,6 +1478,23 @@ export class PartieComponent implements OnInit, OnDestroy {
     return texteVainqueur;
   }
 
+  retourCompetition() {
+    if (this.partie.competitionId) {
+      this.getCompetition(this.partie.competitionId).subscribe({
+        next: competition => {
+          if (competition.type === 'tournoi') {
+            this.router.navigate(['/tournoi', competition.data.id]);
+          } else if (competition.type === 'ligue') {
+            this.router.navigate(['/ligue', competition.data.id]);
+          }
+        },
+        error: err => {
+          console.error('Erreur lors de la récupération de la compétition:', err);
+        }
+      });
+    }
+  }
+
   ngOnDestroy() {
     if (this.evenementsPartieSubscription) {
       this.evenementsPartieSubscription.unsubscribe();
