@@ -6,6 +6,7 @@ import {AuthentificationService} from "../services/authentification.service";
 import {Format} from "../classes/decks/Format";
 import { HttpClient } from "@angular/common/http";
 import {ReferentielService} from "../services/referentiel.service";
+import {DemandeCombat} from "../classes/combats/DemandeCombat";
 
 @Component({
   selector: 'app-demande-combat-dialog',
