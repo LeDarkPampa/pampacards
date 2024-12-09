@@ -1,17 +1,18 @@
 import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {Subject, Subscription} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {Partie} from "../../classes/parties/Partie";
+import {Subscription} from "rxjs";
+import {EvenementPartie} from "../../classes/parties/EvenementPartie";
+import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {SseService} from "../../services/sse.service";
 import {VisionCartesDialogComponent} from "../vision-cartes-dialog/vision-cartes-dialog.component";
-import {EvenementPartie} from "../../classes/parties/EvenementPartie";
-import {ChatPartieMessage} from "../../classes/ChatPartieMessage";
-import {PlayerState} from "../../classes/parties/PlayerState";
-import {Partie} from "../../classes/parties/Partie";
+import {PartieDatas} from "../../classes/parties/PartieDatas";
+import {PartieService} from "../../services/partie.service";
+import {PartieEventService} from "../../services/partieEvent.service";
 import {CartePartie} from "../../classes/cartes/CartePartie";
-import {EffetEnum} from "../../enums/EffetEnum";
+import {EffetsBaseService} from "../../services/effetsBase.service";
 
 @Component({
   selector: 'app-partie-obs',
@@ -19,43 +20,84 @@ import {EffetEnum} from "../../enums/EffetEnum";
   styleUrls: ['./partie-obs.component.css', '../../app.component.css']
 })
 export class PartieObsComponent  implements OnInit, OnDestroy {
-  // @ts-ignore
-  joueur: PlayerState;
-  // @ts-ignore
-  adversaire: PlayerState;
+  partieDatas: PartieDatas = {
+    partieId: 0,
+    joueur: {
+      id: 0,
+      nom: '',
+      main: [],
+      terrain: [],
+      deck: [],
+      defausse: [],
+      score: 0
+    },
+    adversaire: {
+      id: 0,
+      nom: '',
+      main: [],
+      terrain: [],
+      deck: [],
+      defausse: [],
+      score: 0
+    },
+    finDePartie: false,
+    lastEvent: {
+      id: -1,
+      status: '',
+      tour: 0,
+      joueurActifId: 0,
+      premierJoueurId: 0,
+      dateEvent: '',
+      cartesDeckJoueurUn: '',
+      cartesDeckJoueurDeux: '',
+      cartesMainJoueurUn: '',
+      cartesMainJoueurDeux: '',
+      cartesTerrainJoueurUn: '',
+      cartesTerrainJoueurDeux: '',
+      cartesDefausseJoueurUn: '',
+      cartesDefausseJoueurDeux: '',
+      partie_id: 0,
+      deckJoueurUnId: 0,
+      deckJoueurDeuxId: 0,
+      stopJ1: false,
+      stopJ2: false,
+      carteJouee: false,
+      carteDefaussee: false
+    },
+    nomVainqueur: '',
+    nomJoueurAbandon: ''
+  };
+  userId = 0;
   // @ts-ignore
   partie: Partie;
   // @ts-ignore
   partieId: number;
   // @ts-ignore
-  typeEcran: string;
-  finDePartie = false;
-  // @ts-ignore
   private evenementsPartieSubscription: Subscription;
+
+  lastEventId: number = 0;
+
   // @ts-ignore
-  lastEvent: EvenementPartie;
+  typeEcran: string;
   // @ts-ignore
   private firstEvent: EvenementPartie;
   // @ts-ignore
   actuaLEvent: EvenementPartie;
   listEvents: EvenementPartie[] = [];
-  lastEventId: number = 0;
-  vainqueur = "";
-  chatMessages: ChatPartieMessage[] = [];
+
   message: string = '';
-  tourAffiche = 0;
-  nomCorrompu = 'Corrompu';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
-              private dialogService: DialogService, private zone: NgZone,
-              private sseService: SseService, private cd: ChangeDetectorRef) {
-
+              private dialogService: DialogService, private zone: NgZone, private effetBaseService: EffetsBaseService,
+              private sseService: SseService, private cd: ChangeDetectorRef,private  partieService: PartieService,
+              private partieEventService: PartieEventService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.partieId = params['id'];
       this.typeEcran = params['type'];
+      this.partieDatas.partieId = this.partieId;
       this.getPartie();
       this.getEventsPartie();
       this.subscribeToEvenementsPartieFlux();
@@ -64,41 +106,37 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private updateGameFromLastEvent(lastEvent: EvenementPartie) {
-    this.tourAffiche = Math.ceil(lastEvent.tour / 2);
+    this.partieDatas.joueur.id = this.partie.joueurUn.id;
+    this.partieDatas.adversaire.id = this.partie.joueurDeux.id;
 
-    this.joueur.id = this.partie.joueurUn.id;
-    this.adversaire.id = this.partie.joueurDeux.id;
+    this.partieDatas.joueur.deck = lastEvent.cartesDeckJoueurUn && lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
+    this.partieDatas.adversaire.deck = lastEvent.cartesDeckJoueurDeux && lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
 
-    this.joueur.deck = lastEvent.cartesDeckJoueurUn && lastEvent.cartesDeckJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurUn) : [];
-    this.adversaire.deck = lastEvent.cartesDeckJoueurDeux && lastEvent.cartesDeckJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDeckJoueurDeux) : [];
+    this.partieDatas.joueur.main = lastEvent.cartesMainJoueurUn && lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
+    this.partieDatas.adversaire.main = lastEvent.cartesMainJoueurDeux && lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
 
-    this.joueur.main = lastEvent.cartesMainJoueurUn && lastEvent.cartesMainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurUn) : [];
-    this.adversaire.main = lastEvent.cartesMainJoueurDeux && lastEvent.cartesMainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesMainJoueurDeux) : [];
+    this.partieDatas.joueur.terrain = lastEvent.cartesTerrainJoueurUn && lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
+    this.partieDatas.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux && lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
 
-    this.joueur.terrain = lastEvent.cartesTerrainJoueurUn && lastEvent.cartesTerrainJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurUn) : [];
-    this.adversaire.terrain = lastEvent.cartesTerrainJoueurDeux && lastEvent.cartesTerrainJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesTerrainJoueurDeux) : [];
+    this.partieDatas.joueur.defausse = lastEvent.cartesDefausseJoueurUn && lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
+    this.partieDatas.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux && lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
 
-    this.joueur.defausse = lastEvent.cartesDefausseJoueurUn && lastEvent.cartesDefausseJoueurUn.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurUn) : [];
-    this.adversaire.defausse = lastEvent.cartesDefausseJoueurDeux && lastEvent.cartesDefausseJoueurDeux.length > 0 ? JSON.parse(lastEvent.cartesDefausseJoueurDeux) : [];
-
-    if (lastEvent.status == "DEBUT_PARTIE") {
-      this.initCards();
-    }
-    this.updateEffetsContinusAndScores();
+    this.effetBaseService.updateEffetsContinusAndScores(this.partieDatas);
+    this.partieService.updateScores(this.partieDatas);
 
     this.cd.detectChanges();
   }
 
   private initValues() {
-    let nomJoueur = '';
-    let nomAdversaire = '';
-    let idJoueur = 0;
-    let idAdversaire = 0;
+    let nomJoueur: string;
+    let nomAdversaire: string;
+    let idJoueur: number;
+    let idAdversaire: number;
     nomJoueur = this.partie.joueurUn.pseudo;
     idJoueur = this.partie.joueurUn.id;
     nomAdversaire = this.partie.joueurDeux.pseudo;
     idAdversaire = this.partie.joueurDeux.id;
-    this.joueur = {
+    this.partieDatas.joueur = {
       id: idJoueur,
       nom: nomJoueur,
       main: [],
@@ -108,7 +146,7 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       score: 0
     };
 
-    this.adversaire = {
+    this.partieDatas.adversaire = {
       id: idAdversaire,
       nom: nomAdversaire,
       main: [],
@@ -117,45 +155,6 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
       defausse: [],
       score: 0
     };
-  }
-
-  private initCards() {
-    this.joueur.deck.forEach(carte => {
-      carte.bouclier = false;
-      carte.insensible = false;
-      carte.silence = false;
-      carte.diffPuissanceInstant = 0;
-      carte.diffPuissanceContinue = 0;
-    });
-    this.joueur.main.forEach(carte => {
-      carte.bouclier = false;
-      carte.insensible = false;
-      carte.silence = false;
-      carte.diffPuissanceInstant = 0;
-      carte.diffPuissanceContinue = 0;
-    });
-    this.adversaire.deck.forEach(carte => {
-      carte.bouclier = false;
-      carte.insensible = false;
-      carte.silence = false;
-      carte.diffPuissanceInstant = 0;
-      carte.diffPuissanceContinue = 0;
-    });
-    this.adversaire.main.forEach(carte => {
-      carte.bouclier = false;
-      carte.insensible = false;
-      carte.silence = false;
-      carte.diffPuissanceInstant = 0;
-      carte.diffPuissanceContinue = 0;
-    });
-  }
-
-  private memeTypeOuClan(c: CartePartie, carte: CartePartie) {
-    return (c.clan.id == carte.clan.id || c.type.id == carte.type.id);
-  }
-
-  private getPuissanceTotale(carte: CartePartie) {
-    return carte.prison ? 0 : (carte.puissance ? carte.puissance : 0) + (carte.diffPuissanceInstant ? carte.diffPuissanceInstant : 0) + (carte.diffPuissanceContinue ? carte.diffPuissanceContinue : 0);
   }
 
   showVisionCartesDialog(cartes: CartePartie[]): void {
@@ -169,247 +168,13 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     });
   }
 
-  private updateEffetsContinusAndScores() {
-    let joueurHasProtecteurForet = this.joueur.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
-    let adversaireHasProtecteurForet = this.adversaire.terrain.filter(c => c.effet && c.effet.code == EffetEnum.PROTECTEURFORET).length > 0;
-
-    // On remet à 0 les puissances continues avant de les recalculer
-    for (let carte of this.joueur.terrain) {
-      carte.diffPuissanceContinue = 0;
-
-      if (joueurHasProtecteurForet) {
-        if (1 == carte.clan.id || 8 == carte.type.id) {
-          carte.bouclier = true;
-        }
-      }
-    }
-    for (let carte of this.adversaire.terrain) {
-      carte.diffPuissanceContinue = 0;
-
-      if (adversaireHasProtecteurForet) {
-        if (1 == carte.clan.id || 8 == carte.type.id) {
-          carte.bouclier = true;
-        }
-      }
-    }
-
-    let indexCarte = 0;
-    for (let carte of this.joueur.terrain) {
-      if (carte.effet && carte.effet.continu && !carte.silence) {
-        switch(carte.effet.code) {
-          case EffetEnum.VAMPIRISME: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.defausse.length;
-            break;
-          }
-          case EffetEnum.CANNIBALE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
-            break;
-          }
-          case EffetEnum.ESPRIT_EQUIPE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.joueur.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte)) {
-                carte.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.MELEE: {
-            for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id == carte.id) {
-                carte.diffPuissanceContinue++;
-              }
-            }
-            break;
-          }
-          case EffetEnum.CAPITAINE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.joueur.terrain) {
-              if (indexCarte != indexCarteCible && !carteCible.insensible && this.memeTypeOuClan(carteCible, carte)) {
-                carteCible.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.SYMBIOSE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.deck.length;
-            break;
-          }
-          case EffetEnum.SANG_PUR: {
-            let allCompatible = true;
-            for (let carteCible of this.joueur.terrain) {
-              if (!this.memeTypeOuClan(carteCible, carte)) {
-                allCompatible = false;
-              }
-            }
-
-            if (allCompatible) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-
-            break;
-          }
-          case EffetEnum.TSUNAMI: {
-            for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.DOMINATION: {
-            for (let carteCible of this.adversaire.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.RESISTANCE: {
-            if (this.joueur.defausse.length < 3) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-            break;
-          }
-          case EffetEnum.ILLUMINATI: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.terrain.length;
-            break;
-          }
-          default: {
-            //statements;
-            break;
-          }
-        }
-      }
-      indexCarte++;
-    }
-
-    indexCarte = 0;
-    for (let carte of this.adversaire.terrain) {
-      if (carte.effet && carte.effet.continu && !carte.silence) {
-        switch(carte.effet.code) {
-          case EffetEnum.VAMPIRISME: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.defausse.length;
-            break;
-          }
-          case EffetEnum.CANNIBALE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.defausse.length;
-            break;
-          }
-          case EffetEnum.ESPRIT_EQUIPE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.adversaire.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte)) {
-                carte.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.MELEE: {
-            for (let carteCible of this.joueur.terrain) {
-              if (carteCible.id == carte.id) {
-                carte.diffPuissanceContinue++;
-              }
-            }
-            break;
-          }
-          case EffetEnum.CAPITAINE: {
-            let indexCarteCible = 0;
-            for (let carteCible of this.adversaire.terrain) {
-              if (indexCarte != indexCarteCible && this.memeTypeOuClan(carteCible, carte) && !carteCible.insensible) {
-                carteCible.diffPuissanceContinue++;
-              }
-              indexCarteCible++;
-            }
-            break;
-          }
-          case EffetEnum.SYMBIOSE: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.adversaire.deck.length;
-            break;
-          }
-          case EffetEnum.SANG_PUR: {
-            let allCompatible = true;
-            for (let carteCible of this.adversaire.terrain) {
-              if (!this.memeTypeOuClan(carteCible, carte)) {
-                allCompatible = false;
-              }
-            }
-
-            if (allCompatible) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-
-            break;
-          }
-          case EffetEnum.TSUNAMI: {
-            for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.DOMINATION: {
-            for (let carteCible of this.joueur.terrain) {
-              if (!carteCible.bouclier && carteCible.clan.nom === this.nomCorrompu) {
-                carteCible.diffPuissanceContinue--;
-              }
-            }
-            break;
-          }
-          case EffetEnum.RESISTANCE: {
-            if (this.adversaire.defausse.length < 3) {
-              carte.diffPuissanceContinue += carte.effet.valeurBonusMalus;
-            }
-            break;
-          }
-          case EffetEnum.ILLUMINATI: {
-            carte.diffPuissanceContinue += carte.effet.valeurBonusMalus * this.joueur.terrain.length;
-            break;
-          }
-          default: {
-            //statements;
-            break;
-          }
-        }
-      }
-      indexCarte++;
-    }
-
-    this.updateScores();
-  }
-
-  private updateScores() {
-    let sommePuissancesJoueur = 0;
-    let sommePuissancesAdversaire = 0;
-
-    for (let carte of this.joueur.terrain) {
-      if (carte) {
-        sommePuissancesJoueur += this.getPuissanceTotale(carte);
-      }
-    }
-
-    for (let carte of this.adversaire.terrain) {
-      if (carte) {
-        sommePuissancesAdversaire += this.getPuissanceTotale(carte);
-      }
-    }
-
-    this.joueur.score = sommePuissancesJoueur;
-    this.adversaire.score = sommePuissancesAdversaire;
-    this.cd.detectChanges();
-  }
-
   voirDefausse(defausse: CartePartie[]) {
     this.showVisionCartesDialog(defausse);
   }
 
   private getPartie() {
-    this.http.get<Partie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partie?partieId=' + this.partieId).subscribe({
-      next: partie => {
+    this.partieEventService.getPartie(this.partieId).subscribe({
+      next: (partie: Partie) => {
         this.partie = partie;
         this.initValues();
         this.getEventsPartie();
@@ -426,22 +191,28 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
 
   getVainqueurTexte() {
     let texteVainqueur = '';
-    if (this.vainqueur) {
-      let scoreJoueur = this.joueur.score;
-      let scoreAdversaire = this.adversaire.score;
+    if (this.partieDatas.lastEvent.status == "ABANDON") {
+      if (this.partieDatas.nomJoueurAbandon == '') {
+        this.partieDatas.nomJoueurAbandon = this.partieDatas.adversaire.nom;
+      }
+      texteVainqueur = " Abandon de " + this.partieDatas.nomJoueurAbandon;
+    } else if (this.partieDatas.finDePartie) {
+      let scoreJoueur = this.partieDatas.joueur.score;
+      let scoreAdversaire = this.partieDatas.adversaire.score;
       if (scoreJoueur > scoreAdversaire) {
-        texteVainqueur = "Victoire de " + this.joueur.nom;
+        texteVainqueur = " Victoire de " + this.partieDatas.joueur.nom;
       } else if (scoreAdversaire > scoreJoueur) {
-        texteVainqueur = " Victoire de " + this.adversaire.nom;
+        texteVainqueur = " Victoire de " + this.partieDatas.adversaire.nom;
       } else if (scoreAdversaire == scoreJoueur) {
         texteVainqueur = 'C\'est une égalité ';
       }
     }
+
     return texteVainqueur;
   }
 
   getTourAffiche() {
-    return Math.ceil((this.lastEvent ? this.lastEvent.tour : 0) / 2);
+    return Math.ceil((this.partieDatas.lastEvent ? this.partieDatas.lastEvent.tour : 0) / 2);
   }
 
   private subscribeToEvenementsPartieFlux() {
@@ -449,10 +220,10 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
     this.evenementsPartieSubscription = this.sseService.evenementsPartie$.subscribe(
       (evenementsPartie: EvenementPartie[]) => {
         // @ts-ignore
-        this.lastEvent = evenementsPartie.at(-1);
-        if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
-          this.lastEventId = this.lastEvent.id;
-          this.updateGameFromLastEvent(this.lastEvent);
+        this.partieDatas.lastEvent = evenementsPartie.at(-1);
+        if (this.partieDatas.lastEvent && this.partieDatas.lastEvent.id > this.lastEventId) {
+          this.lastEventId = this.partieDatas.lastEvent.id;
+          this.updateGameFromLastEvent(this.partieDatas.lastEvent);
         }
       },
       (error: any) => console.error(error)
@@ -460,15 +231,15 @@ export class PartieObsComponent  implements OnInit, OnDestroy {
   }
 
   private getEventsPartie() {
-    this.http.get<EvenementPartie[]>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvents?partieId=' + this.partieId).subscribe({
+    this.partieEventService.getEventsPartie(this.partieId).subscribe({
       next: evenementsPartie => {
 
         if (this.typeEcran === 'obs') {
           // @ts-ignore
-          this.lastEvent = evenementsPartie.at(-1);
-          if (this.lastEvent && this.lastEvent.id > this.lastEventId) {
-            this.lastEventId = this.lastEvent.id;
-            this.updateGameFromLastEvent(this.lastEvent);
+          this.partieDatas.lastEvent = evenementsPartie.at(-1);
+          if (this.partieDatas.lastEvent && this.partieDatas.lastEvent.id > this.lastEventId) {
+            this.lastEventId = this.partieDatas.lastEvent.id;
+            this.updateGameFromLastEvent(this.partieDatas.lastEvent);
           }
         } else if (this.typeEcran === 'replay') {
           this.listEvents = evenementsPartie;
