@@ -111,13 +111,19 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   challengeOpponent(opponent: Utilisateur) {
-    const firstPlayerId = this.chooseFirstPlayer && this.selectedFirstPlayer === 'Vous' ? this.userId : opponent.id;
+    let firstPlayerId;
+
+    if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Vous") {
+      firstPlayerId = this.userId;
+    } else if (this.chooseFirstPlayer && this.selectedFirstPlayer && this.selectedFirstPlayer == "Votre adversaire") {
+      firstPlayerId = opponent.id;
+    }
 
     const data = {
       joueurUnId: this.userId,
       joueurDeuxId: opponent.id,
       deckUnId: this.selectedDeck?.id,
-      firstPlayerId,
+      firstPlayerId: firstPlayerId,
       formatId: this.selectedFormat?.formatId,
       message: 'message'
     };
