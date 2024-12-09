@@ -6,13 +6,15 @@ import {Clan} from "../classes/cartes/Clan";
 import {Type} from "../classes/cartes/Type";
 import {PlayerState} from "../classes/parties/PlayerState";
 import {CartePartie} from "../classes/cartes/CartePartie";
+import {PartieDatas} from "../classes/parties/PartieDatas";
+import {CarteService} from "./carte.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartieService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient, private authService: AuthentificationService, private carteService: CarteService) { }
 
   nomCorrompu = 'Corrompu';
 
@@ -89,4 +91,20 @@ export class PartieService {
     player.deck.forEach(initCardProperties);
     player.main.forEach(initCardProperties);
   };
+
+  updateScores(partieDatas: PartieDatas) {
+    let sommePuissancesJoueur = 0;
+    let sommePuissancesAdversaire = 0;
+
+    for (let carte of partieDatas.joueur.terrain) {
+      sommePuissancesJoueur += this.carteService.getPuissanceTotale(carte);
+    }
+
+    for (let carte of partieDatas.adversaire.terrain) {
+      sommePuissancesAdversaire += this.carteService.getPuissanceTotale(carte);
+    }
+
+    partieDatas.joueur.score = sommePuissancesJoueur;
+    partieDatas.adversaire.score = sommePuissancesAdversaire;
+  }
 }
