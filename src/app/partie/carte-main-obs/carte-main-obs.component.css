@@ -1,0 +1,262 @@
+.card {
+  margin-left: 5px;
+  margin-right: 5px;
+  background: rgba(64, 67, 78, 0.9);
+  border: solid black 1px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+}
+
+@media (max-height: 600px) {
+  .card {
+    height: 160px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .icone img {
+    height: 11px;
+  }
+
+  .stars {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+@media (min-height: 600px) and (max-height: 850px) {
+  .card {
+    height: 160px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .icone img {
+    height: 13px;
+  }
+
+  .stars {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+@media (min-height: 850px) {
+  .card {
+    height: 160px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .icone img {
+    height: 15px;
+  }
+
+  .stars {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+.card:hover {
+  background: rgba(64, 67, 78, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-header {
+  height: 20%;
+  width: 95%;
+}
+
+.card-header h3 {
+  font-size: 12px;
+  margin: 0;
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-title {
+  margin-bottom: 6px;
+}
+
+.bandeau {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.star {
+  color: white;
+}
+
+.card-image {
+  height: 40%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.card-image img {
+  height: 100%;
+}
+
+.card-details {
+  flex-grow: 1;
+  box-sizing: border-box;
+  transition: max-height 0.5s ease-in-out;
+  background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px;
+  width: 100%;
+  color: white;
+}
+
+.card-details h4 {
+  font-size: 9px;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-details p {
+  font-size: 9px;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.card-power h4 {
+  font-size: 11px;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-power span {
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-description {
+  font-size: 9px;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card:hover .card-details {
+  max-height: 80%;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.card:hover .card-image {
+  height: 0;
+  opacity: 0;
+  transition: height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.card:hover .small {
+  font-size: 13px;
+}
+
+.card:hover h4 {
+  font-size: 13px;
+}
+
+.bouclier {
+  border: 3px solid black;
+}
+
+.insensible {
+  border: 4px solid grey;
+  filter: opacity(30%);
+}
+
+.card.air {
+  border: 3px solid #A7B0CA;
+}
+
+.card.champignon {
+  border: 3px solid #8E5572;
+}
+
+.card.eau {
+  border: 3px solid #27476E;
+}
+
+.card.electricite {
+  border: 3px solid #FFBC1F;
+}
+
+.card.feu {
+  border: 3px solid #C3423F;
+}
+
+.card.fruit {
+  border: 3px solid #F45D01;
+}
+
+.card.jouet {
+  border: 3px solid #C6C5B9;
+}
+
+.card.plante {
+  border: 3px solid #3F612D;
+}
+
+.card.desert {
+  border: 3px solid #C6A15B;
+}
+
+.card.glace {
+  border: 3px solid #9DD9D2;
+}
+
+.card.roche {
+  border: 3px solid #A38560;
+}
+
+.card.espace {
+  border: 3px solid purple;
+}
+
+.card.nuit {
+  border: 3px solid darkblue;
+}
+
+.card.casino {
+  border-top: 3px solid #C3423F;
+  border-left: 3px solid goldenrod;
+  border-bottom: 3px solid #C3423F;
+  border-right: 3px solid goldenrod;
+}
