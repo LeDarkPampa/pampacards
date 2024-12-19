@@ -80,14 +80,17 @@ export class PartieService {
     }
   }
 
-  initPlayerCards = (player: PlayerState) => {
+  initPlayerCards = (player: PlayerState, context: { cartePartieIndex: number }) => {
     const initCardProperties = (carte: CartePartie) => {
+      carte.cartePartieId = context.cartePartieIndex;
+      context.cartePartieIndex++;
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
       carte.diffPuissanceInstant = 0;
       carte.diffPuissanceContinue = 0;
     };
+
     player.deck.forEach(initCardProperties);
     player.main.forEach(initCardProperties);
   };

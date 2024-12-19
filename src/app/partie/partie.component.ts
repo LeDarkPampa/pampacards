@@ -364,8 +364,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private initCards() {
-    this.partieService.initPlayerCards(this.joueur);
-    this.partieService.initPlayerCards(this.adversaire);
+    this.partieService.initPlayerCards(this.partieDatas.joueur, cartePartieIndex);
+    this.partieService.initPlayerCards(this.partieDatas.adversaire, cartePartieIndex);
   }
 
   private async playInstantEffect(carte: CartePartie) {
