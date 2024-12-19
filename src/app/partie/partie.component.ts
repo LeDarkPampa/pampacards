@@ -171,6 +171,10 @@ export class PartieComponent implements OnInit, OnDestroy {
     let idJoueur: number;
     let idAdversaire: number;
 
+    if (this.partie.joueurUn.id !== this.userId && this.partie.joueurDeux.id !== this.userId) {
+      this.router.navigate(['/accueil']);
+    }
+
     if (this.partie.joueurUn.id === this.userId) {
       nomJoueur = this.partie.joueurUn.pseudo;
       idJoueur = this.partie.joueurUn.id;
