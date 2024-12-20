@@ -51,6 +51,7 @@ export class PartieComponent implements OnInit, OnDestroy {
   carteJouee = signal(false);
   carteDefaussee = signal(false);
   enAttente = signal(true);
+  cartePartieIndex = 1;
   carteSelectionneeSubject = new Subject<CartePartie>();
   public carteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
   public secondeCarteSelectionnee$ = this.carteSelectionneeSubject.asObservable();
@@ -364,8 +365,8 @@ export class PartieComponent implements OnInit, OnDestroy {
   }
 
   private initCards() {
-    this.partieService.initPlayerCards(this.partieDatas.joueur, cartePartieIndex);
-    this.partieService.initPlayerCards(this.partieDatas.adversaire, cartePartieIndex);
+    this.partieService.initPlayerCards(this.joueur, this.cartePartieIndex);
+    this.partieService.initPlayerCards(this.adversaire, this.cartePartieIndex);
   }
 
   private async playInstantEffect(carte: CartePartie) {
@@ -424,7 +425,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               tap(selectedCarte => {
                 if (selectedCarte != null) {
                   this.sendBotMessage(`${this.joueur.nom} cible la carte ${selectedCarte.nom}`);
-                  const indexCarte = this.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  const indexCarte = this.joueur.main.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
                   const randomIndex = Math.floor(Math.random() * this.adversaire.main.length);
 
                   const carteJoueur = this.joueur.main.splice(indexCarte, 1)[0];
@@ -456,7 +457,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (selectedCarte: CartePartie) => {
                   if (selectedCarte != null) {
                     this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
                     this.adversaire.terrain[indexCarte].bouclier = false;
                   }
                   this.updateEffetsContinusAndScores();
@@ -478,7 +479,7 @@ export class PartieComponent implements OnInit, OnDestroy {
                 (selectedCarte: CartePartie) => {
                   if (selectedCarte != null) {
                     this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                    const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
                     this.adversaire.terrain[indexCarte].bouclier = false;
                   }
                   this.updateEffetsContinusAndScores();
@@ -816,7 +817,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
 
             const carte = this.joueur.terrain[indexCarte];
 
@@ -838,7 +839,7 @@ export class PartieComponent implements OnInit, OnDestroy {
               (selectedCarte: CartePartie) => {
                 if (selectedCarte != null) {
                   this.sendBotMessage(this.joueur.nom + ' détruit la carte ' + selectedCarte.nom);
-                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+                  const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
 
                   const carte = this.adversaire.terrain[indexCarte];
 
@@ -890,7 +891,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
             this.joueur.terrain[indexCarte].silence = false;
           }
           this.updateEffetsContinusAndScores();
@@ -914,7 +915,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' trahit la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
 
             const carte = this.joueur.terrain[indexCarte];
 
@@ -968,7 +969,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
             this.adversaire.terrain[indexCarte].prison = true;
           }
           this.updateEffetsContinusAndScores();
@@ -992,7 +993,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         (selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
             this.joueur.terrain[indexCarte].type = carte.type;
             this.joueur.terrain[indexCarte].clan = carte.clan;
           }
@@ -1024,7 +1025,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       (selectedCarte: CartePartie) => {
         if (selectedCarte != null) {
           this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-          const indexCarte = this.joueur.main.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.joueur.main.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.jouerNouvelleCarte(this.joueur.main[indexCarte]);
         }
         this.updateEffetsContinusAndScores();
@@ -1052,7 +1053,7 @@ export class PartieComponent implements OnInit, OnDestroy {
       (selectedCarte: CartePartie) => {
         if (selectedCarte != null) {
           this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-          const indexCarteSelectionnee = this.joueur.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarteSelectionnee = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           carte.effet = this.joueur.terrain[indexCarteSelectionnee].effet;
 
           this.playInstantEffect(carte).then(r => {
@@ -1098,35 +1099,35 @@ export class PartieComponent implements OnInit, OnDestroy {
       case EffetEnum.KAMIKAZE:
         targetTerrain = this.adversaire.terrain.filter((c: CartePartie) => !c.bouclier && !c.prison);
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
         };
         break;
       case EffetEnum.SERVIABLE:
         targetTerrain = this.joueur.terrain.filter((c: CartePartie) => !c.insensible && !c.prison && this.carteService.memeTypeOuClan(c, carte));
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.joueur.terrain.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.joueur.terrain[indexCarte].diffPuissanceInstant += carte.effet.valeurBonusMalus;
         };
         break;
       case EffetEnum.BOUCLIER:
         targetTerrain = this.joueur.terrain.filter((c: CartePartie) => !c.insensible && !c.bouclier);
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.joueur.terrain.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.joueur.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.joueur.terrain[indexCarte].bouclier = true;
         };
         break;
       case EffetEnum.RECYCLAGE:
         targetTerrain = this.joueur.defausse;
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.joueur.defausse.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.joueur.defausse.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.mettreCarteEnDeckEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
         };
         break;
       case EffetEnum.CORRUPTION:
         targetTerrain = this.adversaire.terrain.filter((c: CartePartie) => !c.bouclier && !(c.clan.nom === this.carteService.getNomCorrompu()));
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.adversaire.terrain[indexCarte].clan = this.partieService.getClanCorrompu();
           this.adversaire.terrain[indexCarte].type = this.partieService.getTypeCorrompu();
         };
@@ -1137,7 +1138,7 @@ export class PartieComponent implements OnInit, OnDestroy {
             !c.bouclier && (c.clan.nom === this.carteService.getNomCorrompu());
         });
         applyEffect = (selectedCarte: CartePartie) => {
-          const indexCarte = this.adversaire.terrain.findIndex((carteCheck: CartePartie) => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+          const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.joueur.terrain.push(this.adversaire.terrain[indexCarte]);
           this.adversaire.terrain.splice(indexCarte, 1);
         };
@@ -1207,7 +1208,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         .subscribe((selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
             this.adversaire.terrain[indexCarte].silence = true;
           }
           this.updateEffetsContinusAndScores();
@@ -1223,7 +1224,7 @@ export class PartieComponent implements OnInit, OnDestroy {
         .subscribe((selectedCarte: CartePartie) => {
           if (selectedCarte != null) {
             this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-            const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+            const indexCarte = this.joueur.defausse.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
             this.recupererCarteEnMainDepuisDefausse(this.joueur.defausse[indexCarte]);
           }
           this.updateEffetsContinusAndScores();
@@ -1257,7 +1258,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           (selectedCarte: CartePartie) => {
             if (selectedCarte != null) {
               this.sendBotMessage(this.joueur.nom + ' cible la carte ' + selectedCarte.nom);
-              const indexCarte = this.joueur.defausse.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
+              const indexCarte = this.joueur.defausse.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
               this.jouerNouvelleCarteDepuisDefausse(this.joueur.defausse[indexCarte]);
             }
             this.updateEffetsContinusAndScores();
@@ -1288,7 +1289,6 @@ export class PartieComponent implements OnInit, OnDestroy {
           tap(selectedCarte => {
             if (selectedCarte) {
               this.sendBotMessage(`${this.joueur.nom} cible la carte ${selectedCarte.nom}`);
-              const indexCarte = cards.findIndex(carteCheck => JSON.stringify(carteCheck) === JSON.stringify(selectedCarte));
               observer.next(selectedCarte);
             } else {
               this.sendBotMessage('Aucune carte sélectionnée');

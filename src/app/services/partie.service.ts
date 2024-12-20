@@ -80,10 +80,10 @@ export class PartieService {
     }
   }
 
-  initPlayerCards = (player: PlayerState, context: { cartePartieIndex: number }) => {
+  initPlayerCards = (player: PlayerState, cartePartieIndex: number) => {
     const initCardProperties = (carte: CartePartie) => {
-      carte.cartePartieId = context.cartePartieIndex;
-      context.cartePartieIndex++;
+      carte.cartePartieId = cartePartieIndex;
+      cartePartieIndex = cartePartieIndex + 1;
       carte.bouclier = false;
       carte.insensible = false;
       carte.silence = false;
