@@ -394,6 +394,7 @@ export class PartieComponent implements OnInit, OnDestroy {
           this.carteEffetService.handleFusion(carte, this.joueur, this.adversaire, this.partie);
           break;
         case EffetEnum.SABOTAGE:
+        case EffetEnum.SABORUPTION:
         case EffetEnum.KAMIKAZE:
         case EffetEnum.SERVIABLE:
         case EffetEnum.BOUCLIER:
@@ -1098,6 +1099,13 @@ export class PartieComponent implements OnInit, OnDestroy {
       case EffetEnum.SABOTAGE:
       case EffetEnum.KAMIKAZE:
         targetTerrain = this.adversaire.terrain.filter((c: CartePartie) => !c.bouclier && !c.prison);
+        applyEffect = (selectedCarte: CartePartie) => {
+          const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
+          this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
+        };
+        break;
+      case EffetEnum.SABORUPTION:
+        targetTerrain = this.adversaire.terrain.filter((c: CartePartie) => !c.bouclier && !c.prison && c.clan.nom === this.carteService.getNomCorrompu());
         applyEffect = (selectedCarte: CartePartie) => {
           const indexCarte = this.adversaire.terrain.findIndex(carteCheck => carteCheck.cartePartieId === selectedCarte.cartePartieId);
           this.adversaire.terrain[indexCarte].diffPuissanceInstant -= carte.effet.valeurBonusMalus;
