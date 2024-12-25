@@ -164,17 +164,7 @@ body {
 }
 
 .role-image-container img {
-  transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.role-image-container.streamer-mode img {
-  filter: brightness(0) grayscale(100%);
-  opacity: 0.7;
-}
-
-.role-image-container.streamer-mode:hover img {
-  filter: none;
-  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .footer {

@@ -14,6 +14,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
   private gameStateSubscription!: Subscription;
 
   isStreamerMode = false;
+  isHovering: boolean = false;
   partieId: number = 0;
   playerId: string = '';
 
