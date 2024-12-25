@@ -14,14 +14,16 @@
 
   <div class="game-body">
     <div class="main-content">
-      <div class="role-image-container" [ngClass]="{ 'streamer-mode': isStreamerMode }" (mouseenter)="isHovering = true" (mouseleave)="isHovering = false">
+      <div class="role-image-container">
         <img
+          (mouseenter)="isHovering = true" (mouseleave)="isHovering = false"
           *ngIf="currentPlayer() && isStreamerMode && !isHovering"
           [src]="'assets/lg/DOS.png'"
           [alt]="'Dos de carte'"
           class="lg-image"
         />
         <img
+          (mouseenter)="isHovering = true" (mouseleave)="isHovering = false"
           *ngIf="currentPlayer() && (!isStreamerMode || isHovering)"
           [src]="'assets/lg/' + currentPlayer()?.role + '.png'"
           [alt]="'Rôle: ' + currentPlayer()?.role"
