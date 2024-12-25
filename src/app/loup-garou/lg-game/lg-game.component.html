@@ -14,11 +14,19 @@
 
   <div class="game-body">
     <div class="main-content">
-      <div *ngIf="currentPlayer">
+      <div class="role-image-container" [ngClass]="{ 'streamer-mode': isStreamerMode }">
         <img
           *ngIf="currentPlayer()"
           [src]="'assets/lg/' + currentPlayer()?.role + '.png'"
           [alt]="'Rôle: ' + currentPlayer()?.role"
+          class="lg-image"
+        />
+      </div>
+      <div *ngIf="currentPlayer && !currentPlayer()?.role">
+        <img
+          *ngIf="currentPlayer()"
+          [src]="'assets/lg/DOS.png'"
+          [alt]="'Dos de carte'"
           class="lg-image"
         />
       </div>
