@@ -1,19 +1,45 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {SseService} from "../../services/sse.service";
+import {LgGameState} from "../../classes/parties/LgGameState";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-lg-game',
   templateUrl: './lg-game.component.html',
   styleUrls: ['./lg-game.component.css', '../../app.component.css']
 })
-export class LgGameComponent implements OnInit {
+export class LgGameComponent implements OnInit, OnDestroy {
 
+  // @ts-ignore
+  private gameStateSubscription: Subscription;
+
+  isStreamerMode: boolean = false;
   partieId: number = 0;
   playerId: string = '';
   confirmationMessage: string = '';
-  generatedCode: string = '';
+  generatedCode: string   = '';
 
-  constructor(private route: ActivatedRoute) {
+  gameState: LgGameState = {
+    gameId: '',
+    state: '',
+    phase: {
+      name: '',
+      description: '',
+      remainingTime: 0
+    },
+    players: [],
+    actions: [],
+    votes: [],
+    results: {
+      eliminatedPlayer: null,
+      killedPlayer: null,
+      winner: null
+    },
+    timestamp: ''
+  };
+
+  constructor(private route: ActivatedRoute, private sseService: SseService) {
   }
 
   ngOnInit() {
@@ -21,6 +47,8 @@ export class LgGameComponent implements OnInit {
       this.partieId = params['gameId'];
       this.playerId = params['playerId'];
     });
+
+    this.subscribeToGameStateFlux();
   }
 
   copyGameCode(): void {
@@ -55,4 +83,26 @@ export class LgGameComponent implements OnInit {
     setTimeout(() => this.confirmationMessage = '', 3000);
   }
 
+  toggleStreamerMode(): void {
+    this.isStreamerMode = !this.isStreamerMode;
+  }
+
+  private subscribeToGameStateFlux() {
+    this.sseService.getEvenementsPartieFlux(this.partieId);
+    this.gameStateSubscription = this.sseService.gameStates$.subscribe(
+      (gameState: LgGameState) => {
+        // @ts-ignore
+        this.gameState = gameState;
+      },
+      (error: any) => console.error(error)
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.gameStateSubscription) {
+      this.gameStateSubscription.unsubscribe();
+    }
+
+    this.sseService.closeGameStateEventSource();
+  }
 }

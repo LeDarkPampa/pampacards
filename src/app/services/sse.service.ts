@@ -5,6 +5,7 @@ import { EvenementPartie } from '../classes/parties/EvenementPartie';
 import { ChatPartieMessage } from '../classes/ChatPartieMessage';
 import { ApiService } from './api.service';
 import {DemandeCombat} from "../classes/combats/DemandeCombat";
+import {LgGameState} from "../classes/parties/LgGameState";
 
 @Injectable({
   providedIn: 'root',
@@ -15,16 +16,19 @@ export class SseService extends ApiService implements OnDestroy {
   private demandeCombatEventSource!: EventSource;
   private evenementsPartieEventSource!: EventSource;
   private chatMessagesEventSource!: EventSource;
+  private gameStateEventSource!: EventSource;
 
   private utilisateursSource = new Subject<Utilisateur[]>();
   private demandeCombatSource = new Subject<DemandeCombat[]>();
   private evenementsPartieSource = new Subject<EvenementPartie[]>();
   private evenementsChatSource = new Subject<ChatPartieMessage[]>();
+  private gameStateSource = new Subject<LgGameState>();
 
   public usersToFight$ = this.utilisateursSource.asObservable();
   public demandesDeCombat$ = this.demandeCombatSource.asObservable();
   public evenementsPartie$ = this.evenementsPartieSource.asObservable();
   public chatMessages$ = this.evenementsChatSource.asObservable();
+  public gameStates$ = this.gameStateSource.asObservable();
 
   constructor() {
     super();
@@ -68,6 +72,20 @@ export class SseService extends ApiService implements OnDestroy {
     };
   }
 
+  public getGameStateFlux(partieId: number): void {
+    this.gameStateEventSource = new EventSource(
+      `${this.API_URL}/lg/game/flux-lg-gamestate?partieId=${partieId}`
+    );
+    this.gameStateEventSource.onopen = () => { };
+    this.gameStateEventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+    };
+    this.gameStateEventSource.onmessage = (event) => {
+      const gameState = JSON.parse(event.data);
+      this.gameStateSource.next(gameState);
+    };
+  }
+
   public getChatMessagesFlux(partieId: number): void {
     this.chatMessagesEventSource = new EventSource(
       `${this.API_URL}/flux-chatMessages?partieId=${partieId}`
@@ -100,6 +118,12 @@ export class SseService extends ApiService implements OnDestroy {
     }
   }
 
+  closeGameStateEventSource() {
+    if (this.gameStateEventSource) {
+      this.gameStateEventSource.close();
+    }
+  }
+
   closeEvenementsChatEventSource() {
     if (this.chatMessagesEventSource) {
       this.chatMessagesEventSource.close();
@@ -111,5 +135,6 @@ export class SseService extends ApiService implements OnDestroy {
     this.closeDemandeCombatEventSource();
     this.closeEvenementsPartieEventSource();
     this.closeEvenementsChatEventSource();
+    this.closeGameStateEventSource();
   }
 }

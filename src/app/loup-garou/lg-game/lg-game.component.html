@@ -8,3 +8,58 @@
     {{ confirmationMessage }}
   </div>
 </div>
+
+<div class="game-display">
+  <div class="game-header">
+    <h1>Game ID: {{ isStreamerMode ? '******' : gameState.gameId }}</h1>
+    <h2 class="phase">
+      Phase: {{ gameState.phase.name }} - {{ isStreamerMode ? '******' : gameState.phase.description }}
+    </h2>
+    <p class="timer">⏳ Temps restant : {{ gameState.phase.remainingTime }} s</p>
+    <button (click)="toggleStreamerMode()" class="streamer-toggle">
+      {{ isStreamerMode ? 'Désactiver le mode streamer' : 'Activer le mode streamer' }}
+    </button>
+  </div>
+
+  <div class="game-body">
+    <div class="players-section">
+      <h3>Joueurs</h3>
+      <ul>
+        <li *ngFor="let player of gameState.players"
+            [class.dead]="!player.isAlive"
+            [class.werewolf]="!isStreamerMode && player.role === 'WEREWOLF'"
+            [class.villager]="!isStreamerMode && player.role === 'VILLAGER'">
+          <span class="player-name">{{ player.name }}</span>
+          <span class="player-role">{{ isStreamerMode ? '******' : '(' + player.role + ')' }}</span>
+          <span class="player-status">{{ player.isAlive ? '🌕 En vie' : '☠️ Mort' }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="actions-section" *ngIf="!isStreamerMode">
+      <h3>Actions</h3>
+      <ul>
+        <li *ngFor="let action of gameState.actions">
+          {{ action.initiator.name }} ({{ action.initiator.role }}) a tenté {{ action.type.toLowerCase() }} sur
+          {{ action.target.name }} : {{ action.result }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="votes-section" *ngIf="!isStreamerMode">
+      <h3>Votes</h3>
+      <ul>
+        <li *ngFor="let vote of gameState.votes">
+          {{ vote.voterName }} a voté contre {{ vote.votedName }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="results-section">
+      <h3>Résultats</h3>
+      <p *ngIf="gameState.results.winner">
+        🏆 Gagnants : {{ isStreamerMode ? '******' : gameState.results.winner }}
+      </p>
+    </div>
+  </div>
+</div>
