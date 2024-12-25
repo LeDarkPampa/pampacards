@@ -158,6 +158,11 @@ body {
   margin-top: 10px;
 }
 
+.lg-image {
+  height: 200px;
+  object-fit: contain;
+}
+
 .footer {
   display: flex;
   justify-content: center;

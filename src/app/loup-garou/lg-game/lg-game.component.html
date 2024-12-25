@@ -19,6 +19,7 @@
           *ngIf="currentPlayer()"
           [src]="'assets/lg/' + currentPlayer()?.role + '.png'"
           [alt]="'Rôle: ' + currentPlayer()?.role"
+          class="lg-image"
         />
         <p>Rôle : {{ currentPlayer()?.role }}</p>
       </div>
