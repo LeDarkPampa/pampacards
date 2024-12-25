@@ -41,7 +41,7 @@ export class LgPartieService extends ApiService {
 }
 
 export interface GameCreationResponse {
-  gameId: string;
+  gameCode: string;
 }
 
 export interface GameJoinResponse {
