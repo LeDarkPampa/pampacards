@@ -163,15 +163,7 @@ body {
   object-fit: contain;
 }
 
-.role-image-container {
-  position: relative;
-  display: inline-block;
-}
-
 .role-image-container img {
-  width: 100%;
-  height: auto;
-  display: block;
   transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
