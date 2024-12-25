@@ -93,7 +93,6 @@ export class SseService extends ApiService implements OnDestroy {
       }
     };
     this.gameStateEventSource.onmessage = (event) => {
-      console.log('Message received from SSE:', event.data);
       try {
         const gameState = JSON.parse(event.data);
         this.gameStateSource.next(gameState);
