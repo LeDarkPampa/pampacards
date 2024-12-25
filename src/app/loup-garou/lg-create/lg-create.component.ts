@@ -16,9 +16,9 @@ export class LgCreateComponent {
 
   creerPartie(nbJoueursMax: number) {
     this.lgPartieService.createPartie(nbJoueursMax).subscribe(
-      (createdPartieId) => {
-        console.log('Partie créée avec succès :', createdPartieId);
-        this.router.navigate(['lg/game', createdPartieId]);
+      (response) => {
+        console.log('Partie créée avec succès :', response.gameId);
+        this.router.navigate(['lg/game', response.gameId]);
       },
       (error) => {
         console.error('Erreur lors de la création de la partie :', error);
