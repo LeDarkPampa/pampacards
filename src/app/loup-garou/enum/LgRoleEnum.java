@@ -1,0 +1,16 @@
+export enum LgRoleEnum {
+    GAROU = "GAROU",
+    LAPTOP = "LAPTOP",
+    MODO = "MODO",
+    ABONNE = "ABONNE",
+    HATER = "HATER",
+    SPONSOR = "SPONSOR",
+    VPN = "VPN",
+    INFLUENCEUSE = "INFLUENCEUSE",
+    GAMER = "GAMER",
+    BOT = "BOT",
+    PLATEFORME = "PLATEFORME",
+    YOUTUBEUSE = "YOUTUBEUSE",
+    HACKER = "HACKER",
+    TIMEOUT = "TIMEOUT"
+}

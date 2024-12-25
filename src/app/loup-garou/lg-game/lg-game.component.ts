@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SseService } from '../../services/sse.service';
-import { LgGameState } from '../../classes/parties/LgGameState';
+import { LgGameState } from './LgGameState';
 import { Subscription } from 'rxjs';
 import {LgGameService} from "./lg-game.service";
 
@@ -31,8 +31,6 @@ export class LgGameComponent implements OnInit, OnDestroy {
     actions: [],
     votes: [],
     results: {
-      eliminatedPlayer: null,
-      killedPlayer: null,
       winner: null,
     },
     roleStates: {

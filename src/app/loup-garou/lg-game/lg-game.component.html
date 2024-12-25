@@ -3,12 +3,13 @@
     <h1 class="game-title">Streamer Garou</h1>
     <div class="game-info">
       <p class="game-phase">
+        Etat = {{ gameState.state }}
         Phase: {{ gameState.phase.name }} - {{ isStreamerMode ? '******' : gameState.phase.description }}
       </p>
     </div>
-    <button (click)="toggleStreamerMode()" class="mode-toggle-btn">
-      {{ isStreamerMode ? 'Désactiver le mode streamer' : 'Activer le mode streamer' }}
-    </button>
+    <div class="ligne-centree">
+      <app-pampa-button [texte]="isStreamerMode ? 'Désactiver le mode streamer' : 'Activer le mode streamer'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="toggleStreamerMode()"></app-pampa-button>
+    </div>
   </div>
 
   <div class="game-body">
@@ -27,7 +28,6 @@
             }">
             <div class="player-info">
               <span class="player-name">{{ player.name }}</span>
-              <span class="player-role">{{ isStreamerMode ? '******' : '(' + player.role + ')' }}</span>
               <span class="player-status">{{ player.isAlive ? '🌕 En vie' : '☠️ Mort' }}</span>
             </div>
           </li>

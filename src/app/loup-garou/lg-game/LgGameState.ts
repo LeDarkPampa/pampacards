@@ -1,13 +1,13 @@
 export interface LgGameState {
-  gameId: number; // Correspond à "gameId" de type Long dans le JSON
+  gameId: number;
   state: string;
   phase: GamePhase;
   players: Player[];
   actions: Action[];
   votes: Vote[];
   results: GameResults;
-  roleStates: RoleStates; // Ajout pour refléter la clé "roleStates"
-  timestamp: string; // La date est sous forme de chaîne ISO 8601
+  roleStates: RoleStates;
+  timestamp: string;
 }
 
 export interface Player {
@@ -20,17 +20,17 @@ export interface Player {
 export interface Action {
   actionId: string;
   type: string;
-  initiator: ActionParticipant; // Correctif pour refléter le format JSON
-  target: ActionParticipant; // Correctif pour refléter le format JSON
+  initiator: ActionParticipant;
+  target: ActionParticipant;
 }
 
 export interface ActionParticipant {
-  id: string; // Initiator et Target contiennent uniquement l'id
+  id: string;
 }
 
 export interface Vote {
   voterId: string;
-  targetId: string; // Correction pour correspondre au JSON
+  targetId: string;
 }
 
 export interface GamePhase {
@@ -40,8 +40,6 @@ export interface GamePhase {
 }
 
 export interface GameResults {
-  eliminatedPlayer: string | null; // Correspond aux noms dans le JSON
-  killedPlayer: string | null;
   winner: string | null;
 }
 
@@ -51,10 +49,10 @@ export interface RoleStates {
   platformUsedPower: boolean;
   haterTriggered: boolean;
   gamerVotedOutFirstRound: boolean;
-  loverLinks: Record<string, string>; // Correspond à un objet clé-valeur
+  loverLinks: Record<string, string>;
   minorMentorId: string | null;
   botCheckedPlayerId: string | null;
-  timeoutVotes: Record<string, number>; // Correspond à un objet clé-valeur
+  timeoutVotes: Record<string, number>;
   usedPotions: {
     potionDeath: boolean;
     potionLife: boolean;

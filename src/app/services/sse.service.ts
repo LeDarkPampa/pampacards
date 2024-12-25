@@ -5,7 +5,7 @@ import { EvenementPartie } from '../classes/parties/EvenementPartie';
 import { ChatPartieMessage } from '../classes/ChatPartieMessage';
 import { ApiService } from './api.service';
 import {DemandeCombat} from "../classes/combats/DemandeCombat";
-import {LgGameState} from "../classes/parties/LgGameState";
+import {LgGameState} from "../loup-garou/lg-game/LgGameState";
 
 @Injectable({
   providedIn: 'root',
