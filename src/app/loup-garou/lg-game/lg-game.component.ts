@@ -88,7 +88,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToGameStateFlux() {
-    this.sseService.getEvenementsPartieFlux(this.partieId);
+    this.sseService.getGameStateFlux(this.partieId);
     this.gameStateSubscription = this.sseService.gameStates$.subscribe(
       (gameState: LgGameState) => {
         // @ts-ignore
