@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SseService } from '../../services/sse.service';
-import { LgGameState } from './LgGameState';
+import {LgGameState, Player} from './LgGameState';
 import { Subscription } from 'rxjs';
 import {LgGameService} from "./lg-game.service";
 
@@ -16,6 +16,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
   isStreamerMode = false;
   partieId: number = 0;
   playerId: string = '';
+
   confirmationMessage = '';
   generatedCode = '';
 
@@ -116,6 +117,10 @@ export class LgGameComponent implements OnInit, OnDestroy {
       },
       (error: any) => console.error('Error receiving game state:', error)
     );
+  }
+
+  currentPlayer(): Player | undefined {
+    return this.gameState.players.find(player => player.id === this.playerId);
   }
 
   ngOnDestroy() {

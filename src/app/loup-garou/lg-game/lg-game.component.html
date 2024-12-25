@@ -14,7 +14,13 @@
 
   <div class="game-body">
     <div class="main-content">
-
+      <div *ngIf="currentPlayer">
+        <img
+          [src]="'assets/lg/' + (currentPlayer?.role || 'default') + '.png'"
+          [alt]="'Rôle: ' + (currentPlayer?.role || 'Inconnu')"
+        />
+        <p>Rôle : {{ currentPlayer?.role }}</p>
+      </div>
     </div>
 
     <div class="players-column">
