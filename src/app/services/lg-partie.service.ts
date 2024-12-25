@@ -28,7 +28,7 @@ export class LgPartieService extends ApiService {
   }
 
   createPartie(maxPlayers: number): Observable<any> {
-    return this.http.post(`${this.API_URL}/lg/game/create`, maxPlayers);
+    return this.http.post(`${this.API_URL}/lg/game/create/${maxPlayers}`, null);
   }
 
 }
