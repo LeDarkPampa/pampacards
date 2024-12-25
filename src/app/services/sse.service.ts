@@ -76,13 +76,30 @@ export class SseService extends ApiService implements OnDestroy {
     this.gameStateEventSource = new EventSource(
       `${this.API_URL}/lg/game/flux-lg-gamestate?partieId=${partieId}`
     );
-    this.gameStateEventSource.onopen = () => { };
+    this.gameStateEventSource.onopen = () => {
+      console.log('SSE connection opened for game state');
+    };
     this.gameStateEventSource.onerror = (error) => {
       console.error('SSE error:', error);
+      console.log('Error details:', {
+        target: error.target,
+        currentTarget: error.currentTarget,
+        eventPhase: error.eventPhase,
+        type: error.type
+      });
+
+      if (this.gameStateEventSource.readyState === EventSource.CLOSED) {
+        console.log('SSE connection closed unexpectedly.');
+      }
     };
     this.gameStateEventSource.onmessage = (event) => {
-      const gameState = JSON.parse(event.data);
-      this.gameStateSource.next(gameState);
+      console.log('Message received from SSE:', event.data);
+      try {
+        const gameState = JSON.parse(event.data);
+        this.gameStateSource.next(gameState);
+      } catch (e) {
+        console.error('Error parsing GameState message:', e);
+      }
     };
   }
 
