@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SseService} from "../../services/sse.service";
 import {LgGameState} from "../../classes/parties/LgGameState";
@@ -39,7 +39,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
     timestamp: ''
   };
 
-  constructor(private route: ActivatedRoute, private sseService: SseService) {
+  constructor(private route: ActivatedRoute, private sseService: SseService, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
       (gameState: LgGameState) => {
         // @ts-ignore
         this.gameState = gameState;
-        console.log("gameState : " + gameState.gameId);
+        this.cd.detectChanges();
       },
       (error: any) => console.error(error)
     );
