@@ -1,44 +1,23 @@
-.container {
-  padding: 20px;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
-  background-repeat: repeat-y;
-}
-
-img {
-  height: 400px;
-}
-
-.small-image img {
-  height: 200px;
-}
-
-.legende {
-  font-size: 14px;
-  padding-bottom: 10px;
-  font-style: italic;
-}
-
-a {
-  padding-left: 5px;
-}
-
+/* General Styles */
 body {
-  font-family: 'Merriweather', serif;
-  background: radial-gradient(circle, #1e272e, #2c3e50, #34495e);
-  color: #ecf0f1;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.game-display {
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+.game-container {
+  width: 100%;
+  height: calc(100% - 60px);
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
   color: #ecf0f1;
 }
 
@@ -47,150 +26,140 @@ body {
   margin-bottom: 20px;
 }
 
-.game-header h1 {
+.game-title {
   font-size: 2rem;
-  margin: 0;
   color: #f39c12;
-  text-shadow: 0 0 10px #f39c12;
+  margin: 0;
 }
 
-.game-header .phase {
-  font-size: 1.4rem;
-  color: #e74c3c;
-}
-
-.game-header .timer {
-  font-size: 1.2rem;
-  color: #1abc9c;
-  font-weight: bold;
-}
-
-.game-body {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.players-section,
-.actions-section,
-.votes-section,
-.results-section {
-  background: rgba(44, 62, 80, 0.9);
-  padding: 15px;
-  border-radius: 10px;
-  flex: 1 1 calc(50% - 20px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: #3498db;
-  text-align: center;
-  text-transform: uppercase;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 5px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 8px;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ecf0f1;
-}
-
-.players-section ul li {
-  justify-content: flex-start;
-}
-
-.players-section ul li .player-name {
-  flex: 2;
-  font-weight: bold;
-}
-
-.players-section ul li .player-role {
-  flex: 1;
-  text-align: center;
-}
-
-.players-section ul li .player-status {
-  flex: 1;
-  text-align: right;
-}
-
-.players-section ul li.dead {
-  background: rgba(192, 57, 43, 0.8);
-  text-decoration: line-through;
-  color: #ecf0f1;
-}
-
-.players-section ul li.werewolf {
-  background: rgba(231, 76, 60, 0.8);
-}
-
-.players-section ul li.villager {
-  background: rgba(39, 174, 96, 0.8);
-}
-
-.results-section p {
-  font-size: 1.2rem;
-  color: #16a085;
-  text-align: center;
+.game-info {
   margin-top: 10px;
 }
 
-.results-section ul li {
-  background: rgba(211, 84, 0, 0.8);
-  color: #ecf0f1;
-}
-
-.results-section ul li.eliminated {
-  background: rgba(192, 57, 43, 0.8);
-}
-
-.actions-section ul li,
-.votes-section ul li {
-  font-size: 1rem;
-  padding: 10px;
-  margin-bottom: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-}
-
-.actions-section ul li {
-  border-left: 3px solid #f39c12;
-}
-
-.votes-section ul li {
-  border-left: 3px solid #3498db;
-}
-
-.streamer-toggle {
+.mode-toggle-btn {
   background-color: #3498db;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px 10px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.streamer-toggle:hover {
+.mode-toggle-btn:hover {
   background-color: #2980b9;
 }
 
-.game-body .players-section ul li span.player-role {
-  font-style: italic;
+/* Layout for game-body */
+.game-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.main-content {
+  background-color: indianred;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.players-column {
+  flex: 1;
+  background-color: #34495e;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.section {
+  background: rgba(44, 62, 80, 0.9);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.section h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #3498db;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+}
+
+.player-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.player-list li {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ecf0f1;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-list li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.player-name {
+  font-weight: bold;
+  flex: 2;
+}
+
+.player-role {
+  flex: 1;
+  text-align: center;
+}
+
+.player-status {
+  flex: 1;
+  text-align: right;
+}
+
+.dead {
+  background: rgba(192, 57, 43, 0.8);
+  text-decoration: line-through;
+}
+
+.werewolf {
+  background: rgba(231, 76, 60, 0.8);
+}
+
+.villager {
+  background: rgba(39, 174, 96, 0.8);
+}
+
+.confirmation-message {
+  background: #2ecc71;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
