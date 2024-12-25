@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {LgPartieService} from "../../services/lg-partie.service";
 
 @Component({
   selector: 'app-lg-join',
@@ -8,7 +10,18 @@ import { Component } from '@angular/core';
 export class LgJoinComponent {
   code: string = '';
 
+  constructor(private router: Router, private lgPartieService: LgPartieService) {
+  }
+
   rejoindre() {
-    // Get partie selon code. Si trouvée, on bouge d'écran. Sinon, message erreur
+    this.lgPartieService.joinGame(this.code, 'player').subscribe(
+      (response) => {
+        console.log('Partie rejointe avec succès :', response.gameId);
+        this.router.navigate(['lg/game', response.gameId]);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération de la partie :', error);
+      }
+    );
   }
 }

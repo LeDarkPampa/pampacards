@@ -23,12 +23,12 @@ export class LgPartieService extends ApiService {
     super();
   }
 
-  getPartie(gameCode: number): Observable<Tournoi> {
-    return this.http.get<Tournoi>(`${this.API_URL}/lg/game/${gameCode}/start`);
-  }
-
   createPartie(maxPlayers: number): Observable<GameCreationResponse> {
     return this.http.post<GameCreationResponse>(`${this.API_URL}/lg/game/create/${maxPlayers}`, {});
+  }
+
+  joinGame(gameCode: string, playerName: string): Observable<GameCreationResponse> {
+    return this.http.post<GameCreationResponse>(`${this.API_URL}/lg/game/join`, { gameCode, playerName });
   }
 
 }
