@@ -176,7 +176,7 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
             { path: 'lg/accueil', component: LgAccueilComponent },
             { path: 'lg/create', component: LgCreateComponent },
             { path: 'lg/join', component: LgJoinComponent },
-            { path: 'lg/game/:id', component: LgGameComponent },
+            { path: 'lg/game/:gameId/:playerId', component: LgGameComponent },
             { path: 'deconnexion', component: DeconnexionComponent },
             { path: '', redirectTo: '/accueil', pathMatch: 'full' },
             { path: '**', component: PageNotFoundComponent }

@@ -27,12 +27,17 @@ export class LgPartieService extends ApiService {
     return this.http.post<GameCreationResponse>(`${this.API_URL}/lg/game/create/${maxPlayers}`, {});
   }
 
-  joinGame(gameCode: string, playerName: string): Observable<GameCreationResponse> {
-    return this.http.post<GameCreationResponse>(`${this.API_URL}/lg/game/${gameCode}/join?playerName=${playerName}`, {});
+  joinGame(gameCode: string, playerName: string): Observable<GameJoinResponse> {
+    return this.http.post<GameJoinResponse>(`${this.API_URL}/lg/game/${gameCode}/join?playerName=${playerName}`, {});
   }
 
 }
 
 export interface GameCreationResponse {
   gameId: string;
+}
+
+export interface GameJoinResponse {
+  gameId: string;
+  playerId: string;
 }

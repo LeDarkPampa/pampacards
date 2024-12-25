@@ -4,6 +4,15 @@
 
   <div class="ligne-centree">
     <div class="label-champs">
+      Nom d'utilisateur :
+    </div>
+    <div class="cadre-nom">
+      <input type="text" pInputText [(ngModel)]="nomJoueur"/>
+    </div>
+  </div>
+
+  <div class="ligne-centree">
+    <div class="label-champs">
       Code de la partie :
     </div>
     <div class="cadre-nom">
@@ -11,5 +20,7 @@
     </div>
   </div>
 
-  <app-pampa-button [texte]="'Rejoindre'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="rejoindre()"></app-pampa-button>
+  <div class="ligne-centree">
+    <app-pampa-button [texte]="'Rejoindre'" [couleur]="'bleu'" [taille]="'petit'" (clickBouton)="rejoindre()"></app-pampa-button>
+  </div>
 </div>

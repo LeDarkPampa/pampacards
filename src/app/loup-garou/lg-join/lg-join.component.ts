@@ -8,20 +8,22 @@ import {LgPartieService} from "../../services/lg-partie.service";
   styleUrls: ['./lg-join.component.css', '../../app.component.css']
 })
 export class LgJoinComponent {
+  nomJoueur: string = '';
   code: string = '';
 
   constructor(private router: Router, private lgPartieService: LgPartieService) {
   }
 
   rejoindre() {
-    this.lgPartieService.joinGame(this.code, 'player').subscribe(
+    this.lgPartieService.joinGame(this.code, this.nomJoueur).subscribe(
       (response) => {
         console.log('Partie rejointe avec succès :', response.gameId);
-        this.router.navigate(['lg/game', response.gameId]);
+        this.router.navigate(['lg/game', response.gameId, response.playerId]);
       },
       (error) => {
         console.error('Erreur lors de la récupération de la partie :', error);
       }
     );
   }
+
 }

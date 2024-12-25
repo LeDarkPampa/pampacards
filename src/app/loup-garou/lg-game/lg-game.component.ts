@@ -9,6 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 export class LgGameComponent implements OnInit {
 
   partieId: number = 0;
+  playerId: string = '';
   confirmationMessage: string = '';
   generatedCode: string = '';
 
@@ -17,7 +18,8 @@ export class LgGameComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.partieId = params['id'];
+      this.partieId = params['gameId'];
+      this.playerId = params['playerId'];
     });
   }
 
