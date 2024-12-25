@@ -159,7 +159,7 @@ body {
 }
 
 .lg-image {
-  height: 200px;
+  height: 100%;
   object-fit: contain;
 }
 
