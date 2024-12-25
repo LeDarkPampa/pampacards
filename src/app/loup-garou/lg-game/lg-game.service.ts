@@ -15,6 +15,6 @@ export class LgGameService extends ApiService {
   }
 
   getPartieCode(partieId: number): Observable<string> {
-    return this.http.get<string>(`${this.API_URL}/partieCode?partieId=${partieId}`);
+    return this.http.get<string>(`${this.API_URL}/lg/game/partieCode?partieId=${partieId}`);
   }
 }
