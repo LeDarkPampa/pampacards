@@ -28,13 +28,12 @@ export class LgPartieService extends ApiService {
   }
 
   joinGame(gameCode: string, playerName: string): Observable<GameJoinResponse> {
-    if (!gameCode) {
-      return throwError('Le code de la partie est manquant');
+    if (!gameCode || !playerName) {
+      return throwError('Le code de la partie ou le nom du joueur est manquant');
     }
 
-    // Construire correctement l'URL
     const url = `${this.API_URL}/lg/game/${gameCode}/join?playerName=${playerName}`;
-    console.log('URL d\'appel:', url); // Vérification de l'URL
+    console.log('URL d\'appel:', url);  // Vérification de l'URL construite
 
     return this.http.post<GameJoinResponse>(url, {});
   }
