@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SseService } from '../../services/sse.service';
 import { LgGameState } from '../../classes/parties/LgGameState';
 import { Subscription } from 'rxjs';
+import {LgGameService} from "./lg-game.service";
 
 @Component({
   selector: 'app-lg-game',
@@ -55,6 +56,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private sseService: SseService,
+    private lgGameService: LgGameService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -64,6 +66,10 @@ export class LgGameComponent implements OnInit, OnDestroy {
       this.playerId = params['playerId'];
     });
 
+    this.lgGameService.getPartieCode(this.partieId).subscribe(code => {
+      this.generatedCode = code;
+    });
+
     this.subscribeToGameStateFlux();
   }
 
@@ -71,8 +77,6 @@ export class LgGameComponent implements OnInit, OnDestroy {
    * Copie le code généré dans le presse-papiers et affiche un message de confirmation
    */
   copyGameCode(): void {
-    this.generatedCode = 'azerty';
-
     const textArea = document.createElement('textarea');
     textArea.value = this.generatedCode;
     textArea.style.position = 'fixed';
