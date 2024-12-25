@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {Tournoi} from "../classes/competitions/Tournoi";
 import {Ligue} from "../classes/competitions/Ligue";
 import {Partie} from "../classes/parties/Partie";
@@ -28,9 +28,16 @@ export class LgPartieService extends ApiService {
   }
 
   joinGame(gameCode: string, playerName: string): Observable<GameJoinResponse> {
-    return this.http.post<GameJoinResponse>(`${this.API_URL}/lg/game/${gameCode}/join?playerName=${playerName}`, {});
-  }
+    if (!gameCode) {
+      return throwError('Le code de la partie est manquant');
+    }
 
+    // Construire correctement l'URL
+    const url = `${this.API_URL}/lg/game/${gameCode}/join?playerName=${playerName}`;
+    console.log('URL d\'appel:', url); // Vérification de l'URL
+
+    return this.http.post<GameJoinResponse>(url, {});
+  }
 }
 
 export interface GameCreationResponse {

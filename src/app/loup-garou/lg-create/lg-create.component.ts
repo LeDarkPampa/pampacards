@@ -22,27 +22,29 @@ export class LgCreateComponent {
   creerPartie(nbJoueursMax: number) {
     const user: Utilisateur = this.authService.getUser();
 
-    this.lgPartieService.createPartie(nbJoueursMax).pipe(
-      concatMap((createResponse) => {
-        return this.lgPartieService.joinGame(this.code, user.pseudo).pipe(
-          catchError((joinError) => {
-            console.error('Erreur lors de la récupération de la partie :', joinError);
-            return of(null);
-          })
-        );
-      }),
-      catchError((createError) => {
-        console.error('Erreur lors de la création de la partie :', createError);
-        return of(null);
-      })
-    ).subscribe(
+    console.log('Game code:', this.code);
+
+    this.lgPartieService.createPartie(nbJoueursMax).subscribe(
       (response) => {
-        if (response) {
-          this.router.navigate(['lg/game', response.gameId, response.playerId]);
-        } else {
-          console.error('Erreur dans la création ou la jonction à la partie');
+        if (!this.code) {
+          console.error('Le code de la partie est manquant.');
+          return;
         }
+
+        this.lgPartieService.joinGame(this.code, user.pseudo).subscribe(
+          (response) => {
+            console.log('Partie rejointe avec succès :', response.gameId);
+            this.router.navigate(['lg/game', response.gameId, response.playerId]);
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération de la partie :', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Erreur lors de la création de la partie :', error);
       }
     );
   }
+
 }
