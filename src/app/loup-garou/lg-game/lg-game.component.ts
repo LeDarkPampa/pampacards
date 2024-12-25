@@ -93,6 +93,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
       (gameState: LgGameState) => {
         // @ts-ignore
         this.gameState = gameState;
+        console.log("gameState : " + gameState.gameId);
       },
       (error: any) => console.error(error)
     );
