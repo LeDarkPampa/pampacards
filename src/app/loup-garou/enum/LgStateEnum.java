@@ -1,4 +1,5 @@
 export enum LgStateEnum {
+    WAITING = "WAITING",
     WEREWOLVES_ACTION = "WEREWOLVES_ACTION",  // Action des loups-garous
     SEER_ACTION = "SEER_ACTION",             // Action de la voyante
     WITCH_ACTION = "WITCH_ACTION",           // Action de la sorcière
