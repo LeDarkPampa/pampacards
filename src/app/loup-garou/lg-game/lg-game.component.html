@@ -16,10 +16,11 @@
     <div class="main-content">
       <div *ngIf="currentPlayer">
         <img
-          [src]="'assets/lg/' + (currentPlayer?.role || 'default') + '.png'"
-          [alt]="'Rôle: ' + (currentPlayer?.role || 'Inconnu')"
+          *ngIf="currentPlayer()"
+          [src]="'assets/lg/' + currentPlayer()?.role + '.png'"
+          [alt]="'Rôle: ' + currentPlayer()?.role"
         />
-        <p>Rôle : {{ currentPlayer?.role }}</p>
+        <p>Rôle : {{ currentPlayer()?.role }}</p>
       </div>
     </div>
 
