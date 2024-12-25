@@ -21,7 +21,7 @@ export class LgGameComponent implements OnInit, OnDestroy {
   generatedCode: string   = '';
 
   gameState: LgGameState = {
-    gameId: '',
+    gameId: 0,
     state: '',
     phase: {
       name: '',
@@ -36,8 +36,24 @@ export class LgGameComponent implements OnInit, OnDestroy {
       killedPlayer: null,
       winner: null
     },
+    roleStates: {
+      lastProtectedPlayerId: null,
+      influencerUsedPower: false,
+      platformUsedPower: false,
+      haterTriggered: false,
+      gamerVotedOutFirstRound: false,
+      loverLinks: {},
+      minorMentorId: null,
+      botCheckedPlayerId: null,
+      timeoutVotes: {},
+      usedPotions: {
+        potionDeath: false,
+        potionLife: false
+      }
+    },
     timestamp: ''
   };
+
 
   constructor(private route: ActivatedRoute, private sseService: SseService, private cd: ChangeDetectorRef) {
   }

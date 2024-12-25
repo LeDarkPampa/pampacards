@@ -27,8 +27,8 @@
       <ul>
         <li *ngFor="let player of gameState.players"
             [class.dead]="!player.isAlive"
-            [class.werewolf]="!isStreamerMode && player.role === 'WEREWOLF'"
-            [class.villager]="!isStreamerMode && player.role === 'VILLAGER'">
+            [class.werewolf]="!isStreamerMode && player.role === 'STREAMER_GAROU'"
+            [class.villager]="!isStreamerMode && player.role !== 'STREAMER_GAROU'">
           <span class="player-name">{{ player.name }}</span>
           <span class="player-role">{{ isStreamerMode ? '******' : '(' + player.role + ')' }}</span>
           <span class="player-status">{{ player.isAlive ? '🌕 En vie' : '☠️ Mort' }}</span>
@@ -40,8 +40,8 @@
       <h3>Actions</h3>
       <ul>
         <li *ngFor="let action of gameState.actions">
-          {{ action.initiator.name }} ({{ action.initiator.role }}) a tenté {{ action.type.toLowerCase() }} sur
-          {{ action.target.name }} : {{ action.result }}
+          {{ action.initiator.id }} a tenté {{ action.type.toLowerCase() }} sur
+          {{ action.target.id }}
         </li>
       </ul>
     </div>
@@ -50,7 +50,7 @@
       <h3>Votes</h3>
       <ul>
         <li *ngFor="let vote of gameState.votes">
-          {{ vote.voterName }} a voté contre {{ vote.votedName }}
+          {{ vote.voterId }} a voté contre {{ vote.targetId }}
         </li>
       </ul>
     </div>
