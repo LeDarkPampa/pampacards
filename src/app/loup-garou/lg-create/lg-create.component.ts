@@ -36,12 +36,13 @@ export class LgCreateComponent {
         }
 
         this.lgPartieService.joinGame(this.code, user.pseudo).subscribe(
-          (joinResponse) => {
-            console.log('Partie rejointe avec succès :', joinResponse.gameId);
-            this.router.navigate(['lg/game', joinResponse.gameId, joinResponse.playerId]);
+          (response) => {
+            this.router.navigate(['lg/game', response.gameId, response.playerId]);
+            console.log('Partie rejointe avec succès :', response.gameId);
+
           },
-          (joinError) => {
-            console.error('Erreur lors de la récupération de la partie :', joinError);
+          (error) => {
+            console.error('Erreur lors de la récupération de la partie :', error);
           }
         );
       },
