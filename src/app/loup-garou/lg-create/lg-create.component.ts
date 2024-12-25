@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import {LgPartieService} from "../../services/lg-partie.service";
 
 @Component({
   selector: 'app-lg-create',
@@ -10,10 +11,18 @@ export class LgCreateComponent {
   nbJoueursMax: number = 15;
   code: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private lgPartieService: LgPartieService) {
   }
 
-  creerPartie() {
-    this.router.navigate(['lg/game', 1]);
+  creerPartie(nbJoueursMax: number) {
+    this.lgPartieService.createPartie(nbJoueursMax).subscribe(
+      (createdPartie) => {
+        console.log('Partie créée avec succès :', createdPartie);
+        this.router.navigate(['lg/game', createdPartie.id]);
+      },
+      (error) => {
+        console.error('Erreur lors de la création de la partie :', error);
+      }
+    );
   }
 }
