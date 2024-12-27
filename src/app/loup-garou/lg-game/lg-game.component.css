@@ -126,11 +126,6 @@ body {
   flex: 2;
 }
 
-.player-role {
-  flex: 1;
-  text-align: center;
-}
-
 .player-status {
   flex: 1;
   text-align: right;
