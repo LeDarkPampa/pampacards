@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {UtilisateurService} from "../../services/utilisateur.service";
 import {AuthentificationService} from "../../services/authentification.service";
@@ -7,11 +6,6 @@ import { Avatar } from 'src/app/classes/Avatar';
 
 @Component({
   selector: 'app-avatar-builder',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgIf
-  ],
   templateUrl: './avatar-builder.component.html',
   styleUrls: ['./avatar-builder.component.css']
 })

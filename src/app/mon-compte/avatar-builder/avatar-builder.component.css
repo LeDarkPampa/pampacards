@@ -11,34 +11,6 @@
   margin-top: 20px;
 }
 
-.avatar-container {
-  position: relative;
-  width: 200px;
-  height: 130px;
-}
-
-.avatar-part {
-  position: absolute;
-  height: 120px;
-}
-
-/* Ordre des calques */
-.avatar-part.back {
-  z-index: 1;
-}
-
-.avatar-part.body {
-  z-index: 3;
-}
-
-.avatar-part.head {
-  z-index: 4;
-}
-
-.avatar-part.hat {
-  z-index: 5;
-}
-
 .selection-panel {
   display: flex;
   flex-direction: column;
