@@ -85,6 +85,7 @@ import {InscriptionDialogComponent} from "./tournois/inscription-dialog/inscript
 import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
 import {AvatarBuilderComponent} from "./mon-compte/avatar-builder/avatar-builder.component";
 import {AvatarViewComponent} from "./avatar-view/avatar-view.component";
+import {AvatarService} from "./services/avatar.service";
 
 @NgModule({
   declarations: [
@@ -217,6 +218,7 @@ import {AvatarViewComponent} from "./avatar-view/avatar-view.component";
     PartieService,
     TchatService,
     CarteEffetService,
+    AvatarService,
     provideHttpClient(withInterceptorsFromDi())
   ]
 })

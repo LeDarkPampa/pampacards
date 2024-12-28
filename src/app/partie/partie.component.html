@@ -1,6 +1,12 @@
 <div class="screen">
   <div *ngIf="adversaire" class="infos-adv">
     {{adversaire.nom}}
+    <app-avatar-view
+      [head]="adversaireAvatar.head"
+      [hat]="adversaireAvatar.hat"
+      [body]="adversaireAvatar.body"
+      [back]="adversaireAvatar.back">
+    </app-avatar-view>
   </div>
   <div class="center main-adv">
     <div *ngIf="adversaire" class="ligne-centree height-total">
@@ -74,6 +80,12 @@
   </div>
   <div *ngIf="joueur" class="infos-joueur">
     {{joueur.nom}}
+    <app-avatar-view
+      [head]="joueurAvatar.head"
+      [hat]="joueurAvatar.hat"
+      [body]="joueurAvatar.body"
+      [back]="joueurAvatar.back">
+    </app-avatar-view>
   </div>
   <div class="center main-joueur">
     <div *ngIf="joueur && !enAttente()" class="ligne-centree">

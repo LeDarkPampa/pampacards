@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {UtilisateurService} from "../../services/utilisateur.service";
 import {AuthentificationService} from "../../services/authentification.service";
 import { Avatar } from 'src/app/classes/Avatar';
+import {AvatarService} from "../../services/avatar.service";
+import {AvatarPart} from "../../classes/AvatarPart";
 
 @Component({
   selector: 'app-avatar-builder',
@@ -19,41 +21,40 @@ export class AvatarBuilderComponent implements OnInit {
 
   private avatar?: Avatar;
 
-  selectedParts: SelectedParts = {
+  selectedParts: AvatarPart = {
     head: '',
     hat: '',
     body: '',
     back: ''
   };
 
-  constructor(private http: HttpClient, private utilisateurService: UtilisateurService, private authentificationService: AuthentificationService) {}
+  constructor(private http: HttpClient, private utilisateurService: UtilisateurService,
+              private authentificationService: AuthentificationService, private avatarService: AvatarService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.avatarService.getAvatar().subscribe({
+      next: avatar => {
+        this.avatar = avatar;
+        this.selectedParts = {
+          head: avatar.tete,
+          hat: avatar.chapeau,
+          body: avatar.corps,
+          back: avatar.dos
+        };
+      },
+      error: error => {
+        console.error('Erreur lors de la récupération de l\'avatar', error);
+        alert('Erreur lors de la récupération de l\'avatar');
+      }
+    });
+
     this.http.get<{ heads: string[]; hats: string[]; bodies: string[]; backs: string[] }>('assets/avatars/avatars.json')
       .subscribe(data => {
         this.parts = data;
-        // Initialiser selectedParts avec des valeurs par défaut au cas où l'avatar n'est pas encore chargé
-
-        this.utilisateurService.getAvatar(this.authentificationService.getUserId()).subscribe({
-          next: avatar => {
-            this.avatar = avatar;
-            this.selectedParts = {
-              hat: this.avatar.chapeau || '',
-              head: this.avatar.tete || data.heads[0],
-              body: this.avatar.corps || data.bodies[0],
-              back: this.avatar.dos || ''
-            };
-          },
-          error: error => {
-            console.error('There was an error!', error);
-            alert('Erreur lors de la récupération des utilisateurs');
-          }
-        });
       });
   }
 
-
-  selectPart(part: keyof SelectedParts, value: string) {
+  selectPart(part: keyof AvatarPart, value: string) {
     this.selectedParts[part] = value;
   }
 
@@ -78,10 +79,3 @@ export class AvatarBuilderComponent implements OnInit {
     });
   }
 }
-
-type SelectedParts = {
-  head: string;
-  hat: string;
-  body: string;
-  back: string;
-};

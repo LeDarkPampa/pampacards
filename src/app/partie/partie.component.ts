@@ -23,6 +23,8 @@ import {EffetEnum} from "../enums/EffetEnum";
 import {TournoiService} from "../services/tournoi.service";
 import {Tournoi} from "../classes/competitions/Tournoi";
 import {Ligue} from "../classes/competitions/Ligue";
+import {AvatarService} from "../services/avatar.service";
+import {AvatarPart} from "../classes/AvatarPart";
 
 @Component({
   selector: 'app-partie',
@@ -58,13 +60,27 @@ export class PartieComponent implements OnInit, OnDestroy {
   vainqueur = "";
   clickedCartePath: string = '';
 
+  joueurAvatar: AvatarPart = {
+    head: '',
+    hat: '',
+    body: '',
+    back: ''
+  };
+
+  adversaireAvatar: AvatarPart = {
+    head: '',
+    hat: '',
+    body: '',
+    back: ''
+  };
+
   isFlashing: boolean = false;
   joueurAbandon: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthentificationService,
               private dialogService: DialogService, private zone: NgZone, private carteService: CarteService,
               private joueurService: JoueurService, private partieService: PartieService,
-              private tournoiService: TournoiService,
+              private tournoiService: TournoiService, private avatarService: AvatarService,
               private partieEventService: PartieEventService, private router: Router,
               private tchatService: TchatService, private carteEffetService: CarteEffetService,
               private sseService: SseService, private cd: ChangeDetectorRef) {
@@ -187,6 +203,36 @@ export class PartieComponent implements OnInit, OnDestroy {
       nomAdversaire = this.partie.joueurUn.pseudo;
       idAdversaire = this.partie.joueurUn.id;
     }
+
+    this.avatarService.getAvatarByUserId(idJoueur).subscribe({
+      next: avatar => {
+        this.joueurAvatar = {
+          head: avatar.tete,
+          hat: avatar.chapeau,
+          body: avatar.corps,
+          back: avatar.dos
+        };
+
+        this.avatarService.getAvatarByUserId(idAdversaire).subscribe({
+          next: avatarAdv => {
+            this.adversaireAvatar = {
+              head: avatarAdv.tete,
+              hat: avatarAdv.chapeau,
+              body: avatarAdv.corps,
+              back: avatarAdv.dos
+            };
+          },
+          error: error => {
+            console.error('Erreur lors de la récupération de l\'avatar', error);
+            alert('Erreur lors de la récupération de l\'avatar');
+          }
+        });
+      },
+      error: error => {
+        console.error('Erreur lors de la récupération de l\'avatar', error);
+        alert('Erreur lors de la récupération de l\'avatar');
+      }
+    });
 
     this.joueur = {
       id: idJoueur,
