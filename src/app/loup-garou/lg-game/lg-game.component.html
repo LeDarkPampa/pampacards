@@ -17,14 +17,14 @@
       <div class="role-image-container">
         <img
           (mouseenter)="isHovering = true" (mouseleave)="isHovering = false"
-          *ngIf="currentPlayer() && isStreamerMode && !isHovering"
+          *ngIf="(currentPlayer() && isStreamerMode && !isHovering) || currentPlayer()?.role == null"
           [src]="'assets/lg/DOS.png'"
           [alt]="'Dos de carte'"
           class="lg-image"
         />
         <img
           (mouseenter)="isHovering = true" (mouseleave)="isHovering = false"
-          *ngIf="currentPlayer() && (!isStreamerMode || isHovering)"
+          *ngIf="currentPlayer() && (!isStreamerMode || isHovering) && currentPlayer()?.role != null"
           [src]="'assets/lg/' + currentPlayer()?.role + '.png'"
           [alt]="'Rôle: ' + currentPlayer()?.role"
           class="lg-image"
