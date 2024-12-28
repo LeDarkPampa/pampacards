@@ -1,5 +1,6 @@
 {
   "heads": [
+    "assets/avatars/heads/default.png",
     "assets/avatars/heads/dbz/cell1.png",
     "assets/avatars/heads/dbz/cell2.png",
     "assets/avatars/heads/dbz/cell3.png",
@@ -139,6 +140,7 @@
     "assets/avatars/hats/mario/luigi.png"
   ],
   "bodies": [
+    "assets/avatars/bodies/default.png",
     "assets/avatars/bodies/armure/armor1.png",
     "assets/avatars/bodies/armure/armor2.png",
     "assets/avatars/bodies/armure/armor3.png",
