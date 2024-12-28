@@ -39,29 +39,23 @@ export class AvatarBuilderComponent implements OnInit {
       .subscribe(data => {
         this.parts = data;
         // Initialiser selectedParts avec des valeurs par défaut au cas où l'avatar n'est pas encore chargé
-        this.selectedParts = {
-          head: data.heads[0] || '',
-          hat: '',
-          body: data.bodies[0] || '',
-          back: data.backs[0] || ''
-        };
-      });
 
-    this.utilisateurService.getAvatar(this.authentificationService.getUserId()).subscribe({
-      next: data => {
-        this.avatar = data;
-        this.selectedParts = {
-          head: this.avatar.tete || '',
-          hat: this.avatar.chapeau || '',
-          body: this.avatar.corps || '',
-          back: this.avatar.dos || ''
-        };
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des utilisateurs');
-      }
-    });
+        this.utilisateurService.getAvatar(this.authentificationService.getUserId()).subscribe({
+          next: avatar => {
+            this.avatar = avatar;
+            this.selectedParts = {
+              hat: this.avatar.chapeau || '',
+              head: this.avatar.tete || data.heads[0],
+              body: this.avatar.corps || data.bodies[0],
+              back: this.avatar.dos || ''
+            };
+          },
+          error: error => {
+            console.error('There was an error!', error);
+            alert('Erreur lors de la récupération des utilisateurs');
+          }
+        });
+      });
   }
 
 
