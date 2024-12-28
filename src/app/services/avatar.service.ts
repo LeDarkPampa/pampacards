@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { Avatar } from '../classes/Avatar';
 import { AuthentificationService } from './authentification.service';
@@ -23,8 +23,14 @@ export class AvatarService {
   getAvatarByUserId(userId: number): Observable<Avatar> {
     return this.http.get<Avatar>(`http://www.pampacards.fr/api/avatars/${userId}`)
       .pipe(
-        catchError(error => {
-          console.error('Erreur de récupération de l\'avatar :', error);
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof ErrorEvent) {
+            console.error('Une erreur est survenue:', error.error.message);
+          } else {
+            console.error(`Code de statut : ${error.status}, ` +
+              `Réponse du serveur : ${error.message}`);
+          }
+          alert('Erreur lors de la récupération de l\'avatar');
           return throwError('Erreur lors de la récupération de l\'avatar');
         })
       );
