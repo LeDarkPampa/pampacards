@@ -68,6 +68,27 @@ export class AvatarBuilderComponent implements OnInit {
   selectPart(part: keyof SelectedParts, value: string) {
     this.selectedParts[part] = value;
   }
+
+  saveAvatar() {
+    const updatedAvatar: Avatar = {
+      id: this.avatar?.id ? this.avatar?.id : 0,
+      tete: this.selectedParts.head,
+      chapeau: this.selectedParts.hat,
+      corps: this.selectedParts.body,
+      dos: this.selectedParts.back
+    };
+
+    this.utilisateurService.saveAvatar(updatedAvatar).subscribe({
+      next: () => {
+        alert('Avatar sauvegardé avec succès !');
+      },
+      error: error => {
+        console.error('Erreur lors de la sauvegarde de l\'avatar', error);
+        alert('Erreur lors de la sauvegarde de l\'avatar');
+      }
+    });
+  }
+
 }
 
 type SelectedParts = {

@@ -50,6 +50,10 @@ export class UtilisateurService extends ApiService {
     );
   }
 
+  saveAvatar(avatar: Avatar): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/avatar`, avatar);
+  }
+
   getAllDecks(): Observable<Deck[]> {
     return this.http.get<Deck[]>(this.API_URL + '/decks?userId=' + this.authService.getUserId()).pipe(
       map((decks: Deck[]) => {
