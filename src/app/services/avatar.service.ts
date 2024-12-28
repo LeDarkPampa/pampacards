@@ -4,16 +4,18 @@ import {Observable, throwError} from 'rxjs';
 import { Avatar } from '../classes/Avatar';
 import { AuthentificationService } from './authentification.service';
 import {catchError} from "rxjs/operators";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AvatarService {
+export class AvatarService extends ApiService {
 
   constructor(
     private http: HttpClient,
-    private authentificationService: AuthentificationService
-  ) { }
+    private authentificationService: AuthentificationService) {
+    super();
+  }
 
   getAvatar(): Observable<Avatar> {
     const userId = this.authentificationService.getUserId();
@@ -21,18 +23,20 @@ export class AvatarService {
   }
 
   getAvatarByUserId(userId: number): Observable<Avatar> {
-    return this.http.get<Avatar>(`http://www.pampacards.fr/api/avatars/${userId}`)
+    return this.http.get<Avatar>(this.API_URL + `/avatars/${userId}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          if (error.error instanceof ErrorEvent) {
-            console.error('Une erreur est survenue:', error.error.message);
+          if (error.status === 200) {
+            // La réponse peut être vide ou incorrecte
+            console.error("Réponse mal formatée ou vide", error);
+          } else if (error.error instanceof ErrorEvent) {
+            console.error("Erreur côté client ou réseau", error.error.message);
           } else {
-            console.error(`Code de statut : ${error.status}, ` +
-              `Réponse du serveur : ${error.message}`);
+            console.error(`Erreur serveur : ${error.status}, message : ${error.message}`);
           }
-          alert('Erreur lors de la récupération de l\'avatar');
           return throwError('Erreur lors de la récupération de l\'avatar');
         })
       );
   }
+
 }
