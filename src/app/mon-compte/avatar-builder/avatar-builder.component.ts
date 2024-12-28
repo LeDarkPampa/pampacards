@@ -72,7 +72,7 @@ export class AvatarBuilderComponent implements OnInit {
   saveAvatar() {
     const updatedAvatar: Avatar = {
       id: this.avatar?.id ? this.avatar?.id : 0,
-      utilisateurId: this.avatar?.utilisateurId ? this.avatar?.utilisateurId : 0,
+      utilisateurId: this.authentificationService.getUserId(),
       tete: this.selectedParts.head,
       chapeau: this.selectedParts.hat,
       corps: this.selectedParts.body,
@@ -89,7 +89,6 @@ export class AvatarBuilderComponent implements OnInit {
       }
     });
   }
-
 }
 
 type SelectedParts = {
