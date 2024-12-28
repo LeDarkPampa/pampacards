@@ -72,7 +72,7 @@ export class AvatarBuilderComponent implements OnInit {
   saveAvatar() {
     const updatedAvatar: Avatar = {
       id: this.avatar?.id ? this.avatar?.id : 0,
-      utilisateurId: this.authentificationService.getUserId(),
+      utilisateurId: this.avatar?.utilisateurId ? this.avatar?.utilisateurId : 0,
       tete: this.selectedParts.head,
       chapeau: this.selectedParts.hat,
       corps: this.selectedParts.body,
@@ -80,15 +80,16 @@ export class AvatarBuilderComponent implements OnInit {
     };
 
     this.utilisateurService.saveAvatar(updatedAvatar).subscribe({
-      next: () => {
+      next: (response) => {
         alert('Avatar sauvegardé avec succès !');
       },
-      error: error => {
+      error: (error) => {
         console.error('Erreur lors de la sauvegarde de l\'avatar', error);
         alert('Erreur lors de la sauvegarde de l\'avatar');
       }
     });
   }
+
 }
 
 type SelectedParts = {
