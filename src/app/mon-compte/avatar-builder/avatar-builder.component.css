@@ -1,4 +1,4 @@
-.avatar-creator h1 {
+.avatar-creator h2 {
   text-align: center;
   color:#8C1C13;
   font-family: Arial, sans-serif;
@@ -39,18 +39,4 @@
 
 .options img.selected {
   border-color: #3498db;
-}
-
-.options button {
-  background-color: #fff;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  padding: 5px 5px;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-}
-
-.options button.selected {
-  border-color: #3498db;
-  color: #3498db;
 }

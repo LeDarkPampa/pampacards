@@ -9,7 +9,7 @@ import {AvatarPart} from "../../classes/AvatarPart";
 @Component({
   selector: 'app-avatar-builder',
   templateUrl: './avatar-builder.component.html',
-  styleUrls: ['./avatar-builder.component.css']
+  styleUrls: ['./avatar-builder.component.css', '../../app.component.css']
 })
 export class AvatarBuilderComponent implements OnInit {
   parts = {
