@@ -13,7 +13,7 @@ import { Avatar } from 'src/app/classes/Avatar';
     NgIf
   ],
   templateUrl: './avatar-builder.component.html',
-  styleUrl: './avatar-builder.component.css'
+  styleUrls: ['./avatar-builder.component.css']
 })
 export class AvatarBuilderComponent implements OnInit {
   parts = {
