@@ -7,6 +7,7 @@ import {catchError, map} from "rxjs/operators";
 import {Collection} from "../classes/Collection";
 import {Deck} from "../classes/decks/Deck";
 import {AuthentificationService} from "./authentification.service";
+import {Avatar} from "../classes/Avatar";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,14 @@ export class UtilisateurService extends ApiService {
 
   getCollection(userId: number): Observable<Collection> {
     return this.http.get<Collection>(this.API_URL + `/collection?userId=${userId}`).pipe(
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
+  getAvatar(userId: number): Observable<Avatar> {
+    return this.http.get<Avatar>(this.API_URL + `/avatar?userId=${userId}`).pipe(
       catchError((error) => {
         return throwError(error);
       })
