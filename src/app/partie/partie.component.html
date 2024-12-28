@@ -1,11 +1,11 @@
 <div class="screen">
   <div *ngIf="adversaire" class="infos-adv">
-    {{adversaire.nom}}
     <app-avatar-view
       [head]="adversaireAvatar.head"
       [hat]="adversaireAvatar.hat"
       [body]="adversaireAvatar.body"
-      [back]="adversaireAvatar.back">
+      [back]="adversaireAvatar.back"
+    >
     </app-avatar-view>
   </div>
   <div class="center main-adv">
@@ -48,6 +48,9 @@
     </div>
   </div>
   <div *ngIf="adversaire" [class]="getAdvColorClass()" class="puissance puissance-adv">
+    <div class="nom-joueur" *ngIf="adversaire.nom">
+      {{ adversaire.nom }}
+    </div>
     Puissance totale : {{adversaire.score}}
   </div>
   <div class="center deck-joueur">
@@ -76,15 +79,18 @@
     </div>
   </div>
   <div *ngIf="joueur" [class]="getJoueurColorClass()" class="puissance puissance-joueur">
+    <div class="nom-joueur" *ngIf="joueur.nom">
+      {{ joueur.nom }}
+    </div>
     Puissance totale : {{joueur.score}}
   </div>
   <div *ngIf="joueur" class="infos-joueur">
-    {{joueur.nom}}
     <app-avatar-view
       [head]="joueurAvatar.head"
       [hat]="joueurAvatar.hat"
       [body]="joueurAvatar.body"
-      [back]="joueurAvatar.back">
+      [back]="joueurAvatar.back"
+    >
     </app-avatar-view>
   </div>
   <div class="center main-joueur">

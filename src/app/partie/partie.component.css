@@ -4,7 +4,7 @@
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,25,1) 0%, rgba(39,39,39,1) 50%, rgba(25,25,25,1) 100%);
     color: white;
     display: grid;
-    grid-template-columns: 10% 13% auto 13% 10% 13%;
+    grid-template-columns: 10% 18% auto 18% 10% 13%;
     grid-template-rows: 11% 4% 26% 26% 4% 29%;
     grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
   "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
@@ -23,7 +23,7 @@
     color: white;
     display: grid;
     grid-template-columns: 8% 17% auto 17% 10% 13%;
-    grid-template-rows: 11% 4% 26% 26% 4% 3% 26%;
+    grid-template-rows: 11% 5% 25% 25% 4% 5% 25%;
     grid-template-areas: "empty infos-adv main-adv infos-tours infos-tours bandeau-chat"
   "deck-adv puissance-adv main-adv main-empty2 empty2 bandeau-chat"
   "deck-adv terrain-adv terrain-adv terrain-adv defausse-adv bandeau-chat"
@@ -35,14 +35,15 @@
   }
 }
 
+.nom-joueur {
+  font-size: 18px;
+}
+
 .infos-adv {
   grid-area: infos-adv;
   display: flex;
   justify-content: center;
-  align-items: end;
-  text-align: center;
-  padding: 15px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .main-adv {
@@ -72,7 +73,7 @@
 .puissance {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 .puissance-adv {
@@ -117,9 +118,6 @@
   grid-area: infos-joueur;
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding: 15px;
-  font-size: 20px;
 }
 
 .main-joueur {
