@@ -83,6 +83,7 @@ import {LgCreateComponent} from "./loup-garou/lg-create/lg-create.component";
 import {LgGameComponent} from "./loup-garou/lg-game/lg-game.component";
 import {InscriptionDialogComponent} from "./tournois/inscription-dialog/inscription-dialog.component";
 import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
+import {AvatarBuilderComponent} from "./mon-compte/avatar-builder/avatar-builder.component";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -165,6 +166,7 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
             { path: 'tournoi/:id', component: DetailsTournoiComponent, canActivate: [AuthGuard] },
             { path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard] },
             { path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard] },
+            { path: 'avatar-builder', component: AvatarBuilderComponent, canActivate: [AuthGuard] },
             { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard] },
             { path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard] },
             { path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard] },

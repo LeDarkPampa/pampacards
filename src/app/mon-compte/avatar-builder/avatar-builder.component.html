@@ -1,0 +1,89 @@
+<div class="avatar-creator">
+  <h1>Création d'Avatar</h1>
+
+  <div class="avatar-preview">
+    <div class="avatar-container">
+      <img class="avatar-part back" [src]="selectedParts.back" *ngIf="selectedParts.back" alt="Back" />
+      <img class="avatar-part body" [src]="selectedParts.body" alt="Corps" />
+      <img class="avatar-part head" [src]="selectedParts.head" alt="Tête" />
+      <img class="avatar-part hat" [src]="selectedParts.hat" *ngIf="selectedParts.hat" alt="Chapeau" />
+    </div>
+  </div>
+
+  <div class="selection-panel">
+    <!-- Section Chapeau -->
+    <div class="selection">
+      <h3>Choix du chapeau</h3>
+      <div class="options">
+        <img
+          *ngFor="let hat of parts.hats"
+          [src]="hat"
+          (click)="selectPart('hat', hat)"
+          [class.selected]="hat === selectedParts.hat"
+          role="button"
+          alt="Option chapeau"
+        />
+        <!-- Option "Pas de chapeau" -->
+        <button
+          (click)="selectPart('hat', '')"
+          [class.selected]="!selectedParts.hat"
+          role="button"
+        >
+          Pas de chapeau
+        </button>
+      </div>
+    </div>
+
+    <!-- Section Tête -->
+    <div class="selection">
+      <h3>Choix de la tête</h3>
+      <div class="options">
+        <img
+          *ngFor="let head of parts.heads"
+          [src]="head"
+          (click)="selectPart('head', head)"
+          [class.selected]="head === selectedParts.head"
+          role="button"
+          alt="Option tête"
+        />
+      </div>
+    </div>
+
+    <!-- Section Corps -->
+    <div class="selection">
+      <h3>Choix du corps</h3>
+      <div class="options">
+        <img
+          *ngFor="let body of parts.bodies"
+          [src]="body"
+          (click)="selectPart('body', body)"
+          [class.selected]="body === selectedParts.body"
+          role="button"
+          alt="Option corps"
+        />
+      </div>
+    </div>
+
+    <!-- Section Dos -->
+    <div class="selection">
+      <h3>Choix de l'élément supplémentaire</h3>
+      <div class="options">
+        <img
+          *ngFor="let back of parts.backs"
+          [src]="back"
+          (click)="selectPart('back', back)"
+          [class.selected]="back === selectedParts.back"
+          role="button"
+          alt="Option back"
+        />
+        <button
+          (click)="selectPart('back', '')"
+          [class.selected]="!selectedParts.back"
+          role="button"
+        >
+          Pas d'élément supplémentaire
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

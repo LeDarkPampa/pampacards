@@ -1,0 +1,84 @@
+.avatar-creator {
+  text-align: center;
+  color:#8C1C13;
+  font-family: Arial, sans-serif;
+}
+
+.avatar-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.avatar-container {
+  position: relative;
+  width: 200px;
+  height: 130px;
+}
+
+.avatar-part {
+  position: absolute;
+  height: 120px;
+}
+
+/* Ordre des calques */
+.avatar-part.back {
+  z-index: 1;
+}
+
+.avatar-part.body {
+  z-index: 3;
+}
+
+.avatar-part.head {
+  z-index: 4;
+}
+
+.avatar-part.hat {
+  z-index: 5;
+}
+
+.selection-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.selection {
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.options img {
+  width: 70px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.options img.selected {
+  border-color: #3498db;
+}
+
+.options button {
+  background-color: #fff;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 5px 5px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+
+.options button.selected {
+  border-color: #3498db;
+  color: #3498db;
+}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Utilisateur} from "../classes/Utilisateur";
 import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-mon-compte',
@@ -18,7 +19,7 @@ export class MonCompteComponent {
   newPassword: string = '';
   codePromo: string = '';
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) {
+  constructor(private http: HttpClient, private authService: AuthentificationService, private router: Router) {
     // @ts-ignore
     this.utilisateur = this.authService.getUser();
   }
@@ -63,5 +64,9 @@ export class MonCompteComponent {
     } else {
       alert('Aucun code promo entré');
     }
+  }
+
+  goToAvatarBuilder() {
+    this.router.navigate(['/avatar-builder']);
   }
 }
