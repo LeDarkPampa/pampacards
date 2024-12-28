@@ -19,11 +19,11 @@ export class AvatarService extends ApiService {
 
   getAvatar(): Observable<Avatar> {
     const userId = this.authentificationService.getUserId();
-    return this.http.get<Avatar>(`/api/avatars/${userId}`);
+    return this.http.get<Avatar>(`/api/avatars?userId=${userId}`);
   }
 
   getAvatarByUserId(userId: number): Observable<Avatar> {
-    return this.http.get<Avatar>(this.API_URL + `/avatars/${userId}`)
+    return this.http.get<Avatar>(this.API_URL + `/avatars?userId=${userId}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 200) {
