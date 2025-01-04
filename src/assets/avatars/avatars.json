@@ -1,864 +1,3446 @@
 {
   "heads": [
-    "assets/avatars/heads/default.png",
-    "assets/avatars/heads/alice/alicet.png",
-    "assets/avatars/heads/alice/alicet15.png",
-    "assets/avatars/heads/alice/alicet16.png",
-    "assets/avatars/heads/alice/alicet17.png",
-    "assets/avatars/heads/alice/alicet18.png",
-    "assets/avatars/heads/alice/alicet19.png",
-    "assets/avatars/heads/alice/alicet20.png",
-    "assets/avatars/heads/alice/alicet21.png",
-    "assets/avatars/heads/alice/alicet22.png",
-    "assets/avatars/heads/alice/alicet23.png",
-    "assets/avatars/heads/alice/alicet24.png",
-    "assets/avatars/heads/alice/alicet25.png",
-    "assets/avatars/heads/alice/alicet26.png",
-    "assets/avatars/heads/alice/alicet27.png",
-    "assets/avatars/heads/alice/alicet28.png",
-    "assets/avatars/heads/alice/alicet29.png",
-    "assets/avatars/heads/alice/alicet3.png",
-    "assets/avatars/heads/alice/alicet30.png",
-    "assets/avatars/heads/alice/alicet31.png",
-    "assets/avatars/heads/alice/alicet33.png",
-    "assets/avatars/heads/alice/alicet34.png",
-    "assets/avatars/heads/alice/alicet35.png",
-    "assets/avatars/heads/alice/alicet36.png",
-    "assets/avatars/heads/alice/alicet37.png",
-    "assets/avatars/heads/alice/alicet38.png",
-    "assets/avatars/heads/alice/alicet39.png",
-    "assets/avatars/heads/alice/alicet4.png",
-    "assets/avatars/heads/alice/alicet40.png",
-    "assets/avatars/heads/alice/alicet41.png",
-    "assets/avatars/heads/alice/alicet42.png",
-    "assets/avatars/heads/alice/alicet43.png",
-    "assets/avatars/heads/alice/alicet44.png",
-    "assets/avatars/heads/alice/alicet45.png",
-    "assets/avatars/heads/alice/alicet46.png",
-    "assets/avatars/heads/alice/alicet47.png",
-    "assets/avatars/heads/alice/alicet48.png",
-    "assets/avatars/heads/alice/alicet49.png",
-    "assets/avatars/heads/alice/alicet5.png",
-    "assets/avatars/heads/alice/alicet6.png",
-    "assets/avatars/heads/alice/alicet7.png",
-    "assets/avatars/heads/alice/alicet8.png",
-    "assets/avatars/heads/animaux/panda.png",
-    "assets/avatars/heads/animaux/panda2.png",
-    "assets/avatars/heads/chat/cait1.png",
-    "assets/avatars/heads/chat/cait2.png",
-    "assets/avatars/heads/chat/cait3.png",
-    "assets/avatars/heads/chat/cait4.png",
-    "assets/avatars/heads/chat/cait5.png",
-    "assets/avatars/heads/chat/cait6.png",
-    "assets/avatars/heads/chat/cait7.png",
-    "assets/avatars/heads/chat/chat1.png",
-    "assets/avatars/heads/chat/chat2.png",
-    "assets/avatars/heads/chat/chat3.png",
-    "assets/avatars/heads/chat/chat4.png",
-    "assets/avatars/heads/chat/chat5.png",
-    "assets/avatars/heads/chat/chat6.png",
-    "assets/avatars/heads/chat/chat7.png",
-    "assets/avatars/heads/chat/chat8.png",
-    "assets/avatars/heads/chat/chat9.png",
-    "assets/avatars/heads/colors/chauve1.png",
-    "assets/avatars/heads/colors/chauve2.png",
-    "assets/avatars/heads/colors/chauve3.png",
-    "assets/avatars/heads/colors/chauve4.png",
-    "assets/avatars/heads/colors/chauve5.png",
-    "assets/avatars/heads/colors/chauve6.png",
-    "assets/avatars/heads/dbz/cell1.png",
-    "assets/avatars/heads/dbz/cell2.png",
-    "assets/avatars/heads/dbz/cell3.png",
-    "assets/avatars/heads/dbz/cell4.png",
-    "assets/avatars/heads/dbz/cell5.png",
-    "assets/avatars/heads/dbz/cell6.png",
-    "assets/avatars/heads/dbz/freezer1.png",
-    "assets/avatars/heads/dbz/freezer2.png",
-    "assets/avatars/heads/dbz/freezer3.png",
-    "assets/avatars/heads/dbz/freezer4.png",
-    "assets/avatars/heads/dbz/freezer5.png",
-    "assets/avatars/heads/dbz/freezer6.png",
-    "assets/avatars/heads/dbz/freezer7.png",
-    "assets/avatars/heads/dbz/goku1.png",
-    "assets/avatars/heads/dbz/goku2.png",
-    "assets/avatars/heads/dbz/krillin1.png",
-    "assets/avatars/heads/elem/aaeazeae2t.png",
-    "assets/avatars/heads/elem/aaeazeae3t.png",
-    "assets/avatars/heads/elem/aaeazeae4t.png",
-    "assets/avatars/heads/elem/aaeazeae5t.png",
-    "assets/avatars/heads/elem/aaeazeae6t.png",
-    "assets/avatars/heads/elem/aaeazeae7t.png",
-    "assets/avatars/heads/elem/aaeazeae8t.png",
-    "assets/avatars/heads/elem/aaeazeaet.png",
-    "assets/avatars/heads/elem/dsqdq2.png",
-    "assets/avatars/heads/elem/dsqdq3.png",
-    "assets/avatars/heads/elem/dsqdq4.png",
-    "assets/avatars/heads/elem/dsqdq5.png",
-    "assets/avatars/heads/elem/dsqdq6.png",
-    "assets/avatars/heads/elem/dsqdq7.png",
-    "assets/avatars/heads/elem/e06spritet1.png",
-    "assets/avatars/heads/elem/e06spritet10.png",
-    "assets/avatars/heads/elem/e06spritet11.png",
-    "assets/avatars/heads/elem/e06spritet12.png",
-    "assets/avatars/heads/elem/e06spritet13.png",
-    "assets/avatars/heads/elem/e06spritet14.png",
-    "assets/avatars/heads/elem/e06spritet15.png",
-    "assets/avatars/heads/elem/e06spritet16.png",
-    "assets/avatars/heads/elem/e06spritet17.png",
-    "assets/avatars/heads/elem/e06spritet18.png",
-    "assets/avatars/heads/elem/e06spritet19.png",
-    "assets/avatars/heads/elem/e06spritet2.png",
-    "assets/avatars/heads/elem/e06spritet20.png",
-    "assets/avatars/heads/elem/e06spritet21.png",
-    "assets/avatars/heads/elem/e06spritet22.png",
-    "assets/avatars/heads/elem/e06spritet23.png",
-    "assets/avatars/heads/elem/e06spritet24.png",
-    "assets/avatars/heads/elem/e06spritet25.png",
-    "assets/avatars/heads/elem/e06spritet3.png",
-    "assets/avatars/heads/elem/e06spritet4.png",
-    "assets/avatars/heads/elem/e06spritet5.png",
-    "assets/avatars/heads/elem/e06spritet6.png",
-    "assets/avatars/heads/elem/e06spritet7.png",
-    "assets/avatars/heads/elem/e06spritet9.png",
-    "assets/avatars/heads/elem/e09sprite2t.png",
-    "assets/avatars/heads/elem/e09sprite3t.png",
-    "assets/avatars/heads/elem/e09sprite4t.png",
-    "assets/avatars/heads/elem/e09spritet.png",
-    "assets/avatars/heads/ff/squall1.png",
-    "assets/avatars/heads/ff/squall2.png",
-    "assets/avatars/heads/ff/squall3.png",
-    "assets/avatars/heads/ff/squall9.png",
-    "assets/avatars/heads/ff/Zelltete.png",
-    "assets/avatars/heads/ff/Zelltete2.png",
-    "assets/avatars/heads/ff/Zelltete3.png",
-    "assets/avatars/heads/heros/captainamerica2t.png",
-    "assets/avatars/heads/heros/deadpool5t.png",
-    "assets/avatars/heads/heros/deadpool6t.png",
-    "assets/avatars/heads/heros/deadpool7t.png",
-    "assets/avatars/heads/heros/deadpoolt.png",
-    "assets/avatars/heads/heros/hulk10t.png",
-    "assets/avatars/heads/heros/hulk11t.png",
-    "assets/avatars/heads/heros/hulk2t.png",
-    "assets/avatars/heads/heros/hulk9t.png",
-    "assets/avatars/heads/heros/hulkt.png",
-    "assets/avatars/heads/heros/ironman2t.png",
-    "assets/avatars/heads/heros/ironman3bt.png",
-    "assets/avatars/heads/heros/ironman4t.png",
-    "assets/avatars/heads/loup/loup1.png",
-    "assets/avatars/heads/loup/loup2.png",
-    "assets/avatars/heads/loup/loup3.png",
-    "assets/avatars/heads/mario/yoshit.png",
-    "assets/avatars/heads/mario/yoshit2.png",
-    "assets/avatars/heads/mario/yoshit3.png",
-    "assets/avatars/heads/mario/yoshit4.png",
-    "assets/avatars/heads/mario/yoshit5.png",
-    "assets/avatars/heads/mario/yoshit6.png",
-    "assets/avatars/heads/mario/yoshit7.png",
-    "assets/avatars/heads/mario/yoshit8.png",
-    "assets/avatars/heads/monstres/naga1.png",
-    "assets/avatars/heads/monstres/naga2.png",
-    "assets/avatars/heads/monstres/naga3.png",
-    "assets/avatars/heads/monstres/orc1.png",
-    "assets/avatars/heads/monstres/orc2.png",
-    "assets/avatars/heads/monstres/orc3.png",
-    "assets/avatars/heads/monstres/orc4.png",
-    "assets/avatars/heads/monstres/orc5.png",
-    "assets/avatars/heads/monstres/orc6.png",
-    "assets/avatars/heads/monstres/skull1.png",
-    "assets/avatars/heads/monstres/skull2.png",
-    "assets/avatars/heads/monstres/tigre1.png",
-    "assets/avatars/heads/monstres/tigre2.png",
-    "assets/avatars/heads/monstres/tigre3.png",
-    "assets/avatars/heads/monstres/tigre4.png",
-    "assets/avatars/heads/monstres/titat1.png",
-    "assets/avatars/heads/monstres/titat2.png",
-    "assets/avatars/heads/monstres/titat3.png",
-    "assets/avatars/heads/monstres/titat4.png",
-    "assets/avatars/heads/monstres/vamp1.png",
-    "assets/avatars/heads/noel/noel1.png",
-    "assets/avatars/heads/noel/noel2.png",
-    "assets/avatars/heads/simple/f/05-64.png",
-    "assets/avatars/heads/simple/f/05-65.png",
-    "assets/avatars/heads/simple/f/05-66.png",
-    "assets/avatars/heads/simple/f/05-71.png",
-    "assets/avatars/heads/simple/f/05-72.png",
-    "assets/avatars/heads/simple/f/05-73.png",
-    "assets/avatars/heads/simple/f/05-74.png",
-    "assets/avatars/heads/simple/f/05-75.png",
-    "assets/avatars/heads/simple/f/05-76.png",
-    "assets/avatars/heads/simple/f/05-77.png",
-    "assets/avatars/heads/simple/f/05-78.png",
-    "assets/avatars/heads/simple/f/05-79.png",
-    "assets/avatars/heads/simple/f/05-80.png",
-    "assets/avatars/heads/simple/f/05-81.png",
-    "assets/avatars/heads/simple/f/21-1.png",
-    "assets/avatars/heads/simple/f/21-2.png",
-    "assets/avatars/heads/simple/f/21-29.png",
-    "assets/avatars/heads/simple/f/21.png",
-    "assets/avatars/heads/simple/f/head1.png",
-    "assets/avatars/heads/simple/f/head11.png",
-    "assets/avatars/heads/simple/f/head15.png",
-    "assets/avatars/heads/simple/f/head16.png",
-    "assets/avatars/heads/simple/f/head17.png",
-    "assets/avatars/heads/simple/f/head18.png",
-    "assets/avatars/heads/simple/f/head19.png",
-    "assets/avatars/heads/simple/f/head2.png",
-    "assets/avatars/heads/simple/f/head20.png",
-    "assets/avatars/heads/simple/f/head21.png",
-    "assets/avatars/heads/simple/f/head22.png",
-    "assets/avatars/heads/simple/f/head23.png",
-    "assets/avatars/heads/simple/f/head34.png",
-    "assets/avatars/heads/simple/f/head35.png",
-    "assets/avatars/heads/simple/f/head36.png",
-    "assets/avatars/heads/simple/f/head40.png",
-    "assets/avatars/heads/simple/f/head9.png",
-    "assets/avatars/heads/simple/h/35.png",
-    "assets/avatars/heads/simple/h/3523aa.png",
-    "assets/avatars/heads/simple/h/3523aaa.png",
-    "assets/avatars/heads/simple/h/3524aa.png",
-    "assets/avatars/heads/simple/h/3526aaa.png",
-    "assets/avatars/heads/simple/h/3527a.png",
-    "assets/avatars/heads/simple/h/3527aa.png",
-    "assets/avatars/heads/simple/h/3527aaa.png",
-    "assets/avatars/heads/simple/h/falleen.png",
-    "assets/avatars/heads/simple/h/head13.png",
-    "assets/avatars/heads/simple/h/head14.png",
-    "assets/avatars/heads/simple/h/head17.png",
-    "assets/avatars/heads/simple/h/head18.png",
-    "assets/avatars/heads/simple/h/head19.png",
-    "assets/avatars/heads/simple/h/head20.png",
-    "assets/avatars/heads/simple/h/head21.png",
-    "assets/avatars/heads/simple/h/head25.png",
-    "assets/avatars/heads/simple/h/head27.png",
-    "assets/avatars/heads/simple/h/head28.png",
-    "assets/avatars/heads/simple/h/head29.png",
-    "assets/avatars/heads/simple/h/head30.png",
-    "assets/avatars/heads/simple/h/head31.png",
-    "assets/avatars/heads/simple/h/head36.png",
-    "assets/avatars/heads/simple/h/head38.png",
-    "assets/avatars/heads/simple/h/head40.png",
-    "assets/avatars/heads/simple/h/head41.png",
-    "assets/avatars/heads/simple/h/head42.png",
-    "assets/avatars/heads/simple/h/head43.png",
-    "assets/avatars/heads/simple/h/head44.png",
-    "assets/avatars/heads/simple/h/head45.png",
-    "assets/avatars/heads/simple/h/head46.png",
-    "assets/avatars/heads/simple/h/head47.png",
-    "assets/avatars/heads/simple/h/head48.png",
-    "assets/avatars/heads/simple/h/head49.png",
-    "assets/avatars/heads/simple/h/head50.png",
-    "assets/avatars/heads/simple/h/head51.png",
-    "assets/avatars/heads/simple/h/head52.png",
-    "assets/avatars/heads/simple/h/head7.png",
-    "assets/avatars/heads/simple/h/head8.png",
-    "assets/avatars/heads/simple/h/head9.png",
-    "assets/avatars/heads/simple/h/rou1.png",
-    "assets/avatars/heads/simple/h/rou2.png",
-    "assets/avatars/heads/simple/h/rou3.png",
-    "assets/avatars/heads/simple/h/rou4.png",
-    "assets/avatars/heads/simple/h/rou5.png",
-    "assets/avatars/heads/sonic/eggt.png",
-    "assets/avatars/heads/sonic/sh1.png",
-    "assets/avatars/heads/starwars/aurrasing12t.png",
-    "assets/avatars/heads/starwars/aurrasing2t.png",
-    "assets/avatars/heads/starwars/aurrasing3t.png",
-    "assets/avatars/heads/starwars/aurrasingt.png",
-    "assets/avatars/heads/starwars/chewie2bt.png",
-    "assets/avatars/heads/starwars/chewie3t.png",
-    "assets/avatars/heads/starwars/chewie4bt.png",
-    "assets/avatars/heads/starwars/chewie5t.png",
-    "assets/avatars/heads/starwars/chewie6eb.png",
-    "assets/avatars/heads/starwars/chewiet.png",
-    "assets/avatars/heads/starwars/chiss1.png",
-    "assets/avatars/heads/starwars/dsqdqb7t.png",
-    "assets/avatars/heads/starwars/dsqdqb7t2.png",
-    "assets/avatars/heads/starwars/jedi-1.png",
-    "assets/avatars/heads/starwars/jedi-12.png",
-    "assets/avatars/heads/starwars/jedi-13.png",
-    "assets/avatars/heads/starwars/jedi-15.png",
-    "assets/avatars/heads/starwars/jedi-16.png",
-    "assets/avatars/heads/starwars/jedi-19.png",
-    "assets/avatars/heads/starwars/jedi-21.png",
-    "assets/avatars/heads/starwars/jedi-24.png",
-    "assets/avatars/heads/starwars/jedi-25.png",
-    "assets/avatars/heads/starwars/jedi-27.png",
-    "assets/avatars/heads/starwars/jedi-3.png",
-    "assets/avatars/heads/starwars/mand1.png",
-    "assets/avatars/heads/starwars/mand2.png",
-    "assets/avatars/heads/starwars/mand4.png",
-    "assets/avatars/heads/starwars/maul1.png",
-    "assets/avatars/heads/starwars/maul2.png",
-    "assets/avatars/heads/starwars/maul3.png",
-    "assets/avatars/heads/starwars/maul4.png",
-    "assets/avatars/heads/starwars/maul5.png",
-    "assets/avatars/heads/starwars/maul6.png",
-    "assets/avatars/heads/starwars/maul7.png",
-    "assets/avatars/heads/starwars/padme1.png",
-    "assets/avatars/heads/starwars/protocoldroid1r.png",
-    "assets/avatars/heads/starwars/protocoldroid2r.png",
-    "assets/avatars/heads/starwars/protocoldroid3r.png",
-    "assets/avatars/heads/starwars/protocoldroid4r.png",
-    "assets/avatars/heads/starwars/protocoldroid5r.png",
-    "assets/avatars/heads/starwars/protocoldroid6r.png",
-    "assets/avatars/heads/starwars/twi1.png",
-    "assets/avatars/heads/starwars/twi2.png",
-    "assets/avatars/heads/starwars/twi3.png",
-    "assets/avatars/heads/starwars/twi4.png",
-    "assets/avatars/heads/starwars/twi5.png",
-    "assets/avatars/heads/starwars/yoda1.png",
-    "assets/avatars/heads/starwars/yoda2.png",
-    "assets/avatars/heads/starwars/yoda3.png",
-    "assets/avatars/heads/starwars/yoda4.png",
-    "assets/avatars/heads/starwars/yoda5.png",
-    "assets/avatars/heads/starwars/yoda6.png",
-    "assets/avatars/heads/starwars/yoda7.png",
-    "assets/avatars/heads/starwars/zemust.png",
-    "assets/avatars/heads/starwars/zemust2.png",
-    "assets/avatars/heads/starwars/zemust3.png",
-    "assets/avatars/heads/starwars/zemust4.png",
-    "assets/avatars/heads/starwars/zemust5.png",
-    "assets/avatars/heads/starwars/zemust6.png",
-    "assets/avatars/heads/starwars/zemust7.png"
+    {
+      "src": "assets/avatars/heads/default.png",
+      "category": "heads"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet15.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet16.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet17.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet18.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet19.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet20.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet21.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet22.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet23.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet24.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet25.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet26.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet27.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet28.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet29.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet3.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet30.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet31.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet33.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet34.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet35.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet36.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet37.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet38.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet39.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet4.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet40.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet41.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet42.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet43.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet44.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet45.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet46.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet47.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet48.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet49.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet5.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet6.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet7.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/alice/alicet8.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/heads/animaux/panda.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/heads/animaux/panda2.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait1.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait2.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait3.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait4.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait5.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait6.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/cait7.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat1.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat2.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat3.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat4.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat5.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat6.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat7.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat8.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/chat/chat9.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve1.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve2.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve3.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve4.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve5.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/colors/chauve6.png",
+      "category": "colors"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell4.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/cell6.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer4.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer6.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/freezer7.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/goku1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/goku2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/krillin1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae2t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae3t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae4t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae5t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae6t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae7t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeae8t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/aaeazeaet.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/dsqdq7.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet10.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet11.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet12.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet13.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet14.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet15.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet16.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet17.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet18.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet19.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet20.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet21.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet22.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet23.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet24.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet25.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet7.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet9.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e09sprite2t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e09sprite3t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e09sprite4t.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e09spritet.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/ff/squall1.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/squall2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/squall3.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/squall9.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/Zelltete.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/Zelltete2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/ff/Zelltete3.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/heads/heros/captainamerica2t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/deadpool5t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/deadpool6t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/deadpool7t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/deadpoolt.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/hulk10t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/hulk11t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/hulk2t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/hulk9t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/hulkt.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/ironman2t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/ironman3bt.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/heros/ironman4t.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/heads/loup/loup1.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/heads/loup/loup2.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/heads/loup/loup3.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit2.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit3.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit4.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit5.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit6.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit7.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/mario/yoshit8.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/naga1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/naga2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/naga3.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc3.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc4.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc5.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/orc6.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/skull1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/skull2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/tigre1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/tigre2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/tigre3.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/tigre4.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/titat1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/titat2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/titat3.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/titat4.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/vamp1.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/noel/noel1.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/heads/noel/noel2.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-64.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-65.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-66.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-71.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-72.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-73.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-74.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-75.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-76.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-77.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-78.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-79.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-80.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/05-81.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/21-1.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/21-2.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/21-29.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/21.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head1.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head11.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head15.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head16.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head17.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head18.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head19.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head2.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head20.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head21.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head22.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head23.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head34.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head35.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head36.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head40.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/head9.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/35.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3523aa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3523aaa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3524aa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3526aaa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3527a.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3527aa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/3527aaa.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/falleen.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head13.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head14.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head17.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head18.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head19.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head20.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head21.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head25.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head27.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head28.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head29.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head30.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head31.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head36.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head38.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head40.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head41.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head42.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head43.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head44.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head45.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head46.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head47.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head48.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head49.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head50.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head51.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head52.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head7.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head8.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/head9.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/rou1.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/rou2.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/rou3.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/rou4.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/rou5.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/sonic/eggt.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/heads/sonic/sh1.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/aurrasing12t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/aurrasing2t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/aurrasing3t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/aurrasingt.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewie2bt.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewie3t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewie4bt.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewie5t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewie6eb.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chewiet.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/chiss1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/dsqdqb7t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/dsqdqb7t2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-12.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-13.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-15.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-16.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-19.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-21.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-24.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-25.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-27.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/jedi-3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/mand1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/mand2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/mand4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/maul7.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/padme1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid1r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid2r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid3r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid4r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid5r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/protocoldroid6r.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/twi1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/twi2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/twi3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/twi4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/twi5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yoda7.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zemust7.png",
+      "category": "starwars"
+    }
   ],
   "hats": [
-    "assets/avatars/hats/armure/armor1.png",
-    "assets/avatars/hats/armure/armor2.png",
-    "assets/avatars/hats/armure/armor3.png",
-    "assets/avatars/hats/armure/armor4.png",
-    "assets/avatars/hats/armure/cxwcxwc.png",
-    "assets/avatars/hats/armure/cxwcxwc2.png",
-    "assets/avatars/hats/armure/cxwcxwc3.png",
-    "assets/avatars/hats/capuche/140621-676d7607ac3cdf0066286fc9ad225b20.png",
-    "assets/avatars/hats/capuche/capuche7.png",
-    "assets/avatars/hats/capuche/capuche8.png",
-    "assets/avatars/hats/chapeau/bouf1.png",
-    "assets/avatars/hats/chapeau/bouf2.png",
-    "assets/avatars/hats/chapeau/bouf3.png",
-    "assets/avatars/hats/chapeau/chapeau1.png",
-    "assets/avatars/hats/chapeau/chapeau2.png",
-    "assets/avatars/hats/chapeau/chapeau3.png",
-    "assets/avatars/hats/chapeau/chapeau4.png",
-    "assets/avatars/hats/chapeau/chapeau5.png",
-    "assets/avatars/hats/chapeau/paille1.png",
-    "assets/avatars/hats/chapeau/paille2.png",
-    "assets/avatars/hats/chapeau/paille3.png",
-    "assets/avatars/hats/chapeau/plume1.png",
-    "assets/avatars/hats/chapeau/pol1.png",
-    "assets/avatars/hats/chapeau/pol2.png",
-    "assets/avatars/hats/chapeau/pol3.png",
-    "assets/avatars/hats/corne/aaeazeaecornes.png",
-    "assets/avatars/hats/corne/aaeazeaecornes2.png",
-    "assets/avatars/hats/corne/aaeazeaecornes3.png",
-    "assets/avatars/hats/corne/aaeazeaecornes4.png",
-    "assets/avatars/hats/corne/aaeazeaecornes5.png",
-    "assets/avatars/hats/corne/aaeazeaecornes6.png",
-    "assets/avatars/hats/corne/corne1.png",
-    "assets/avatars/hats/corne/corne2.png",
-    "assets/avatars/hats/corne/devilcorne.png",
-    "assets/avatars/hats/corne/devilcorne10.png",
-    "assets/avatars/hats/corne/devilcorne2.png",
-    "assets/avatars/hats/corne/devilcorne3.png",
-    "assets/avatars/hats/corne/devilcorne4.png",
-    "assets/avatars/hats/corne/devilcorne9.png",
-    "assets/avatars/hats/couronne/caitsithcouronne.png",
-    "assets/avatars/hats/couronne/couronne1.png",
-    "assets/avatars/hats/couronne/couronne2.png",
-    "assets/avatars/hats/couronne/couronne6.png",
-    "assets/avatars/hats/couronne/couronne7.png",
-    "assets/avatars/hats/couronne/couronne8.png",
-    "assets/avatars/hats/couronne/couronne9.png",
-    "assets/avatars/hats/lapin/lapin1.png",
-    "assets/avatars/hats/lapin/lapin2.png",
-    "assets/avatars/hats/mage/mage1.png",
-    "assets/avatars/hats/mage/mage11.png",
-    "assets/avatars/hats/mage/mage2.png",
-    "assets/avatars/hats/mage/mage3.png",
-    "assets/avatars/hats/mario/luigi.png",
-    "assets/avatars/hats/mario/mario.png",
-    "assets/avatars/hats/noel/noel1.png",
-    "assets/avatars/hats/noel/noel2.png",
-    "assets/avatars/hats/noel/noel3.png",
-    "assets/avatars/hats/pirates/pirate1.png",
-    "assets/avatars/hats/pirates/pirate10.png",
-    "assets/avatars/hats/pirates/pirate11.png",
-    "assets/avatars/hats/pirates/pirate12.png",
-    "assets/avatars/hats/pirates/pirate2.png",
-    "assets/avatars/hats/pirates/pirate9.png",
-    "assets/avatars/hats/pokemon/cBVgIVh22.png",
-    "assets/avatars/hats/pokemon/cBVgIVh222.png",
-    "assets/avatars/hats/pokemon/cBVgIVh2222.png"
+    {
+      "src": "assets/avatars/hats/armure/armor1.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/armor2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/armor3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/armor4.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/cxwcxwc.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/cxwcxwc2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/cxwcxwc3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/capuche/140621-676d7607ac3cdf0066286fc9ad225b20.png",
+      "category": "capuche"
+    },
+    {
+      "src": "assets/avatars/hats/capuche/capuche7.png",
+      "category": "capuche"
+    },
+    {
+      "src": "assets/avatars/hats/capuche/capuche8.png",
+      "category": "capuche"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/bouf1.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/bouf2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/bouf3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/chapeau1.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/chapeau2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/chapeau3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/chapeau4.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/chapeau5.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/paille1.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/paille2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/paille3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/plume1.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/pol1.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/pol2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/pol3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes3.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes4.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes5.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/aaeazeaecornes6.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/corne1.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/corne2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne10.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne3.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne4.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/devilcorne9.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/caitsithcouronne.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne1.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne2.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne6.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne7.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne8.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/couronne9.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/lapin/lapin1.png",
+      "category": "lapin"
+    },
+    {
+      "src": "assets/avatars/hats/lapin/lapin2.png",
+      "category": "lapin"
+    },
+    {
+      "src": "assets/avatars/hats/mage/mage1.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/mage11.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/mage2.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/mage3.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mario/luigi.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/hats/mario/mario.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/hats/noel/noel1.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/hats/noel/noel2.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/hats/noel/noel3.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate1.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate10.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate11.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate12.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate2.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pirates/pirate9.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/hats/pokemon/cBVgIVh22.png",
+      "category": "pokemon"
+    },
+    {
+      "src": "assets/avatars/hats/pokemon/cBVgIVh222.png",
+      "category": "pokemon"
+    },
+    {
+      "src": "assets/avatars/hats/pokemon/cBVgIVh2222.png",
+      "category": "pokemon"
+    }
   ],
   "bodies": [
-    "assets/avatars/bodies/default.png",
-    "assets/avatars/bodies/alice/aliceb1.png",
-    "assets/avatars/bodies/alice/aliceb10.png",
-    "assets/avatars/bodies/alice/aliceb11.png",
-    "assets/avatars/bodies/alice/aliceb12.png",
-    "assets/avatars/bodies/alice/aliceb13.png",
-    "assets/avatars/bodies/alice/aliceb14.png",
-    "assets/avatars/bodies/alice/aliceb15.png",
-    "assets/avatars/bodies/alice/aliceb16.png",
-    "assets/avatars/bodies/alice/aliceb17.png",
-    "assets/avatars/bodies/alice/aliceb18.png",
-    "assets/avatars/bodies/alice/aliceb19.png",
-    "assets/avatars/bodies/alice/aliceb2.png",
-    "assets/avatars/bodies/alice/aliceb20.png",
-    "assets/avatars/bodies/alice/aliceb21.png",
-    "assets/avatars/bodies/alice/aliceb22.png",
-    "assets/avatars/bodies/alice/aliceb23.png",
-    "assets/avatars/bodies/alice/aliceb24.png",
-    "assets/avatars/bodies/alice/aliceb25.png",
-    "assets/avatars/bodies/alice/aliceb26.png",
-    "assets/avatars/bodies/alice/aliceb3.png",
-    "assets/avatars/bodies/alice/aliceb4.png",
-    "assets/avatars/bodies/alice/aliceb5.png",
-    "assets/avatars/bodies/alice/aliceb6.png",
-    "assets/avatars/bodies/alice/aliceb7.png",
-    "assets/avatars/bodies/alice/aliceb8.png",
-    "assets/avatars/bodies/alice/aliceb9.png",
-    "assets/avatars/bodies/armure/010-Lancer02_Lampe.png",
-    "assets/avatars/bodies/armure/592.png",
-    "assets/avatars/bodies/armure/a6.png",
-    "assets/avatars/bodies/armure/alshes.png",
-    "assets/avatars/bodies/armure/armor1.png",
-    "assets/avatars/bodies/armure/armor10.png",
-    "assets/avatars/bodies/armure/armor11.png",
-    "assets/avatars/bodies/armure/armor12.png",
-    "assets/avatars/bodies/armure/armor13.png",
-    "assets/avatars/bodies/armure/armor14.png",
-    "assets/avatars/bodies/armure/armor15.png",
-    "assets/avatars/bodies/armure/armor16.png",
-    "assets/avatars/bodies/armure/armor17.png",
-    "assets/avatars/bodies/armure/armor2.png",
-    "assets/avatars/bodies/armure/armor3.png",
-    "assets/avatars/bodies/armure/armor4.png",
-    "assets/avatars/bodies/armure/armor5.png",
-    "assets/avatars/bodies/armure/armor6.png",
-    "assets/avatars/bodies/armure/armor7.png",
-    "assets/avatars/bodies/armure/armor8.png",
-    "assets/avatars/bodies/armure/armor9.png",
-    "assets/avatars/bodies/armure/cecilharvey.png",
-    "assets/avatars/bodies/armure/cecilharvey2.png",
-    "assets/avatars/bodies/armure/cecilharvey3.png",
-    "assets/avatars/bodies/armure/mandalorian2.png",
-    "assets/avatars/bodies/chat/caitsith.png",
-    "assets/avatars/bodies/chat/caitsith10.png",
-    "assets/avatars/bodies/chat/caitsith11.png",
-    "assets/avatars/bodies/chat/caitsith12.png",
-    "assets/avatars/bodies/chat/caitsith13.png",
-    "assets/avatars/bodies/chat/caitsith14.png",
-    "assets/avatars/bodies/chat/caitsith15.png",
-    "assets/avatars/bodies/chat/caitsith16.png",
-    "assets/avatars/bodies/chat/caitsith17.png",
-    "assets/avatars/bodies/chat/caitsith18.png",
-    "assets/avatars/bodies/chat/caitsith19.png",
-    "assets/avatars/bodies/chat/caitsith2.png",
-    "assets/avatars/bodies/chat/caitsith20.png",
-    "assets/avatars/bodies/chat/caitsith21.png",
-    "assets/avatars/bodies/chat/caitsith22.png",
-    "assets/avatars/bodies/chat/caitsith23.png",
-    "assets/avatars/bodies/chat/caitsith24.png",
-    "assets/avatars/bodies/chat/caitsith25.png",
-    "assets/avatars/bodies/chat/caitsith26.png",
-    "assets/avatars/bodies/chat/caitsith27.png",
-    "assets/avatars/bodies/chat/caitsith28.png",
-    "assets/avatars/bodies/chat/caitsith3.png",
-    "assets/avatars/bodies/chat/caitsith4.png",
-    "assets/avatars/bodies/chat/caitsith5.png",
-    "assets/avatars/bodies/chat/caitsith6.png",
-    "assets/avatars/bodies/chat/caitsith7.png",
-    "assets/avatars/bodies/chat/caitsith8.png",
-    "assets/avatars/bodies/chat/caitsith9.png",
-    "assets/avatars/bodies/chat/chat1.png",
-    "assets/avatars/bodies/costume/body1.png",
-    "assets/avatars/bodies/costume/body13.png",
-    "assets/avatars/bodies/costume/body14.png",
-    "assets/avatars/bodies/costume/body19.png",
-    "assets/avatars/bodies/costume/casino1.png",
-    "assets/avatars/bodies/costume/casino2.png",
-    "assets/avatars/bodies/costume/casino3.png",
-    "assets/avatars/bodies/costume/casino4.png",
-    "assets/avatars/bodies/costume/casino5.png",
-    "assets/avatars/bodies/costume/costume1.png",
-    "assets/avatars/bodies/costume/costume2.png",
-    "assets/avatars/bodies/costume/fdsgsgds.png",
-    "assets/avatars/bodies/costume/fonc1.png",
-    "assets/avatars/bodies/costume/germany.png",
-    "assets/avatars/bodies/costume/germany2.png",
-    "assets/avatars/bodies/costume/germany3.png",
-    "assets/avatars/bodies/costume/officeman2.png",
-    "assets/avatars/bodies/costume/officeman3.png",
-    "assets/avatars/bodies/costume/officeman6.png",
-    "assets/avatars/bodies/dbz/cell1.png",
-    "assets/avatars/bodies/dbz/cell2.png",
-    "assets/avatars/bodies/dbz/cell3.png",
-    "assets/avatars/bodies/dbz/cell4.png",
-    "assets/avatars/bodies/dbz/cell5.png",
-    "assets/avatars/bodies/dbz/freezer1.png",
-    "assets/avatars/bodies/dbz/freezer2.png",
-    "assets/avatars/bodies/dbz/freezer3.png",
-    "assets/avatars/bodies/dbz/freezer4.png",
-    "assets/avatars/bodies/dbz/freezer5.png",
-    "assets/avatars/bodies/dbz/goku1.png",
-    "assets/avatars/bodies/dbz/goku2.png",
-    "assets/avatars/bodies/dbz/goku3.png",
-    "assets/avatars/bodies/dbz/krillin1.png",
-    "assets/avatars/bodies/dbz/krillin2.png",
-    "assets/avatars/bodies/dbz/krillin3.png",
-    "assets/avatars/bodies/dbz/krillin4.png",
-    "assets/avatars/bodies/dbz/krillin5.png",
-    "assets/avatars/bodies/dbz/krillin6.png",
-    "assets/avatars/bodies/elem/aaeazeae2b.png",
-    "assets/avatars/bodies/elem/aaeazeae3b.png",
-    "assets/avatars/bodies/elem/aaeazeae4b.png",
-    "assets/avatars/bodies/elem/aaeazeae5b.png",
-    "assets/avatars/bodies/elem/aaeazeae6b.png",
-    "assets/avatars/bodies/elem/aaeazeae7b.png",
-    "assets/avatars/bodies/elem/aaeazeae8b.png",
-    "assets/avatars/bodies/elem/aaeazeaetb.png",
-    "assets/avatars/bodies/elem/dsqdqb1.png",
-    "assets/avatars/bodies/elem/dsqdqb2.png",
-    "assets/avatars/bodies/elem/dsqdqb3.png",
-    "assets/avatars/bodies/elem/dsqdqb4.png",
-    "assets/avatars/bodies/elem/dsqdqb5.png",
-    "assets/avatars/bodies/elem/dsqdqb6.png",
-    "assets/avatars/bodies/elem/dsqdqb7.png",
-    "assets/avatars/bodies/elem/e06spriteb1.png",
-    "assets/avatars/bodies/elem/e06spriteb2.png",
-    "assets/avatars/bodies/elem/e06spriteb3.png",
-    "assets/avatars/bodies/elem/e06spriteb4.png",
-    "assets/avatars/bodies/elem/e06spriteb5.png",
-    "assets/avatars/bodies/elem/e06spriteb6.png",
-    "assets/avatars/bodies/elem/e06spriteb8.png",
-    "assets/avatars/bodies/elem/e09sprite2b.png",
-    "assets/avatars/bodies/elem/e09sprite3b.png",
-    "assets/avatars/bodies/elem/e09sprite4b.png",
-    "assets/avatars/bodies/elem/e09spriteb.png",
-    "assets/avatars/bodies/ff/005squall010py.png",
-    "assets/avatars/bodies/ff/magef1.png",
-    "assets/avatars/bodies/ff/magef2.png",
-    "assets/avatars/bodies/ff/magef3.png",
-    "assets/avatars/bodies/ff/magef5.png",
-    "assets/avatars/bodies/ff/magef6.png",
-    "assets/avatars/bodies/ff/mageh1.png",
-    "assets/avatars/bodies/ff/mageh2.png",
-    "assets/avatars/bodies/ff/mageh3.png",
-    "assets/avatars/bodies/ff/mageh4.png",
-    "assets/avatars/bodies/ff/mageh5.png",
-    "assets/avatars/bodies/ff/mageh6.png",
-    "assets/avatars/bodies/ff/wmage1.png",
-    "assets/avatars/bodies/ff/wmage2.png",
-    "assets/avatars/bodies/ff/zell1.png",
-    "assets/avatars/bodies/ff/zell2.png",
-    "assets/avatars/bodies/ff/zell3.png",
-    "assets/avatars/bodies/heros/captainamerica2b.png",
-    "assets/avatars/bodies/heros/captainamerica3b.png",
-    "assets/avatars/bodies/heros/captainamerica4b.png",
-    "assets/avatars/bodies/heros/captainamerica5b.png",
-    "assets/avatars/bodies/heros/captainamerica6b.png",
-    "assets/avatars/bodies/heros/captainamerica7b.png",
-    "assets/avatars/bodies/heros/captainamericab.png",
-    "assets/avatars/bodies/heros/deadpool2b.png",
-    "assets/avatars/bodies/heros/deadpool3b.png",
-    "assets/avatars/bodies/heros/deadpool4b.png",
-    "assets/avatars/bodies/heros/deadpool5b.png",
-    "assets/avatars/bodies/heros/deadpool6b.png",
-    "assets/avatars/bodies/heros/deadpool7b.png",
-    "assets/avatars/bodies/heros/deadpoolb.png",
-    "assets/avatars/bodies/heros/hulk10b.png",
-    "assets/avatars/bodies/heros/hulk11b.png",
-    "assets/avatars/bodies/heros/hulk2b.png",
-    "assets/avatars/bodies/heros/hulk3b.png",
-    "assets/avatars/bodies/heros/hulk4b.png",
-    "assets/avatars/bodies/heros/hulk5b.png",
-    "assets/avatars/bodies/heros/hulk8b.png",
-    "assets/avatars/bodies/heros/hulk9b.png",
-    "assets/avatars/bodies/heros/hulkb.png",
-    "assets/avatars/bodies/heros/ironman2tb.png",
-    "assets/avatars/bodies/heros/ironman3b.png",
-    "assets/avatars/bodies/heros/ironman4bt.png",
-    "assets/avatars/bodies/heros/ironman5b.png",
-    "assets/avatars/bodies/heros/ironman6tb.png",
-    "assets/avatars/bodies/heros/ironman7b.png",
-    "assets/avatars/bodies/heros/ironman8tb.png",
-    "assets/avatars/bodies/heros/ironman9b.png",
-    "assets/avatars/bodies/heros/ironmantb.png",
-    "assets/avatars/bodies/loup/loup1.png",
-    "assets/avatars/bodies/loup/loup2.png",
-    "assets/avatars/bodies/loup/loup3.png",
-    "assets/avatars/bodies/loup/loup4.png",
-    "assets/avatars/bodies/loup/loup5.png",
-    "assets/avatars/bodies/loup/loup6.png",
-    "assets/avatars/bodies/loup/loup7.png",
-    "assets/avatars/bodies/mario/luigi.png",
-    "assets/avatars/bodies/mario/mario.png",
-    "assets/avatars/bodies/mario/yoshib.png",
-    "assets/avatars/bodies/mario/yoshib2.png",
-    "assets/avatars/bodies/mario/yoshib3.png",
-    "assets/avatars/bodies/mario/yoshib4.png",
-    "assets/avatars/bodies/mario/yoshib5.png",
-    "assets/avatars/bodies/mario/yoshib6.png",
-    "assets/avatars/bodies/mario/yoshib7.png",
-    "assets/avatars/bodies/mario/yoshib8.png",
-    "assets/avatars/bodies/martiaux/14.png",
-    "assets/avatars/bodies/martiaux/142.png",
-    "assets/avatars/bodies/martiaux/1422.png",
-    "assets/avatars/bodies/martiaux/14222.png",
-    "assets/avatars/bodies/martiaux/142222.png",
-    "assets/avatars/bodies/martiaux/1422222.png",
-    "assets/avatars/bodies/med/a3.png",
-    "assets/avatars/bodies/med/body1.png",
-    "assets/avatars/bodies/med/body15.png",
-    "assets/avatars/bodies/med/body2.png",
-    "assets/avatars/bodies/med/body21.png",
-    "assets/avatars/bodies/med/body24.png",
-    "assets/avatars/bodies/med/body3.png",
-    "assets/avatars/bodies/med/body31.png",
-    "assets/avatars/bodies/med/body4.png",
-    "assets/avatars/bodies/med/med1.png",
-    "assets/avatars/bodies/med/med2.png",
-    "assets/avatars/bodies/med/med3.png",
-    "assets/avatars/bodies/med/med4.png",
-    "assets/avatars/bodies/med/med5.png",
-    "assets/avatars/bodies/med/oracle1.png",
-    "assets/avatars/bodies/med/oracle2.png",
-    "assets/avatars/bodies/med/oracle3.png",
-    "assets/avatars/bodies/med/oracle4.png",
-    "assets/avatars/bodies/monstre/dead1.png",
-    "assets/avatars/bodies/monstre/deviltb.png",
-    "assets/avatars/bodies/monstre/deviltb10.png",
-    "assets/avatars/bodies/monstre/deviltb2.png",
-    "assets/avatars/bodies/monstre/deviltb3.png",
-    "assets/avatars/bodies/monstre/deviltb4.png",
-    "assets/avatars/bodies/monstre/deviltb5.png",
-    "assets/avatars/bodies/monstre/deviltb6.png",
-    "assets/avatars/bodies/monstre/deviltb7.png",
-    "assets/avatars/bodies/monstre/deviltb8.png",
-    "assets/avatars/bodies/monstre/deviltb9.png",
-    "assets/avatars/bodies/monstre/skull1.png",
-    "assets/avatars/bodies/monstre/titab1.png",
-    "assets/avatars/bodies/monstre/titab2.png",
-    "assets/avatars/bodies/monstre/titab3.png",
-    "assets/avatars/bodies/monstre/titab4.png",
-    "assets/avatars/bodies/monstre/vamp1.png",
-    "assets/avatars/bodies/monstre/vamp2.png",
-    "assets/avatars/bodies/monstre/vamp3.png",
-    "assets/avatars/bodies/naga/naga1.png",
-    "assets/avatars/bodies/naga/naga2.png",
-    "assets/avatars/bodies/naga/naga3.png",
-    "assets/avatars/bodies/naga/naga4.png",
-    "assets/avatars/bodies/naga/naga5.png",
-    "assets/avatars/bodies/naga/naga6.png",
-    "assets/avatars/bodies/naga/naga7.png",
-    "assets/avatars/bodies/noel/noel1.png",
-    "assets/avatars/bodies/noel/noel2.png",
-    "assets/avatars/bodies/noel/noel3.png",
-    "assets/avatars/bodies/noel/noel4.png",
-    "assets/avatars/bodies/noel/noel5.png",
-    "assets/avatars/bodies/noel/noel6.png",
-    "assets/avatars/bodies/noel/noel7.png",
-    "assets/avatars/bodies/pirates/piratef1.png",
-    "assets/avatars/bodies/pirates/piratef2.png",
-    "assets/avatars/bodies/pirates/piratef3.png",
-    "assets/avatars/bodies/pirates/piratef4.png",
-    "assets/avatars/bodies/pirates/piratef5.png",
-    "assets/avatars/bodies/pirates/pirateh1.png",
-    "assets/avatars/bodies/pirates/pirateh2.png",
-    "assets/avatars/bodies/pirates/pirateh3.png",
-    "assets/avatars/bodies/pokemon/sacha.png",
-    "assets/avatars/bodies/robe/dsqdqb7b.png",
-    "assets/avatars/bodies/robe/dsqdqb7b2.png",
-    "assets/avatars/bodies/robe/elsa1.png",
-    "assets/avatars/bodies/robe/elsa2.png",
-    "assets/avatars/bodies/robe/elsa3.png",
-    "assets/avatars/bodies/robe/elsa4.png",
-    "assets/avatars/bodies/robe/elsa5.png",
-    "assets/avatars/bodies/robe/elsa6.png",
-    "assets/avatars/bodies/robe/jupe1.png",
-    "assets/avatars/bodies/robe/med1.png",
-    "assets/avatars/bodies/robe/med2.png",
-    "assets/avatars/bodies/robe/med3.png",
-    "assets/avatars/bodies/robe/med4.png",
-    "assets/avatars/bodies/robe/med5.png",
-    "assets/avatars/bodies/robe/med6.png",
-    "assets/avatars/bodies/robe/robe1.png",
-    "assets/avatars/bodies/robe/robe2.png",
-    "assets/avatars/bodies/robe/robe3.png",
-    "assets/avatars/bodies/robe/robe4.png",
-    "assets/avatars/bodies/robe/robe5.png",
-    "assets/avatars/bodies/robe/robe6.png",
-    "assets/avatars/bodies/robe/robe7.png",
-    "assets/avatars/bodies/roi/roi1.png",
-    "assets/avatars/bodies/roi/roi10.png",
-    "assets/avatars/bodies/roi/roi11.png",
-    "assets/avatars/bodies/roi/roi12.png",
-    "assets/avatars/bodies/roi/roi2.png",
-    "assets/avatars/bodies/roi/roi3.png",
-    "assets/avatars/bodies/roi/roi4.png",
-    "assets/avatars/bodies/roi/roi5.png",
-    "assets/avatars/bodies/roi/roi6.png",
-    "assets/avatars/bodies/roi/roi7.png",
-    "assets/avatars/bodies/roi/roi8.png",
-    "assets/avatars/bodies/roi/roi9.png",
-    "assets/avatars/bodies/simple/a8.png",
-    "assets/avatars/bodies/simple/body10.png",
-    "assets/avatars/bodies/simple/body11.png",
-    "assets/avatars/bodies/simple/body12.png",
-    "assets/avatars/bodies/simple/body16.png",
-    "assets/avatars/bodies/simple/body17.png",
-    "assets/avatars/bodies/simple/body18.png",
-    "assets/avatars/bodies/simple/body20.png",
-    "assets/avatars/bodies/simple/body22.png",
-    "assets/avatars/bodies/simple/body23.png",
-    "assets/avatars/bodies/simple/body25.png",
-    "assets/avatars/bodies/simple/body26.png",
-    "assets/avatars/bodies/simple/body27.png",
-    "assets/avatars/bodies/simple/body28.png",
-    "assets/avatars/bodies/simple/body29.png",
-    "assets/avatars/bodies/simple/body30.png",
-    "assets/avatars/bodies/simple/body32.png",
-    "assets/avatars/bodies/simple/body5.png",
-    "assets/avatars/bodies/simple/body6.png",
-    "assets/avatars/bodies/simple/body7.png",
-    "assets/avatars/bodies/simple/body8.png",
-    "assets/avatars/bodies/simple/body9.png",
-    "assets/avatars/bodies/simple/clown1.png",
-    "assets/avatars/bodies/simple/clown2.png",
-    "assets/avatars/bodies/simple/clown3.png",
-    "assets/avatars/bodies/simple/modernguy02.png",
-    "assets/avatars/bodies/simple/modernguy03.png",
-    "assets/avatars/bodies/simple/monkf1.png",
-    "assets/avatars/bodies/simple/monkf2.png",
-    "assets/avatars/bodies/simple/monkf3.png",
-    "assets/avatars/bodies/simple/monkf4.png",
-    "assets/avatars/bodies/simple/monkf5.png",
-    "assets/avatars/bodies/simple/monkf6.png",
-    "assets/avatars/bodies/simple/monkh1.png",
-    "assets/avatars/bodies/simple/start1.png",
-    "assets/avatars/bodies/simple/start2.png",
-    "assets/avatars/bodies/simple/start3.png",
-    "assets/avatars/bodies/simple/start4.png",
-    "assets/avatars/bodies/simple/start5.png",
-    "assets/avatars/bodies/simple/start6.png",
-    "assets/avatars/bodies/sirene/athenab.png",
-    "assets/avatars/bodies/sirene/athenab2.png",
-    "assets/avatars/bodies/sirene/athenab3.png",
-    "assets/avatars/bodies/sirene/athenab4.png",
-    "assets/avatars/bodies/sirene/athenab5.png",
-    "assets/avatars/bodies/sirene/athenab6.png",
-    "assets/avatars/bodies/sirene/athenab7.png",
-    "assets/avatars/bodies/sirene/athenab8.png",
-    "assets/avatars/bodies/sonic/egg1.png",
-    "assets/avatars/bodies/sonic/egg2.png",
-    "assets/avatars/bodies/sonic/egg3.png",
-    "assets/avatars/bodies/sonic/sh1.png",
-    "assets/avatars/bodies/sorcier/zemust2.png",
-    "assets/avatars/bodies/sorcier/zemust3.png",
-    "assets/avatars/bodies/sorcier/zemust4.png",
-    "assets/avatars/bodies/sorcier/zemust5.png",
-    "assets/avatars/bodies/sorcier/zemust6.png",
-    "assets/avatars/bodies/sorcier/zemust7.png",
-    "assets/avatars/bodies/sorcier/zemustb.png",
-    "assets/avatars/bodies/starwars/aurrasingb.png",
-    "assets/avatars/bodies/starwars/aurrasingb10.png",
-    "assets/avatars/bodies/starwars/aurrasingb11.png",
-    "assets/avatars/bodies/starwars/aurrasingb12.png",
-    "assets/avatars/bodies/starwars/aurrasingb2.png",
-    "assets/avatars/bodies/starwars/aurrasingb3.png",
-    "assets/avatars/bodies/starwars/aurrasingb4.png",
-    "assets/avatars/bodies/starwars/aurrasingb5.png",
-    "assets/avatars/bodies/starwars/aurrasingb6.png",
-    "assets/avatars/bodies/starwars/aurrasingb7.png",
-    "assets/avatars/bodies/starwars/aurrasingb8.png",
-    "assets/avatars/bodies/starwars/aurrasingb9.png",
-    "assets/avatars/bodies/starwars/chewie2b.png",
-    "assets/avatars/bodies/starwars/chewie3th.png",
-    "assets/avatars/bodies/starwars/chewie4b.png",
-    "assets/avatars/bodies/starwars/chewie5bt.png",
-    "assets/avatars/bodies/starwars/chewie6b.png",
-    "assets/avatars/bodies/starwars/chewietc.png",
-    "assets/avatars/bodies/starwars/chiss1.png",
-    "assets/avatars/bodies/starwars/chiss2.png",
-    "assets/avatars/bodies/starwars/chiss3.png",
-    "assets/avatars/bodies/starwars/jedi-1.png",
-    "assets/avatars/bodies/starwars/jedi-10.png",
-    "assets/avatars/bodies/starwars/jedi-11.png",
-    "assets/avatars/bodies/starwars/jedi-12.png",
-    "assets/avatars/bodies/starwars/jedi-13.png",
-    "assets/avatars/bodies/starwars/jedi-14.png",
-    "assets/avatars/bodies/starwars/jedi-15.png",
-    "assets/avatars/bodies/starwars/jedi-16.png",
-    "assets/avatars/bodies/starwars/jedi-17.png",
-    "assets/avatars/bodies/starwars/jedi-18.png",
-    "assets/avatars/bodies/starwars/jedi-19.png",
-    "assets/avatars/bodies/starwars/jedi-2.png",
-    "assets/avatars/bodies/starwars/jedi-20.png",
-    "assets/avatars/bodies/starwars/jedi-21.png",
-    "assets/avatars/bodies/starwars/jedi-22.png",
-    "assets/avatars/bodies/starwars/jedi-23.png",
-    "assets/avatars/bodies/starwars/jedi-24.png",
-    "assets/avatars/bodies/starwars/jedi-25.png",
-    "assets/avatars/bodies/starwars/jedi-26.png",
-    "assets/avatars/bodies/starwars/jedi-27.png",
-    "assets/avatars/bodies/starwars/jedi-3.png",
-    "assets/avatars/bodies/starwars/jedi-4.png",
-    "assets/avatars/bodies/starwars/jedi-5.png",
-    "assets/avatars/bodies/starwars/jedi-6.png",
-    "assets/avatars/bodies/starwars/jedi-7.png",
-    "assets/avatars/bodies/starwars/jedi-8.png",
-    "assets/avatars/bodies/starwars/jedi-9.png",
-    "assets/avatars/bodies/starwars/jedi.png",
-    "assets/avatars/bodies/starwars/jedi2.png",
-    "assets/avatars/bodies/starwars/jedi3.png",
-    "assets/avatars/bodies/starwars/jedi4.png",
-    "assets/avatars/bodies/starwars/jedi5.png",
-    "assets/avatars/bodies/starwars/manda1.png",
-    "assets/avatars/bodies/starwars/manda2.png",
-    "assets/avatars/bodies/starwars/manda3.png",
-    "assets/avatars/bodies/starwars/manda4.png",
-    "assets/avatars/bodies/starwars/manda5.png",
-    "assets/avatars/bodies/starwars/manda6.png",
-    "assets/avatars/bodies/starwars/maul1.png",
-    "assets/avatars/bodies/starwars/padme1.png",
-    "assets/avatars/bodies/starwars/protocoldroid1b.png",
-    "assets/avatars/bodies/starwars/protocoldroid2b.png",
-    "assets/avatars/bodies/starwars/protocoldroid3b.png",
-    "assets/avatars/bodies/starwars/protocoldroid4b.png",
-    "assets/avatars/bodies/starwars/protocoldroid5b.png",
-    "assets/avatars/bodies/starwars/protocoldroid6b.png",
-    "assets/avatars/bodies/starwars/twi1.png",
-    "assets/avatars/bodies/starwars/twi2.png",
-    "assets/avatars/bodies/starwars/twi3.png",
-    "assets/avatars/bodies/starwars/twi4.png",
-    "assets/avatars/bodies/starwars/twi5.png",
-    "assets/avatars/bodies/starwars/vador1.png",
-    "assets/avatars/bodies/starwars/yoda1.png",
-    "assets/avatars/bodies/starwars/yoda2.png"
+    {
+      "src": "assets/avatars/bodies/default.png",
+      "category": "bodies"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb1.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb10.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb11.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb12.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb13.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb14.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb15.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb16.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb17.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb18.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb19.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb2.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb20.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb21.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb22.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb23.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb24.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb25.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb26.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb3.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb4.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb5.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb6.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb7.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb8.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/alice/aliceb9.png",
+      "category": "alice"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/010-Lancer02_Lampe.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/592.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/a6.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/alshes.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor1.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor10.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor11.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor12.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor13.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor14.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor15.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor16.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor17.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor4.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor5.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor6.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor7.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor8.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armor9.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/cecilharvey.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/cecilharvey2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/cecilharvey3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/mandalorian2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith10.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith11.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith12.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith13.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith14.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith15.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith16.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith17.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith18.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith19.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith2.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith20.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith21.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith22.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith23.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith24.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith25.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith26.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith27.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith28.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith3.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith4.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith5.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith6.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith7.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith8.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/caitsith9.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/chat/chat1.png",
+      "category": "chat"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/body1.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/body13.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/body14.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/body19.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/casino1.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/casino2.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/casino3.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/casino4.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/casino5.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/costume1.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/costume2.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/fdsgsgds.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/fonc1.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/germany.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/germany2.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/germany3.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/officeman2.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/officeman3.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/officeman6.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/cell1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/cell2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/cell3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/cell4.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/cell5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/freezer1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/freezer2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/freezer3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/freezer4.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/freezer5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/goku1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/goku2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/goku3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin1.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin2.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin3.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin4.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/krillin6.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae2b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae3b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae4b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae5b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae6b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae7b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeae8b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/aaeazeaetb.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/dsqdqb7.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e06spriteb8.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e09sprite2b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e09sprite3b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e09sprite4b.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/e09spriteb.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/005squall010py.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/magef1.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/magef2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/magef3.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/magef5.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/magef6.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh1.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh3.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh4.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh5.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/mageh6.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/wmage1.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/wmage2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/zell1.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/zell2.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/ff/zell3.png",
+      "category": "ff"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica2b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica3b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica4b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica5b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica6b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamerica7b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/captainamericab.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool2b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool3b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool4b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool5b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool6b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpool7b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/deadpoolb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk10b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk11b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk2b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk3b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk4b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk5b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk8b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulk9b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/hulkb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman2tb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman3b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman4bt.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman5b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman6tb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman7b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman8tb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironman9b.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/heros/ironmantb.png",
+      "category": "heros"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup1.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup2.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup3.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup4.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup5.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup6.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/loup/loup7.png",
+      "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/luigi.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/mario.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib2.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib3.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib4.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib5.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib6.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib7.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/mario/yoshib8.png",
+      "category": "mario"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/14.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/142.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/1422.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/14222.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/142222.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/martiaux/1422222.png",
+      "category": "martiaux"
+    },
+    {
+      "src": "assets/avatars/bodies/med/a3.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body1.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body15.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body2.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body21.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body24.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body3.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body31.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/body4.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/med1.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/med2.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/med3.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/med4.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/med5.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/oracle1.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/oracle2.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/oracle3.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/oracle4.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/dead1.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb10.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb2.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb3.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb4.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb5.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb6.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb7.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb8.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/deviltb9.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/skull1.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/titab1.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/titab2.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/titab3.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/titab4.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/vamp1.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/vamp2.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/monstre/vamp3.png",
+      "category": "monstre"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga1.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga2.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga3.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga4.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga5.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga6.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga7.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel1.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel2.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel3.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel4.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel5.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel6.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/noel7.png",
+      "category": "noel"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/piratef1.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/piratef2.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/piratef3.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/piratef4.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/piratef5.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/pirateh1.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/pirateh2.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pirates/pirateh3.png",
+      "category": "pirates"
+    },
+    {
+      "src": "assets/avatars/bodies/pokemon/sacha.png",
+      "category": "pokemon"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/10fdsfdsfb.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/10fdsfdsfb2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/10fdsfdsfb3.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/10fdsfdsfb4.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/10fdsfdsfb5.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/dsqdqb7b.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/dsqdqb7b2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa1.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa3.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa4.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa5.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/elsa6.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/jupe1.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med1.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med3.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med4.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med5.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/med6.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe1.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe3.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe4.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe5.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe6.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/robe7.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi1.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi10.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi11.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi12.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi2.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi3.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi4.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi5.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi6.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi7.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi8.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/roi/roi9.png",
+      "category": "roi"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/a8.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body10.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body11.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body12.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body16.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body17.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body18.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body20.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body22.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body23.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body25.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body26.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body27.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body28.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body29.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body30.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body32.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body5.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body6.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body7.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body8.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/body9.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/clown1.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/clown2.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/clown3.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/modernguy02.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/modernguy03.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf1.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf2.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf3.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf4.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf5.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkf6.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/monkh1.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start1.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start2.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start3.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start4.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start5.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/start6.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab2.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab3.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab4.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab5.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab6.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab7.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sirene/athenab8.png",
+      "category": "sirene"
+    },
+    {
+      "src": "assets/avatars/bodies/sonic/egg1.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/bodies/sonic/egg2.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/bodies/sonic/egg3.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/bodies/sonic/sh1.png",
+      "category": "sonic"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust2.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust3.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust4.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust5.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust6.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemust7.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/sorcier/zemustb.png",
+      "category": "sorcier"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb10.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb11.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb12.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb7.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb8.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/aurrasingb9.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewie2b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewie3th.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewie4b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewie5bt.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewie6b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chewietc.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chiss1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chiss2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/chiss3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-10.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-11.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-12.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-13.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-14.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-15.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-16.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-17.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-18.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-19.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-20.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-21.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-22.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-23.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-24.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-25.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-26.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-27.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-7.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-8.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi-9.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/jedi5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/manda6.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/maul1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/padme1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid1b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid2b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid3b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid4b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid5b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/protocoldroid6b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/twi1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/twi2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/twi3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/twi4.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/twi5.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/vador1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/yoda1.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/yoda2.png",
+      "category": "starwars"
+    }
   ],
   "backs": [
-    "assets/avatars/backs/big1.png",
-    "assets/avatars/backs/big2.png",
-    "assets/avatars/backs/big3.png",
-    "assets/avatars/backs/cot1.png",
-    "assets/avatars/backs/dark1.png",
-    "assets/avatars/backs/dark2.png",
-    "assets/avatars/backs/jenova4.png",
-    "assets/avatars/backs/jenova5.png",
-    "assets/avatars/backs/jenova6.png",
-    "assets/avatars/backs/lib1.png",
-    "assets/avatars/backs/lib2.png",
-    "assets/avatars/backs/med1.png",
-    "assets/avatars/backs/med2.png",
-    "assets/avatars/backs/med3.png",
-    "assets/avatars/backs/pap1.png",
-    "assets/avatars/backs/pap2.png",
-    "assets/avatars/backs/pap6.png",
-    "assets/avatars/backs/pap7.png",
-    "assets/avatars/backs/siren1.png",
-    "assets/avatars/backs/siren2.png",
-    "assets/avatars/backs/small1.png",
-    "assets/avatars/backs/small2.png",
-    "assets/avatars/backs/small3.png",
-    "assets/avatars/backs/wings1.png"
+    {
+      "src": "assets/avatars/backs/big1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/big2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/big3.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/cot1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/dark1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/dark2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/jenova4.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/jenova5.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/jenova6.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/lib1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/lib2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/med1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/med2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/med3.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/pap1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/pap2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/pap6.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/pap7.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/siren1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/siren2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/small1.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/small2.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/small3.png",
+      "category": "backs"
+    },
+    {
+      "src": "assets/avatars/backs/wings1.png",
+      "category": "backs"
+    }
   ]
 }

@@ -16,14 +16,18 @@ def generate_assets_json(base_path):
             if file.endswith(('.png', '.jpg', '.jpeg')):  # Filtre pour les images
                 relative_path = os.path.relpath(os.path.join(root, file), base_path)
 
+                # Extraire la catégorie (nom du sous-dossier contenant l'image)
+                category = os.path.basename(os.path.dirname(relative_path))
+
+                # Identifier la section et ajouter l'entrée avec la catégorie
                 if relative_path.startswith("assets/avatars/heads"):
-                    assets_structure["heads"].append(relative_path)
+                    assets_structure["heads"].append({"src": relative_path, "category": category})
                 elif relative_path.startswith("assets/avatars/hats"):
-                    assets_structure["hats"].append(relative_path)
+                    assets_structure["hats"].append({"src": relative_path, "category": category})
                 elif relative_path.startswith("assets/avatars/bodies"):
-                    assets_structure["bodies"].append(relative_path)
+                    assets_structure["bodies"].append({"src": relative_path, "category": category})
                 elif relative_path.startswith("assets/avatars/backs"):
-                    assets_structure["backs"].append(relative_path)
+                    assets_structure["backs"].append({"src": relative_path, "category": category})
 
     # Écriture dans un fichier JSON
     output_path = os.path.join(base_path, "assets_structure.json")
