@@ -69,4 +69,8 @@ export class MonCompteComponent {
   goToAvatarBuilder() {
     this.router.navigate(['/avatar-builder']);
   }
+
+  goToDefisList() {
+    this.router.navigate(['/defis-list']);
+  }
 }

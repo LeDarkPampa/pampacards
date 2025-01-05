@@ -86,6 +86,7 @@ import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.comp
 import {AvatarBuilderComponent} from "./mon-compte/avatar-builder/avatar-builder.component";
 import {AvatarViewComponent} from "./avatar-view/avatar-view.component";
 import {AvatarService} from "./services/avatar.service";
+import { DefisListComponent } from './mon-compte/defis-list/defis-list.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,8 @@ import {AvatarService} from "./services/avatar.service";
     LgJoinComponent,
     LgCreateComponent,
     LgGameComponent,
-    CarteComponent
+    CarteComponent,
+    DefisListComponent
   ],
   bootstrap: [AppComponent], imports: [RouterModule.forRoot([
     {path: 'accueil', component: AccueilComponent},
@@ -177,6 +179,7 @@ import {AvatarService} from "./services/avatar.service";
     {path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard]},
     {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
     {path: 'avatar-builder', component: AvatarBuilderComponent, canActivate: [AuthGuard]},
+    {path: 'defis-list', component: DefisListComponent, canActivate: [AuthGuard]},
     {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
     {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},
     {path: 'card-management', component: CardManagementComponent, canActivate: [AuthGuard]},

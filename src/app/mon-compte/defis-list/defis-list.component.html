@@ -1,0 +1,16 @@
+<div class="defis-list">
+  <div *ngFor="let defi of defis" class="defi-card">
+    <h3>{{ defi.titre }}</h3>
+    <p>{{ defi.description }}</p>
+
+    <div *ngIf="defi.reussi; else shadow" class="reward-container">
+      <!-- Affichage de l'image de récompense pour les défis terminés -->
+      <img [src]="defi.elementCode" alt="Récompense" class="reward-image" />
+    </div>
+
+    <ng-template #shadow>
+      <!-- Affichage d'une version ombrée pour les défis non terminés -->
+      <div class="shadow-reward"></div>
+    </ng-template>
+  </div>
+</div>
