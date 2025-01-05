@@ -63,6 +63,6 @@ export class UtilisateurService extends ApiService {
   }
 
   getElementsDebloques(userId: number) {
-    this.http.get<any[]>(this.API_URL + `/debloques?userId=${userId}`);
+    return this.http.get<any[]>(this.API_URL + `/debloques?userId=${userId}`);
   }
 }
