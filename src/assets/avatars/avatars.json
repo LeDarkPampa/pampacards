@@ -981,6 +981,18 @@
       "category": "monstres"
     },
     {
+      "src": "assets/avatars/heads/monstres/zombie.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/zombie2.png",
+      "category": "monstres"
+    },
+    {
+      "src": "assets/avatars/heads/monstres/zombie3.png",
+      "category": "monstres"
+    },
+    {
       "src": "assets/avatars/heads/noel/noel1.png",
       "category": "noel"
     },
@@ -1942,6 +1954,38 @@
     },
     {
       "src": "assets/avatars/heads/starwars/yoda7.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yuuzhenvongt.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yuuzhenvongt2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/yuuzhenvongt3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zabrak1t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zabrak2t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zabrak2t2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zabrak2t3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/zabrak2t4.png",
       "category": "starwars"
     },
     {
