@@ -42,14 +42,6 @@ export class UtilisateurService extends ApiService {
     );
   }
 
-  getAvatar(userId: number): Observable<Avatar> {
-    return this.http.get<Avatar>(this.API_URL + `/avatar?userId=${userId}`).pipe(
-      catchError((error) => {
-        return throwError(error);
-      })
-    );
-  }
-
   saveAvatar(avatar: Avatar): Observable<void> {
     return this.http.post<void>(`${this.API_URL}/avatar`, avatar);
   }
@@ -68,5 +60,9 @@ export class UtilisateurService extends ApiService {
         return throwError(error);
       })
     );
+  }
+
+  getElementsDebloques(utilisateurId: number) {
+    return this.http.get<any[]>(`/api/utilisateur/debloques/${utilisateurId}`);
   }
 }

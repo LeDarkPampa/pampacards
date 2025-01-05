@@ -12,6 +12,7 @@ import {Avatar} from "../../classes/Avatar";
   styleUrls: ['./avatar-builder.component.css', '../../app.component.css']
 })
 export class AvatarBuilderComponent implements OnInit {
+
   parts = {
     heads: [] as { src: string; category: string }[],
     hats: [] as { src: string; category: string }[],
@@ -49,6 +50,8 @@ export class AvatarBuilderComponent implements OnInit {
 
   private avatar?: Avatar;
 
+  debloqueElements: any[] = [];
+
   constructor(private http: HttpClient, private utilisateurService: UtilisateurService,
               private authentificationService: AuthentificationService, private avatarService: AvatarService) {
 
@@ -65,6 +68,10 @@ export class AvatarBuilderComponent implements OnInit {
           body: avatar.corps,
           back: avatar.dos
         };
+
+        this.utilisateurService.getElementsDebloques(this.authentificationService.getUserId()).subscribe(debloqueElements => {
+          this.debloqueElements = debloqueElements;
+        });
 
         this.http.get<{
           heads: { src: string; category: string }[],
@@ -129,5 +136,10 @@ export class AvatarBuilderComponent implements OnInit {
         alert('Erreur lors de la sauvegarde de l\'avatar');
       }
     });
+  }
+
+  isDebloque(element: any): boolean {
+    return this.debloqueElements.some(debloqueElement =>
+      debloqueElement.elementCode === element.src);
   }
 }

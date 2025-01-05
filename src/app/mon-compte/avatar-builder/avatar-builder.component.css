@@ -85,3 +85,13 @@
   border-color: #3498db;
   box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
 }
+
+.options img.locked {
+  opacity: 0.6;
+  filter: grayscale(100%) brightness(0%) contrast(100);
+  pointer-events: none;
+}
+
+.options img.locked:hover {
+  cursor: not-allowed;
+}
