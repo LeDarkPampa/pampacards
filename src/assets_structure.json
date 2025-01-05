@@ -465,102 +465,6 @@
             "category": "elem"
         },
         {
-            "src": "assets/avatars/heads/elem/e06spritet1.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet10.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet11.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet12.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet13.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet14.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet15.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet16.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet17.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet18.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet19.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet2.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet20.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet21.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet22.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet23.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet24.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet25.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet3.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet4.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet5.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet6.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet7.png",
-            "category": "elem"
-        },
-        {
-            "src": "assets/avatars/heads/elem/e06spritet9.png",
-            "category": "elem"
-        },
-        {
             "src": "assets/avatars/heads/elem/e09sprite2t.png",
             "category": "elem"
         },
@@ -606,6 +510,102 @@
         },
         {
             "src": "assets/avatars/heads/elem/elemplat3.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante1.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante10.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante11.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante12.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante13.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante14.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante15.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante16.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante17.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante18.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante19.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante2.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante20.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante21.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante22.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante23.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante24.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante3.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante4.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante5.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante6.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante7.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante8.png",
+            "category": "elem"
+        },
+        {
+            "src": "assets/avatars/heads/elem/plante9.png",
             "category": "elem"
         },
         {
