@@ -15,6 +15,11 @@
       <h4>Choix du chapeau</h4>
 
       <div class="tabs">
+        <button (click)="selectPart('hat', '')" [class.selected]="!selectedParts.hat">
+          <img [src]="'assets/avatars/no-elem.png'" />
+        </button>
+
+        <!-- Autres catégories -->
         <button *ngFor="let category of categories.hats"
                 (click)="filterParts('hats', category)"
                 [class.active]="selectedCategories.hats === category">
@@ -23,86 +28,40 @@
       </div>
 
       <div class="options">
-        <img
-          *ngFor="let hat of filteredParts.hats"
-          [src]="hat.src"
-          (click)="selectPart('hat', hat.src)"
-          [class.selected]="hat.src === selectedParts.hat"
-          [class.locked]="!isDebloque(hat)"
-          role="button"
-          loading="lazy"
+        <img *ngFor="let hat of filteredParts.hats"
+             [src]="hat.src"
+             (click)="selectPart('hat', hat.src)"
+             [class.selected]="hat.src === selectedParts.hat"
+             role="button"
+             alt="Option chapeau"
         />
       </div>
     </div>
 
-    <div class="selection">
-      <h4>Choix de la tête</h4>
-
-      <!-- Onglets pour les catégories -->
-      <div class="tabs">
-        <button *ngFor="let category of categories.heads"
-                (click)="filterParts('heads', category)"
-                [class.active]="selectedCategories.heads === category">
-          {{ category }}
-        </button>
-      </div>
-
-      <!-- Options filtrées par catégorie -->
-      <div class="options">
-        <img
-          *ngFor="let head of filteredParts.heads"
-          [src]="head.src"
-          (click)="selectPart('head', head.src)"
-          [class.selected]="head.src === selectedParts.head"
-          [class.locked]="!isDebloque(head)"
-          role="button"
-          loading="lazy"
-        />
-      </div>
-    </div>
-
-    <div class="selection">
-      <h4>Choix du corps</h4>
-
-      <div class="tabs">
-        <button *ngFor="let category of categories.bodies"
-                (click)="filterParts('bodies', category)"
-                [class.active]="selectedCategories.bodies === category">
-          {{ category }}
-        </button>
-      </div>
-      <div class="options">
-        <img
-          *ngFor="let body of filteredParts.bodies"
-          [src]="body.src"
-          (click)="selectPart('body', body.src)"
-          [class.selected]="body.src === selectedParts.body"
-          [class.locked]="!isDebloque(body)"
-          role="button"
-          loading="lazy"
-        />
-      </div>
-    </div>
-
+    <!-- Pour les backs -->
     <div class="selection">
       <h4>Choix de l'élément supplémentaire</h4>
 
       <div class="tabs">
+        <button (click)="selectPart('back', '')" [class.selected]="!selectedParts.back">
+          <img [src]="'assets/avatars/no-elem.png'"  />
+        </button>
+
+        <!-- Autres catégories -->
         <button *ngFor="let category of categories.backs"
                 (click)="filterParts('backs', category)"
                 [class.active]="selectedCategories.backs === category">
           {{ category }}
         </button>
       </div>
+
       <div class="options">
-        <img
-          *ngFor="let back of filteredParts.backs"
-          [src]="back.src"
-          (click)="selectPart('back', back.src)"
-          [class.selected]="back.src === selectedParts.back"
-          [class.locked]="!isDebloque(back)"
-          role="button"
-          loading="lazy"
+        <img *ngFor="let back of filteredParts.backs"
+             [src]="back.src"
+             (click)="selectPart('back', back.src)"
+             [class.selected]="back.src === selectedParts.back"
+             role="button"
+             alt="Option dos"
         />
       </div>
     </div>
