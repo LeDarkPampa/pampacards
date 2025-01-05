@@ -58,6 +58,14 @@
   transform: scale(1.05);
 }
 
+.tabs button.selected {
+  background-color: #3498db !important;
+  color: white !important;
+  border-color: #3498db !important;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4) !important;
+  transform: scale(1.05) !important;
+}
+
 .options {
   display: flex;
   gap: 10px;

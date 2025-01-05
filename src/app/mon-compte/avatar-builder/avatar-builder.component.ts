@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {AvatarPart} from "../../classes/AvatarPart";
 import {UtilisateurService} from "../../services/utilisateur.service";
@@ -53,12 +53,12 @@ export class AvatarBuilderComponent implements OnInit {
   debloqueElements: any[] = [];
 
   constructor(private http: HttpClient, private utilisateurService: UtilisateurService,
-              private authentificationService: AuthentificationService, private avatarService: AvatarService) {
+              private authentificationService: AuthentificationService, private avatarService: AvatarService,
+              private cd: ChangeDetectorRef) {
 
   }
 
   ngOnInit(): void {
-
     this.avatarService.getAvatar().subscribe({
       next: avatar => {
         this.avatar = avatar;
@@ -81,19 +81,16 @@ export class AvatarBuilderComponent implements OnInit {
         }>('assets/avatars/avatars.json').subscribe(data => {
           this.parts = data;
 
-          // Extraire dynamiquement les catégories pour chaque type d'élément
           this.categories.heads = Array.from(new Set(data.heads.map(item => item.category)));
           this.categories.hats = Array.from(new Set(data.hats.map(item => item.category)));
           this.categories.bodies = Array.from(new Set(data.bodies.map(item => item.category)));
           this.categories.backs = Array.from(new Set(data.backs.map(item => item.category)));
 
-          // Initialiser les catégories sélectionnées par défaut
-          this.selectedCategories.heads = this.categories.heads[0] || '';
-          this.selectedCategories.hats = this.categories.hats[0] || '';
-          this.selectedCategories.bodies = this.categories.bodies[0] || '';
-          this.selectedCategories.backs = this.categories.backs[0] || '';
+          this.selectedCategories.heads = this.getCategoryFromPart('heads', this.selectedParts.head);
+          this.selectedCategories.hats = this.getCategoryFromPart('hats', this.selectedParts.hat);
+          this.selectedCategories.bodies = this.getCategoryFromPart('bodies', this.selectedParts.body);
+          this.selectedCategories.backs = this.getCategoryFromPart('backs', this.selectedParts.back);
 
-          // Filtrer les éléments pour chaque catégorie par défaut
           this.filterParts('heads', this.selectedCategories.heads);
           this.filterParts('hats', this.selectedCategories.hats);
           this.filterParts('bodies', this.selectedCategories.bodies);
@@ -111,11 +108,20 @@ export class AvatarBuilderComponent implements OnInit {
     this.selectedCategories[partType] = category;
 
     this.filteredParts[partType] = this.parts[partType].filter(item => item.category === category);
+    this.cd.detectChanges();
   }
 
   selectPart(part: keyof AvatarPart, value: string) {
     this.selectedParts[part] = value;
+
+    if (value === '') {
+      const categoryKey = part + 's' as keyof typeof this.selectedCategories;
+      this.selectedCategories[categoryKey] = '';
+    }
+
+    this.cd.detectChanges();
   }
+
 
   saveAvatar() {
     const updatedAvatar: Avatar = {
@@ -141,5 +147,10 @@ export class AvatarBuilderComponent implements OnInit {
   isDebloque(element: any): boolean {
     return this.debloqueElements.some(debloqueElement =>
       debloqueElement.elementCode === element.src);
+  }
+
+  private getCategoryFromPart(partType: keyof typeof this.parts, partSrc: string): string {
+    const part = this.parts[partType].find(item => item.src === partSrc);
+    return part ? part.category : ''; // Retourne la catégorie correspondante ou '' si non trouvée
   }
 }
