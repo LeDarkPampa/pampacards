@@ -1,10 +1,11 @@
 <div class="defis-list">
   <div *ngFor="let defi of defis" class="defi-card">
-    <h3>{{ defi.titre }}</h3>
-    <div [ngClass]="{'shadow-reward-container': !defi.reussi}">
+    <div class="container" [ngClass]="{'reward-container': defi.reussi, 'shadow-reward-container': !defi.reussi}">
+      <h4>{{ defi.titre }}</h4>
       <!-- Affichage de l'image de récompense pour les défis terminés -->
       <img [src]="defi.elementCode" class="reward-image" />
+      <div>{{ defi.description }}</div>
+      <span *ngIf="defi.reussi" class="status-icon success">✔</span>
     </div>
-    <div>{{ defi.description }}</div>
   </div>
 </div>

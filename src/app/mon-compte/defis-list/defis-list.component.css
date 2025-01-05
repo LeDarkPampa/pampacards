@@ -2,23 +2,45 @@
   text-align: center;
   display: flex;
   flex-wrap: wrap;
+  padding: 10px;
   gap: 10px;
 }
 
 .defi-card {
   width: 150px;
-  border: 1px solid #ccc;
   padding: 5px;
+}
+
+.container {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.reward-container {
+  border: 1px solid goldenrod;
 }
 
 .shadow-reward-container {
+  border: 1px solid #ccc;
+}
+
+.shadow-reward-container img {
   filter: brightness(0%);
 }
+
 
 .reward-image {
   width: 100%;
   height: auto;
   border-radius: 5px;
+}
+
+.status-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-icon.success {
+  color: green;
 }
