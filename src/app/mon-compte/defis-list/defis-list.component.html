@@ -5,6 +5,10 @@
       <img [src]="defi.elementCode" class="reward-image" />
       <div>{{ defi.description }}</div>
 
+      <div class="progress-text">
+        {{ defi.progression }} / {{ defi.objectif }}
+      </div>
+
       <div class="progress-container">
         <div class="progress-bar" [style.width.%]="(defi.progression / defi.objectif) * 100"></div>
       </div>
