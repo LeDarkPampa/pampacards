@@ -2745,34 +2745,6 @@
       "category": "armure"
     },
     {
-      "src": "assets/avatars/bodies/armure/63b.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/63b2.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/63b3.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/63b4.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/63b5.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/63b6.png",
-      "category": "armure"
-    },
-    {
-      "src": "assets/avatars/bodies/armure/a6.png",
-      "category": "armure"
-    },
-    {
       "src": "assets/avatars/bodies/armure/alshes.png",
       "category": "armure"
     },
@@ -2845,6 +2817,30 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/bodies/armure/armureblack.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armureblue.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armuregold.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armuregreen.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armurered.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armurewhite.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/bodies/armure/cecilharvey.png",
       "category": "armure"
     },
@@ -2858,6 +2854,10 @@
     },
     {
       "src": "assets/avatars/bodies/armure/mandalorian2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/warrior.png",
       "category": "armure"
     },
     {
