@@ -21,7 +21,7 @@
           <img [src]="'assets/avatars/no-elem.png'" />
         </button>
 
-        <button *ngFor="let category of categories.hats"
+        <button *ngFor="let category of getFilteredCategories('hats')"
                 (click)="filterParts('hats', category)"
                 [class.active]="selectedCategories.hats === category">
           {{ category }}
@@ -44,7 +44,7 @@
       <h4>Choix de la tête</h4>
 
       <div class="tabs">
-        <button *ngFor="let category of categories.heads"
+        <button *ngFor="let category of getFilteredCategories('heads')"
                 (click)="filterParts('heads', category)"
                 [class.active]="selectedCategories.heads === category">
           {{ category }}
@@ -67,7 +67,7 @@
       <h4>Choix du corps</h4>
 
       <div class="tabs">
-        <button *ngFor="let category of categories.bodies"
+        <button *ngFor="let category of getFilteredCategories('bodies')"
                 (click)="filterParts('bodies', category)"
                 [class.active]="selectedCategories.bodies === category">
           {{ category }}
@@ -97,8 +97,7 @@
           <img [src]="'assets/avatars/no-elem.png'" />
         </button>
 
-        <!-- Autres catégories -->
-        <button *ngFor="let category of categories.backs"
+        <button *ngFor="let category of getFilteredCategories('backs')"
                 (click)="filterParts('backs', category)"
                 [class.active]="selectedCategories.backs === category">
           {{ category }}

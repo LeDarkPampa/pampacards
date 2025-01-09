@@ -153,4 +153,11 @@ export class AvatarBuilderComponent implements OnInit {
     const part = this.parts[partType].find(item => item.src === partSrc);
     return part ? part.category : ''; // Retourne la catégorie correspondante ou '' si non trouvée
   }
+
+  getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs'): string[] {
+    return this.categories[partType].filter(category =>
+      this.filteredParts[partType].some(part => part.category === category && this.isDebloque(part))
+    );
+  }
+
 }
