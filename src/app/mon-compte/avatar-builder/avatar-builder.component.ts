@@ -156,7 +156,7 @@ export class AvatarBuilderComponent implements OnInit {
 
   getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs'): string[] {
     return this.categories[partType].filter(category =>
-      this.filteredParts[partType].some(part => part.category === category && this.isDebloque(part))
+      this.parts[partType].some(part => part.category === category && this.isDebloque(part))
     );
   }
 
