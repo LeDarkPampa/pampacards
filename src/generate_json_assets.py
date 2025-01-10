@@ -7,7 +7,8 @@ def generate_assets_json(base_path):
         "heads": [],
         "hats": [],
         "bodies": [],
-        "backs": []
+        "backs": [],
+        "adds": []
     }
 
     # Parcours des dossiers et fichiers
@@ -28,6 +29,8 @@ def generate_assets_json(base_path):
                     assets_structure["bodies"].append({"src": relative_path, "category": category})
                 elif relative_path.startswith("assets/avatars/backs"):
                     assets_structure["backs"].append({"src": relative_path, "category": category})
+                elif relative_path.startswith("assets/avatars/adds"):
+                    assets_structure["adds"].append({"src": relative_path, "add": category})
 
     # Écriture dans un fichier JSON
     output_path = os.path.join(base_path, "assets_structure.json")
