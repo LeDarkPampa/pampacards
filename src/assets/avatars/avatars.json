@@ -349,6 +349,10 @@
       "category": "dbz"
     },
     {
+      "src": "assets/avatars/heads/dbz/majinbuu6sg.png",
+      "category": "dbz"
+    },
+    {
       "src": "assets/avatars/heads/disney/ariel.png",
       "category": "disney"
     },
@@ -402,6 +406,10 @@
     },
     {
       "src": "assets/avatars/heads/disney/jasminet.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/heads/disney/snowwhitet.png",
       "category": "disney"
     },
     {
@@ -465,6 +473,102 @@
       "category": "elem"
     },
     {
+      "src": "assets/avatars/heads/elem/e06spritet1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet10.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet11.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet12.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet13.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet14.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet15.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet16.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet17.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet18.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet19.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet20.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet21.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet22.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet23.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet24.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet25.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet7.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/e06spritet9.png",
+      "category": "elem"
+    },
+    {
       "src": "assets/avatars/heads/elem/e09sprite2t.png",
       "category": "elem"
     },
@@ -510,102 +614,6 @@
     },
     {
       "src": "assets/avatars/heads/elem/elemplat3.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante1.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante10.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante11.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante12.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante13.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante14.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante15.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante16.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante17.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante18.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante19.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante2.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante20.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante21.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante22.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante23.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante24.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante3.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante4.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante5.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante6.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante7.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante8.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/plante9.png",
       "category": "elem"
     },
     {
@@ -721,6 +729,10 @@
       "category": "f-f"
     },
     {
+      "src": "assets/avatars/heads/f-f/shuyin.png",
+      "category": "f-f"
+    },
+    {
       "src": "assets/avatars/heads/f-f/squall1.png",
       "category": "f-f"
     },
@@ -754,6 +766,10 @@
     },
     {
       "src": "assets/avatars/heads/f-f/squall9.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/heads/f-f/tidust.png",
       "category": "f-f"
     },
     {
@@ -1305,6 +1321,10 @@
       "category": "f"
     },
     {
+      "src": "assets/avatars/heads/simple/f/cheval6.png",
+      "category": "f"
+    },
+    {
       "src": "assets/avatars/heads/simple/f/head1.png",
       "category": "f"
     },
@@ -1490,6 +1510,22 @@
     },
     {
       "src": "assets/avatars/heads/simple/h/calv5.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/elaine_monstert.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/elaine_monstert2.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/elaine_monstert3.png",
+      "category": "h"
+    },
+    {
+      "src": "assets/avatars/heads/simple/h/elaine_monstert4.png",
       "category": "h"
     },
     {
@@ -2009,6 +2045,14 @@
       "category": "starwars"
     },
     {
+      "src": "assets/avatars/heads/starwars/stormtrooper2t.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/heads/starwars/stormtroopert.png",
+      "category": "starwars"
+    },
+    {
       "src": "assets/avatars/heads/starwars/tuskenraidert.png",
       "category": "starwars"
     },
@@ -2211,6 +2255,14 @@
       "category": "capuche"
     },
     {
+      "src": "assets/avatars/hats/capuche/sealand_joker.png",
+      "category": "capuche"
+    },
+    {
+      "src": "assets/avatars/hats/capuche/sealand_joker2.png",
+      "category": "capuche"
+    },
+    {
       "src": "assets/avatars/hats/chapeau/alberchap.png",
       "category": "chapeau"
     },
@@ -2299,6 +2351,10 @@
       "category": "chapeau"
     },
     {
+      "src": "assets/avatars/hats/chapeau/steampunk_m10.png",
+      "category": "chapeau"
+    },
+    {
       "src": "assets/avatars/hats/corne/aaeazeaecornes.png",
       "category": "corne"
     },
@@ -2320,6 +2376,34 @@
     },
     {
       "src": "assets/avatars/hats/corne/aaeazeaecornes6.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big1.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big3.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big4.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big5.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big6.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/big7.png",
       "category": "corne"
     },
     {
@@ -2429,6 +2513,22 @@
     {
       "src": "assets/avatars/hats/lapin/lapin5.png",
       "category": "lapin"
+    },
+    {
+      "src": "assets/avatars/hats/mage/deant.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/deant2.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/deant3.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/deant4.png",
+      "category": "mage"
     },
     {
       "src": "assets/avatars/hats/mage/mage1.png",
@@ -3045,6 +3145,50 @@
       "category": "combi"
     },
     {
+      "src": "assets/avatars/bodies/combi/elaine_monsterb.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/elaine_monsterb2.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/elaine_monsterb3.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/elaine_monsterb4.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/englandb.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/englandb2.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/englandb3.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/labo.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/labobis.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/tori_coat2.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/tori_coat3.png",
+      "category": "combi"
+    },
+    {
       "src": "assets/avatars/bodies/combi/XP_char_monk_2.png",
       "category": "combi"
     },
@@ -3121,6 +3265,14 @@
       "category": "costume"
     },
     {
+      "src": "assets/avatars/bodies/costume/hikari.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/hikari2.png",
+      "category": "costume"
+    },
+    {
       "src": "assets/avatars/bodies/costume/officeman2.png",
       "category": "costume"
     },
@@ -3142,6 +3294,18 @@
     },
     {
       "src": "assets/avatars/bodies/costume/yatenkou.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/zelgadisb.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/zelgadisb2.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/zelgadisb3.png",
       "category": "costume"
     },
     {
@@ -3221,6 +3385,10 @@
       "category": "dbz"
     },
     {
+      "src": "assets/avatars/bodies/dbz/majinbuu6sgb.png",
+      "category": "dbz"
+    },
+    {
       "src": "assets/avatars/bodies/disney/ariel.png",
       "category": "disney"
     },
@@ -3258,6 +3426,18 @@
     },
     {
       "src": "assets/avatars/bodies/disney/jasminetb4.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/snowwhiteb.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/snowwhiteb2.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/snowwhiteb3.png",
       "category": "disney"
     },
     {
@@ -3409,76 +3589,144 @@
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/ff/005squall010py.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/005squall010py.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/magef1.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/magef1.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/magef2.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/magef2.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/magef3.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/magef3.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/magef5.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/magef5.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/magef6.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/magef6.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh1.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh1.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh2.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh2.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh3.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh3.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh4.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh4.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh5.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh5.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/mageh6.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/mageh6.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/moogleb.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/moogleb.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/wmage1.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/shuyinb.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/wmage2.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/tidusb.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/zell1.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/tonberryb.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/zell2.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/tonberryb2.png",
+      "category": "f-f"
     },
     {
-      "src": "assets/avatars/bodies/ff/zell3.png",
-      "category": "ff"
+      "src": "assets/avatars/bodies/f-f/tonberryb3.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/tonberryb4.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/tonberryb5.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/tonberryb6.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/tonberryb7.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/wmage1.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/wmage2.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/yunax2tb.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/zell1.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/zell2.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/zell3.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpieblanc.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpiebleu.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpiegris.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpiejaune.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpienoir.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpierose.png",
+      "category": "harpie"
+    },
+    {
+      "src": "assets/avatars/bodies/harpie/harpievert.png",
+      "category": "harpie"
     },
     {
       "src": "assets/avatars/bodies/heros/blackwidowb.png",
@@ -3659,6 +3907,14 @@
     {
       "src": "assets/avatars/bodies/loup/loup7.png",
       "category": "loup"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/deanb.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/Hermione2b.png",
+      "category": "mage"
     },
     {
       "src": "assets/avatars/bodies/mage/rincewind2c.png",
@@ -3949,6 +4205,10 @@
       "category": "monstre"
     },
     {
+      "src": "assets/avatars/bodies/monstre/zombie.png",
+      "category": "monstre"
+    },
+    {
       "src": "assets/avatars/bodies/naga/naga1.png",
       "category": "naga"
     },
@@ -3975,6 +4235,10 @@
     {
       "src": "assets/avatars/bodies/naga/naga7.png",
       "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/noel/finland2.png",
+      "category": "noel"
     },
     {
       "src": "assets/avatars/bodies/noel/noel1.png",
@@ -4130,6 +4394,30 @@
     },
     {
       "src": "assets/avatars/bodies/robe/elsa6.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab3.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab4.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab5.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/johannab6.png",
       "category": "robe"
     },
     {
@@ -4345,6 +4633,18 @@
       "category": "simple"
     },
     {
+      "src": "assets/avatars/bodies/simple/gravitation_yuki.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/jean.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/jean2.png",
+      "category": "simple"
+    },
+    {
       "src": "assets/avatars/bodies/simple/jupe1.png",
       "category": "simple"
     },
@@ -4414,6 +4714,18 @@
     },
     {
       "src": "assets/avatars/bodies/simple/start6.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/tori_tokage2.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/tori_tokage22.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/tori_tokage23.png",
       "category": "simple"
     },
     {
@@ -4801,6 +5113,14 @@
       "category": "starwars"
     },
     {
+      "src": "assets/avatars/bodies/starwars/stormtrooper2b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/stormtrooperb.png",
+      "category": "starwars"
+    },
+    {
       "src": "assets/avatars/bodies/starwars/tuskenraiderb.png",
       "category": "starwars"
     },
@@ -4838,6 +5158,18 @@
     },
     {
       "src": "assets/avatars/bodies/starwars/yuuzhenvongtb.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/zabrak2b.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/zabrak2b2.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/zabrak2b3.png",
       "category": "starwars"
     },
     {
@@ -5074,5 +5406,6 @@
       "src": "assets/avatars/backs/papillon/pap7.png",
       "category": "papillon"
     }
-  ]
+  ],
+  "adds": []
 }
