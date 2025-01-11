@@ -177,6 +177,50 @@
       "category": "animaux"
     },
     {
+      "src": "assets/avatars/heads/armure/casqueblanc.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casquebleu.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casquenoir.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casqueor.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casquerose.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casquerouge.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/casquevert.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/hoko0732t.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/armure/hoko073t.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/heads/autre/sailormoon.png",
+      "category": "autre"
+    },
+    {
+      "src": "assets/avatars/heads/autre/samust.png",
+      "category": "autre"
+    },
+    {
       "src": "assets/avatars/heads/chat/cait1.png",
       "category": "chat"
     },
@@ -261,28 +305,56 @@
       "category": "chat"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve1.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve1.png",
+      "category": "couleurs"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve2.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve2.png",
+      "category": "couleurs"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve3.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve3.png",
+      "category": "couleurs"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve4.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve4.png",
+      "category": "couleurs"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve5.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve5.png",
+      "category": "couleurs"
     },
     {
-      "src": "assets/avatars/heads/colors/chauve6.png",
-      "category": "colors"
+      "src": "assets/avatars/heads/couleurs/chauve6.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template1.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template2.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template3.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template4.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template5.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template6.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/heads/couleurs/template7.png",
+      "category": "couleurs"
     },
     {
       "src": "assets/avatars/heads/dbz/cell1.png",
@@ -306,6 +378,10 @@
     },
     {
       "src": "assets/avatars/heads/dbz/cell6.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/heads/dbz/Chat karint.png",
       "category": "dbz"
     },
     {
@@ -353,11 +429,11 @@
       "category": "dbz"
     },
     {
-      "src": "assets/avatars/heads/disney/ariel.png",
+      "src": "assets/avatars/heads/disney/aladdin.png",
       "category": "disney"
     },
     {
-      "src": "assets/avatars/heads/disney/ariel2.png",
+      "src": "assets/avatars/heads/disney/ariel.png",
       "category": "disney"
     },
     {
@@ -374,6 +450,14 @@
     },
     {
       "src": "assets/avatars/heads/disney/ariel6.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/heads/disney/ariel7.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/heads/disney/arielt2.png",
       "category": "disney"
     },
     {
@@ -417,191 +501,127 @@
       "category": "disney"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae2t.png",
+      "src": "assets/avatars/heads/egypte/egyptiangirl.png",
+      "category": "egypte"
+    },
+    {
+      "src": "assets/avatars/heads/egypte/egyptianqueent.png",
+      "category": "egypte"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemfeu1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae3t.png",
+      "src": "assets/avatars/heads/elem/elemfeu2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae4t.png",
+      "src": "assets/avatars/heads/elem/elemfeu3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae5t.png",
+      "src": "assets/avatars/heads/elem/elemfoudre1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae6t.png",
+      "src": "assets/avatars/heads/elem/elemglace1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae7t.png",
+      "src": "assets/avatars/heads/elem/elemplante1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeae8t.png",
+      "src": "assets/avatars/heads/elem/elemplante10.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/aaeazeaet.png",
+      "src": "assets/avatars/heads/elem/elemplante11.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq2.png",
+      "src": "assets/avatars/heads/elem/elemplante12.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq3.png",
+      "src": "assets/avatars/heads/elem/elemplante13.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq4.png",
+      "src": "assets/avatars/heads/elem/elemplante14.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq5.png",
+      "src": "assets/avatars/heads/elem/elemplante15.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq6.png",
+      "src": "assets/avatars/heads/elem/elemplante16.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/dsqdq7.png",
+      "src": "assets/avatars/heads/elem/elemplante17.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet1.png",
+      "src": "assets/avatars/heads/elem/elemplante18.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet10.png",
+      "src": "assets/avatars/heads/elem/elemplante19.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet11.png",
+      "src": "assets/avatars/heads/elem/elemplante2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet12.png",
+      "src": "assets/avatars/heads/elem/elemplante20.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet13.png",
+      "src": "assets/avatars/heads/elem/elemplante21.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet14.png",
+      "src": "assets/avatars/heads/elem/elemplante22.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet15.png",
+      "src": "assets/avatars/heads/elem/elemplante23.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet16.png",
+      "src": "assets/avatars/heads/elem/elemplante24.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet17.png",
+      "src": "assets/avatars/heads/elem/elemplante3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet18.png",
+      "src": "assets/avatars/heads/elem/elemplante4.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet19.png",
+      "src": "assets/avatars/heads/elem/elemplante5.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet2.png",
+      "src": "assets/avatars/heads/elem/elemplante6.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet20.png",
+      "src": "assets/avatars/heads/elem/elemplante7.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet21.png",
+      "src": "assets/avatars/heads/elem/elemplante8.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/heads/elem/e06spritet22.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet23.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet24.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet25.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet3.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet4.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet5.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet6.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet7.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e06spritet9.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e09sprite2t.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e09sprite3t.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e09sprite4t.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e09spritet.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/e10spritet.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/Elemental05-Hommet1.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/Elemental052t.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/Elemental053t.png",
-      "category": "elem"
-    },
-    {
-      "src": "assets/avatars/heads/elem/Elemental054t.png",
+      "src": "assets/avatars/heads/elem/elemplante9.png",
       "category": "elem"
     },
     {
@@ -614,6 +634,78 @@
     },
     {
       "src": "assets/avatars/heads/elem/elemplat3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemspectre6.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemtenebre1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemtenebre2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemtenebre3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemtenebre4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemtenebre5.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemterre1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemterre2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemterre3.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemterre4.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemvent1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemvent2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/heads/elem/elemvent3.png",
       "category": "elem"
     },
     {
@@ -725,7 +817,19 @@
       "category": "elfe"
     },
     {
+      "src": "assets/avatars/heads/f-f/aerithgainsborough.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/heads/f-f/gabran10t.png",
+      "category": "f-f"
+    },
+    {
       "src": "assets/avatars/heads/f-f/mooglet.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/heads/f-f/paine.png",
       "category": "f-f"
     },
     {
@@ -831,6 +935,14 @@
     {
       "src": "assets/avatars/heads/f-f/Zelltete8.png",
       "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/heads/futur/CzZSqoFt.png",
+      "category": "futur"
+    },
+    {
+      "src": "assets/avatars/heads/futur/CzZSqoFt2.png",
+      "category": "futur"
     },
     {
       "src": "assets/avatars/heads/heros/blackwidow.png",
@@ -999,10 +1111,6 @@
     {
       "src": "assets/avatars/heads/heros/redskullt6.png",
       "category": "heros"
-    },
-    {
-      "src": "assets/avatars/heads/jv/samust.png",
-      "category": "jv"
     },
     {
       "src": "assets/avatars/heads/loup/loup1.png",
@@ -1322,6 +1430,22 @@
     },
     {
       "src": "assets/avatars/heads/simple/f/cheval6.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/cheval7.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/elfen1t.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/elfen2t.png",
+      "category": "f"
+    },
+    {
+      "src": "assets/avatars/heads/simple/f/elfen3t.png",
       "category": "f"
     },
     {
@@ -1921,6 +2045,10 @@
       "category": "starwars"
     },
     {
+      "src": "assets/avatars/heads/starwars/hansolo.png",
+      "category": "starwars"
+    },
+    {
       "src": "assets/avatars/heads/starwars/jedi-1.png",
       "category": "starwars"
     },
@@ -2167,6 +2295,66 @@
   ],
   "hats": [
     {
+      "src": "assets/avatars/hats/animaux/berserker_f_blank.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/berserker_m_blank.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/lapin1.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/lapin2.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/lapin3.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/lapin4.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/lapin5.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren2.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren22.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren23.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren24.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren25.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren26.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren27.png",
+      "category": "animaux"
+    },
+    {
+      "src": "assets/avatars/hats/animaux/XP_char_pandamaru_pandaren28.png",
+      "category": "animaux"
+    },
+    {
       "src": "assets/avatars/hats/armure/63c.png",
       "category": "armure"
     },
@@ -2207,6 +2395,18 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/hats/armure/casquecornes.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/casquecornes2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/casquecornes4.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/hats/armure/cxwcxwc.png",
       "category": "armure"
     },
@@ -2217,6 +2417,14 @@
     {
       "src": "assets/avatars/hats/armure/cxwcxwc3.png",
       "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/armure/golbez.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/hats/autre/aureole.png",
+      "category": "autre"
     },
     {
       "src": "assets/avatars/hats/capuche/140621-676d7607ac3cdf0066286fc9ad225b20.png",
@@ -2263,11 +2471,71 @@
       "category": "capuche"
     },
     {
+      "src": "assets/avatars/hats/casquette/casquetter.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/casquette/casquetter2.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/casquette/casquetter3.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/casquette/casquetter4.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/casquette/casquetter5.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/casquette/china_nyoh.png",
+      "category": "casquette"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/48.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/482.png",
+      "category": "chapeau"
+    },
+    {
       "src": "assets/avatars/hats/chapeau/alberchap.png",
       "category": "chapeau"
     },
     {
       "src": "assets/avatars/hats/chapeau/alberchap2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto4.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto5.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/alberto6.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/baker.png",
       "category": "chapeau"
     },
     {
@@ -2283,7 +2551,31 @@
       "category": "chapeau"
     },
     {
-      "src": "assets/avatars/hats/chapeau/chapeau1.png",
+      "src": "assets/avatars/hats/chapeau/candystoreh.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh2.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh3.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh4.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh5.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh6.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/candystoreh7.png",
       "category": "chapeau"
     },
     {
@@ -2300,6 +2592,14 @@
     },
     {
       "src": "assets/avatars/hats/chapeau/chapeau5.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/denmarkh.png",
+      "category": "chapeau"
+    },
+    {
+      "src": "assets/avatars/hats/chapeau/german_m1.png",
       "category": "chapeau"
     },
     {
@@ -2379,6 +2679,38 @@
       "category": "corne"
     },
     {
+      "src": "assets/avatars/hats/corne/bcroissant.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant3.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant4.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant5.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant6.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant7.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/bcroissant8.png",
+      "category": "corne"
+    },
+    {
       "src": "assets/avatars/hats/corne/big1.png",
       "category": "corne"
     },
@@ -2412,6 +2744,14 @@
     },
     {
       "src": "assets/avatars/hats/corne/corne2.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/croissant.png",
+      "category": "corne"
+    },
+    {
+      "src": "assets/avatars/hats/corne/croissant2.png",
       "category": "corne"
     },
     {
@@ -2495,24 +2835,76 @@
       "category": "couronne"
     },
     {
-      "src": "assets/avatars/hats/lapin/lapin1.png",
-      "category": "lapin"
+      "src": "assets/avatars/hats/couronne/CzZSqoFth3.png",
+      "category": "couronne"
     },
     {
-      "src": "assets/avatars/hats/lapin/lapin2.png",
-      "category": "lapin"
+      "src": "assets/avatars/hats/couronne/smallcouronne.png",
+      "category": "couronne"
     },
     {
-      "src": "assets/avatars/hats/lapin/lapin3.png",
-      "category": "lapin"
+      "src": "assets/avatars/hats/couronne/smallcouronne2.png",
+      "category": "couronne"
     },
     {
-      "src": "assets/avatars/hats/lapin/lapin4.png",
-      "category": "lapin"
+      "src": "assets/avatars/hats/couronne/smallcouronne3.png",
+      "category": "couronne"
     },
     {
-      "src": "assets/avatars/hats/lapin/lapin5.png",
-      "category": "lapin"
+      "src": "assets/avatars/hats/couronne/smallcouronne4.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/smallcouronne5.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t10.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t2.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t3.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t4.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t5.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t6.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t7.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t8.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/couronne/ssga-04t9.png",
+      "category": "couronne"
+    },
+    {
+      "src": "assets/avatars/hats/mage/bluemage_f_blankt.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/hats/mage/bluemage_f_blankt2.png",
+      "category": "mage"
     },
     {
       "src": "assets/avatars/hats/mage/deant.png",
@@ -2725,6 +3117,22 @@
     {
       "src": "assets/avatars/hats/pokemon/cBVgIVh2222.png",
       "category": "pokemon"
+    },
+    {
+      "src": "assets/avatars/hats/turban/xpchar41.png",
+      "category": "turban"
+    },
+    {
+      "src": "assets/avatars/hats/turban/xpchar42.png",
+      "category": "turban"
+    },
+    {
+      "src": "assets/avatars/hats/turban/xpchar43.png",
+      "category": "turban"
+    },
+    {
+      "src": "assets/avatars/hats/turban/xpchar44.png",
+      "category": "turban"
     }
   ],
   "bodies": [
@@ -2841,6 +3249,54 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne10.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne11.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne12.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne4.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne5.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne6.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne7.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne8.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/226-Guerrier a corne9.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/bodies/armure/592.png",
       "category": "armure"
     },
@@ -2921,6 +3377,14 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/bodies/armure/armureblanche.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armurebleue.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/bodies/armure/armureblue.png",
       "category": "armure"
     },
@@ -2933,7 +3397,27 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/bodies/armure/armurenoire.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armureor.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/bodies/armure/armurered.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armurerose.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armurerouge.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/armureverte.png",
       "category": "armure"
     },
     {
@@ -2953,12 +3437,140 @@
       "category": "armure"
     },
     {
+      "src": "assets/avatars/bodies/armure/england_teen.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/epee.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/hoko0732b.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/hoko073b.png",
+      "category": "armure"
+    },
+    {
       "src": "assets/avatars/bodies/armure/mandalorian2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b2.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b3.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b4.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b5.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b6.png",
+      "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/armure/ssga-02b7.png",
       "category": "armure"
     },
     {
       "src": "assets/avatars/bodies/armure/warrior.png",
       "category": "armure"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine1.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine2.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine3.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine4.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine5.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine6.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine7.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine8.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chine9.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f1b.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b2.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b3.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b4.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b5.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/asie/chinese_f3b6.png",
+      "category": "asie"
+    },
+    {
+      "src": "assets/avatars/bodies/autre/bride01b.png",
+      "category": "autre"
+    },
+    {
+      "src": "assets/avatars/bodies/autre/bride02b.png",
+      "category": "autre"
+    },
+    {
+      "src": "assets/avatars/bodies/autre/bride03b.png",
+      "category": "autre"
+    },
+    {
+      "src": "assets/avatars/bodies/autre/sailormoonb.png",
+      "category": "autre"
+    },
+    {
+      "src": "assets/avatars/bodies/autre/samusb.png",
+      "category": "autre"
     },
     {
       "src": "assets/avatars/bodies/chat/caitsith.png",
@@ -3077,6 +3689,10 @@
       "category": "chat"
     },
     {
+      "src": "assets/avatars/bodies/combi/034-mage02-kopieb.png",
+      "category": "combi"
+    },
+    {
       "src": "assets/avatars/bodies/combi/23417b.png",
       "category": "combi"
     },
@@ -3125,6 +3741,18 @@
       "category": "combi"
     },
     {
+      "src": "assets/avatars/bodies/combi/australiab.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/belgiumb.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/calculator_mb.png",
+      "category": "combi"
+    },
+    {
       "src": "assets/avatars/bodies/combi/casino1.png",
       "category": "combi"
     },
@@ -3145,6 +3773,14 @@
       "category": "combi"
     },
     {
+      "src": "assets/avatars/bodies/combi/celeschere1b.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/da26cb9-09a.png",
+      "category": "combi"
+    },
+    {
       "src": "assets/avatars/bodies/combi/elaine_monsterb.png",
       "category": "combi"
     },
@@ -3161,6 +3797,10 @@
       "category": "combi"
     },
     {
+      "src": "assets/avatars/bodies/combi/england-b.png",
+      "category": "combi"
+    },
+    {
       "src": "assets/avatars/bodies/combi/englandb.png",
       "category": "combi"
     },
@@ -3170,6 +3810,14 @@
     },
     {
       "src": "assets/avatars/bodies/combi/englandb3.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/Frf0g0yb.png",
+      "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/combi/german_m2.png",
       "category": "combi"
     },
     {
@@ -3191,6 +3839,10 @@
     {
       "src": "assets/avatars/bodies/combi/XP_char_monk_2.png",
       "category": "combi"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/246774.png",
+      "category": "costume"
     },
     {
       "src": "assets/avatars/bodies/costume/albercost.png",
@@ -3222,6 +3874,10 @@
     },
     {
       "src": "assets/avatars/bodies/costume/body19.png",
+      "category": "costume"
+    },
+    {
+      "src": "assets/avatars/bodies/costume/buckybarnesb.png",
       "category": "costume"
     },
     {
@@ -3309,6 +3965,34 @@
       "category": "costume"
     },
     {
+      "src": "assets/avatars/bodies/couleurs/template1.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template2.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template3.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template4.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template5.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template6.png",
+      "category": "couleurs"
+    },
+    {
+      "src": "assets/avatars/bodies/couleurs/template7.png",
+      "category": "couleurs"
+    },
+    {
       "src": "assets/avatars/bodies/dbz/cell1.png",
       "category": "dbz"
     },
@@ -3326,6 +4010,10 @@
     },
     {
       "src": "assets/avatars/bodies/dbz/cell5.png",
+      "category": "dbz"
+    },
+    {
+      "src": "assets/avatars/bodies/dbz/Chat karinb.png",
       "category": "dbz"
     },
     {
@@ -3389,7 +4077,23 @@
       "category": "dbz"
     },
     {
+      "src": "assets/avatars/bodies/disney/aladdinb.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/ariel-2b.png",
+      "category": "disney"
+    },
+    {
       "src": "assets/avatars/bodies/disney/ariel.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/arielb.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/disney/arielt2bb.png",
       "category": "disney"
     },
     {
@@ -3445,151 +4149,179 @@
       "category": "disney"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae2b.png",
+      "src": "assets/avatars/bodies/disney/tianab.png",
+      "category": "disney"
+    },
+    {
+      "src": "assets/avatars/bodies/egypte/egyptiangirlb.png",
+      "category": "egypte"
+    },
+    {
+      "src": "assets/avatars/bodies/egypte/egyptianqueenb.png",
+      "category": "egypte"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/elemfeu1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae3b.png",
+      "src": "assets/avatars/bodies/elem/elemfeu2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae4b.png",
+      "src": "assets/avatars/bodies/elem/elemfeu3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae5b.png",
+      "src": "assets/avatars/bodies/elem/elemfoudre1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae6b.png",
+      "src": "assets/avatars/bodies/elem/elemfoudre2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae7b.png",
+      "src": "assets/avatars/bodies/elem/elemfoudre3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeae8b.png",
+      "src": "assets/avatars/bodies/elem/elemglace1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/aaeazeaetb.png",
+      "src": "assets/avatars/bodies/elem/elemplante1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb1.png",
+      "src": "assets/avatars/bodies/elem/elemplante2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb2.png",
+      "src": "assets/avatars/bodies/elem/elemplante3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb3.png",
+      "src": "assets/avatars/bodies/elem/elemplante4.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb4.png",
+      "src": "assets/avatars/bodies/elem/elemplante5.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb5.png",
+      "src": "assets/avatars/bodies/elem/elemplante6.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb6.png",
+      "src": "assets/avatars/bodies/elem/elemplante7.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/dsqdqb7.png",
+      "src": "assets/avatars/bodies/elem/elemspectre1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb1.png",
+      "src": "assets/avatars/bodies/elem/elemspectre2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb2.png",
+      "src": "assets/avatars/bodies/elem/elemspectre3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb3.png",
+      "src": "assets/avatars/bodies/elem/elemspectre4.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb4.png",
+      "src": "assets/avatars/bodies/elem/elemspectre5.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb5.png",
+      "src": "assets/avatars/bodies/elem/elemspectre6.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb6.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e06spriteb8.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e09sprite2b.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e09sprite3b.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre4.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e09sprite4b.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre5.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e09spriteb.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre6.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e10spriteb.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre7.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e10spriteb2.png",
+      "src": "assets/avatars/bodies/elem/elemtenebre8.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/e10spriteb3.png",
+      "src": "assets/avatars/bodies/elem/elemterre1.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/Elemental05-Hommeb.png",
+      "src": "assets/avatars/bodies/elem/elemterre2.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/Elemental052b.png",
+      "src": "assets/avatars/bodies/elem/elemterre3.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/Elemental053b.png",
+      "src": "assets/avatars/bodies/elem/elemterre4.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/Elemental054b.png",
+      "src": "assets/avatars/bodies/elem/elemterre5.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/elemplab.png",
+      "src": "assets/avatars/bodies/elem/elemterre6.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/elemplab2.png",
+      "src": "assets/avatars/bodies/elem/elemterre7.png",
       "category": "elem"
     },
     {
-      "src": "assets/avatars/bodies/elem/elemplab3.png",
+      "src": "assets/avatars/bodies/elem/elemvent1.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/elemvent2.png",
+      "category": "elem"
+    },
+    {
+      "src": "assets/avatars/bodies/elem/elemvent3.png",
       "category": "elem"
     },
     {
       "src": "assets/avatars/bodies/f-f/005squall010py.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/aerithgainsboroughb.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/gabran10.png",
       "category": "f-f"
     },
     {
@@ -3638,6 +4370,10 @@
     },
     {
       "src": "assets/avatars/bodies/f-f/moogleb.png",
+      "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/f-f/paine.png",
       "category": "f-f"
     },
     {
@@ -3699,6 +4435,18 @@
     {
       "src": "assets/avatars/bodies/f-f/zell3.png",
       "category": "f-f"
+    },
+    {
+      "src": "assets/avatars/bodies/futur/CzZSqoFb.png",
+      "category": "futur"
+    },
+    {
+      "src": "assets/avatars/bodies/futur/CzZSqoFb2.png",
+      "category": "futur"
+    },
+    {
+      "src": "assets/avatars/bodies/futur/CzZSqoFb3.png",
+      "category": "futur"
     },
     {
       "src": "assets/avatars/bodies/harpie/harpieblanc.png",
@@ -3877,10 +4625,6 @@
       "category": "heros"
     },
     {
-      "src": "assets/avatars/bodies/jv/samusb.png",
-      "category": "jv"
-    },
-    {
       "src": "assets/avatars/bodies/loup/loup1.png",
       "category": "loup"
     },
@@ -3909,7 +4653,35 @@
       "category": "loup"
     },
     {
+      "src": "assets/avatars/bodies/mage/bluemage_f_blankb.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/bluemage_m_blankb.png",
+      "category": "mage"
+    },
+    {
       "src": "assets/avatars/bodies/mage/deanb.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/fdsfs.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/fdsfs2.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/fdsfs3.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/fdsfs4.png",
+      "category": "mage"
+    },
+    {
+      "src": "assets/avatars/bodies/mage/fdsfs5.png",
       "category": "mage"
     },
     {
@@ -4058,6 +4830,30 @@
     },
     {
       "src": "assets/avatars/bodies/med/body4.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/elf2ab.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/elf4ab.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/elfen1b.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/elfen2b.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/elfen3b.png",
+      "category": "med"
+    },
+    {
+      "src": "assets/avatars/bodies/med/ffxnpc_m2.png",
       "category": "med"
     },
     {
@@ -4213,6 +5009,14 @@
       "category": "naga"
     },
     {
+      "src": "assets/avatars/bodies/naga/naga10.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga11.png",
+      "category": "naga"
+    },
+    {
       "src": "assets/avatars/bodies/naga/naga2.png",
       "category": "naga"
     },
@@ -4237,35 +5041,15 @@
       "category": "naga"
     },
     {
+      "src": "assets/avatars/bodies/naga/naga8.png",
+      "category": "naga"
+    },
+    {
+      "src": "assets/avatars/bodies/naga/naga9.png",
+      "category": "naga"
+    },
+    {
       "src": "assets/avatars/bodies/noel/finland2.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel1.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel2.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel3.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel4.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel5.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel6.png",
-      "category": "noel"
-    },
-    {
-      "src": "assets/avatars/bodies/noel/noel7.png",
       "category": "noel"
     },
     {
@@ -4325,6 +5109,18 @@
       "category": "robe"
     },
     {
+      "src": "assets/avatars/bodies/robe/122-Civilian22-obaba2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/55f210ff4cf480ea54af5ffc7f9b2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/55f210ff4cf480ea54af5ffc7f9b23.png",
+      "category": "robe"
+    },
+    {
       "src": "assets/avatars/bodies/robe/bride1.png",
       "category": "robe"
     },
@@ -4354,6 +5150,30 @@
     },
     {
       "src": "assets/avatars/bodies/robe/bride8.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/bridesmaid01b.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/bridesmaid08b.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/candystore.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/cdacd409253085f1f490c7ffa737b.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/cdacd409253085f1f490c7ffa737b2.png",
+      "category": "robe"
+    },
+    {
+      "src": "assets/avatars/bodies/robe/cdacd409253085f1f490c7ffa737b3.png",
       "category": "robe"
     },
     {
@@ -4537,6 +5357,18 @@
       "category": "roi"
     },
     {
+      "src": "assets/avatars/bodies/simple/aziraphale.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/belgium2b.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/bithb.png",
+      "category": "simple"
+    },
+    {
       "src": "assets/avatars/bodies/simple/body10.png",
       "category": "simple"
     },
@@ -4630,6 +5462,10 @@
     },
     {
       "src": "assets/avatars/bodies/simple/clown3.png",
+      "category": "simple"
+    },
+    {
+      "src": "assets/avatars/bodies/simple/fadi.png",
       "category": "simple"
     },
     {
@@ -4766,10 +5602,6 @@
     },
     {
       "src": "assets/avatars/bodies/sirene/alanab.png",
-      "category": "sirene"
-    },
-    {
-      "src": "assets/avatars/bodies/sirene/ariel-2b.png",
       "category": "sirene"
     },
     {
@@ -4918,6 +5750,10 @@
     },
     {
       "src": "assets/avatars/bodies/starwars/chiss3.png",
+      "category": "starwars"
+    },
+    {
+      "src": "assets/avatars/bodies/starwars/hansolob.png",
       "category": "starwars"
     },
     {

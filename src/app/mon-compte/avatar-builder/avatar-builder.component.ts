@@ -155,9 +155,12 @@ export class AvatarBuilderComponent implements OnInit {
   }
 
   getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs'): string[] {
-    return this.categories[partType].filter(category =>
-      this.parts[partType].some(part => part.category === category && this.isDebloque(part))
-    );
+
+    return this.categories[partType];
+
+    //return this.categories[partType].filter(category =>
+    // this.parts[partType].some(part => part.category === category && this.isDebloque(part))
+    // );
   }
 
 }
