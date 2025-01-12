@@ -4,6 +4,16 @@
       <div class="margin-right">Recherche de combat :</div> <app-pampa-on-off (toggleChange)="onToggleChange($event)"></app-pampa-on-off>
     </div>
     <div>
+      <h3>Affronter un bot :</h3>
+      <div class="bot-select">
+        Choisir un bot :
+        <p-dropdown [options]="botList" [(ngModel)]="selectedBot" placeholder="Sélectionnez un bot" optionLabel="pseudo"></p-dropdown>
+      </div>
+      <div *ngIf="selectedBot">
+        <app-pampa-button [texte]="'Défier le bot'" [couleur]="'bleu'" [taille]="'moyen'" (click)="challengeBot(selectedBot)"></app-pampa-button>
+      </div>
+    </div>
+    <div>
       <h3>Envoyer une demande de combat :</h3>
       <div class="format-select">
         Choisir un format :

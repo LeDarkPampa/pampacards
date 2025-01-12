@@ -28,4 +28,9 @@ export class DemandeCombatService extends ApiService {
   createChallenge(data: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/createChallenge`, data);
   }
+
+  getBots(): Observable<Utilisateur[]> {
+    return this.http.get<Utilisateur[]>(`${this.API_URL}/bots`);
+  }
+
 }

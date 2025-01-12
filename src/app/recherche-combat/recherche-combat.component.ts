@@ -36,6 +36,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   formats: Format[] = [];
   tableauDemandesRecues: DemandeCombat[] = [];
   tableauDemandesEnvoyees: DemandeCombat[] = [];
+  botList: Utilisateur[] = [];
+  selectedBot?: Utilisateur;
   chooseFirstPlayer: boolean = false;
   firstPlayerChoices = ['Vous', 'Votre adversaire'];
   selectedFirstPlayer: string = 'Vous';
@@ -49,6 +51,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getBots();
     this.checkSiDejaPartieEncours();
     this.getUsersSearchingFight();
     this.subscribeToUserStream();
@@ -293,6 +296,37 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     const format = this.formats.find(format => format.formatId === formatId);
     return format ? format.nom : 'Format non trouvé';
   }
+
+  getBots() {
+    this.combatService.getBots().subscribe({
+      next: (bots: Utilisateur[]) => {
+        this.botList = bots;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des bots', error);
+      }
+    });
+  }
+
+  challengeBot(bot: Utilisateur) {
+    const data = {
+      joueurUnId: this.userId,
+      joueurDeuxId: bot.id,
+      deckUnId: this.selectedDeck?.id,
+      firstPlayerId: this.userId, // Vous commencez toujours contre un bot
+      formatId: this.selectedFormat?.formatId,
+      message: 'Défi contre un bot'
+    };
+
+    this.combatService.createChallenge(data).subscribe({
+      next: () => alert('Défi envoyé au bot ' + bot.pseudo),
+      error: (error) => {
+        console.error('Erreur lors du défi contre le bot', error);
+        alert('Erreur lors du défi');
+      }
+    });
+  }
+
 
   ngOnDestroy() {
     this.searching = false;
