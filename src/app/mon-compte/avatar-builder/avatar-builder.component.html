@@ -33,7 +33,7 @@
              [src]="hat.src"
              (click)="selectPart('hat', hat.src)"
              [class.selected]="hat.src === selectedParts.hat"
-             [class.locked]="false"
+             [class.locked]="!isDebloque(hat)"
              role="button"
              loading="lazy"
         />
@@ -56,7 +56,7 @@
              [src]="head.src"
              (click)="selectPart('head', head.src)"
              [class.selected]="head.src === selectedParts.head"
-             [class.locked]="false"
+             [class.locked]="!isDebloque(head)"
              role="button"
              loading="lazy"
         />
@@ -79,7 +79,7 @@
              [src]="body.src"
              (click)="selectPart('body', body.src)"
              [class.selected]="body.src === selectedParts.body"
-             [class.locked]="false"
+             [class.locked]="!isDebloque(body)"
              role="button"
              loading="lazy"
         />
@@ -109,7 +109,7 @@
              [src]="back.src"
              (click)="selectPart('back', back.src)"
              [class.selected]="back.src === selectedParts.back"
-             [class.locked]="false"
+             [class.locked]="!isDebloque(back)"
              role="button"
              loading="lazy"
         />
