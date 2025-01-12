@@ -9,6 +9,10 @@
         Choisir un bot :
         <p-dropdown [options]="botList" [(ngModel)]="selectedBot" placeholder="Sélectionnez un bot" optionLabel="pseudo"></p-dropdown>
       </div>
+      <div *ngIf="selectedBot" class="deck-select">
+        Choisir un deck :
+        <p-dropdown [options]="allDecks" [(ngModel)]="selectedDeckBot" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
+      </div>
       <div *ngIf="selectedBot">
         <app-pampa-button [texte]="'Défier le bot'" [couleur]="'bleu'" [taille]="'moyen'" (click)="challengeBot(selectedBot)"></app-pampa-button>
       </div>

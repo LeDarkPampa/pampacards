@@ -29,6 +29,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   userId: number = 0;
   usersToFightSubscription?: Subscription;
   demandesDeCombatSubscription?: Subscription;
+  selectedDeckBot?: Deck;
   selectedDeck?: Deck;
   allDecks: Deck[] = [];
   filteredDecks: Deck[] = [];
@@ -312,13 +313,13 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     const data = {
       joueurUnId: this.userId,
       joueurDeuxId: bot.id,
-      deckUnId: this.selectedDeck?.id,
-      firstPlayerId: this.userId, // Vous commencez toujours contre un bot
+      deckUnId: this.selectedDeckBot?.id,
+      firstPlayerId: null,
       formatId: this.selectedFormat?.formatId,
       message: 'Défi contre un bot'
     };
 
-    this.combatService.createChallenge(data).subscribe({
+    this.combatService.createBotPartie(data).subscribe({
       next: () => alert('Défi envoyé au bot ' + bot.pseudo),
       error: (error) => {
         console.error('Erreur lors du défi contre le bot', error);
