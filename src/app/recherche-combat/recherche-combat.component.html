@@ -6,11 +6,11 @@
     <div>
       <h3>Affronter un bot :</h3>
       <div class="bot-select">
-        Choisir un bot :
+        Choisir un bot à affronter :
         <p-dropdown [options]="botList" [(ngModel)]="selectedBot" placeholder="Sélectionnez un bot" optionLabel="pseudo"></p-dropdown>
       </div>
       <div *ngIf="selectedBot" class="deck-select">
-        Choisir un deck :
+        Choisir votre deck :
         <p-dropdown [options]="allDecks" [(ngModel)]="selectedDeckBot" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
       </div>
       <div *ngIf="selectedBot">

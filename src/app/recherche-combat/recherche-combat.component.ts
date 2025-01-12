@@ -320,7 +320,9 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     };
 
     this.combatService.createBotPartie(data).subscribe({
-      next: () => alert('Défi envoyé au bot ' + bot.pseudo),
+      next: response => {
+        this.router.navigate(['/partie', response]);
+      },
       error: (error) => {
         console.error('Erreur lors du défi contre le bot', error);
         alert('Erreur lors du défi');
