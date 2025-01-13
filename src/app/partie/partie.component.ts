@@ -108,7 +108,8 @@ export class PartieComponent implements OnInit, OnDestroy {
 
     if (this.lastEvent.status === "FIN_PARTIE" && !this.finDePartie) {
       this.finDePartie = true;
-      if (this.joueur.id === this.partie.joueurUn.id) {
+      if (this.joueur.id === this.partie.joueurUn.id || this.partie.joueurUn.bot) {
+        this.updatePlayerAndOpponent(lastEvent);
         this.terminerPartie();
       }
     }
