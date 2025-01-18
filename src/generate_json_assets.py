@@ -11,26 +11,31 @@ def generate_assets_json(base_path):
         "adds": []
     }
 
+    # Chemin de départ pour les avatars
+    avatars_path = os.path.join(base_path, "assets", "avatars")
+
     # Parcours des dossiers et fichiers
-    for root, _, files in os.walk(base_path):
+    for root, _, files in os.walk(avatars_path):
         for file in files:
             if file.endswith(('.png', '.jpg', '.jpeg')):  # Filtre pour les images
-                relative_path = os.path.relpath(os.path.join(root, file), base_path)
+                full_path = os.path.join(root, file)  # Chemin absolu du fichier
+                relative_path = os.path.relpath(full_path, base_path)  # Chemin relatif à base_path
+                normalized_path = os.path.normpath(relative_path).replace("\\", "/")  # Convertir \ en /
 
-                # Extraire la catégorie (nom du sous-dossier contenant l'image)
-                category = os.path.basename(os.path.dirname(relative_path))
+                # Extraire la catégorie (nom du dossier parent immédiat)
+                category = os.path.basename(os.path.dirname(normalized_path))
 
-                # Identifier la section et ajouter l'entrée avec la catégorie
-                if relative_path.startswith("assets/avatars/heads"):
-                    assets_structure["heads"].append({"src": relative_path, "category": category})
-                elif relative_path.startswith("assets/avatars/hats"):
-                    assets_structure["hats"].append({"src": relative_path, "category": category})
-                elif relative_path.startswith("assets/avatars/bodies"):
-                    assets_structure["bodies"].append({"src": relative_path, "category": category})
-                elif relative_path.startswith("assets/avatars/backs"):
-                    assets_structure["backs"].append({"src": relative_path, "category": category})
-                elif relative_path.startswith("assets/avatars/adds"):
-                    assets_structure["adds"].append({"src": relative_path, "add": category})
+                # Ajouter le chemin d'image et la catégorie dans la structure appropriée
+                if "heads" in root:
+                    assets_structure["heads"].append({"src": normalized_path, "category": category})
+                elif "hats" in root:
+                    assets_structure["hats"].append({"src": normalized_path, "category": category})
+                elif "bodies" in root:
+                    assets_structure["bodies"].append({"src": normalized_path, "category": category})
+                elif "backs" in root:
+                    assets_structure["backs"].append({"src": normalized_path, "category": category})
+                elif "adds" in root:
+                    assets_structure["adds"].append({"src": normalized_path, "category": category})
 
     # Écriture dans un fichier JSON
     output_path = os.path.join(base_path, "assets_structure.json")
