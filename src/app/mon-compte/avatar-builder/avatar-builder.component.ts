@@ -156,6 +156,8 @@ export class AvatarBuilderComponent implements OnInit {
   }
 
   isDebloque(element: any): boolean {
+    return this.debloqueElements.some(debloqueElement =>
+      debloqueElement.elementCode === element.src);
     return true;
   }
 
@@ -165,7 +167,8 @@ export class AvatarBuilderComponent implements OnInit {
   }
 
   getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs' | 'adds'): string[] {
-    return this.categories[partType];
-  }
+    return this.categories[partType].filter(category =>
+      this.parts[partType].some(part => part.category === category && this.isDebloque(part))
+    );
 
 }
