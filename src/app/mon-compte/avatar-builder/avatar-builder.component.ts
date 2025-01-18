@@ -158,7 +158,6 @@ export class AvatarBuilderComponent implements OnInit {
   isDebloque(element: any): boolean {
     return this.debloqueElements.some(debloqueElement =>
       debloqueElement.elementCode === element.src);
-    return true;
   }
 
   private getCategoryFromPart(partType: keyof typeof this.parts, partSrc: string): string {
