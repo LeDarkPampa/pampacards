@@ -6,7 +6,8 @@
       [head]="selectedParts.head"
       [hat]="selectedParts.hat"
       [body]="selectedParts.body"
-      [back]="selectedParts.back">
+      [back]="selectedParts.back"
+      [add]="selectedParts.add">
     </app-avatar-view>
   </div>
 
@@ -88,7 +89,7 @@
 
     <!-- Pour les backs -->
     <div class="selection">
-      <h4>Choix de l'élément supplémentaire</h4>
+      <h4>Choix du dos</h4>
 
       <div class="tabs">
         <button
@@ -114,6 +115,36 @@
              loading="lazy"
         />
       </div>
+    </div>
+  </div>
+
+  <!-- Pour les adds -->
+  <div class="selection">
+    <h4>Choix de l'élément supplémentaire</h4>
+
+    <div class="tabs">
+      <button
+        (click)="selectPart('add', '')"
+        [class.selected]="selectedCategories.adds === ''">
+        <img [src]="'assets/avatars/no-elem.png'" />
+      </button>
+
+      <button *ngFor="let category of getFilteredCategories('adds')"
+              (click)="filterParts('adds', category)"
+              [class.active]="selectedCategories.adds === category">
+        {{ category }}
+      </button>
+    </div>
+
+    <div class="options" *ngIf="selectedCategories.adds !== ''">
+      <img *ngFor="let add of filteredParts.adds"
+           [src]="add.src"
+           (click)="selectPart('add', add.src)"
+           [class.selected]="add.src === selectedParts.add"
+           [class.locked]="!isDebloque(add)"
+           role="button"
+           loading="lazy"
+      />
     </div>
   </div>
   <div class="ligne-centree save-avatar">

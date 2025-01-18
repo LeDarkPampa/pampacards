@@ -17,35 +17,40 @@ export class AvatarBuilderComponent implements OnInit {
     heads: [] as { src: string; category: string }[],
     hats: [] as { src: string; category: string }[],
     bodies: [] as { src: string; category: string }[],
-    backs: [] as { src: string; category: string }[]
+    backs: [] as { src: string; category: string }[],
+    adds: [] as { src: string; category: string }[]
   };
 
   categories = {
     heads: [] as string[],
     hats: [] as string[],
     bodies: [] as string[],
-    backs: [] as string[]
+    backs: [] as string[],
+    adds: [] as string[]
   };
 
   filteredParts = {
     heads: [] as { src: string; category: string }[],
     hats: [] as { src: string; category: string }[],
     bodies: [] as { src: string; category: string }[],
-    backs: [] as { src: string; category: string }[]
+    backs: [] as { src: string; category: string }[],
+    adds: [] as { src: string; category: string }[]
   };
 
   selectedCategories = {
     heads: '',
     hats: '',
     bodies: '',
-    backs: ''
+    backs: '',
+    adds: ''
   };
 
   selectedParts = {
     head: '',
     hat: '',
     body: '',
-    back: ''
+    back: '',
+    add: ''
   };
 
   private avatar?: Avatar;
@@ -66,7 +71,8 @@ export class AvatarBuilderComponent implements OnInit {
           head: avatar.tete,
           hat: avatar.chapeau,
           body: avatar.corps,
-          back: avatar.dos
+          back: avatar.dos,
+          add: avatar.add
         };
 
         this.utilisateurService.getElementsDebloques(this.authentificationService.getUserId()).subscribe(debloqueElements => {
@@ -77,7 +83,8 @@ export class AvatarBuilderComponent implements OnInit {
           heads: { src: string; category: string }[],
           hats: { src: string; category: string }[],
           bodies: { src: string; category: string }[],
-          backs: { src: string; category: string }[]
+          backs: { src: string; category: string }[],
+          adds: { src: string; category: string }[]
         }>('assets/avatars/avatars.json').subscribe(data => {
           this.parts = data;
 
@@ -85,16 +92,19 @@ export class AvatarBuilderComponent implements OnInit {
           this.categories.hats = Array.from(new Set(data.hats.map(item => item.category)));
           this.categories.bodies = Array.from(new Set(data.bodies.map(item => item.category)));
           this.categories.backs = Array.from(new Set(data.backs.map(item => item.category)));
+          this.categories.adds = Array.from(new Set(data.adds.map(item => item.category)));
 
           this.selectedCategories.heads = this.getCategoryFromPart('heads', this.selectedParts.head);
           this.selectedCategories.hats = this.getCategoryFromPart('hats', this.selectedParts.hat);
           this.selectedCategories.bodies = this.getCategoryFromPart('bodies', this.selectedParts.body);
           this.selectedCategories.backs = this.getCategoryFromPart('backs', this.selectedParts.back);
+          this.selectedCategories.adds = this.getCategoryFromPart('adds', this.selectedParts.add);
 
           this.filterParts('heads', this.selectedCategories.heads);
           this.filterParts('hats', this.selectedCategories.hats);
           this.filterParts('bodies', this.selectedCategories.bodies);
           this.filterParts('backs', this.selectedCategories.backs);
+          this.filterParts('adds', this.selectedCategories.adds);
         });
       },
       error: error => {
@@ -130,7 +140,8 @@ export class AvatarBuilderComponent implements OnInit {
       tete: this.selectedParts.head,
       chapeau: this.selectedParts.hat,
       corps: this.selectedParts.body,
-      dos: this.selectedParts.back
+      dos: this.selectedParts.back,
+      add: this.selectedParts.add
     };
 
     this.utilisateurService.saveAvatar(updatedAvatar).subscribe({
@@ -145,8 +156,7 @@ export class AvatarBuilderComponent implements OnInit {
   }
 
   isDebloque(element: any): boolean {
-    return this.debloqueElements.some(debloqueElement =>
-      debloqueElement.elementCode === element.src);
+    return true;
   }
 
   private getCategoryFromPart(partType: keyof typeof this.parts, partSrc: string): string {
@@ -154,10 +164,8 @@ export class AvatarBuilderComponent implements OnInit {
     return part ? part.category : ''; // Retourne la catégorie correspondante ou '' si non trouvée
   }
 
-  getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs'): string[] {
-    return this.categories[partType].filter(category =>
-      this.parts[partType].some(part => part.category === category && this.isDebloque(part))
-    );
+  getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs' | 'adds'): string[] {
+    return this.categories[partType];
   }
 
 }

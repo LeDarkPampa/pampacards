@@ -42,8 +42,13 @@
   }
 }
 
-.avatar-part.back {
+.avatar-part.add {
   z-index: 1;
+}
+
+
+.avatar-part.back {
+  z-index: 2;
 }
 
 .avatar-part.body {
