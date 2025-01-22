@@ -8,7 +8,8 @@ def generate_assets_json(base_path):
         "hats": [],
         "bodies": [],
         "backs": [],
-        "adds": []
+        "adds": [],
+        "fronts": []
     }
 
     # Chemin de départ pour les avatars
@@ -36,6 +37,8 @@ def generate_assets_json(base_path):
                     assets_structure["backs"].append({"src": normalized_path, "category": category})
                 elif "adds" in root:
                     assets_structure["adds"].append({"src": normalized_path, "category": category})
+                elif "fronts" in root:
+                    assets_structure["fronts"].append({"src": normalized_path, "category": category})
 
     # Écriture dans un fichier JSON
     output_path = os.path.join(base_path, "assets_structure.json")

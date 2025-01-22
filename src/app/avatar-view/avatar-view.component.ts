@@ -11,9 +11,10 @@ export class AvatarViewComponent implements OnChanges {
   @Input() body: string = '';
   @Input() back: string = '';
   @Input() add: string = '';
+  @Input() front: string = '';
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['head'] || changes['hat'] || changes['body'] || changes['back'] || changes['add']) {
+    if (changes['head'] || changes['hat'] || changes['body'] || changes['back'] || changes['add'] || changes['front']) {
     }
   }
 }

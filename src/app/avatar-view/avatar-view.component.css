@@ -62,3 +62,7 @@
 .avatar-part.hat {
   z-index: 5;
 }
+
+.avatar-part.front {
+  z-index: 6;
+}

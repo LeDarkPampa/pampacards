@@ -65,7 +65,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     hat: '',
     body: '',
     back: '',
-    add: ''
+    add: '',
+    front: ''
   };
 
   adversaireAvatar: AvatarPart = {
@@ -73,7 +74,8 @@ export class PartieComponent implements OnInit, OnDestroy {
     hat: '',
     body: '',
     back: '',
-    add: ''
+    add: '',
+    front: ''
   };
 
   isFlashing: boolean = false;
@@ -214,7 +216,8 @@ export class PartieComponent implements OnInit, OnDestroy {
           hat: avatar.chapeau,
           body: avatar.corps,
           back: avatar.dos,
-          add: avatar.add
+          add: avatar.add,
+          front: avatar.front
         };
 
         this.avatarService.getAvatarByUserId(idAdversaire).subscribe({
@@ -224,7 +227,8 @@ export class PartieComponent implements OnInit, OnDestroy {
               hat: avatarAdv.chapeau,
               body: avatarAdv.corps,
               back: avatarAdv.dos,
-              add: avatarAdv.add
+              add: avatarAdv.add,
+              front: avatarAdv.front
             };
           },
           error: error => {

@@ -6,8 +6,9 @@ export class Avatar {
   corps: string;
   dos: string;
   add: string;
+  front: string;
 
-  constructor(id: number, utilisateurId: number, tete: string, chapeau: string, corps: string, dos: string, add: string) {
+  constructor(id: number, utilisateurId: number, tete: string, chapeau: string, corps: string, dos: string, add: string, front: string) {
     this.id = id;
     this.utilisateurId = utilisateurId;
     this.tete = tete;
@@ -15,5 +16,6 @@ export class Avatar {
     this.corps = corps;
     this.dos = dos;
     this.add = add;
+    this.front = front;
   }
 }
