@@ -909,6 +909,10 @@
             "category": "f-f"
         },
         {
+            "src": "assets/avatars/heads/f-f/lennet.png",
+            "category": "f-f"
+        },
+        {
             "src": "assets/avatars/heads/f-f/mooglet.png",
             "category": "f-f"
         },
@@ -1245,43 +1249,11 @@
             "category": "heros"
         },
         {
-            "src": "assets/avatars/heads/heros/lokit.png",
-            "category": "heros"
-        },
-        {
             "src": "assets/avatars/heads/heros/mandarint.png",
             "category": "heros"
         },
         {
-            "src": "assets/avatars/heads/heros/nebulat.png",
-            "category": "heros"
-        },
-        {
             "src": "assets/avatars/heads/heros/nickfuryt.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt1.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt2.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt3.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt4.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt5.png",
-            "category": "heros"
-        },
-        {
-            "src": "assets/avatars/heads/heros/redskullt6.png",
             "category": "heros"
         },
         {
@@ -1290,6 +1262,70 @@
         },
         {
             "src": "assets/avatars/heads/heros/tonystarkt.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet1.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet10.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet11.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet12.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet13.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet14.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet15.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet16.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet2.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet3.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet4.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet5.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet6.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet7.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet8.png",
+            "category": "heros"
+        },
+        {
+            "src": "assets/avatars/heads/heros/warmachinet9.png",
             "category": "heros"
         },
         {
@@ -1509,6 +1545,58 @@
             "category": "Monstres"
         },
         {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht1.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht2.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht3.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht4.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht5.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht6.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/TVN0Teht7.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt1.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt2.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt3.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt4.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt5.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/heads/Monstres/v9SYAYDt6.png",
+            "category": "Monstres"
+        },
+        {
             "src": "assets/avatars/heads/Monstres/vamp1.png",
             "category": "Monstres"
         },
@@ -1531,6 +1619,126 @@
         {
             "src": "assets/avatars/heads/Médiéval/pirate_f2t.png",
             "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt1.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt2.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt3.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt4.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt5.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt6.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Médiéval/thief_mt7.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoiti1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoiti2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoiti3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoiti4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoiti5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoititt6.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/kunoitittt6.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/heads/Ninja/ninnzyat6.png",
+            "category": "Ninja"
         },
         {
             "src": "assets/avatars/heads/noel/homme_102t.png",
@@ -2385,6 +2593,30 @@
             "category": "starwars"
         },
         {
+            "src": "assets/avatars/heads/starwars/lynmet1.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/lynmet2.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/lynmet3.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/lynmet4.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/lynmet5.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/lynmet6.png",
+            "category": "starwars"
+        },
+        {
             "src": "assets/avatars/heads/starwars/mand1.png",
             "category": "starwars"
         },
@@ -2482,6 +2714,14 @@
         },
         {
             "src": "assets/avatars/heads/starwars/protocoldroid6r.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/rebelpilott.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/rebelpilott2.png",
             "category": "starwars"
         },
         {
@@ -2629,6 +2869,34 @@
             "category": "starwars"
         },
         {
+            "src": "assets/avatars/heads/starwars/twilekt1.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt2.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt3.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt4.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt5.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt6.png",
+            "category": "starwars"
+        },
+        {
+            "src": "assets/avatars/heads/starwars/twilekt7.png",
+            "category": "starwars"
+        },
+        {
             "src": "assets/avatars/heads/starwars/yoda1.png",
             "category": "starwars"
         },
@@ -2719,6 +2987,38 @@
         {
             "src": "assets/avatars/heads/statue/shivatgr.png",
             "category": "statue"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/lokit.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/nebulat.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt1.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt2.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt3.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt4.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt5.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/heads/Vilains/redskullt6.png",
+            "category": "Vilains"
         }
     ],
     "hats": [
@@ -3539,6 +3839,34 @@
             "category": "corne"
         },
         {
+            "src": "assets/avatars/hats/corne/bicorne.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne2.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne3.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne4.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne5.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne6.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/bicorne7.png",
+            "category": "corne"
+        },
+        {
             "src": "assets/avatars/hats/corne/big1.png",
             "category": "corne"
         },
@@ -3567,11 +3895,43 @@
             "category": "corne"
         },
         {
+            "src": "assets/avatars/hats/corne/bouyakacornes.png",
+            "category": "corne"
+        },
+        {
             "src": "assets/avatars/hats/corne/corne1.png",
             "category": "corne"
         },
         {
             "src": "assets/avatars/hats/corne/corne2.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso1.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso2.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso3.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso4.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso5.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso6.png",
+            "category": "corne"
+        },
+        {
+            "src": "assets/avatars/hats/corne/corneronso7.png",
             "category": "corne"
         },
         {
@@ -3729,6 +4089,34 @@
         {
             "src": "assets/avatars/hats/couronne/XP_char_PandaMaru_royalh.png",
             "category": "couronne"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb1.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb2.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb3.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb4.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb5.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb6.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/hats/Final Fantasy/whitemage_f_blankb7.png",
+            "category": "Final Fantasy"
         },
         {
             "src": "assets/avatars/hats/indiana/henryjones.png",
@@ -5321,208 +5709,280 @@
             "category": "Elem"
         },
         {
-            "src": "assets/avatars/bodies/f-f/005squall010py.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/005squall010py.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/aerithgainsboroughb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/aerithgainsboroughb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/gabran10.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/gabran10.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/leblanc.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/leblanc.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/leblanc2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/leblanc2.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/leblanc3.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/leblanc3.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/leblanc4.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/leblanc4.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/magef1.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/lenneb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/magef2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/magef1.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/magef3.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/magef2.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/magef5.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/magef3.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/magef6.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/magef5.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh1.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/magef6.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh1.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh3.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh2.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh4.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh3.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh5.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh4.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/mageh6.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh5.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/moogleb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/mageh6.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/paine.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/moogleb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rikkub.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/paine.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rikkux2b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rikkub.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-1b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rikkux2b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-2b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-1b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-3b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-2b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-4b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-3b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-5b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-4b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-6b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-5b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-7b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-6b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/rydia-8b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-7b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/shivab.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/rydia-8b.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/shuyinb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/shivab.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tidusb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/shuyinb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tidusb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb3.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb2.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb4.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb3.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb5.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb4.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb6.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb5.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/tonberryb7.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb6.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/vierab.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/tonberryb7.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/wmage1.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/vierab.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/wmage2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb1.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/yunabbb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb10.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/yunawedding2b.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb11.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/yunaweddingb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb12.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/yunax2tb.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb13.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/yuuna.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb14.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/zell1.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb15.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/zell2.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb16.png",
+            "category": "Final Fantasy"
         },
         {
-            "src": "assets/avatars/bodies/f-f/zell3.png",
-            "category": "f-f"
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb17.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb2.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb3.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb4.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb5.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb6.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb7.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb8.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/whitemage_f_blankbb9.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/wmage1.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/wmage2.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/yunabbb.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/yunawedding2b.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/yunaweddingb.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/yunax2tb.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/yuuna.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/zell1.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/zell2.png",
+            "category": "Final Fantasy"
+        },
+        {
+            "src": "assets/avatars/bodies/Final Fantasy/zell3.png",
+            "category": "Final Fantasy"
         },
         {
             "src": "assets/avatars/bodies/Futur/CzZSqoFb.png",
@@ -5721,23 +6181,11 @@
             "category": "Héros"
         },
         {
-            "src": "assets/avatars/bodies/Héros/lokib.png",
-            "category": "Héros"
-        },
-        {
             "src": "assets/avatars/bodies/Héros/mandarinb.png",
             "category": "Héros"
         },
         {
-            "src": "assets/avatars/bodies/Héros/nebulab.png",
-            "category": "Héros"
-        },
-        {
             "src": "assets/avatars/bodies/Héros/nickfuryb.png",
-            "category": "Héros"
-        },
-        {
-            "src": "assets/avatars/bodies/Héros/redskullb1.png",
             "category": "Héros"
         },
         {
@@ -5746,6 +6194,70 @@
         },
         {
             "src": "assets/avatars/bodies/Héros/tonystarkb.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb1.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb10.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb11.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb12.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb13.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb14.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb15.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb16.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb2.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb3.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb4.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb5.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb6.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb7.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb8.png",
+            "category": "Héros"
+        },
+        {
+            "src": "assets/avatars/bodies/Héros/warmachineb9.png",
             "category": "Héros"
         },
         {
@@ -5989,6 +6501,10 @@
             "category": "Monstres"
         },
         {
+            "src": "assets/avatars/bodies/Monstres/millep.png",
+            "category": "Monstres"
+        },
+        {
             "src": "assets/avatars/bodies/Monstres/monsie10b.png",
             "category": "Monstres"
         },
@@ -6026,6 +6542,58 @@
         },
         {
             "src": "assets/avatars/bodies/Monstres/titab4.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb1.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb2.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb3.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb4.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb5.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb6.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/TVN0Tehb7.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb1.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb2.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb3.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb4.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb5.png",
+            "category": "Monstres"
+        },
+        {
+            "src": "assets/avatars/bodies/Monstres/v9SYAYDb6.png",
             "category": "Monstres"
         },
         {
@@ -6145,6 +6713,34 @@
             "category": "Médiéval"
         },
         {
+            "src": "assets/avatars/bodies/Médiéval/thief_b1.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b2.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b3.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b4.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b5.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b6.png",
+            "category": "Médiéval"
+        },
+        {
+            "src": "assets/avatars/bodies/Médiéval/thief_b7.png",
+            "category": "Médiéval"
+        },
+        {
             "src": "assets/avatars/bodies/Médiéval/vol1.png",
             "category": "Médiéval"
         },
@@ -6203,6 +6799,98 @@
         {
             "src": "assets/avatars/bodies/Nagas/naga9.png",
             "category": "Nagas"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitib1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitib2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitib3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitib4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitib5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitibb6.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/kunoitiibbb6.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab1.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab2.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab3.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab4.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab5.png",
+            "category": "Ninja"
+        },
+        {
+            "src": "assets/avatars/bodies/Ninja/ninnzyab6.png",
+            "category": "Ninja"
         },
         {
             "src": "assets/avatars/bodies/Noël/finland2.png",
@@ -7113,6 +7801,30 @@
             "category": "StarWars"
         },
         {
+            "src": "assets/avatars/bodies/StarWars/lynmeb1.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/lynmeb2.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/lynmeb3.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/lynmeb4.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/lynmeb5.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/lynmeb6.png",
+            "category": "StarWars"
+        },
+        {
             "src": "assets/avatars/bodies/StarWars/manda1.png",
             "category": "StarWars"
         },
@@ -7197,6 +7909,30 @@
             "category": "StarWars"
         },
         {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb2.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb3.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb4.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb5.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/rebelpilotb6.png",
+            "category": "StarWars"
+        },
+        {
             "src": "assets/avatars/bodies/StarWars/stormtrooper2b.png",
             "category": "StarWars"
         },
@@ -7226,6 +7962,50 @@
         },
         {
             "src": "assets/avatars/bodies/StarWars/twi5.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb1.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb10.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb11.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb2.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb3.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb4.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb5.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb6.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb7.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb8.png",
+            "category": "StarWars"
+        },
+        {
+            "src": "assets/avatars/bodies/StarWars/twilekb9.png",
             "category": "StarWars"
         },
         {
@@ -7307,6 +8087,18 @@
         {
             "src": "assets/avatars/bodies/Tabliers/grandmadeb9.png",
             "category": "Tabliers"
+        },
+        {
+            "src": "assets/avatars/bodies/Vilains/lokib.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/bodies/Vilains/nebulab.png",
+            "category": "Vilains"
+        },
+        {
+            "src": "assets/avatars/bodies/Vilains/redskullb1.png",
+            "category": "Vilains"
         }
     ],
     "backs": [
@@ -7565,6 +8357,42 @@
         {
             "src": "assets/avatars/backs/Dragons/flying_dragon-red2.png",
             "category": "Dragons"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil2.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil3.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil4.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil5.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil6.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil7.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil8.png",
+            "category": "Nouveau dossier"
+        },
+        {
+            "src": "assets/avatars/backs/Nouveau dossier/ailesoeil9.png",
+            "category": "Nouveau dossier"
         },
         {
             "src": "assets/avatars/backs/Papillons/lib1.png",
@@ -8135,6 +8963,10 @@
             "category": "Canards"
         },
         {
+            "src": "assets/avatars/fronts/Canards/KhXD3fq5.png",
+            "category": "Canards"
+        },
+        {
             "src": "assets/avatars/fronts/Canards/mNrj9SV.png",
             "category": "Canards"
         },
@@ -8451,10 +9283,6 @@
             "category": "Légumes"
         },
         {
-            "src": "assets/avatars/fronts/Pinguins/KhXD3fq5.png",
-            "category": "Pinguins"
-        },
-        {
             "src": "assets/avatars/fronts/Pinguins/Lyfm4BW.png",
             "category": "Pinguins"
         },
@@ -8579,10 +9407,6 @@
             "category": "Rongeurs"
         },
         {
-            "src": "assets/avatars/fronts/Rongeurs/Ufqbsuj.png",
-            "category": "Rongeurs"
-        },
-        {
             "src": "assets/avatars/fronts/Rongeurs/ZZ5np4t.png",
             "category": "Rongeurs"
         },
@@ -8619,10 +9443,6 @@
             "category": "Sauvages"
         },
         {
-            "src": "assets/avatars/fronts/Sauvages/qdEADjr3.png",
-            "category": "Sauvages"
-        },
-        {
             "src": "assets/avatars/fronts/Sauvages/qdEADjr4.png",
             "category": "Sauvages"
         },
@@ -8640,14 +9460,6 @@
         },
         {
             "src": "assets/avatars/fronts/Sauvages/qdEADjr8.png",
-            "category": "Sauvages"
-        },
-        {
-            "src": "assets/avatars/fronts/Sauvages/S1s52NZ.png",
-            "category": "Sauvages"
-        },
-        {
-            "src": "assets/avatars/fronts/Sauvages/sexW4TV.png",
             "category": "Sauvages"
         },
         {
