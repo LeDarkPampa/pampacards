@@ -8335,31 +8335,31 @@
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap1.png",
+      "src": "assets/avatars/backs/papillons/papillon1.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap2.png",
+      "src": "assets/avatars/backs/papillons/papillon2.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap3.png",
+      "src": "assets/avatars/backs/papillons/papillon3.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap4.png",
+      "src": "assets/avatars/backs/papillons/papillon4.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap5.png",
+      "src": "assets/avatars/backs/papillons/papillon5.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap6.png",
+      "src": "assets/avatars/backs/papillons/papillon6.png",
       "category": "papillons"
     },
     {
-      "src": "assets/avatars/backs/papillons/pap7.png",
+      "src": "assets/avatars/backs/papillons/papillon7.png",
       "category": "papillons"
     }
   ],
@@ -9219,15 +9219,7 @@
       "category": "droide"
     },
     {
-      "src": "assets/avatars/fronts/ferme/bunnysheet5.png",
-      "category": "ferme"
-    },
-    {
-      "src": "assets/avatars/fronts/ferme/chicken_walk.png",
-      "category": "ferme"
-    },
-    {
-      "src": "assets/avatars/fronts/ferme/chicken_walk2.png",
+      "src": "assets/avatars/fronts/ferme/cochon1.png",
       "category": "ferme"
     },
     {
@@ -9251,7 +9243,15 @@
       "category": "ferme"
     },
     {
-      "src": "assets/avatars/fronts/ferme/Ufqbsuj8.png",
+      "src": "assets/avatars/fronts/ferme/lapin.png",
+      "category": "ferme"
+    },
+    {
+      "src": "assets/avatars/fronts/ferme/poule.png",
+      "category": "ferme"
+    },
+    {
+      "src": "assets/avatars/fronts/ferme/poule2.png",
       "category": "ferme"
     },
     {
@@ -9335,51 +9335,51 @@
       "category": "ratons"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV.png",
+      "src": "assets/avatars/fronts/renards/renard1.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV10.png",
+      "src": "assets/avatars/fronts/renards/renard10.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV11.png",
+      "src": "assets/avatars/fronts/renards/renard11.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV12.png",
+      "src": "assets/avatars/fronts/renards/renard12.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV13.png",
+      "src": "assets/avatars/fronts/renards/renard2.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV2.png",
+      "src": "assets/avatars/fronts/renards/renard3.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV4.png",
+      "src": "assets/avatars/fronts/renards/renard4.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV5.png",
+      "src": "assets/avatars/fronts/renards/renard5.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV6.png",
+      "src": "assets/avatars/fronts/renards/renard6.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV7.png",
+      "src": "assets/avatars/fronts/renards/renard7.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV8.png",
+      "src": "assets/avatars/fronts/renards/renard8.png",
       "category": "renards"
     },
     {
-      "src": "assets/avatars/fronts/renards/3alQCkV9.png",
+      "src": "assets/avatars/fronts/renards/renard9.png",
       "category": "renards"
     },
     {
