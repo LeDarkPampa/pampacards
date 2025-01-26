@@ -23,22 +23,18 @@ def generate_assets_json(base_path):
                 relative_path = os.path.relpath(full_path, base_path)  # Chemin relatif à base_path
                 normalized_path = os.path.normpath(relative_path).replace("\\", "/")  # Convertir \ en /
 
-                # Extraire la catégorie (nom du dossier parent immédiat)
-                category = os.path.basename(os.path.dirname(normalized_path))
+                # Extraire la catégorie à partir du dossier parent de "avatars"
+                # Exemple : assets/avatars/<category>/<subfolder>/file.png
+                parts = normalized_path.split("/")
+                if len(parts) >= 4:  # Vérifie qu'il y a assez de segments dans le chemin
+                    category = parts[2]  # Le 3ème élément correspond à la catégorie (heads, hats, etc.)
 
-                # Ajouter le chemin d'image et la catégorie dans la structure appropriée
-                if "heads" in root:
-                    assets_structure["heads"].append({"src": normalized_path, "category": category})
-                elif "hats" in root:
-                    assets_structure["hats"].append({"src": normalized_path, "category": category})
-                elif "bodies" in root:
-                    assets_structure["bodies"].append({"src": normalized_path, "category": category})
-                elif "backs" in root:
-                    assets_structure["backs"].append({"src": normalized_path, "category": category})
-                elif "adds" in root:
-                    assets_structure["adds"].append({"src": normalized_path, "category": category})
-                elif "fronts" in root:
-                    assets_structure["fronts"].append({"src": normalized_path, "category": category})
+                    # Vérifier que la catégorie est valide
+                    if category in assets_structure:
+                        assets_structure[category].append({
+                            "src": normalized_path,
+                            "category": os.path.basename(os.path.dirname(normalized_path))
+                        })
 
     # Écriture dans un fichier JSON
     output_path = os.path.join(base_path, "assets_structure.json")

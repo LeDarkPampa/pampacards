@@ -3023,190 +3023,6 @@
     ],
     "hats": [
         {
-            "src": "assets/avatars/bodies/chats/caitsith.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith10.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith11.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith12.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith13.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith14.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith15.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith16.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith17.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith18.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith19.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith2.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith20.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith21.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith22.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith23.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith24.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith25.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith26.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith27.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith28.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith3.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith4.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith5.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith6.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith7.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith8.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/caitsith9.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/bodies/chats/chat1.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat1.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat2.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat3.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat4.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat5.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat6.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat7.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat8.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/chat9.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR2.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR3.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR4.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR5.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR6.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR7.png",
-            "category": "chats"
-        },
-        {
-            "src": "assets/avatars/fronts/chats/qp2osWR8.png",
-            "category": "chats"
-        },
-        {
             "src": "assets/avatars/hats/animaux/berserker_f_blank.png",
             "category": "animaux"
         },
@@ -4983,6 +4799,122 @@
         {
             "src": "assets/avatars/bodies/champis/champchampbodyyy3.png",
             "category": "champis"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith10.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith11.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith12.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith13.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith14.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith15.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith16.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith17.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith18.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith19.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith2.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith20.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith21.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith22.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith23.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith24.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith25.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith26.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith27.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith28.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith3.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith4.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith5.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith6.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith7.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith8.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/caitsith9.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/bodies/chats/chat1.png",
+            "category": "chats"
         },
         {
             "src": "assets/avatars/bodies/combi/034-mage02-kopieb.png",
@@ -9041,6 +8973,74 @@
         {
             "src": "assets/avatars/fronts/champis/HHpl5Dh7.png",
             "category": "champis"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat1.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat2.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat3.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat4.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat5.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat6.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat7.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat8.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/chat9.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR2.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR3.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR4.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR5.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR6.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR7.png",
+            "category": "chats"
+        },
+        {
+            "src": "assets/avatars/fronts/chats/qp2osWR8.png",
+            "category": "chats"
         },
         {
             "src": "assets/avatars/fronts/chiens/cbien.png",
