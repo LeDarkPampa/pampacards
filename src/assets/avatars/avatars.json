@@ -3139,39 +3139,39 @@
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/4775038dced7f941e68a775b7066-2.png",
+      "src": "assets/avatars/fronts/chats/chat1.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/4775038dced7f941e68a775b7066-3.png",
+      "src": "assets/avatars/fronts/chats/chat2.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/4775038dced7f941e68a775b7066-4.png",
+      "src": "assets/avatars/fronts/chats/chat3.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/4775038dced7f941e68a775b7066.png",
+      "src": "assets/avatars/fronts/chats/chat4.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/4775038dced7f941e68a775b70662.png",
+      "src": "assets/avatars/fronts/chats/chat5.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/Chat sale.png",
+      "src": "assets/avatars/fronts/chats/chat6.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/Chat sale2.png",
+      "src": "assets/avatars/fronts/chats/chat7.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/dfdzwbs-9f0e5abe-5e5d-401a-8bfd-544ba1b9b970.png",
+      "src": "assets/avatars/fronts/chats/chat8.png",
       "category": "chats"
     },
     {
-      "src": "assets/avatars/fronts/chats/f402a3541ffca8fd9ffe12975deb.png",
+      "src": "assets/avatars/fronts/chats/chat9.png",
       "category": "chats"
     },
     {
@@ -8489,10 +8489,6 @@
       "category": "champis"
     },
     {
-      "src": "assets/avatars/adds/chauve-souris/32x32-bat-sprite.png",
-      "category": "chauve-souris"
-    },
-    {
       "src": "assets/avatars/adds/chauve-souris/32x32-bat-sprite2.png",
       "category": "chauve-souris"
     },
@@ -8505,7 +8501,11 @@
       "category": "chauve-souris"
     },
     {
-      "src": "assets/avatars/adds/chocobos/zzzzchocobo6it.png",
+      "src": "assets/avatars/adds/chauve-souris/bat1.png",
+      "category": "chauve-souris"
+    },
+    {
+      "src": "assets/avatars/adds/chocobos/chocobo1.png",
       "category": "chocobos"
     },
     {
@@ -8797,63 +8797,63 @@
       "category": "monstres"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_black.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau1.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_black2.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau10.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_black3.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau11.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_brown_1.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau12.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_cardinal.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau13.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_cardinal2.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau14.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_cardinal3.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau15.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_cardinal4.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau2.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_cardinal5.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau3.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_eagle.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau4.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_red.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau5.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_white.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau6.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_2_white2.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau7.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_3_robin.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau8.png",
       "category": "oiseaux"
     },
     {
-      "src": "assets/avatars/adds/oiseaux/bird_3_sparrow.png",
+      "src": "assets/avatars/adds/oiseaux/oiseau9.png",
       "category": "oiseaux"
     },
     {
