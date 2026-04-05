@@ -1,77 +1,123 @@
 <div class="container">
+  <nav class="details-statuts-nav" aria-label="Navigation tutoriel">
+    <a routerLink="/tutoriel" class="details-statuts-back">← Retour au tutoriel</a>
+  </nav>
+
   <div class="ligne-centree title">
-    Voici le détail des statuts qui peuvent affecter une carte :
+    Voici le détail des statuts qui peuvent affecter une carte&nbsp;:
   </div>
-  <div class="details-statuts">
+
+  <div *ngIf="loading" class="details-statuts-loading" role="status" aria-live="polite">
+    <div class="details-statuts-spinner" aria-hidden="true"></div>
+    <span>Chargement des exemples de cartes…</span>
+  </div>
+
+  <p *ngIf="loadFailed && !loading" class="details-statuts-error" role="alert">
+    Impossible de charger la carte d’exemple. Vérifie ta connexion ou réessaie plus tard.
+  </p>
+
+  <div class="details-statuts" *ngIf="!loading && !loadFailed">
     <div class="table-container">
       <table class="custom-table">
+        <caption class="table-caption">
+          Chaque ligne montre le même exemplaire avec un statut différent, pour comparer le rendu en jeu.
+        </caption>
         <colgroup>
-          <col style="width: 15%;">
-          <col style="width: 70%;">
-          <col style="width: 15%;">
+          <col class="col-nom" />
+          <col class="col-desc" />
+          <col class="col-visuel" />
         </colgroup>
         <thead>
-        <tr>
-          <th>Nom du statut</th>
-          <th>Description du statut</th>
-          <th>Visuel de la carte</th>
-        </tr>
+          <tr>
+            <th scope="col">Nom du statut</th>
+            <th scope="col">Description du statut</th>
+            <th scope="col">Visuel de la carte</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngIf="normale">
-          <td>Sans statut</td>
-          <td>La carte sans aucun effet.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="normale"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="bouclier">
-          <td>Bouclier</td>
-          <td>La carte est protégée contre les effets adverses (silence, diminution de puissance, etc.). Le seul effet pouvant cibler la carte est l'effet détruisant les boucliers.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="bouclier"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="indestructible">
-          <td>Bouclier indestructible</td>
-          <td>La carte est protégée contre les effets adverses (silence, diminution de puissance, etc.). Ce bouclier ne peut pas être détruit.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="indestructible"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="corrompu">
-          <td>Corrompu</td>
-          <td>
-            Cette carte perd son clan et son type qui sont remplacés par "Corrompu".
-            Cette carte n'est donc plus comptée dans les cartes de son clan ni de son type.
-            Une carte corrompue fait par exemple perdre son bonus à une autre carte qui a l'effet : "+2 si vous n’avez que des cartes du même clan/type"
-          </td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="corrompu"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="insensible">
-          <td>Insensible</td>
-          <td>Cette carte ne peut pas être ciblée par les effets de vos cartes, qu'ils soient instantanés ou continus, positifs ou négatifs.
-          Elle peut en revanche être ciblée par votre adversaire si elle n'a pas en plus un bouclier.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="insensible"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="prison">
-          <td>Prison</td>
-          <td>Cette carte a sa puissance bloquée à 0. Aucun effet d'aucune sorte ne peut augmenter cette puissance.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="prison"></app-carte-terrain></div>
-          </td>
-        </tr>
-        <tr *ngIf="silence">
-          <td>Silence</td>
-          <td>Cette carte a subit un silence. Si elle avait un effet continu, cet effet est annulé et ne peut pas être récupéré.</td>
-          <td>
-            <div class="ligne-centree"><app-carte-terrain [taille]="'terrain'" [carte]="silence"></app-carte-terrain></div>
-          </td>
-        </tr>
+          <tr *ngIf="normale as n">
+            <th scope="row" class="row-label">Sans statut</th>
+            <td class="cell-desc">La carte sans aucun effet.</td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="n"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="bouclier as b">
+            <th scope="row" class="row-label">Bouclier</th>
+            <td class="cell-desc">
+              La carte est protégée contre les effets adverses (silence, diminution de puissance, etc.). Le seul effet
+              pouvant cibler la carte est l’effet détruisant les boucliers.
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="b"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="indestructible as i">
+            <th scope="row" class="row-label">Bouclier indestructible</th>
+            <td class="cell-desc">
+              La carte est protégée contre les effets adverses (silence, diminution de puissance, etc.). Ce bouclier ne
+              peut pas être détruit.
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="i"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="corrompu as c">
+            <th scope="row" class="row-label">Corrompu</th>
+            <td class="cell-desc">
+              Cette carte perd son clan et son type qui sont remplacés par «&nbsp;Corrompu&nbsp;». Cette carte n’est
+              donc plus comptée dans les cartes de son clan ni de son type. Une carte corrompue fait par exemple perdre
+              son bonus à une autre carte qui a l’effet&nbsp;: «&nbsp;+2 si vous n’avez que des cartes du même
+              clan/type&nbsp;».
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="c"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="insensible as ins">
+            <th scope="row" class="row-label">Insensible</th>
+            <td class="cell-desc">
+              Cette carte ne peut pas être ciblée par les effets de vos cartes, qu’ils soient instantanés ou continus,
+              positifs ou négatifs. Elle peut en revanche être ciblée par votre adversaire si elle n’a pas en plus un
+              bouclier.
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="ins"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="prison as p">
+            <th scope="row" class="row-label">Prison</th>
+            <td class="cell-desc">
+              Cette carte a sa puissance bloquée à 0. Aucun effet d’aucune sorte ne peut augmenter cette puissance.
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="p"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="silence as s">
+            <th scope="row" class="row-label">Silence</th>
+            <td class="cell-desc">
+              Cette carte a subi un silence. Si elle avait un effet continu, cet effet est annulé et ne peut pas être
+              récupéré.
+            </td>
+            <td class="cell-visuel">
+              <div class="ligne-centree">
+                <app-carte-terrain [taille]="'terrain'" [carte]="s"></app-carte-terrain>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
