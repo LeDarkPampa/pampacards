@@ -1,61 +1,84 @@
-<div class="explanation-section">
-  <div class="explanation-text">
-    <h2>Bienvenue dans le Monde des Pampa Cards !</h2>
-    <p>
-      Explorez les fonctionnalités pour commencer votre aventure.
-    </p>
-    <p>
-      Apprenez les règles, découvrez les decks de départ, construisez votre propre deck, trouvez des adversaires et participez à des tournois excitants.
-    </p>
-    <p>
-      Que l'aventure commence !
-    </p>
-  </div>
-</div>
+<div class="accueil-page">
+  <section class="accueil-hero" aria-labelledby="accueil-title">
+    <div class="accueil-hero-glow" aria-hidden="true"></div>
+    <div class="accueil-hero-inner">
+      <p class="accueil-eyebrow">Jeu de cartes stratégique</p>
+      <h1 id="accueil-title" class="accueil-title">Pampa Cards</h1>
+      <p class="accueil-lead">
+        Règles, decks de départ, boosters, construction de deck et affrontements&nbsp;: tout commence ici.
+      </p>
+      <div class="accueil-hero-actions">
+        <ng-container *ngIf="authService.isLoggedIn$ | async; else guestActions">
+          <button type="button" class="ui-btn-primary accueil-cta-primary" (click)="navigateTo('/recherche-combat')">
+            <span class="material-icons accueil-cta-icon" aria-hidden="true">sports_esports</span>
+            Entrer en arène
+          </button>
+          <button type="button" class="ui-btn-secondary accueil-cta-secondary" (click)="navigateTo('/deckbuilder')">
+            <span class="material-icons accueil-cta-icon" aria-hidden="true">style</span>
+            Deckbuilder
+          </button>
+        </ng-container>
+        <ng-template #guestActions>
+          <button type="button" class="ui-btn-primary accueil-cta-primary" (click)="navigateTo('/login')">
+            <span class="material-icons accueil-cta-icon" aria-hidden="true">login</span>
+            Se connecter
+          </button>
+          <button type="button" class="ui-btn-secondary accueil-cta-secondary" (click)="navigateTo('/tutoriel/jouer')">
+            <span class="material-icons accueil-cta-icon" aria-hidden="true">menu_book</span>
+            Découvrir les règles
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </section>
 
-<div class="features-container">
-  <div class="feature-card">
-    <div class="card-content">
-      <h2>Apprendre à Jouer</h2>
-      <p>Découvrez les règles du jeu et les bases stratégiques.</p>
+  <section class="accueil-section" aria-labelledby="section-decouvrir">
+    <h2 id="section-decouvrir" class="accueil-section-title">Découvrir le jeu</h2>
+    <p class="accueil-section-sub">Contenus accessibles à tous, pour bien débuter ou creuser la méta.</p>
+    <div class="accueil-grid">
+      <button type="button" class="accueil-card" (click)="navigateTo('/tutoriel/jouer')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">school</span>
+        <h3 class="accueil-card-title">Apprendre à jouer</h3>
+        <p class="accueil-card-text">Règles et bases stratégiques pour prendre le jeu en main.</p>
+        <span class="accueil-card-link">Tutoriel <span aria-hidden="true">→</span></span>
+      </button>
+      <button type="button" class="accueil-card" (click)="navigateTo('/infos/deck-base-details')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">layers</span>
+        <h3 class="accueil-card-title">Decks de départ</h3>
+        <p class="accueil-card-text">Comprendre les decks de base avant de construire le vôtre.</p>
+        <span class="accueil-card-link">Voir les decks <span aria-hidden="true">→</span></span>
+      </button>
+      <button type="button" class="accueil-card" (click)="navigateTo('/infos/boosters-details')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">card_giftcard</span>
+        <h3 class="accueil-card-title">Boosters</h3>
+        <p class="accueil-card-text">Où trouver les cartes qui vous intéressent.</p>
+        <span class="accueil-card-link">Détail des boosters <span aria-hidden="true">→</span></span>
+      </button>
     </div>
-    <button class="explore-button" (click)="navigateTo('/tutoriel/jouer')">Tutoriel</button>
-  </div>
-  <div class="feature-card">
-    <div class="card-content">
-      <h2>Découvrir les decks de départ</h2>
-      <p>Le choix du deck de départ est toujours important.</p>
+  </section>
+
+  <section *ngIf="authService.isLoggedIn$ | async" class="accueil-section accueil-section--play" aria-labelledby="section-jouer">
+    <h2 id="section-jouer" class="accueil-section-title">Jouer</h2>
+    <p class="accueil-section-sub">Vos outils de compétition et d’entraînement.</p>
+    <div class="accueil-grid">
+      <button type="button" class="accueil-card accueil-card--accent" (click)="navigateTo('/deckbuilder')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">construction</span>
+        <h3 class="accueil-card-title">Construire un deck</h3>
+        <p class="accueil-card-text">Préparez votre liste pour le format choisi.</p>
+        <span class="accueil-card-link">Ouvrir le deckbuilder <span aria-hidden="true">→</span></span>
+      </button>
+      <button type="button" class="accueil-card accueil-card--accent" (click)="navigateTo('/recherche-combat')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">gps_fixed</span>
+        <h3 class="accueil-card-title">Trouver un adversaire</h3>
+        <p class="accueil-card-text">Lancez une partie classée ou amicale.</p>
+        <span class="accueil-card-link">Aller à l’arène <span aria-hidden="true">→</span></span>
+      </button>
+      <button type="button" class="accueil-card accueil-card--accent" (click)="navigateTo('/tournois')">
+        <span class="material-icons accueil-card-icon" aria-hidden="true">emoji_events</span>
+        <h3 class="accueil-card-title">Tournois & ligues</h3>
+        <p class="accueil-card-text">Inscriptions, calendrier et classements.</p>
+        <span class="accueil-card-link">Voir les compétitions <span aria-hidden="true">→</span></span>
+      </button>
     </div>
-    <button class="explore-button" (click)="navigateTo('/infos/deck-base-details')">Decks de départ</button>
-  </div>
-  <div class="feature-card">
-    <div class="card-content">
-      <h2>Voir le détail des boosters</h2>
-      <p>Découvrez dans quel booster trouver la carte de vos rêves.</p>
-    </div>
-    <button class="explore-button" (click)="navigateTo('/infos/boosters-details')">Boosters</button>
-  </div>
-</div>
-<div *ngIf="authService.isLoggedIn$ | async" class="features-container">
-  <div class="feature-card">
-    <div class="card-content">
-      <h2>Construire un deck</h2>
-      <p>Préparez votre armée pour le combat.</p>
-    </div>
-    <button class="explore-button" (click)="navigateTo('/deckbuilder')">Deckbuilder</button>
-  </div>
-  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card">
-    <div class="card-content">
-      <h2>Trouver un adversaire</h2>
-      <p>Rien ne vaut un match amical pour s'entraîner.</p>
-    </div>
-    <button class="explore-button" (click)="navigateTo('/recherche-combat')">Arène</button>
-  </div>
-  <div *ngIf="authService.isLoggedIn$ | async" class="feature-card">
-    <div class="card-content">
-      <h2>Voir les tournois</h2>
-      <p>Les vrais compétitions se trouvent ici.</p>
-    </div>
-    <button class="explore-button" (click)="navigateTo('/tournois')">Tournois</button>
-  </div>
+  </section>
 </div>

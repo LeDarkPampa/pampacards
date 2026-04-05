@@ -1,85 +1,229 @@
-.features-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin: 20px 0;
-
-  .feature-card {
-    box-shadow: -5px -5px 20px #141414, 5px 5px 20px #0a0a0a;
-    background-color: rgba(255, 255, 255, 0.1);
-    width: 30%;
-    padding-bottom: 20px;
-    margin: 0 10px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-
-    .card-content {
-
-      img {
-        width: 100%;
-        border-radius: 8px;
-        margin-bottom: 10px;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-
-      p {
-        font-size: 1rem;
-        margin-bottom: 10px;
-      }
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #8c1b16;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-
-      &:hover {
-        background-color: #751310;
-      }
-    }
-  }
+:host {
+  display: block;
 }
 
-.explanation-section {
+.accueil-page {
+  --accueil-accent: #c42a22;
+  --accueil-accent-dim: rgba(196, 42, 34, 0.35);
+  --accueil-surface: rgba(255, 255, 255, 0.06);
+  --accueil-border: rgba(255, 255, 255, 0.1);
+  --accueil-text: #f2f2f2;
+  --accueil-muted: rgba(255, 255, 255, 0.65);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 3rem;
+}
+
+.accueil-hero {
+  position: relative;
+  border-radius: 20px;
+  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 2.5rem);
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(30, 30, 35, 0.95) 0%, rgba(18, 18, 22, 0.98) 100%);
+  border: 1px solid var(--accueil-border);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.accueil-hero-glow {
+  position: absolute;
+  inset: -40% -20% auto;
+  height: 70%;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, var(--accueil-accent-dim), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 30%, rgba(30, 79, 108, 0.25), transparent 50%);
+  pointer-events: none;
+}
+
+.accueil-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.accueil-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accueil-accent);
+  margin: 0 0 0.75rem;
+}
+
+.accueil-title {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--accueil-text);
+  margin: 0 0 1rem;
+}
+
+.accueil-lead {
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  line-height: 1.55;
+  color: var(--accueil-muted);
+  margin: 0 0 1.75rem;
+}
+
+.accueil-hero-actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   justify-content: center;
   align-items: center;
-  margin: 40px 0;
+}
 
-  .illustration {
-    img {
-      width: 100%;
-      border-radius: 8px;
-    }
+.accueil-cta-primary,
+.accueil-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: auto;
+  width: auto;
+  margin: 0;
+}
+
+.accueil-cta-icon {
+  font-size: 1.25rem !important;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Bouton secondaire lisible sur le hero sombre */
+.accueil-hero .ui-btn-secondary {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0f0f0;
+  box-shadow: none;
+}
+
+.accueil-hero .ui-btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.accueil-section {
+  margin-bottom: 2.75rem;
+}
+
+.accueil-section--play {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--accueil-border);
+}
+
+.accueil-section-title {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-size: clamp(1.35rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--accueil-text);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.accueil-section-sub {
+  font-size: 0.95rem;
+  color: var(--accueil-muted);
+  margin: 0 0 1.35rem;
+  max-width: 40rem;
+}
+
+.accueil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+
+.accueil-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  padding: 1.35rem 1.25rem 1.15rem;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  border-radius: 16px;
+  border: 1px solid var(--accueil-border);
+  background: var(--accueil-surface);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.accueil-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.accueil-card:focus-visible {
+  outline: 2px solid var(--accueil-accent);
+  outline-offset: 3px;
+}
+
+.accueil-card--accent:hover {
+  border-color: rgba(196, 42, 34, 0.45);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(196, 42, 34, 0.15);
+}
+
+.accueil-card-icon {
+  font-size: 2rem !important;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+  color: var(--accueil-accent);
+  opacity: 0.95;
+}
+
+.accueil-card-title {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accueil-text);
+  margin: 0 0 0.45rem;
+  line-height: 1.25;
+}
+
+.accueil-card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--accueil-muted);
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+.accueil-card-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accueil-accent);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+  .accueil-hero-actions {
+    flex-direction: column;
+    width: 100%;
   }
 
-  .explanation-text {
-    text-align: center;
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1rem;
-    }
+  .accueil-cta-primary,
+  .accueil-cta-secondary {
+    width: 100%;
+    justify-content: center;
   }
 }
