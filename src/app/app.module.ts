@@ -77,10 +77,6 @@ import {CarteEffetService} from "./services/carteEffet.service";
 import {TchatService} from "./services/tchat.service";
 import {TutoTournoisComponent} from "./tutoriel/tournois/tuto-tournois.component";
 import {CarteComponent} from "./carte/carte.component";
-import {LgAccueilComponent} from "./loup-garou/lg-accueil/lg-accueil.component";
-import {LgJoinComponent} from "./loup-garou/lg-join/lg-join.component";
-import {LgCreateComponent} from "./loup-garou/lg-create/lg-create.component";
-import {LgGameComponent} from "./loup-garou/lg-game/lg-game.component";
 import {InscriptionDialogComponent} from "./tournois/inscription-dialog/inscription-dialog.component";
 import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
 import {AvatarBuilderComponent} from "./mon-compte/avatar-builder/avatar-builder.component";
@@ -146,10 +142,6 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
     OpenAffrontementDialogComponent,
     CarteMainObsComponent,
     TutoTournoisComponent,
-    LgAccueilComponent,
-    LgJoinComponent,
-    LgCreateComponent,
-    LgGameComponent,
     CarteComponent,
     DefisListComponent
   ],
@@ -188,10 +180,6 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
     {path: 'attribution-deck', component: AttributionDeckComponent, canActivate: [AuthGuard]},
     {path: 'tournois-management', component: AdministrationTournoisComponent, canActivate: [AuthGuard]},
     {path: 'card-view/:id', component: CardViewComponent},
-    {path: 'lg/accueil', component: LgAccueilComponent},
-    {path: 'lg/create', component: LgCreateComponent},
-    {path: 'lg/join', component: LgJoinComponent},
-    {path: 'lg/game/:gameId/:playerId', component: LgGameComponent},
     {path: 'deconnexion', component: DeconnexionComponent},
     {path: '', redirectTo: '/accueil', pathMatch: 'full'},
     {path: '**', component: PageNotFoundComponent}
