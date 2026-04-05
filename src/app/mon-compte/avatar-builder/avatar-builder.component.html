@@ -1,183 +1,96 @@
 <div class="avatar-creator">
   <h2>Création d'Avatar</h2>
 
-  <div class="avatar-preview">
-    <app-avatar-view
-      [head]="selectedParts.head"
-      [hat]="selectedParts.hat"
-      [body]="selectedParts.body"
-      [back]="selectedParts.back"
-      [add]="selectedParts.add"
-      [front]="selectedParts.front">
-    </app-avatar-view>
+  <p-messages [(value)]="message" [enableService]="false"></p-messages>
+
+  <p class="avatar-unsaved-hint" *ngIf="hasUnsavedChanges && !loading" role="status">
+    Modifications non enregistrées
+  </p>
+
+  <div class="avatar-preview-wrap">
+    <div class="avatar-loading" *ngIf="loading" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="avatar-loading-text">Chargement…</span>
+    </div>
+
+    <div class="avatar-preview" [class.avatar-preview-dimmed]="loading">
+      <app-avatar-view
+        [head]="selectedParts.head"
+        [hat]="selectedParts.hat"
+        [body]="selectedParts.body"
+        [back]="selectedParts.back"
+        [add]="selectedParts.add"
+        [front]="selectedParts.front"
+      >
+      </app-avatar-view>
+    </div>
   </div>
 
-  <div class="selection-panel">
-    <div class="selection">
-      <h4>Choix du chapeau</h4>
+  <div class="avatar-toolbar ligne-centree">
+    <button type="button" class="avatar-tool-btn" (click)="cancelChanges()" [disabled]="loading || !hasUnsavedChanges">
+      Annuler les changements
+    </button>
+    <button type="button" class="avatar-tool-btn" (click)="resetFromServer()" [disabled]="loading">
+      Recharger depuis le serveur
+    </button>
+  </div>
 
-      <div class="tabs">
+  <div class="selection-panel" [attr.aria-busy]="loading">
+    <div class="selection" *ngFor="let sec of sections">
+      <h4 [id]="'avatar-sec-' + sec.partsKey">{{ sec.title }}</h4>
+
+      <div class="tabs" role="tablist" [attr.aria-labelledby]="'avatar-sec-' + sec.partsKey">
         <button
-          (click)="selectPart('hat', '')"
-          [class.selected]="selectedCategories.hats === ''">
-          <img [src]="'assets/avatars/no-elem.png'" />
+          *ngIf="sec.optionalEmpty"
+          type="button"
+          class="tab-none"
+          (click)="clearOptionalSlot(sec.slot)"
+          [class.selected]="selectedCategories[sec.partsKey] === ''"
+          [attr.aria-selected]="selectedCategories[sec.partsKey] === ''"
+          role="tab"
+          [attr.aria-label]="'Aucun ' + sec.ariaPieceLabel"
+        >
+          <img [src]="'assets/avatars/no-elem.png'" alt="" />
         </button>
 
-        <button *ngFor="let category of getFilteredCategories('hats')"
-                (click)="filterParts('hats', category)"
-                [class.active]="selectedCategories.hats === category">
-          {{ category }}
-        </button>
-      </div>
-
-      <div class="options" *ngIf="selectedCategories.hats !== ''">
-        <img *ngFor="let hat of filteredParts.hats"
-             [src]="hat.src"
-             (click)="selectPart('hat', hat.src)"
-             [class.selected]="hat.src === selectedParts.hat"
-             [class.locked]="!isDebloque(hat)"
-             role="button"
-             loading="lazy"
-        />
-      </div>
-    </div>
-
-    <div class="selection">
-      <h4>Choix de la tête</h4>
-
-      <div class="tabs">
-        <button *ngFor="let category of getFilteredCategories('heads')"
-                (click)="filterParts('heads', category)"
-                [class.active]="selectedCategories.heads === category">
-          {{ category }}
-        </button>
-      </div>
-
-      <div class="options">
-        <img *ngFor="let head of filteredParts.heads"
-             [src]="head.src"
-             (click)="selectPart('head', head.src)"
-             [class.selected]="head.src === selectedParts.head"
-             [class.locked]="!isDebloque(head)"
-             role="button"
-             loading="lazy"
-        />
-      </div>
-    </div>
-
-    <div class="selection">
-      <h4>Choix du corps</h4>
-
-      <div class="tabs">
-        <button *ngFor="let category of getFilteredCategories('bodies')"
-                (click)="filterParts('bodies', category)"
-                [class.active]="selectedCategories.bodies === category">
-          {{ category }}
-        </button>
-      </div>
-
-      <div class="options">
-        <img *ngFor="let body of filteredParts.bodies"
-             [src]="body.src"
-             (click)="selectPart('body', body.src)"
-             [class.selected]="body.src === selectedParts.body"
-             [class.locked]="!isDebloque(body)"
-             role="button"
-             loading="lazy"
-        />
-      </div>
-    </div>
-
-    <!-- Pour les backs -->
-    <div class="selection">
-      <h4>Choix du dos</h4>
-
-      <div class="tabs">
         <button
-          (click)="selectPart('back', '')"
-          [class.selected]="selectedCategories.backs === ''">
-          <img [src]="'assets/avatars/no-elem.png'" />
-        </button>
-
-        <button *ngFor="let category of getFilteredCategories('backs')"
-                (click)="filterParts('backs', category)"
-                [class.active]="selectedCategories.backs === category">
+          *ngFor="let category of visibleTabCategories[sec.partsKey]"
+          type="button"
+          (click)="filterParts(sec.partsKey, category)"
+          [class.active]="selectedCategories[sec.partsKey] === category"
+          [attr.aria-selected]="selectedCategories[sec.partsKey] === category"
+          role="tab"
+          [attr.id]="'tab-' + sec.partsKey + '-' + category"
+        >
           {{ category }}
         </button>
       </div>
 
-      <div class="options" *ngIf="selectedCategories.backs !== ''">
-        <img *ngFor="let back of filteredParts.backs"
-             [src]="back.src"
-             (click)="selectPart('back', back.src)"
-             [class.selected]="back.src === selectedParts.back"
-             [class.locked]="!isDebloque(back)"
-             role="button"
-             loading="lazy"
-        />
+      <div
+        class="options"
+        role="tabpanel"
+        *ngIf="!sec.optionalEmpty || selectedCategories[sec.partsKey] !== ''"
+      >
+        <button
+          *ngFor="let piece of filteredParts[sec.partsKey]; trackBy: trackBySrc"
+          type="button"
+          class="option-thumb"
+          [class.selected]="piece.src === selectedParts[sec.slot]"
+          [class.locked]="!isDebloquePiece(piece)"
+          (click)="onPieceClick(sec.slot, piece)"
+          (keydown)="onPieceKeydown($event, sec.slot, piece)"
+          [attr.aria-label]="
+            (isDebloquePiece(piece) ? 'Choisir ' : 'Verrouillé — ') + sec.ariaPieceLabel + ' : ' + piece.category
+          "
+          [attr.aria-pressed]="piece.src === selectedParts[sec.slot]"
+        >
+          <img [src]="piece.src" alt="" loading="lazy" />
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Pour les adds -->
-  <div class="selection">
-    <h4>Choix de l'élément d'arrière plan</h4>
-
-    <div class="tabs">
-      <button
-        (click)="selectPart('add', '')"
-        [class.selected]="selectedCategories.adds === ''">
-        <img [src]="'assets/avatars/no-elem.png'" />
-      </button>
-
-      <button *ngFor="let category of getFilteredCategories('adds')"
-              (click)="filterParts('adds', category)"
-              [class.active]="selectedCategories.adds === category">
-        {{ category }}
-      </button>
-    </div>
-
-    <div class="options" *ngIf="selectedCategories.adds !== ''">
-      <img *ngFor="let add of filteredParts.adds"
-           [src]="add.src"
-           (click)="selectPart('add', add.src)"
-           [class.selected]="add.src === selectedParts.add"
-           [class.locked]="!isDebloque(add)"
-           role="button"
-           loading="lazy"
-      />
-    </div>
-  </div>
-
-  <div class="selection">
-    <h4>Choix de l'élément supplémentaire</h4>
-
-    <div class="tabs">
-      <button
-        (click)="selectPart('front', '')"
-        [class.selected]="selectedCategories.fronts === ''">
-        <img [src]="'assets/avatars/no-elem.png'" />
-      </button>
-
-      <button *ngFor="let category of getFilteredCategories('fronts')"
-              (click)="filterParts('fronts', category)"
-              [class.active]="selectedCategories.fronts === category">
-        {{ category }}
-      </button>
-    </div>
-
-    <div class="options" *ngIf="selectedCategories.fronts !== ''">
-      <img *ngFor="let front of filteredParts.fronts"
-           [src]="front.src"
-           (click)="selectPart('front', front.src)"
-           [class.selected]="front.src === selectedParts.front"
-           [class.locked]="!isDebloque(front)"
-           role="button"
-           loading="lazy"
-      />
-    </div>
-  </div>
   <div class="ligne-centree save-avatar">
-    <button (click)="saveAvatar()">Sauvegarder mon avatar</button>
+    <button type="button" (click)="saveAvatar()" [disabled]="loading">Sauvegarder mon avatar</button>
   </div>
 </div>

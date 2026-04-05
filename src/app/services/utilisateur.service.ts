@@ -8,6 +8,7 @@ import {Collection} from "../classes/Collection";
 import {Deck} from "../classes/decks/Deck";
 import {AuthentificationService} from "./authentification.service";
 import {Avatar} from "../classes/Avatar";
+import {ElementDebloque} from "../classes/ElementDebloque";
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +63,7 @@ export class UtilisateurService extends ApiService {
     );
   }
 
-  getElementsDebloques(userId: number) {
-    return this.http.get<any[]>(this.API_URL + `/debloques?userId=${userId}`);
+  getElementsDebloques(userId: number): Observable<ElementDebloque[]> {
+    return this.http.get<ElementDebloque[]>(this.API_URL + `/debloques?userId=${userId}`);
   }
 }

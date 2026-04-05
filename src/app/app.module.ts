@@ -163,7 +163,12 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
     {path: 'tournoi/:id', component: DetailsTournoiComponent, canActivate: [AuthGuard]},
     {path: 'ligue/:id', component: DetailsLigueComponent, canActivate: [AuthGuard]},
     {path: 'mon-compte', component: MonCompteComponent, canActivate: [AuthGuard]},
-    {path: 'avatar-builder', component: AvatarBuilderComponent, canActivate: [AuthGuard]},
+    {
+      path: 'avatar-builder',
+      component: AvatarBuilderComponent,
+      canActivate: [AuthGuard],
+      canDeactivate: [CanDeactivateGuard],
+    },
     {path: 'defis-list', component: DefisListComponent, canActivate: [AuthGuard]},
     {path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard]},
     {path: 'create-account', component: CreateAccountComponent, canActivate: [AuthGuard]},

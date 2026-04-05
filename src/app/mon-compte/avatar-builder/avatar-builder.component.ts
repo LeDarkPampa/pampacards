@@ -1,186 +1,419 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {AvatarPart} from "../../classes/AvatarPart";
-import {UtilisateurService} from "../../services/utilisateur.service";
-import {AuthentificationService} from "../../services/authentification.service";
-import {AvatarService} from "../../services/avatar.service";
-import {Avatar} from "../../classes/Avatar";
+import { forkJoin } from 'rxjs';
+import { Message } from 'primeng/api';
+import { UtilisateurService } from '../../services/utilisateur.service';
+import { AuthentificationService } from '../../services/authentification.service';
+import { AvatarService } from '../../services/avatar.service';
+import { Avatar } from '../../classes/Avatar';
+import { ElementDebloque } from '../../classes/ElementDebloque';
+import { CanComponentDeactivate } from '../../CanComponentDeactivate';
+import { AVATAR_MSG, AVATAR_UI } from './avatar-builder-messages';
+
+export type AvatarSlot = 'head' | 'hat' | 'body' | 'back' | 'add' | 'front';
+export type AvatarPartsKey = 'heads' | 'hats' | 'bodies' | 'backs' | 'adds' | 'fronts';
+
+export interface AvatarPieceItem {
+  src: string;
+  category: string;
+}
+
+export interface AvatarCatalog {
+  heads: AvatarPieceItem[];
+  hats: AvatarPieceItem[];
+  bodies: AvatarPieceItem[];
+  backs: AvatarPieceItem[];
+  adds: AvatarPieceItem[];
+  fronts: AvatarPieceItem[];
+}
+
+export interface AvatarSectionDef {
+  slot: AvatarSlot;
+  partsKey: AvatarPartsKey;
+  title: string;
+  optionalEmpty: boolean;
+  ariaPieceLabel: string;
+}
+
+const PARTS_KEYS: AvatarPartsKey[] = ['heads', 'hats', 'bodies', 'backs', 'adds', 'fronts'];
+
+const SLOT_TO_PARTS: Record<AvatarSlot, AvatarPartsKey> = {
+  head: 'heads',
+  hat: 'hats',
+  body: 'bodies',
+  back: 'backs',
+  add: 'adds',
+  front: 'fronts',
+};
+
+const PARTS_TO_SLOT: Record<AvatarPartsKey, AvatarSlot> = {
+  heads: 'head',
+  hats: 'hat',
+  bodies: 'body',
+  backs: 'back',
+  adds: 'add',
+  fronts: 'front',
+};
 
 @Component({
   selector: 'app-avatar-builder',
   templateUrl: './avatar-builder.component.html',
-  styleUrls: ['./avatar-builder.component.css', '../../app.component.css']
+  styleUrls: ['./avatar-builder.component.css', '../../app.component.css'],
 })
-export class AvatarBuilderComponent implements OnInit {
+export class AvatarBuilderComponent implements OnInit, CanComponentDeactivate {
+  readonly sections: AvatarSectionDef[] = [
+    {
+      slot: 'hat',
+      partsKey: 'hats',
+      title: 'Choix du chapeau',
+      optionalEmpty: true,
+      ariaPieceLabel: 'chapeau',
+    },
+    {
+      slot: 'head',
+      partsKey: 'heads',
+      title: 'Choix de la tête',
+      optionalEmpty: false,
+      ariaPieceLabel: 'tête',
+    },
+    {
+      slot: 'body',
+      partsKey: 'bodies',
+      title: 'Choix du corps',
+      optionalEmpty: false,
+      ariaPieceLabel: 'corps',
+    },
+    {
+      slot: 'back',
+      partsKey: 'backs',
+      title: 'Choix du dos',
+      optionalEmpty: true,
+      ariaPieceLabel: 'élément dos',
+    },
+    {
+      slot: 'add',
+      partsKey: 'adds',
+      title: "Choix de l'élément d'arrière-plan",
+      optionalEmpty: true,
+      ariaPieceLabel: "arrière-plan",
+    },
+    {
+      slot: 'front',
+      partsKey: 'fronts',
+      title: "Choix de l'élément supplémentaire",
+      optionalEmpty: true,
+      ariaPieceLabel: 'élément avant-plan',
+    },
+  ];
 
-  parts = {
-    heads: [] as { src: string; category: string }[],
-    hats: [] as { src: string; category: string }[],
-    bodies: [] as { src: string; category: string }[],
-    backs: [] as { src: string; category: string }[],
-    adds: [] as { src: string; category: string }[],
-    fronts: [] as { src: string; category: string }[]
+  parts: AvatarCatalog = {
+    heads: [],
+    hats: [],
+    bodies: [],
+    backs: [],
+    adds: [],
+    fronts: [],
   };
 
-  categories = {
-    heads: [] as string[],
-    hats: [] as string[],
-    bodies: [] as string[],
-    backs: [] as string[],
-    adds: [] as string[],
-    fronts: [] as string[]
+  categories: Record<AvatarPartsKey, string[]> = {
+    heads: [],
+    hats: [],
+    bodies: [],
+    backs: [],
+    adds: [],
+    fronts: [],
   };
 
-  filteredParts = {
-    heads: [] as { src: string; category: string }[],
-    hats: [] as { src: string; category: string }[],
-    bodies: [] as { src: string; category: string }[],
-    backs: [] as { src: string; category: string }[],
-    adds: [] as { src: string; category: string }[],
-    fronts: [] as { src: string; category: string }[]
+  filteredParts: Record<AvatarPartsKey, AvatarPieceItem[]> = {
+    heads: [],
+    hats: [],
+    bodies: [],
+    backs: [],
+    adds: [],
+    fronts: [],
   };
 
-  selectedCategories = {
+  selectedCategories: Record<AvatarPartsKey, string> = {
     heads: '',
     hats: '',
     bodies: '',
     backs: '',
     adds: '',
-    fronts: ''
+    fronts: '',
   };
 
-  selectedParts = {
+  /** Onglets visibles (débloqués ou contenant la pièce équipée). */
+  visibleTabCategories: Record<AvatarPartsKey, string[]> = {
+    heads: [],
+    hats: [],
+    bodies: [],
+    backs: [],
+    adds: [],
+    fronts: [],
+  };
+
+  selectedParts: Record<AvatarSlot, string> = {
     head: '',
     hat: '',
     body: '',
     back: '',
     add: '',
-    front: ''
+    front: '',
+  };
+
+  private savedPartsSnapshot: Record<AvatarSlot, string> = {
+    head: '',
+    hat: '',
+    body: '',
+    back: '',
+    add: '',
+    front: '',
   };
 
   private avatar?: Avatar;
 
-  debloqueElements: any[] = [];
+  debloqueElements: ElementDebloque[] = [];
 
-  constructor(private http: HttpClient, private utilisateurService: UtilisateurService,
-              private authentificationService: AuthentificationService, private avatarService: AvatarService,
-              private cd: ChangeDetectorRef) {
+  loading = true;
 
-  }
+  message: Message[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private utilisateurService: UtilisateurService,
+    private authentificationService: AuthentificationService,
+    private avatarService: AvatarService
+  ) {}
 
   ngOnInit(): void {
-    this.avatarService.getAvatar().subscribe({
-      next: avatar => {
-        this.avatar = avatar;
-        this.selectedParts = {
-          head: avatar.tete,
-          hat: avatar.chapeau,
-          body: avatar.corps,
-          back: avatar.dos,
-          add: avatar.add,
-          front: avatar.front
-        };
+    this.loadBuilderData();
+  }
 
-        this.utilisateurService.getElementsDebloques(this.authentificationService.getUserId()).subscribe(debloqueElements => {
-          this.debloqueElements = debloqueElements;
-        });
+  get hasUnsavedChanges(): boolean {
+    return JSON.stringify(this.selectedParts) !== JSON.stringify(this.savedPartsSnapshot);
+  }
 
-        this.http.get<{
-          heads: { src: string; category: string }[],
-          hats: { src: string; category: string }[],
-          bodies: { src: string; category: string }[],
-          backs: { src: string; category: string }[],
-          adds: { src: string; category: string }[],
-          fronts: { src: string; category: string }[]
-        }>('assets/avatars/avatars.json').subscribe(data => {
-          this.parts = data;
+  canDeactivate(): boolean {
+    if (!this.hasUnsavedChanges) {
+      return true;
+    }
+    return window.confirm(AVATAR_MSG.LEAVE_CONFIRM);
+  }
 
-          this.categories.heads = Array.from(new Set(data.heads.map(item => item.category)));
-          this.categories.hats = Array.from(new Set(data.hats.map(item => item.category)));
-          this.categories.bodies = Array.from(new Set(data.bodies.map(item => item.category)));
-          this.categories.backs = Array.from(new Set(data.backs.map(item => item.category)));
-          this.categories.adds = Array.from(new Set(data.adds.map(item => item.category)));
-          this.categories.fronts = Array.from(new Set(data.fronts.map(item => item.category)));
-
-          this.selectedCategories.heads = this.getCategoryFromPart('heads', this.selectedParts.head);
-          this.selectedCategories.hats = this.getCategoryFromPart('hats', this.selectedParts.hat);
-          this.selectedCategories.bodies = this.getCategoryFromPart('bodies', this.selectedParts.body);
-          this.selectedCategories.backs = this.getCategoryFromPart('backs', this.selectedParts.back);
-          this.selectedCategories.adds = this.getCategoryFromPart('adds', this.selectedParts.add);
-          this.selectedCategories.fronts = this.getCategoryFromPart('fronts', this.selectedParts.front);
-
-          this.filterParts('heads', this.selectedCategories.heads);
-          this.filterParts('hats', this.selectedCategories.hats);
-          this.filterParts('bodies', this.selectedCategories.bodies);
-          this.filterParts('backs', this.selectedCategories.backs);
-          this.filterParts('adds', this.selectedCategories.adds);
-          this.filterParts('fronts', this.selectedCategories.fronts);
-        });
+  loadBuilderData(): void {
+    this.loading = true;
+    this.message = [];
+    const userId = this.authentificationService.getUserId();
+    forkJoin({
+      avatar: this.avatarService.getAvatar(),
+      debloques: this.utilisateurService.getElementsDebloques(userId),
+      catalog: this.http.get<AvatarCatalog>('assets/avatars/avatars.json'),
+    }).subscribe({
+      next: ({ avatar, debloques, catalog }) => {
+        this.applyLoadedData(avatar, debloques, catalog);
+        this.loading = false;
       },
-      error: error => {
-        console.error('Erreur lors de la récupération de l\'avatar', error);
-        alert('Erreur lors de la récupération de l\'avatar');
-      }
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+        this.message = [{ severity: 'error', summary: AVATAR_UI.ERROR, detail: AVATAR_MSG.LOAD_FAILED }];
+      },
     });
   }
 
-  filterParts(partType: keyof typeof this.parts, category: string) {
+  filterParts(partType: AvatarPartsKey, category: string): void {
     this.selectedCategories[partType] = category;
-
-    this.filteredParts[partType] = this.parts[partType].filter(item => item.category === category);
-    this.cd.detectChanges();
+    this.filteredParts[partType] = category
+      ? this.parts[partType].filter((item) => item.category === category)
+      : [];
+    this.refreshVisibleTabCategories();
   }
 
-  selectPart(part: keyof AvatarPart, value: string) {
+  selectPart(part: AvatarSlot, value: string): void {
     this.selectedParts[part] = value;
 
     if (value === '') {
-      const categoryKey = part + 's' as keyof typeof this.selectedCategories;
+      const categoryKey = SLOT_TO_PARTS[part];
       this.selectedCategories[categoryKey] = '';
+      this.filteredParts[categoryKey] = [];
     }
 
-    this.cd.detectChanges();
+    this.refreshVisibleTabCategories();
   }
 
+  onPieceClick(slot: AvatarSlot, piece: AvatarPieceItem): void {
+    if (!this.isDebloquePiece(piece)) {
+      this.message = [{ severity: 'warn', summary: AVATAR_UI.WARN, detail: AVATAR_MSG.PIECE_LOCKED }];
+      return;
+    }
+    this.selectPart(slot, piece.src);
+    const pk = SLOT_TO_PARTS[slot];
+    const cat = piece.category;
+    if (this.selectedCategories[pk] !== cat) {
+      this.filterParts(pk, cat);
+    }
+  }
 
-  saveAvatar() {
+  onPieceKeydown(event: KeyboardEvent, slot: AvatarSlot, piece: AvatarPieceItem): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onPieceClick(slot, piece);
+    }
+  }
+
+  clearOptionalSlot(slot: AvatarSlot): void {
+    this.selectPart(slot, '');
+  }
+
+  saveAvatar(): void {
+    if (this.loading) {
+      return;
+    }
+
     const updatedAvatar: Avatar = {
-      id: this.avatar?.id ? this.avatar?.id : 0,
+      id: this.avatar?.id ? this.avatar.id : 0,
       utilisateurId: this.authentificationService.getUserId(),
       tete: this.selectedParts.head,
       chapeau: this.selectedParts.hat,
       corps: this.selectedParts.body,
       dos: this.selectedParts.back,
       add: this.selectedParts.add,
-      front: this.selectedParts.front
+      front: this.selectedParts.front,
     };
 
     this.utilisateurService.saveAvatar(updatedAvatar).subscribe({
-      next: (response) => {
-        alert('Avatar sauvegardé avec succès !');
+      next: () => {
+        this.avatar = { ...updatedAvatar };
+        this.savedPartsSnapshot = { ...this.selectedParts };
+        this.message = [{ severity: 'success', summary: AVATAR_UI.SUCCESS, detail: AVATAR_MSG.SAVED }];
       },
       error: (error) => {
         console.error('Erreur lors de la sauvegarde de l\'avatar', error);
-        alert('Erreur lors de la sauvegarde de l\'avatar');
-      }
+        this.message = [{ severity: 'error', summary: AVATAR_UI.ERROR, detail: AVATAR_MSG.SAVE_FAILED }];
+      },
     });
   }
 
-  isDebloque(element: any): boolean {
-    return this.debloqueElements.some(debloqueElement =>
-      debloqueElement.elementCode === element.src);
-    // return true;
+  cancelChanges(): void {
+    this.selectedParts = { ...this.savedPartsSnapshot };
+    this.message = [];
+    this.reapplyFiltersAfterSnapshotRestore();
   }
 
-  private getCategoryFromPart(partType: keyof typeof this.parts, partSrc: string): string {
-    const part = this.parts[partType].find(item => item.src === partSrc);
-    return part ? part.category : ''; // Retourne la catégorie correspondante ou '' si non trouvée
+  resetFromServer(): void {
+    this.loadBuilderData();
   }
 
-  getFilteredCategories(partType: 'heads' | 'hats' | 'bodies' | 'backs' | 'adds' | 'fronts'): string[] {
-    return this.categories[partType].filter(category =>
-      this.parts[partType].some(part => part.category === category && this.isDebloque(part))
-    );
-    // return this.categories[partType];
+  isDebloquePiece(element: AvatarPieceItem): boolean {
+    return this.debloqueElements.some((d) => d.elementCode === element.src);
+  }
+
+  trackBySrc(_i: number, item: AvatarPieceItem): string {
+    return item.src;
+  }
+
+  private applyLoadedData(avatar: Avatar, debloques: ElementDebloque[], data: AvatarCatalog): void {
+    this.avatar = avatar;
+    this.debloqueElements = debloques;
+    this.parts = data;
+
+    PARTS_KEYS.forEach((pk) => {
+      this.categories[pk] = Array.from(new Set(this.parts[pk].map((item) => item.category)));
+    });
+
+    this.selectedParts = {
+      head: this.resolvePartSrc('heads', avatar.tete, true),
+      hat: this.resolvePartSrc('hats', avatar.chapeau, false),
+      body: this.resolvePartSrc('bodies', avatar.corps, true),
+      back: this.resolvePartSrc('backs', avatar.dos, false),
+      add: this.resolvePartSrc('adds', avatar.add, false),
+      front: this.resolvePartSrc('fronts', avatar.front, false),
+    };
+
+    this.refreshVisibleTabCategories();
+
+    for (const sec of this.sections) {
+      let cat = this.getCategoryFromPart(sec.partsKey, this.selectedParts[sec.slot]);
+      if (sec.optionalEmpty && !this.selectedParts[sec.slot]) {
+        cat = '';
+      } else if (!cat && !sec.optionalEmpty) {
+        cat = this.visibleTabCategories[sec.partsKey][0] ?? this.categories[sec.partsKey][0] ?? '';
+      }
+      this.selectedCategories[sec.partsKey] = cat;
+      this.filterParts(sec.partsKey, cat);
+    }
+
+    for (const sec of this.sections) {
+      if (!sec.optionalEmpty && this.filteredParts[sec.partsKey].length === 0 && this.parts[sec.partsKey].length > 0) {
+        const fallback = this.visibleTabCategories[sec.partsKey][0] ?? this.categories[sec.partsKey][0];
+        if (fallback) {
+          this.filterParts(sec.partsKey, fallback);
+        }
+      }
+    }
+
+    this.savedPartsSnapshot = { ...this.selectedParts };
+  }
+
+  private reapplyFiltersAfterSnapshotRestore(): void {
+    this.refreshVisibleTabCategories();
+    for (const sec of this.sections) {
+      let cat = this.getCategoryFromPart(sec.partsKey, this.selectedParts[sec.slot]);
+      if (sec.optionalEmpty && !this.selectedParts[sec.slot]) {
+        cat = '';
+      } else if (!cat && !sec.optionalEmpty) {
+        cat = this.visibleTabCategories[sec.partsKey][0] ?? this.categories[sec.partsKey][0] ?? '';
+      }
+      this.selectedCategories[sec.partsKey] = cat;
+      this.filterParts(sec.partsKey, cat);
+    }
+  }
+
+  private resolvePartSrc(partsKey: AvatarPartsKey, src: string | null | undefined, required: boolean): string {
+    const s = (src ?? '').trim();
+    const list = this.parts[partsKey];
+    if (!list.length) {
+      return '';
+    }
+    if (s && list.some((p) => p.src === s)) {
+      return s;
+    }
+    if (!required) {
+      return '';
+    }
+    const firstUnlocked = list.find((p) => this.isDebloquePiece(p));
+    if (firstUnlocked) {
+      return firstUnlocked.src;
+    }
+    return list[0].src;
+  }
+
+  private getCategoryFromPart(partType: AvatarPartsKey, partSrc: string): string {
+    if (!partSrc) {
+      return '';
+    }
+    const part = this.parts[partType].find((item) => item.src === partSrc);
+    return part ? part.category : '';
+  }
+
+  private refreshVisibleTabCategories(): void {
+    PARTS_KEYS.forEach((pk) => {
+      const slot = this.partsKeyToSlot(pk);
+      this.visibleTabCategories[pk] = this.buildVisibleCategories(pk, this.selectedParts[slot]);
+    });
+  }
+
+  private partsKeyToSlot(partsKey: AvatarPartsKey): AvatarSlot {
+    return PARTS_TO_SLOT[partsKey];
+  }
+
+  private buildVisibleCategories(partsKey: AvatarPartsKey, currentSrc: string): string[] {
+    return this.categories[partsKey].filter((category) => {
+      const inCat = this.parts[partsKey].filter((p) => p.category === category);
+      if (currentSrc && inCat.some((p) => p.src === currentSrc)) {
+        return true;
+      }
+      return inCat.some((p) => this.isDebloquePiece(p));
+    });
   }
 }
