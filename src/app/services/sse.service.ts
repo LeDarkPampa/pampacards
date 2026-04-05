@@ -31,6 +31,7 @@ export class SseService extends ApiService implements OnDestroy {
   }
 
   public getRechercheAdversairesFlux(): void {
+    this.closeUserListEventSource();
     this.userListEventSource = new EventSource(this.API_URL + '/flux-utilisateurs');
     this.userListEventSource.onopen = () => { };
     this.userListEventSource.onerror = (error) => {
@@ -43,6 +44,7 @@ export class SseService extends ApiService implements OnDestroy {
   }
 
   public getDemandeCombatFlux(): void {
+    this.closeDemandeCombatEventSource();
     this.demandeCombatEventSource = new EventSource(this.API_URL + '/flux-demandesCombats');
     this.demandeCombatEventSource.onopen = () => { };
     this.demandeCombatEventSource.onerror = (error) => {
@@ -55,8 +57,9 @@ export class SseService extends ApiService implements OnDestroy {
   }
 
   public getEvenementsPartieFlux(partieId: number): void {
+    this.closeEvenementsPartieEventSource();
     this.evenementsPartieEventSource = new EventSource(
-      `${this.API_URL}/flux-partieEvents?partieId=${partieId}`
+      `${this.API_URL}/flux-partieEvents?partieId=${partieId}`,
     );
     this.evenementsPartieEventSource.onopen = () => { };
     this.evenementsPartieEventSource.onerror = (error) => {
@@ -69,8 +72,9 @@ export class SseService extends ApiService implements OnDestroy {
   }
 
   public getChatMessagesFlux(partieId: number): void {
+    this.closeEvenementsChatEventSource();
     this.chatMessagesEventSource = new EventSource(
-      `${this.API_URL}/flux-chatMessages?partieId=${partieId}`
+      `${this.API_URL}/flux-chatMessages?partieId=${partieId}`,
     );
     this.chatMessagesEventSource.onopen = () => { };
     this.chatMessagesEventSource.onerror = (error) => {

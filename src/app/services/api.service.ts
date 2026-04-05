@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-  protected BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
-  protected API_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
+  protected readonly BACKEND_URL = environment.apiBaseUrl;
+  protected readonly API_URL = `${environment.apiBaseUrl}/api`;
 
-  constructor() { }
-
-
+  constructor() {}
 }

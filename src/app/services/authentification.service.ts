@@ -6,6 +6,7 @@ import {NavigationEnd, Router} from "@angular/router";
 import {Utilisateur} from "../classes/Utilisateur";
 import {CookieService} from "ngx-cookie-service";
 import {ApiService} from "./api.service";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -52,8 +53,8 @@ export class AuthentificationService extends ApiService {
   }
 
   isAdmin(): boolean {
-    // Utilisez l'observable user$ pour éviter de déclencher une exception si getUser() renvoie null.
-    return this.getUser() && this.getUser().pseudo === "Pampa";
+    const user = this.getUser();
+    return !!user && (environment.adminPseudos as readonly string[]).includes(user.pseudo);
   }
 
   getUser(): Utilisateur {

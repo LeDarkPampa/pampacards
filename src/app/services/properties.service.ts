@@ -28,10 +28,11 @@ export class PropertiesService extends ApiService {
           localStorage.setItem('testModeOn', JSON.stringify(this.testModeOn));
         }
       },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des properties');
-      }
+      error: (error) => {
+        console.error('Erreur lors de la récupération des properties', error);
+        this.testModeOn = false;
+        localStorage.removeItem('testModeOn');
+      },
     });
   }
 

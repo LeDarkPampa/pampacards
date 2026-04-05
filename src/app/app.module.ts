@@ -18,14 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
 import {AuthGuard} from "./auth.guard";
 import { SortCardsByNamePipe } from './pipes/sort-cards-by-name.pipe';
-import {SseService} from "./services/sse.service";
 import {ConfirmationService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {MatIconModule} from '@angular/material/icon'
 import {DropdownModule} from "primeng/dropdown";
 import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
 import { DemandeCombatDialogComponent } from './demande-combat-dialog/demande-combat-dialog.component';
-import {DeckService} from "./services/deck.service";
 import { PartieComponent } from './partie/partie.component';
 import { CarteMainComponent } from './partie/carte-main/carte-main.component';
 import { CarteTerrainComponent } from './partie/carte-terrain/carte-terrain.component';
@@ -48,7 +46,6 @@ import { PampaSubmitButtonComponent } from './composants/pampa-submit-button/pam
 import { AdministrationPartiesComponent } from './administration/administration-parties/administration-parties.component';
 import { PartieObsComponent } from './partie/partie-obs/partie-obs.component';
 import { PampaButtonCarreComponent } from './composants/pampa-button-carre/pampa-button-carre.component';
-import {PropertiesService} from "./services/properties.service";
 import { PampaTourAnimationComponent } from './composants/pampa-tour-animation/pampa-tour-animation.component';
 import { BoostersDetailsComponent } from './infos/boosters-details/boosters-details.component';
 import { PampaOnOffComponent } from './composants/pampa-on-off/pampa-on-off.component';
@@ -72,16 +69,12 @@ import { DetailsTournoiComponent } from './tournois/details-tournoi/details-tour
 import { DetailsLigueComponent } from './tournois/details-ligue/details-ligue.component';
 import { AdministrationTournoisComponent } from './administration/administration-tournois/administration-tournois.component';
 import { OpenAffrontementDialogComponent } from './tournois/open-affrontement-dialog/open-affrontement-dialog.component';
-import {PartieService} from "./services/partie.service";
-import {CarteEffetService} from "./services/carteEffet.service";
-import {TchatService} from "./services/tchat.service";
 import {TutoTournoisComponent} from "./tutoriel/tournois/tuto-tournois.component";
 import {CarteComponent} from "./carte/carte.component";
 import {InscriptionDialogComponent} from "./tournois/inscription-dialog/inscription-dialog.component";
 import {CarteMainObsComponent} from "./partie/carte-main-obs/carte-main-obs.component";
 import {AvatarBuilderComponent} from "./mon-compte/avatar-builder/avatar-builder.component";
 import {AvatarViewComponent} from "./avatar-view/avatar-view.component";
-import {AvatarService} from "./services/avatar.service";
 import { DefisListComponent } from './mon-compte/defis-list/defis-list.component';
 
 @NgModule({
@@ -199,18 +192,10 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
     MatButtonModule,
     ReactiveFormsModule],
   providers: [
-    AuthGuard,
-    SseService,
     ConfirmationService,
     DialogService,
-    PropertiesService,
-    DeckService,
     CookieService,
-    PartieService,
-    TchatService,
-    CarteEffetService,
-    AvatarService,
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
   ]
 })
 export class AppModule { }
