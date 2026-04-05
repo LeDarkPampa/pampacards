@@ -1,12 +1,13 @@
 <div class="accueil-page">
   <section class="accueil-hero" aria-labelledby="accueil-title">
-    <div class="accueil-hero-glow" aria-hidden="true"></div>
     <div class="accueil-hero-inner">
-      <p class="accueil-eyebrow">Jeu de cartes stratégique</p>
-      <h1 id="accueil-title" class="accueil-title">Pampa Cards</h1>
-      <p class="accueil-lead">
-        Règles, decks de départ, boosters, construction de deck et affrontements&nbsp;: tout commence ici.
-      </p>
+      <div class="accueil-hero-text">
+        <p class="accueil-eyebrow">Jeu de cartes stratégique</p>
+        <h1 id="accueil-title" class="accueil-title">Pampa Cards</h1>
+        <p class="accueil-lead">
+          Règles, decks, boosters, deckbuilder et affrontements&nbsp;: tout commence ici.
+        </p>
+      </div>
       <div class="accueil-hero-actions">
         <ng-container *ngIf="authService.isLoggedIn$ | async; else guestActions">
           <button type="button" class="ui-btn-primary accueil-cta-primary" (click)="navigateTo('/recherche-combat')">
