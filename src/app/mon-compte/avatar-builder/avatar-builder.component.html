@@ -30,9 +30,6 @@
     <button type="button" class="avatar-tool-btn" (click)="cancelChanges()" [disabled]="loading || !hasUnsavedChanges">
       Annuler les changements
     </button>
-    <button type="button" class="avatar-tool-btn" (click)="resetFromServer()" [disabled]="loading">
-      Recharger depuis le serveur
-    </button>
   </div>
 
   <div class="selection-panel" [attr.aria-busy]="loading">

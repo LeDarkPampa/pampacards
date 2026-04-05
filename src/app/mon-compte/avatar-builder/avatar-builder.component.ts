@@ -300,10 +300,6 @@ export class AvatarBuilderComponent implements OnInit, CanComponentDeactivate {
     this.reapplyFiltersAfterSnapshotRestore();
   }
 
-  resetFromServer(): void {
-    this.loadBuilderData();
-  }
-
   isDebloquePiece(element: AvatarPieceItem): boolean {
     return this.debloqueElements.some((d) => d.elementCode === element.src);
   }
