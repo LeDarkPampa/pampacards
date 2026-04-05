@@ -1,41 +1,40 @@
 <div class="accueil-page">
-  <section class="accueil-hero" aria-labelledby="accueil-title">
-    <div class="accueil-hero-inner">
-      <div class="accueil-hero-text">
-        <p class="accueil-eyebrow">Jeu de cartes stratégique</p>
-        <h1 id="accueil-title" class="accueil-title">Pampa Cards</h1>
-        <p class="accueil-lead">
-          Règles, decks, boosters, deckbuilder et affrontements&nbsp;: tout commence ici.
-        </p>
-      </div>
-      <div class="accueil-hero-actions">
-        <ng-container *ngIf="authService.isLoggedIn$ | async; else guestActions">
-          <button type="button" class="ui-btn-primary accueil-cta-primary" (click)="navigateTo('/recherche-combat')">
-            <span class="material-icons accueil-cta-icon" aria-hidden="true">sports_esports</span>
-            Entrer en arène
-          </button>
-          <button type="button" class="ui-btn-secondary accueil-cta-secondary" (click)="navigateTo('/deckbuilder')">
-            <span class="material-icons accueil-cta-icon" aria-hidden="true">style</span>
-            Deckbuilder
-          </button>
-        </ng-container>
-        <ng-template #guestActions>
-          <button type="button" class="ui-btn-primary accueil-cta-primary" (click)="navigateTo('/login')">
-            <span class="material-icons accueil-cta-icon" aria-hidden="true">login</span>
-            Se connecter
-          </button>
-          <button type="button" class="ui-btn-secondary accueil-cta-secondary" (click)="navigateTo('/tutoriel/jouer')">
-            <span class="material-icons accueil-cta-icon" aria-hidden="true">menu_book</span>
-            Découvrir les règles
-          </button>
-        </ng-template>
-      </div>
+  <section class="accueil-intro" aria-labelledby="accueil-title">
+    <div class="accueil-intro-main">
+      <h1 id="accueil-title" class="accueil-title">Pampa Cards</h1>
+      <p class="accueil-lead">
+        Règles, decks, boosters, deckbuilder et affrontements&nbsp;: tout commence ici.
+      </p>
+    </div>
+    <div class="accueil-intro-actions">
+      <ng-container *ngIf="authService.isLoggedIn$ | async; else guestActions">
+        <button type="button" class="accueil-btn accueil-btn--primary" (click)="navigateTo('/recherche-combat')">
+          <span class="material-icons accueil-btn-icon" aria-hidden="true">sports_esports</span>
+          Arène
+        </button>
+        <button type="button" class="accueil-btn accueil-btn--outline" (click)="navigateTo('/deckbuilder')">
+          <span class="material-icons accueil-btn-icon" aria-hidden="true">style</span>
+          Deckbuilder
+        </button>
+      </ng-container>
+      <ng-template #guestActions>
+        <button type="button" class="accueil-btn accueil-btn--primary" (click)="navigateTo('/login')">
+          <span class="material-icons accueil-btn-icon" aria-hidden="true">login</span>
+          Se connecter
+        </button>
+        <button type="button" class="accueil-btn accueil-btn--outline" (click)="navigateTo('/tutoriel/jouer')">
+          <span class="material-icons accueil-btn-icon" aria-hidden="true">menu_book</span>
+          Les règles
+        </button>
+      </ng-template>
     </div>
   </section>
 
   <section class="accueil-section" aria-labelledby="section-decouvrir">
-    <h2 id="section-decouvrir" class="accueil-section-title">Découvrir le jeu</h2>
-    <p class="accueil-section-sub">Contenus accessibles à tous, pour bien débuter ou creuser la méta.</p>
+    <div class="accueil-section-head">
+      <h2 id="section-decouvrir" class="accueil-section-title">Découvrir le jeu</h2>
+      <p class="accueil-section-sub">Pour bien débuter ou creuser la méta.</p>
+    </div>
     <div class="accueil-grid">
       <button type="button" class="accueil-card" (click)="navigateTo('/tutoriel/jouer')">
         <span class="material-icons accueil-card-icon" aria-hidden="true">school</span>
@@ -59,8 +58,10 @@
   </section>
 
   <section *ngIf="authService.isLoggedIn$ | async" class="accueil-section accueil-section--play" aria-labelledby="section-jouer">
-    <h2 id="section-jouer" class="accueil-section-title">Jouer</h2>
-    <p class="accueil-section-sub">Vos outils de compétition et d’entraînement.</p>
+    <div class="accueil-section-head">
+      <h2 id="section-jouer" class="accueil-section-title">Jouer</h2>
+      <p class="accueil-section-sub">Compétition et entraînement.</p>
+    </div>
     <div class="accueil-grid">
       <button type="button" class="accueil-card accueil-card--accent" (click)="navigateTo('/deckbuilder')">
         <span class="material-icons accueil-card-icon" aria-hidden="true">construction</span>
