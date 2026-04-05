@@ -1,1 +1,7 @@
-<button [ngClass]="[couleur, taille]" (click)="clicked()"><i class="icon ion-md-lock"></i>{{texte}}</button>
+<button
+  type="button"
+  [ngClass]="[couleur, taille, selected ? 'deck-selectionne' : '']"
+  (click)="clicked()"
+>
+  <i class="icon" [ngClass]="selected ? 'ion-md-checkmark-circle' : 'ion-md-lock'"></i>{{ texte }}
+</button>

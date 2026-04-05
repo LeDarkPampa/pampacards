@@ -60,6 +60,54 @@
   width: 100%;
 }
 
+.deck-cartes-head {
+  width: 100%;
+  justify-content: center;
+}
+
+.deck-cartes-meta {
+  width: 100%;
+  max-width: 240px;
+  text-align: center;
+}
+
+.deck-cartes-meta h4 {
+  margin: 0 0 8px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.deck-cartes-complet {
+  color: #2ecc71;
+}
+
+.deck-cartes-incomplet {
+  color: #e67e22;
+}
+
+.deck-cartes-vide {
+  color: #cccccc;
+}
+
+.deck-progress-track {
+  height: 8px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.deck-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.25s ease, background-color 0.2s ease;
+  background: linear-gradient(90deg, #d35400, #e67e22);
+}
+
+.deck-progress-fill.deck-progress-complet {
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+}
+
 .cartes {
   list-style: none;
   padding: 0;

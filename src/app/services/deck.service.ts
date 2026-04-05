@@ -7,6 +7,7 @@ import {Format} from "../classes/decks/Format";
 import {ApiService} from "./api.service";
 import {Deck} from "../classes/decks/Deck";
 import {Carte} from "../classes/cartes/Carte";
+import { DECK_BUILDER_MSG } from '../deckbuilder/deckbuilder-messages';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class DeckService extends ApiService {
     super();
   }
 
-  saveDeck(deck: Deck): Observable<Deck[]> {
-    return this.http.post<Deck[]>(this.API_URL + '/deck', deck);
+  saveDeck(deck: Deck): Observable<Deck> {
+    return this.http.post<Deck>(this.API_URL + '/deck', deck);
   }
 
   deleteDeck(deck: Deck): Observable<void> {
@@ -108,7 +109,7 @@ export class DeckService extends ApiService {
     // Vérification de la taille totale du deck
     const deckSize = addedCard ? deck.cartes.length + 1 : deck.cartes.length;
     if (deckSize > deckSizeLimit) {
-      return 'Impossible de mettre plus de vingt cartes';
+      return DECK_BUILDER_MSG.ERR_DECK_TOO_MANY_CARDS;
     }
 
     return null;

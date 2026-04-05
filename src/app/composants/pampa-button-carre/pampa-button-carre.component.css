@@ -118,6 +118,19 @@ button:active {
   box-shadow: inset 1px 1px 2px #141414, inset -1px -1px 2px #212121;
 }
 
+button.deck-selectionne {
+  border: 2px solid #4caf50;
+  box-shadow:
+    -4px -4px 16px rgba(76, 175, 80, 0.25),
+    4px 4px 16px #0a0a0a,
+    0 0 0 1px rgba(76, 175, 80, 0.35);
+  background: linear-gradient(160deg, #3d2910 0%, #6b4a1e 45%, #5a3d15 100%);
+}
+
+button.deck-selectionne .icon {
+  color: #a5d6a7;
+}
+
 .noir {
   background-color: #272727;
   text-shadow: 1px 1px 0 #212121;

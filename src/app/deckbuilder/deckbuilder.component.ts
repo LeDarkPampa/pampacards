@@ -12,6 +12,7 @@ import {PropertiesService} from "../services/properties.service";
 import {UtilisateurService} from "../services/utilisateur.service";
 import {ReferentielService} from "../services/referentiel.service";
 import {Carte} from "../classes/cartes/Carte";
+import { DECK_BUILDER_MSG, DECK_BUILDER_UI } from './deckbuilder-messages';
 
 
 @Component({
@@ -91,8 +92,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       this.selectedFormat = standardFormat;
     }
 
-    // @ts-ignore
-    const user:Utilisateur = this.authService.getUser();
+    const user: Utilisateur = this.authService.getUser();
     this.selectedDeck = {
       id: 0,
       nom:'',
@@ -116,7 +116,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       const validationError = this.deckService.validateDeck(this.selectedDeck, this.selectedFormat, carte);
 
       if (validationError) {
-        this.message = [{ severity: 'warn', summary: 'Attention', detail: validationError }];
+        this.message = this.msgWarn(validationError);
         return;
       }
     }
@@ -129,29 +129,31 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
 
   saveDeck() {
     let deck: Deck = this.selectedDeck;
+    const name = (this.nomDeck ?? '').trim();
 
-    if (!this.nomDeck || this.nomDeck === '') {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' }];
+    if (!name) {
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NO_NAME);
       return;
-    } else if (this.decks.some((existingDeck) => existingDeck.nom === this.nomDeck && existingDeck.id !== deck.id)) {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Deux decks ne peuvent pas avoir le même nom' }];
+    } else if (this.decks.some((existingDeck) => existingDeck.nom === name && existingDeck.id !== deck.id)) {
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_DUPLICATE_NAME);
       return;
     } else if (!(deck.cartes.length === 20)) {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' }];
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NEED_20_CARDS);
       return;
     } else if (!this.selectedFormat) {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' }];
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NO_FORMAT);
       return;
     }
 
     const validationError = this.deckService.validateDeck(deck, this.selectedFormat);
     if (validationError) {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: validationError }];
+      this.message = this.msgError(validationError);
       return;
     }
 
     this.unsavedChanges = false;
-    deck.nom = this.nomDeck;
+    deck.nom = name;
+    this.nomDeck = name;
 
     deck.formats = [];
 
@@ -162,11 +164,19 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       }
     })
 
-    this.deckService.saveDeck(deck).subscribe(data => {
-      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
-        this.decks = playerDecks;
-        this.message = [{ severity: 'success', summary: 'Sauvegarde', detail: 'Deck sauvegardé' }];
-      });
+    this.deckService.saveDeck(deck).subscribe({
+      next: (saved) => {
+        this.utilisateurService.getAllDecks().subscribe((playerDecks) => {
+          this.decks = playerDecks;
+          const match = playerDecks.find((d) => d.id === saved.id);
+          if (match) {
+            this.selectDeck(match);
+          }
+          this.message = [
+            { severity: 'success', summary: DECK_BUILDER_UI.SUMMARY_SAVE, detail: DECK_BUILDER_MSG.SUCCESS_SAVE },
+          ];
+        });
+      },
     });
   }
 
@@ -191,35 +201,34 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
     const duplicatedDeck: Deck = this.createDuplicatedDeck();
     this.copyCardsToDuplicatedDeck(duplicatedDeck);
 
-    this.deckService.saveDeck(duplicatedDeck).subscribe(() => {
-      this.utilisateurService.getAllDecks().subscribe(playerDecks => {
-        this.decks = playerDecks;
-      });
+    this.deckService.saveDeck(duplicatedDeck).subscribe({
+      next: (saved) => {
+        this.utilisateurService.getAllDecks().subscribe((playerDecks) => {
+          this.decks = playerDecks;
+          const match = playerDecks.find((d) => d.id === saved.id);
+          if (match) {
+            this.selectDeck(match);
+          }
+        });
+      },
     });
   }
 
   private validateDeckBeforeDuplication(): boolean {
     const deck = this.selectedDeck;
+    const name = (this.nomDeck ?? '').trim();
 
-    if (!deck.nom) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans nom' },
-      ];
+    if (!name) {
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NO_NAME);
       return false;
     } else if (deck.cartes.length !== 20) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Le deck doit comporter 20 cartes' },
-      ];
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NEED_20_CARDS);
       return false;
     } else if (!this.selectedFormat) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Impossible de sauvegarder un deck sans format' },
-      ];
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_NO_FORMAT);
       return false;
     } else if (this.hasExceededLimitation) {
-      this.message = [
-        { severity: 'error', summary: 'Erreur', detail: 'Ce deck n\'est pas valide pour ce format.' },
-      ];
+      this.message = this.msgError(DECK_BUILDER_MSG.ERR_DECK_INVALID_FORMAT);
       return false;
     }
 
@@ -227,11 +236,12 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   }
 
   private createDuplicatedDeck(): Deck {
-    const user: Utilisateur = this.authService.getUser(); // @ts-ignore
+    const user: Utilisateur = this.authService.getUser();
+    const baseName = (this.nomDeck ?? '').trim();
 
     return {
       id: 0,
-      nom: `${this.selectedDeck.nom}-dupl`,
+      nom: `${baseName}-dupl`,
       cartes: [],
       utilisateur: user,
       formats: this.selectedDeck.formats,
@@ -299,7 +309,7 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
       (isUsed) => {
         if (isUsed) {
           this.message = [
-            { severity: 'error', summary: 'Attention', detail: 'Impossible de supprimer un deck utilisé en tournoi / ligue' },
+            { severity: 'error', summary: DECK_BUILDER_UI.SUMMARY_WARN, detail: DECK_BUILDER_MSG.ERR_DELETE_DECK_IN_USE },
           ];
         } else {
           this.deckService.deleteDeck(selectedDeck).subscribe({
@@ -342,9 +352,40 @@ export class DeckbuilderComponent implements OnInit, CanComponentDeactivate {
   onFormatChange() {
     const validationError = this.deckService.validateDeck(this.selectedDeck, this.selectedFormat);
     if (validationError) {
-      this.message = [{ severity: 'error', summary: 'Erreur', detail: validationError }];
+      this.message = this.msgError(validationError);
       return;
     }
+  }
+
+  onNomDeckChange(): void {
+    if (this.selectedDeck) {
+      this.selectedDeck.nom = this.nomDeck;
+    }
+  }
+
+  isSelectedDeck(deck: Deck): boolean {
+    if (!this.selectedDeck) {
+      return false;
+    }
+    if (this.selectedDeck.id !== 0 && deck.id !== 0) {
+      return this.selectedDeck.id === deck.id;
+    }
+    return this.selectedDeck === deck;
+  }
+
+  getDeckProgressPercent(): number {
+    if (!this.selectedDeck) {
+      return 0;
+    }
+    return Math.min(100, (this.selectedDeck.cartes.length / 20) * 100);
+  }
+
+  private msgError(detail: string): Message[] {
+    return [{ severity: 'error', summary: DECK_BUILDER_UI.SUMMARY_ERROR, detail }];
+  }
+
+  private msgWarn(detail: string): Message[] {
+    return [{ severity: 'warn', summary: DECK_BUILDER_UI.SUMMARY_WARN, detail }];
   }
 
   applyFilters(filtersAndSortsValues: FiltersAndSortsValues) {

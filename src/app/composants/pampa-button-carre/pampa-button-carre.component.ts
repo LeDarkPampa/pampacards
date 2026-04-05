@@ -9,6 +9,8 @@ export class PampaButtonCarreComponent {
   @Input() texte: string = '';
   @Input() couleur: string = 'rouge';
   @Input() taille: string = 'petit';
+  /** Deck (ou entrée) actuellement sélectionné dans une liste. */
+  @Input() selected = false;
 
   @Output() clickBouton = new EventEmitter();
 
