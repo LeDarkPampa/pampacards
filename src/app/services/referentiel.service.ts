@@ -129,4 +129,16 @@ export class ReferentielService extends ApiService {
       })
     );
   }
+
+  getCarteById(carteId: number): Observable<Carte> {
+    return this.http.get<Carte>(`${this.API_URL}/carte?carteId=${carteId}`).pipe(
+      catchError((error) => throwError(() => error))
+    );
+  }
+
+  updateCartes(cartes: Carte[]): Observable<unknown> {
+    return this.http.post(`${this.API_URL}/updateCartes`, cartes).pipe(
+      catchError((error) => throwError(() => error))
+    );
+  }
 }

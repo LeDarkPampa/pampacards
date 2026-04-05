@@ -14,7 +14,7 @@
         <p-dropdown [options]="allDecks" [(ngModel)]="selectedDeckBot" placeholder="Selectionnez un deck" optionLabel="nom"></p-dropdown>
       </div>
       <div class="ligne-gauche espace-haut" *ngIf="selectedBot && selectedDeckBot">
-        <app-pampa-button [texte]="'Défier le bot'" [couleur]="'bleu'" [taille]="'mini'" (click)="challengeBot(selectedBot)"></app-pampa-button>
+        <app-pampa-button [texte]="'Défier le bot'" [couleur]="'bleu'" [taille]="'mini'" [disabled]="botChallengeBusy" (click)="challengeBot(selectedBot)"></app-pampa-button>
       </div>
     </div>
     <div>
@@ -49,7 +49,7 @@
             <div *ngFor="let opponent of opponentList()">
               <div class="ligne-gauche" *ngIf="opponent.id !== userId">
                 {{opponent.pseudo}}
-                <app-pampa-button [texte]="'Défier'" [couleur]="'bleu'" [taille]="'mini'" (click)="challengeOpponent(opponent)"></app-pampa-button>
+                <app-pampa-button [texte]="'Défier'" [couleur]="'bleu'" [taille]="'mini'" [disabled]="challengeBusy" (click)="challengeOpponent(opponent)"></app-pampa-button>
               </div>
             </div>
           </ng-container>

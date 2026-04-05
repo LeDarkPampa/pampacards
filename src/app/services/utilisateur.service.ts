@@ -56,14 +56,19 @@ export class UtilisateurService extends ApiService {
           return date1.valueOf() - date2.valueOf();
         });
       }),
-      catchError(error => {
-        console.error('There was an error!', error);
-        return throwError(error);
-      })
+      catchError((error) => throwError(() => error))
     );
   }
 
   getElementsDebloques(userId: number): Observable<ElementDebloque[]> {
     return this.http.get<ElementDebloque[]>(this.API_URL + `/debloques?userId=${userId}`);
+  }
+
+  useCodePromo(body: { codePromo: string; utilisateur: Utilisateur }): Observable<unknown> {
+    return this.http.post(`${this.API_URL}/useCodePromo`, body);
+  }
+
+  addCartesToCollection(body: { pseudo: string; cartes: unknown[] }): Observable<unknown> {
+    return this.http.post(`${this.API_URL}/addCartesToCollection`, body);
   }
 }

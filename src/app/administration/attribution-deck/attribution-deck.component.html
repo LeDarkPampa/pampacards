@@ -24,7 +24,7 @@
         </li>
       </ul>
 
-      <div class="ligne-centree"><app-pampa-button [texte]="'Attribuer ce deck'" [couleur]="'bleu'" [taille]="'petit'" (click)="ajouterCartesAuDeck()"></app-pampa-button></div>
+      <div class="ligne-centree"><app-pampa-button [texte]="'Attribuer ce deck'" [couleur]="'bleu'" [taille]="'petit'" [disabled]="saveBusy" (click)="ajouterCartesAuDeck()"></app-pampa-button></div>
     </div>
   </div>
 </div>

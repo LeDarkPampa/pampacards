@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Partie} from "../../classes/parties/Partie";
-import { HttpClient } from "@angular/common/http";
 import {Router} from "@angular/router";
 
 import {ResultatPartie} from "../../classes/parties/ResultatPartie";
@@ -8,6 +7,8 @@ import {VisionCartesDialogComponent} from "../../partie/vision-cartes-dialog/vis
 import {DialogService} from "primeng/dynamicdialog";
 import {AdministrationService} from "../../services/administration.service";
 import {Carte} from "../../classes/cartes/Carte";
+import { UiMessageService } from '../../services/ui-message.service';
+import { ADMIN_MSG } from '../../core/messages/domain.messages';
 
 @Component({
   selector: 'app-administration-parties',
@@ -18,8 +19,9 @@ export class AdministrationPartiesComponent implements OnInit {
   partiesEnCours: Partie[] = [];
   resultatsParties: ResultatPartie[] = [];
 
-  constructor(private http: HttpClient, private router: Router, private dialogService: DialogService,
-              private administrationService: AdministrationService) {
+  constructor(private router: Router, private dialogService: DialogService,
+              private administrationService: AdministrationService,
+              private uiMessage: UiMessageService) {
 
   }
 
@@ -28,9 +30,8 @@ export class AdministrationPartiesComponent implements OnInit {
       next: data => {
         this.partiesEnCours = data;
       },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des parties en cours');
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.PARTIES_LOAD_ERR);
       }
     });
 
@@ -38,9 +39,8 @@ export class AdministrationPartiesComponent implements OnInit {
       next: data => {
         this.resultatsParties = data;
       },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des parties en cours');
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.RESULTATS_LOAD_ERR);
       }
     });
   }

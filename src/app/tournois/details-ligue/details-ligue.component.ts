@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit, signal} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {Ligue} from "../../classes/competitions/Ligue";
 import {CompetitionParticipant} from "../../classes/competitions/CompetitionParticipant";
@@ -16,7 +15,6 @@ import {Affrontement} from "../../classes/combats/Affrontement";
 })
 export class DetailsLigueComponent implements OnInit, OnDestroy {
 
-  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
   utilisateur!: Utilisateur;
   ligue= signal<Ligue | null>(null);
@@ -24,7 +22,7 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
   sortedPlayers = signal<CompetitionParticipant[]>([]);
   hasAffrontement = signal(false);
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private authService: AuthentificationService, private tournoiService: TournoiService) {
 
   }
@@ -36,11 +34,10 @@ export class DetailsLigueComponent implements OnInit, OnDestroy {
       this.subscription = interval(5000)
         .pipe(
           startWith(0),
-          switchMap(() => this.http.get<Ligue>(`${this.BACKEND_URL}/ligues/ligue?id=${ligueId}`))
+          switchMap(() => this.tournoiService.getLigue(Number(ligueId)))
         )
         .subscribe({
           next: ligue => this.updateLigueData(ligue),
-          error: error => console.error('There was an error!', error),
         });
     });
   }

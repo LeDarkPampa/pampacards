@@ -27,7 +27,7 @@
   </div>
 
   <div class="avatar-toolbar ligne-centree">
-    <button type="button" class="avatar-tool-btn" (click)="cancelChanges()" [disabled]="loading || !hasUnsavedChanges">
+    <button type="button" class="ui-btn-secondary avatar-tool-btn" (click)="cancelChanges()" [disabled]="loading || !hasUnsavedChanges">
       Annuler les changements
     </button>
   </div>
@@ -88,6 +88,6 @@
   </div>
 
   <div class="ligne-centree save-avatar">
-    <button type="button" (click)="saveAvatar()" [disabled]="loading">Sauvegarder mon avatar</button>
+    <button type="button" class="ui-btn-primary" (click)="saveAvatar()" [disabled]="loading">Sauvegarder mon avatar</button>
   </div>
 </div>

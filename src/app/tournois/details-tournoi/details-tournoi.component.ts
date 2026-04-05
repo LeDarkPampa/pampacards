@@ -1,33 +1,33 @@
-import {Component, OnDestroy, OnInit, signal} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
-import { Tournoi } from "../../classes/competitions/Tournoi";
-import { CompetitionParticipant } from "../../classes/competitions/CompetitionParticipant";
-import { interval, startWith, Subscription, switchMap } from "rxjs";
-import {AuthentificationService} from "../../services/authentification.service";
-import {TournoiService} from "../../services/tournoi.service";
-import {Affrontement} from "../../classes/combats/Affrontement";
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Tournoi } from '../../classes/competitions/Tournoi';
+import { CompetitionParticipant } from '../../classes/competitions/CompetitionParticipant';
+import { interval, startWith, Subscription, switchMap } from 'rxjs';
+import { AuthentificationService } from '../../services/authentification.service';
+import { TournoiService } from '../../services/tournoi.service';
+import { Affrontement } from '../../classes/combats/Affrontement';
+import { LigueTournoiStatutEnum } from '../../enums/LigueTournoiStatutEnum';
 
 @Component({
   selector: 'app-details-tournoi',
   templateUrl: './details-tournoi.component.html',
-  styleUrls: ['./details-tournoi.component.css', '../../app.component.css']
+  styleUrls: ['./details-tournoi.component.css', '../../app.component.css'],
 })
 export class DetailsTournoiComponent implements OnInit, OnDestroy {
-
   userId = 0;
-  tournoi= signal<Tournoi | null>(null);
-  players= signal<CompetitionParticipant[]>([]);
+  tournoi = signal<Tournoi | null>(null);
+  players = signal<CompetitionParticipant[]>([]);
 
-  private BACKEND_URL = "https://pampacardsback-57cce2502b80.herokuapp.com";
   private subscription: Subscription | undefined;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-              private authService: AuthentificationService, private tournoiService: TournoiService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthentificationService,
+    private tournoiService: TournoiService
+  ) {}
 
   ngOnInit() {
-    // On met à jour l'affichage de l'écran toutes les 5 secondes
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const tournoiId = params['id'];
 
       this.userId = this.authService.getUserId();
@@ -35,51 +35,60 @@ export class DetailsTournoiComponent implements OnInit, OnDestroy {
       this.subscription = interval(5000)
         .pipe(
           startWith(0),
-          switchMap(() => this.http.get<Tournoi>(`${this.BACKEND_URL}/tournois/tournoi?id=` + tournoiId))
+          switchMap(() => this.tournoiService.getTournoi(Number(tournoiId)))
         )
         .subscribe({
-          next: tournoi => {
-            this.tournoi.set(tournoi);
-            this.players.set(tournoi.participants);
+          next: (t) => {
+            this.tournoi.set(t);
+            this.players.set(t.participants);
           },
-          error: error => {
-            console.error('There was an error!', error);
-          }
         });
     });
   }
 
   findParticipantById(id: number): string {
-    const participant = this.players().find(player => player.utilisateur.id == id);
+    const participant = this.players().find((player) => player.utilisateur.id == id);
     return participant ? participant.utilisateur.pseudo : 'Aucun';
   }
 
-  playerInAffrontement(joueur1Id: number, joueur2Id: number): boolean {
-    return (this.userId === joueur1Id || this.userId === joueur2Id);
+  isTournoiTermine(t: Tournoi): boolean {
+    return t.statut === LigueTournoiStatutEnum.TERMINE;
+  }
+
+  getTournoiVainqueurId(t: Tournoi): number {
+    const rounds = t.rounds || [];
+    if (rounds.length === 0) {
+      return 0;
+    }
+    const lastRound = rounds[rounds.length - 1];
+    const affrontements = lastRound.affrontements || [];
+    if (affrontements.length === 0) {
+      return 0;
+    }
+    const lastAff = affrontements[affrontements.length - 1];
+    return lastAff.vainqueurId ?? 0;
+  }
+
+  isAffontementTermine(affrontement: Affrontement | undefined): boolean {
+    if (affrontement) {
+      return affrontement.vainqueurId != null;
+    }
+    return true;
+  }
+
+  playerInAffrontement(joueurId1: number, joueurId2: number): boolean {
+    const u = this.authService.getUser();
+    return u.id === joueurId1 || u.id === joueurId2;
   }
 
   openAffrontementPartie(joueurId1: number, joueurId2: number) {
-    if (this.tournoi()) {
-      const tournoi = this.tournoi()!;
-      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, tournoi, this.authService.getUser());
+    const t = this.tournoi();
+    if (t) {
+      this.tournoiService.openAffrontementPartie(joueurId1, joueurId2, t, this.authService.getUser());
     }
-  }
-
-  isAffontementTermine(affrontement: Affrontement) {
-    return (affrontement.vainqueurId != null);
-  }
-
-  isTournoiTermine(tournoi: Tournoi): boolean {
-    return this.tournoiService.isTournoiTermine(tournoi);
-  }
-
-  getTournoiVainqueurId(tournoi: Tournoi): number {
-    return this.tournoiService.getTournoiVainqueurId(tournoi);
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription?.unsubscribe();
   }
 }

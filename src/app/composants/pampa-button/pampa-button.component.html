@@ -1,1 +1,3 @@
-<button [ngClass]="[couleur, taille]" (click)="clicked()"><i class="icon ion-md-lock"></i>{{texte}}</button>
+<button type="button" [disabled]="disabled" [ngClass]="[couleur, taille]" (click)="clicked()">
+  <i class="icon ion-md-lock"></i>{{ texte }}
+</button>

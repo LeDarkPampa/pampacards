@@ -1,7 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import {Type} from "../../classes/cartes/Type";
 import {CartePartie} from "../../classes/cartes/CartePartie";
+import { ReferentielService } from '../../services/referentiel.service';
+import { UiMessageService } from '../../services/ui-message.service';
+import { CARTE_VIEW_MSG } from '../../core/messages/domain.messages';
 
 @Component({
   selector: 'app-details-statuts',
@@ -34,13 +36,17 @@ export class DetailsStatutsComponent implements OnInit {
     nom: 'Corrompu'
   };
 
-  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
+  constructor(
+    private referentielService: ReferentielService,
+    private cd: ChangeDetectorRef,
+    private uiMessage: UiMessageService
+  ) {
   }
 
   ngOnInit() {
-    this.http.get<CartePartie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/carte?carteId=' + 1110).subscribe({
-      next: data => {
-        let carte = data;
+    this.referentielService.getCarteById(1110).subscribe({
+      next: (data) => {
+        const carte = data as CartePartie;
         carte.bouclier = false;
         carte.insensible = false;
         carte.silence = false;
@@ -173,8 +179,8 @@ export class DetailsStatutsComponent implements OnInit {
         };
         this.cd.detectChanges();
       },
-      error: error => {
-        console.error('There was an error!', error);
+      error: () => {
+        this.uiMessage.error(CARTE_VIEW_MSG.LOAD_ERR);
       }
     });
   }

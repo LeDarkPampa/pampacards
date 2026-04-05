@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {Utilisateur} from "../../classes/Utilisateur";
 import {Deck} from "../../classes/decks/Deck";
-import { HttpClient } from "@angular/common/http";
 import {ReferentielService} from "../../services/referentiel.service";
+import { UiMessageService } from '../../services/ui-message.service';
+import { INFOS_MSG } from '../../core/messages/domain.messages';
 
 @Component({
   selector: 'app-decks-base-details',
@@ -18,15 +19,14 @@ export class DecksBaseDetailsComponent {
   // @ts-ignore
   deckSelectionne: Deck;
 
-  constructor(private http: HttpClient, private referentielService: ReferentielService) {
+  constructor(private referentielService: ReferentielService, private uiMessage: UiMessageService) {
     this.referentielService.getAllUsers().subscribe({
       next: data => {
         this.utilisateurs = data;
         this.pseudosUtilisateurs = data.map(user => user.pseudo);
       },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des utilisateurs');
+      error: () => {
+        this.uiMessage.error(INFOS_MSG.USERS_ERR);
       }
     });
 
@@ -34,9 +34,8 @@ export class DecksBaseDetailsComponent {
       next: data => {
         this.decksDeBase = data;
       },
-      error: error => {
-        console.error('There was an error!', error);
-        alert('Erreur lors de la récupération des decks');
+      error: () => {
+        this.uiMessage.error(INFOS_MSG.DECKS_ERR);
       }
     });
   }

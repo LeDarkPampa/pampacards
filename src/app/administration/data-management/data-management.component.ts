@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { PropertiesService } from '../../services/properties.service';
 import { Deck } from '../../classes/decks/Deck';
 import { Format } from '../../classes/decks/Format';
 import { DeckService } from '../../services/deck.service';
 import { catchError, defaultIfEmpty } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {ReferentielService} from "../../services/referentiel.service";
+import { ReferentielService } from '../../services/referentiel.service';
+import { AdministrationService } from '../../services/administration.service';
+import { UiMessageService } from '../../services/ui-message.service';
+import { ADMIN_MSG } from '../../core/messages/domain.messages';
 
 @Component({
   selector: 'app-data-management',
   templateUrl: './data-management.component.html',
-  styleUrls: ['./data-management.component.css', '../../app.component.css']
+  styleUrls: ['./data-management.component.css', '../../app.component.css'],
 })
 export class DataManagementComponent implements OnInit {
-
-  private readonly API_BASE_URL = 'https://pampacardsback-57cce2502b80.herokuapp.com/api';
-
   decks: Deck[] = [];
   formats: Format[] = [];
 
+  busy = false;
+
   constructor(
-    private http: HttpClient,
+    private administrationService: AdministrationService,
     private propertiesService: PropertiesService,
     private deckService: DeckService,
-    private referentielService: ReferentielService
+    private referentielService: ReferentielService,
+    private uiMessage: UiMessageService
   ) {}
 
   ngOnInit(): void {
@@ -33,18 +35,30 @@ export class DataManagementComponent implements OnInit {
   }
 
   supprimerParties(): void {
-    this.http.get<any>(`${this.API_BASE_URL}/deleteParties`).pipe(
-      catchError(error => this.handleError(error, 'Erreur lors de la suppression'))
-    ).subscribe(response => {
-      alert('Parties supprimées');
+    this.busy = true;
+    this.administrationService.deleteParties().subscribe({
+      next: () => {
+        this.uiMessage.success(ADMIN_MSG.PARTIES_OK);
+        this.busy = false;
+      },
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.DATA_ERR);
+        this.busy = false;
+      },
     });
   }
 
   supprimerTchatParties(): void {
-    this.http.get<any>(`${this.API_BASE_URL}/deleteTchatParties`).pipe(
-      catchError(error => this.handleError(error, 'Erreur lors de la suppression'))
-    ).subscribe(response => {
-      alert('Historique supprimé');
+    this.busy = true;
+    this.administrationService.deleteTchatParties().subscribe({
+      next: () => {
+        this.uiMessage.success(ADMIN_MSG.TCHAT_OK);
+        this.busy = false;
+      },
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.DATA_ERR);
+        this.busy = false;
+      },
     });
   }
 
@@ -53,40 +67,46 @@ export class DataManagementComponent implements OnInit {
   }
 
   updateDecks(): void {
-    this.decks.forEach(deck => {
+    this.decks.forEach((deck) => {
       deck.formats = [];
-      this.formats.forEach(format => {
+      this.formats.forEach((format) => {
         if (this.deckService.validateDeck(deck, format) === null) {
           deck.formats.push(format);
         }
       });
     });
 
-    this.http.post<Deck[]>(`${this.API_BASE_URL}/decks`, this.decks).pipe(
-      catchError(error => this.handleError(error, 'Erreur lors de la mise à jour des decks'))
-    ).subscribe(data => {
-      alert('Formats mis à jour');
+    this.busy = true;
+    this.administrationService.saveAllDecks(this.decks).subscribe({
+      next: () => {
+        this.uiMessage.success(ADMIN_MSG.DECKS_FORMAT_OK);
+        this.busy = false;
+      },
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.DATA_ERR);
+        this.busy = false;
+      },
     });
   }
 
   private getAllFormats(): void {
-    this.referentielService.getAllFormats().subscribe(data => {
+    this.referentielService.getAllFormats().subscribe((data) => {
       this.formats = data!;
     });
   }
 
   private getAllDecks(): void {
-    this.http.get<Deck[]>(`${this.API_BASE_URL}/allDecks`).pipe(
-      defaultIfEmpty([]), // Remplace null par un tableau vide en cas d'erreur
-      catchError(error => this.handleError(error, 'Erreur lors de la récupération des decks'))
-    ).subscribe(data => {
-      this.decks = data!;
-    });
-  }
-
-  private handleError(error: any, message: string) {
-    console.error('There was an error!', error);
-    alert(message);
-    return of(null);
+    this.administrationService
+      .getAllDecksAdmin()
+      .pipe(
+        defaultIfEmpty([]),
+        catchError(() => {
+          this.uiMessage.error(ADMIN_MSG.DECKS_ERR);
+          return of([]);
+        })
+      )
+      .subscribe((data) => {
+        this.decks = data!;
+      });
   }
 }

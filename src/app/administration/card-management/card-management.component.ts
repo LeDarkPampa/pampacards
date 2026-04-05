@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Effet } from '../../classes/cartes/Effet';
 import { AuthentificationService } from "../../services/authentification.service";
 import { PropertiesService } from "../../services/properties.service";
@@ -7,6 +6,8 @@ import { catchError } from 'rxjs/operators';
 import { throwError, forkJoin } from 'rxjs';
 import {ReferentielService} from "../../services/referentiel.service";
 import {Carte} from "../../classes/cartes/Carte";
+import { UiMessageService } from '../../services/ui-message.service';
+import { ADMIN_MSG } from '../../core/messages/domain.messages';
 import {Type} from "../../classes/cartes/Type";
 import {Clan} from "../../classes/cartes/Clan";
 
@@ -23,11 +24,13 @@ export class CardManagementComponent implements OnInit {
   selectedSort: string = 'clan';
   sortDirection: number = 1;
 
+  saveBusy = false;
+
   constructor(
-    private http: HttpClient,
     private authService: AuthentificationService,
     private propertiesService: PropertiesService,
-    private referentielService: ReferentielService
+    private referentielService: ReferentielService,
+    private uiMessage: UiMessageService
   ) {}
 
   ngOnInit(): void {
@@ -42,10 +45,10 @@ export class CardManagementComponent implements OnInit {
       clans: this.referentielService.getAllClans(),
       types: this.referentielService.getAllTypes(),
       effets: this.referentielService.getEffets()
-    }).pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des données', error);
-        return throwError(error);
+    }    ).pipe(
+      catchError((error) => {
+        this.uiMessage.error('Impossible de charger les données des cartes.');
+        return throwError(() => error);
       })
     ).subscribe({
       next: (data: { cartes: Carte[], clans: Clan[], types: Type[], effets: Effet[] }) => {
@@ -59,13 +62,15 @@ export class CardManagementComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateCartes', this.cartes).subscribe({
+    this.saveBusy = true;
+    this.referentielService.updateCartes(this.cartes).subscribe({
       next: () => {
-        alert('Cartes mises à jour');
+        this.uiMessage.success(ADMIN_MSG.CARTES_OK);
+        this.saveBusy = false;
       },
-      error: error => {
-        console.error('Erreur lors de la sauvegarde', error);
-        alert('Erreur lors de la sauvegarde');
+      error: () => {
+        this.uiMessage.error(ADMIN_MSG.CARTES_ERR);
+        this.saveBusy = false;
       }
     });
   }

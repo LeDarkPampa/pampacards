@@ -3,3 +3,56 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/**
+ * Boutons « pleine largeur » alignés sur l’esprit Pampa (pages hors deckbuilder).
+ * Utiliser avec type="button" | type="submit".
+ */
+.ui-btn-primary {
+  margin: 8px 0;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 320px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  background: linear-gradient(145deg, #1e4f6c 0%, #163a52 100%);
+  color: #fff;
+  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.25), 4px 4px 12px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.ui-btn-primary:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.ui-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-btn-secondary {
+  margin: 8px 4px;
+  padding: 8px 18px;
+  border: 1px solid #dcdcdc;
+  border-radius: 20px;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #444;
+  background: #f8f9fa;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease;
+}
+
+.ui-btn-secondary:hover:not(:disabled) {
+  background: #e8e8e8;
+}
+
+.ui-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

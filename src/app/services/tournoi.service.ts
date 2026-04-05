@@ -13,6 +13,8 @@ import {DialogService} from "primeng/dynamicdialog";
 import {ApiService} from "./api.service";
 import {Carte} from "../classes/cartes/Carte";
 import {Affrontement} from "../classes/combats/Affrontement";
+import {UserAndTournoi} from "../classes/competitions/UserAndTournoi";
+import {UserAndLigue} from "../classes/competitions/UserAndLigue";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,22 @@ export class TournoiService extends ApiService {
 
   constructor(private http: HttpClient, private zone: NgZone, private router: Router, private dialogService: DialogService) {
     super();
+  }
+
+  inscrireTournoi(body: UserAndTournoi): Observable<unknown> {
+    return this.http.post(`${this.BACKEND_URL}/tournois/inscription`, body);
+  }
+
+  inscrireLigue(body: UserAndLigue): Observable<unknown> {
+    return this.http.post(`${this.BACKEND_URL}/ligues/inscription`, body);
+  }
+
+  desinscrireTournoi(body: UserAndTournoi): Observable<unknown> {
+    return this.http.post(`${this.BACKEND_URL}/tournois/desinscription`, body);
+  }
+
+  desinscrireLigue(body: UserAndLigue): Observable<unknown> {
+    return this.http.post(`${this.BACKEND_URL}/ligues/desinscription`, body);
   }
 
   getTournoi(id: number): Observable<Tournoi> {

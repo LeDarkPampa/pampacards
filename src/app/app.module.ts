@@ -11,7 +11,7 @@ import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +32,9 @@ import { CarteMainAdvComponent } from './partie/carte-main-adv/carte-main-adv.co
 import { SelectionCarteDialogComponent } from './partie/selection-carte-dialog/selection-carte-dialog.component';
 import {VisionCartesDialogComponent} from "./partie/vision-cartes-dialog/vision-cartes-dialog.component";
 import {MessagesModule} from "primeng/messages";
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { HttpLoggingInterceptor } from './interceptors/http-logging.interceptor';
 import {TableModule} from "primeng/table";
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {DialogModule} from "primeng/dialog";
@@ -190,6 +193,7 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
     DropdownModule,
     DynamicDialogModule,
     MessagesModule,
+    ToastModule,
     TableModule,
     DialogModule,
     MatIconModule,
@@ -199,7 +203,9 @@ import { DefisListComponent } from './mon-compte/defis-list/defis-list.component
   providers: [
     ConfirmationService,
     DialogService,
+    MessageService,
     CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpLoggingInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
   ]
 })

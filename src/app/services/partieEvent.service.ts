@@ -25,25 +25,17 @@ export class PartieEventService extends ApiService {
   }
 
   sendEvent(event: any) {
-    this.http.post<any>(this.API_URL + '/partieEvent', event).subscribe({
-      next: response => {
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+    this.postPartieEvent(event).subscribe();
+  }
+
+  postPartieEvent(event: any): Observable<any> {
+    return this.http.post<any>(this.API_URL + '/partieEvent', event);
   }
 
   sendAbandonResult(joueur: PlayerState, adversaire: PlayerState, partie: Partie) {
     let event = this.createAbandonResult(joueur, adversaire, partie);
 
-    this.http.post<any>(this.API_URL + '/enregistrerResultat', event).subscribe({
-      next: response => {
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+    this.http.post<any>(this.API_URL + '/enregistrerResultat', event).subscribe();
 
   }
 
@@ -147,17 +139,14 @@ export class PartieEventService extends ApiService {
     stopJ2: boolean;
     status: string
   }, partieDatas: PartieDatas, partie: Partie) {
-    this.http.post<any>(this.API_URL + '/partieEvent', event).subscribe({
-      next: response => {
+    this.postPartieEvent(event).subscribe({
+      next: () => {
         partieDatas.finDePartie = true;
         partieDatas.nomJoueurAbandon = partieDatas.joueur.nom;
         partieDatas.nomVainqueur = partieDatas.adversaire.nom;
 
         this.sendAbandonResult(partieDatas.joueur, partieDatas.adversaire, partie);
       },
-      error: error => {
-        console.error('There was an error!', error);
-      }
     });
   }
 

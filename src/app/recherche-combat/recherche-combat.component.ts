@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {Deck} from "../classes/decks/Deck";
-import { HttpClient } from "@angular/common/http";
 import {AuthentificationService} from "../services/authentification.service";
 import {Utilisateur} from "../classes/Utilisateur";
 import {SseService} from "../services/sse.service";
@@ -16,6 +15,8 @@ import {DemandeCombatService} from "../services/demandeCombat.service";
 import {ReferentielService} from "../services/referentiel.service";
 import {UtilisateurService} from "../services/utilisateur.service";
 import {DemandeCombat} from "../classes/combats/DemandeCombat";
+import { UiMessageService } from '../services/ui-message.service';
+import { COMBAT_MSG } from '../core/messages/domain.messages';
 
 @Component({
   selector: 'app-recherche-combat',
@@ -43,11 +44,15 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   firstPlayerChoices = ['Vous', 'Votre adversaire'];
   selectedFirstPlayer: string = 'Vous';
 
-  constructor(private http: HttpClient, private combatService: DemandeCombatService,
+  challengeBusy = false;
+  botChallengeBusy = false;
+
+  constructor(private combatService: DemandeCombatService,
               private referentielService: ReferentielService,
               private authService: AuthentificationService, private cd: ChangeDetectorRef,
               private sseService: SseService, private dialogService: DialogService, private zone: NgZone,
-              private utilisateurService: UtilisateurService, private router: Router) {
+              private utilisateurService: UtilisateurService, private router: Router,
+              private uiMessage: UiMessageService) {
     this.userId = authService.getUserId();
   }
 
@@ -58,14 +63,14 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     this.subscribeToUserStream();
     this.subscribeToDemandeCombatFlux();
 
-    this.referentielService.getAllFormats().subscribe(
-      (formats: Format[]) => {
+    this.referentielService.getAllFormats().subscribe({
+      next: (formats: Format[]) => {
         this.formats = formats;
       },
-      (error) => {
-        console.error('Erreur lors de la récupération des types', error);
-      }
-    );
+      error: () => {
+        this.uiMessage.error('Impossible de charger les formats.');
+      },
+    });
     this.chooseFirstPlayer = false;
 
     this.searching = true;
@@ -100,18 +105,12 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
   getUsersSearchingFight() {
     this.combatService.getUsersSearchingFight().subscribe({
       next: data => this.opponentList.set(data),
-      error: error => console.error('There was an error!', error)
+      error: () => this.uiMessage.error('Impossible de charger la liste des joueurs en recherche.')
     });
   }
 
   updateDemandeCombat(demandeCombat: DemandeCombat) {
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/updateDemandeCombat', demandeCombat).subscribe({
-      next: () => {
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+    this.combatService.updateDemandeCombat(demandeCombat).subscribe();
   }
 
   challengeOpponent(opponent: Utilisateur) {
@@ -132,11 +131,15 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       message: 'message'
     };
 
+    this.challengeBusy = true;
     this.combatService.createChallenge(data).subscribe({
-      next: () => alert('Demande de combat envoyée'),
-      error: error => {
-        console.error('Erreur lors de la demande de combat', error);
-        alert('Erreur lors de la demande de combat');
+      next: () => {
+        this.uiMessage.success(COMBAT_MSG.CHALLENGE_SENT);
+        this.challengeBusy = false;
+      },
+      error: () => {
+        this.uiMessage.error(COMBAT_MSG.CHALLENGE_ERR);
+        this.challengeBusy = false;
       }
     });
   }
@@ -175,7 +178,7 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
           if (demande.joueurUnId == this.userId && demande.status == DemandeCombatStatusEnum.PARTIE_CREEE) {
             demande.status = DemandeCombatStatusEnum.DEMANDE_CLOSE;
             this.deleteDemandeCombat(demande);
-            alert('Demande de combat acceptée par ' + demande.joueurDeuxPseudo);
+            this.uiMessage.success(COMBAT_MSG.ACCEPTED(demande.joueurDeuxPseudo));
             this.router.navigate(['/partie', demande.partieId]);
           }
         }
@@ -197,15 +200,15 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       ref.onClose.subscribe((demandeCombat: DemandeCombat) => {
         this.demandesCombats.update((currentDemandes) => [...currentDemandes, demandeCombat]);
         if (demandeCombat.status === DemandeCombatStatusEnum.DEMANDE_ACCEPTEE) {
-          this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/createPartie', demandeCombat).subscribe({
-            next: response => {
+          this.combatService.createPartieFromDemande(demandeCombat).subscribe({
+            next: (response) => {
               demandeCombat.partieId = response;
               demandeCombat.status = DemandeCombatStatusEnum.PARTIE_CREEE;
               this.updateDemandeCombat(demandeCombat);
               this.router.navigate(['/partie', response]);
             },
-            error: error => {
-              console.error('There was an error!', error);
+            error: () => {
+              this.uiMessage.error(COMBAT_MSG.PARTIE_CREATE_ERR);
             }
           });
         } else {
@@ -226,25 +229,16 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
     }
     this.cd.detectChanges();
 
-    this.http.request('delete', 'https://pampacardsback-57cce2502b80.herokuapp.com/api/demandeCombat', {body: demandeCombat}).subscribe({
-      next: () => {
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+    this.combatService.deleteDemandeCombat(demandeCombat).subscribe();
   }
 
   private checkSiDejaPartieEncours() {
-    this.http.get<Partie>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEnCours?utilisateurId=' + this.userId).subscribe({
+    this.combatService.getPartieEnCours(this.userId).subscribe({
       next: partie => {
         if (partie && partie.id != null) {
           this.router.navigate(['/partie', partie.id]);
         }
       },
-      error: error => {
-        console.error('There was an error!', error);
-      }
     });
   }
 
@@ -303,8 +297,8 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       next: (bots: Utilisateur[]) => {
         this.botList = bots;
       },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des bots', error);
+      error: () => {
+        this.uiMessage.error('Impossible de charger la liste des bots.');
       }
     });
   }
@@ -319,13 +313,15 @@ export class RechercheCombatComponent implements OnInit, OnDestroy {
       message: 'Défi contre un bot'
     };
 
+    this.botChallengeBusy = true;
     this.combatService.createBotPartie(data).subscribe({
       next: response => {
+        this.botChallengeBusy = false;
         this.router.navigate(['/partie', response]);
       },
-      error: (error) => {
-        console.error('Erreur lors du défi contre le bot', error);
-        alert('Erreur lors du défi');
+      error: () => {
+        this.botChallengeBusy = false;
+        this.uiMessage.error(COMBAT_MSG.BOT_ERR);
       }
     });
   }

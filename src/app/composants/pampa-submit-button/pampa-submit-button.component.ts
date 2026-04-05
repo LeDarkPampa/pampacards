@@ -10,4 +10,5 @@ export class PampaSubmitButtonComponent {
   @Input() texte: string = '';
   @Input() couleur: string = 'noir';
   @Input() taille: string = 'base';
+  @Input() disabled = false;
 }

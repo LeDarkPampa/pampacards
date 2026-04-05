@@ -3,7 +3,6 @@ import {TournoiService} from "../services/tournoi.service";
 import {Tournoi} from "../classes/competitions/Tournoi";
 import {Ligue} from "../classes/competitions/Ligue";
 import {AuthentificationService} from "../services/authentification.service";
-import { HttpClient } from "@angular/common/http";
 import {UserAndLigue} from "../classes/competitions/UserAndLigue";
 import {Utilisateur} from "../classes/Utilisateur";
 import {LigueTournoiStatutEnum} from "../enums/LigueTournoiStatutEnum";
@@ -14,6 +13,8 @@ import {InscriptionDialogComponent} from "./inscription-dialog/inscription-dialo
 import {UtilisateurService} from "../services/utilisateur.service";
 import {InscriptionCompetition} from "../classes/competitions/InscriptionCompetition";
 import {UserAndTournoi} from "../classes/competitions/UserAndTournoi";
+import { UiMessageService } from '../services/ui-message.service';
+import { TOURNOIS_MSG } from '../core/messages/domain.messages';
 
 @Component({
   selector: 'app-tournois',
@@ -32,9 +33,10 @@ export class TournoisComponent implements OnInit {
   allDecks= signal<Deck[]>([]);
 
 
-  constructor(private http: HttpClient, private router: Router, private zone: NgZone,
+  constructor(private router: Router, private zone: NgZone,
               private dialogService: DialogService, private tournoiService: TournoiService,
-              private authService: AuthentificationService, private utilisateurService: UtilisateurService) {
+              private authService: AuthentificationService, private utilisateurService: UtilisateurService,
+              private uiMessage: UiMessageService) {
   }
 
   ngOnInit(): void {
@@ -62,14 +64,13 @@ export class TournoisComponent implements OnInit {
         if (inscriptionCompetition.status === "OK") {
           const inscriptionValues: UserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
 
-          this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/inscription', inscriptionValues).subscribe({
-            next: response => {
-              alert('Inscription enregistrée !');
+          this.tournoiService.inscrireTournoi(inscriptionValues).subscribe({
+            next: () => {
+              this.uiMessage.success(TOURNOIS_MSG.INSCRIPTION_OK);
               this.refreshTournoisLigueListes();
             },
-            error: error => {
-              console.error('There was an error!', error);
-              alert('Erreur lors de l\'inscription');
+            error: () => {
+              this.uiMessage.error(TOURNOIS_MSG.INSCRIPTION_ERR);
               this.refreshTournoisLigueListes();
             }
           });
@@ -93,14 +94,13 @@ export class TournoisComponent implements OnInit {
           // @ts-ignore
           const inscriptionValues: UserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser(), decks: inscriptionCompetition.decks };
 
-          this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/inscription', inscriptionValues).subscribe({
-            next: response => {
-              alert('Inscription enregistrée !');
+          this.tournoiService.inscrireLigue(inscriptionValues).subscribe({
+            next: () => {
+              this.uiMessage.success(TOURNOIS_MSG.INSCRIPTION_OK);
               this.refreshTournoisLigueListes();
             },
-            error: error => {
-              console.error('There was an error!', error);
-              alert('Erreur lors de l\'inscription');
+            error: () => {
+              this.uiMessage.error(TOURNOIS_MSG.INSCRIPTION_ERR);
               this.refreshTournoisLigueListes();
             }
           });
@@ -113,13 +113,13 @@ export class TournoisComponent implements OnInit {
     // @ts-ignore
     const inscriptionValues: UserAndTournoi = { tournoi: tournoi, utilisateur: this.authService.getUser() };
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/tournois/desinscription', inscriptionValues).subscribe({
-      next: response => {
-        alert('Désinscription validée !');
+    this.tournoiService.desinscrireTournoi(inscriptionValues).subscribe({
+      next: () => {
+        this.uiMessage.success(TOURNOIS_MSG.DESINSCRIPTION_OK);
         this.refreshTournoisLigueListes();
       },
-      error: error => {
-        console.error('There was an error!', error);
+      error: () => {
+        this.uiMessage.error(TOURNOIS_MSG.DESINSCRIPTION_ERR);
         this.refreshTournoisLigueListes();
       }
     });
@@ -129,13 +129,13 @@ export class TournoisComponent implements OnInit {
     // @ts-ignore
     const inscriptionValues: UserAndLigue = { ligue: ligue, utilisateur: this.authService.getUser() };
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/ligues/desinscription', inscriptionValues).subscribe({
-      next: response => {
-        alert('Désinscription validée !');
+    this.tournoiService.desinscrireLigue(inscriptionValues).subscribe({
+      next: () => {
+        this.uiMessage.success(TOURNOIS_MSG.DESINSCRIPTION_OK);
         this.refreshTournoisLigueListes();
       },
-      error: error => {
-        console.error('There was an error!', error);
+      error: () => {
+        this.uiMessage.error(TOURNOIS_MSG.DESINSCRIPTION_ERR);
         this.refreshTournoisLigueListes();
       }
     });
@@ -188,8 +188,8 @@ export class TournoisComponent implements OnInit {
       next: (data) => {
           this.tournoisOuverts.set(data);
         },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
+      error: () => {
+        this.uiMessage.error(TOURNOIS_MSG.LISTE_ERR);
       }
     });
 
@@ -197,8 +197,8 @@ export class TournoisComponent implements OnInit {
       next: (data) => {
         this.liguesOuvertes.set(data);
       },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des tournois en attente :', error);
+      error: () => {
+        this.uiMessage.error(TOURNOIS_MSG.LISTE_ERR);
       }
     });
 
@@ -208,8 +208,8 @@ export class TournoisComponent implements OnInit {
         next: (data) => {
           this.registeredTournaments.set(data);
         },
-        error: (error) => {
-          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        error: () => {
+          this.uiMessage.error(TOURNOIS_MSG.LISTE_ERR);
         }
       });
 
@@ -217,8 +217,8 @@ export class TournoisComponent implements OnInit {
         next: (data) => {
           this.registeredLigues.set(data);
         },
-        error: (error) => {
-          console.error('Erreur lors de la récupération des tournois en attente :', error);
+        error: () => {
+          this.uiMessage.error(TOURNOIS_MSG.LISTE_ERR);
         }
       });
     }

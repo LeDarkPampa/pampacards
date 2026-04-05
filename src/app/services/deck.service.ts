@@ -30,10 +30,7 @@ export class DeckService extends ApiService {
     const url = this.API_URL + `/isDeckUtilise?deckId=${selectedDeck.id}`;
     return this.http.get<boolean>(url).pipe(
       map((data: boolean) => data),
-      catchError((error) => {
-        console.error('There was an error!', error);
-        return of(false);
-      })
+      catchError(() => of(false))
     );
   }
 

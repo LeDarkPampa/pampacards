@@ -25,6 +25,8 @@ import {Tournoi} from "../classes/competitions/Tournoi";
 import {Ligue} from "../classes/competitions/Ligue";
 import {AvatarService} from "../services/avatar.service";
 import {AvatarPart} from "../classes/AvatarPart";
+import { UiMessageService } from '../services/ui-message.service';
+import { PARTIE_MSG } from '../core/messages/domain.messages';
 
 @Component({
   selector: 'app-partie',
@@ -87,7 +89,8 @@ export class PartieComponent implements OnInit, OnDestroy {
               private tournoiService: TournoiService, private avatarService: AvatarService,
               private partieEventService: PartieEventService, private router: Router,
               private tchatService: TchatService, private carteEffetService: CarteEffetService,
-              private sseService: SseService, private cd: ChangeDetectorRef) {
+              private sseService: SseService, private cd: ChangeDetectorRef,
+              private uiMessage: UiMessageService) {
     this.userId = authService.getUserId();
   }
 
@@ -231,15 +234,13 @@ export class PartieComponent implements OnInit, OnDestroy {
               front: avatarAdv.front
             };
           },
-          error: error => {
-            console.error('Erreur lors de la récupération de l\'avatar', error);
-            alert('Erreur lors de la récupération de l\'avatar');
+          error: (err) => {
+            this.uiMessage.error(PARTIE_MSG.AVATAR_ERR);
           }
         });
       },
-      error: error => {
-        console.error('Erreur lors de la récupération de l\'avatar', error);
-        alert('Erreur lors de la récupération de l\'avatar');
+      error: () => {
+        this.uiMessage.error(PARTIE_MSG.AVATAR_ERR);
       }
     });
 
@@ -1481,17 +1482,14 @@ export class PartieComponent implements OnInit, OnDestroy {
   abandon() {
     let event = this.partieEventService.createAbandonEvent(this.partie, this.userId, this.joueur, this.adversaire, this.lastEvent);
 
-    this.http.post<any>('https://pampacardsback-57cce2502b80.herokuapp.com/api/partieEvent', event).subscribe({
-      next: response => {
+    this.partieEventService.postPartieEvent(event).subscribe({
+      next: () => {
         this.finDePartie = true;
         this.joueurAbandon = this.joueur.nom;
         this.vainqueur = this.adversaire.nom;
 
         this.partieEventService.sendAbandonResult(this.joueur, this.adversaire, this.partie);
       },
-      error: error => {
-        console.error('There was an error!', error);
-      }
     });
   }
 
