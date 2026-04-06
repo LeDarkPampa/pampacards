@@ -185,3 +185,22 @@ body {
     padding: 0;
   }
 }
+
+/* Lien retour depuis les pages du tutoriel (Débuter, Jouer, statuts, etc.) */
+.tutoriel-back-nav {
+  text-align: left;
+  max-width: min(1100px, 95vw);
+  margin: 0 auto 12px;
+}
+
+.tutoriel-back-link {
+  color: #85c1e9;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.tutoriel-back-link:hover,
+.tutoriel-back-link:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}

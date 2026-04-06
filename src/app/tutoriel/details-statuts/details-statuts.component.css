@@ -4,24 +4,6 @@
   padding: 20px;
 }
 
-.details-statuts-nav {
-  text-align: left;
-  max-width: min(1100px, 95vw);
-  margin: 0 auto 12px;
-}
-
-.details-statuts-back {
-  color: #85c1e9;
-  text-decoration: none;
-  font-size: 15px;
-}
-
-.details-statuts-back:hover,
-.details-statuts-back:focus-visible {
-  text-decoration: underline;
-  outline: none;
-}
-
 .details-statuts-loading {
   display: flex;
   flex-direction: column;
