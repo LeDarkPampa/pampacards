@@ -32,8 +32,7 @@
   </div>
 
   <p class="infos-detail-intro">
-    Cliquez sur un booster pour voir les cartes que vous avez une chance d’y trouver. L’URL peut inclure le paramètre
-    <span class="infos-detail-code">booster</span> pour partager un booster précis.
+    Cliquez sur un booster pour voir les cartes que vous avez une chance d’y trouver.
   </p>
 
   <div *ngIf="loading" class="infos-detail-loading" role="status" aria-live="polite">
@@ -63,20 +62,9 @@
 
   <section *ngIf="boosterSelectionne as sel" class="infos-detail-selection" aria-labelledby="booster-detail-title">
     <h2 id="booster-detail-title" class="booster-detail-heading">{{ sel.nom }}</h2>
-    <p class="infos-detail-card-hint">Clique sur une carte pour ouvrir sa fiche.</p>
     <ul class="carte-grid">
       <li *ngFor="let carte of sel.cartes; trackBy: trackByCarteId">
-        <div
-          class="infos-card-wrap"
-          role="link"
-          tabindex="0"
-          [attr.aria-label]="'Voir la fiche : ' + carte.nom"
-          (click)="openCardDetail(carte, $event)"
-          (keydown.enter)="openCardDetail(carte, $event)"
-          (keydown.space)="openCardDetail(carte, $event)"
-        >
-          <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
-        </div>
+        <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
       </li>
     </ul>
   </section>

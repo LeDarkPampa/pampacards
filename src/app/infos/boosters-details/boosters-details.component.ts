@@ -83,22 +83,6 @@ export class BoostersDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCardDetail(carte: Carte, event: Event): void {
-    if (event instanceof KeyboardEvent) {
-      if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault();
-      } else {
-        return;
-      }
-    } else if (event instanceof MouseEvent) {
-      const t = event.target as HTMLElement | null;
-      if (t?.closest('a,button,input,select,textarea')) {
-        return;
-      }
-    }
-    void this.router.navigate(['/card-view', carte.id]);
-  }
-
   private applyBoosterFromQuery(): void {
     const raw = this.route.snapshot.queryParamMap.get('booster');
     if (raw == null || raw === '') {

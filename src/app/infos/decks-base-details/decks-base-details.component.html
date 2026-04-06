@@ -5,10 +5,7 @@
 
   <h1>Détail des decks de base</h1>
 
-  <p class="infos-detail-intro">
-    Cliquez sur un deck de base pour voir les cartes qui le composent. Tu peux partager un deck avec l’adresse de la page
-    (le paramètre <span class="infos-detail-code">deck</span> dans l’URL).
-  </p>
+  <p class="infos-detail-intro">Cliquez sur un deck de base pour voir les cartes qui le composent.</p>
 
   <div *ngIf="loading" class="infos-detail-loading" role="status" aria-live="polite">
     <div class="infos-detail-spinner" aria-hidden="true"></div>
@@ -37,20 +34,9 @@
 
   <section *ngIf="deckSelectionne as sel" class="infos-detail-selection" aria-labelledby="deck-detail-title">
     <h2 id="deck-detail-title" class="deck-detail-heading">{{ sel.nom }}</h2>
-    <p class="infos-detail-card-hint">Clique sur une carte pour ouvrir sa fiche.</p>
     <ul class="carte-grid">
       <li *ngFor="let carte of sel.cartes; trackBy: trackByCarteId">
-        <div
-          class="infos-card-wrap"
-          role="link"
-          tabindex="0"
-          [attr.aria-label]="'Voir la fiche : ' + carte.nom"
-          (click)="openCardDetail(carte, $event)"
-          (keydown.enter)="openCardDetail(carte, $event)"
-          (keydown.space)="openCardDetail(carte, $event)"
-        >
-          <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
-        </div>
+        <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
       </li>
     </ul>
   </section>

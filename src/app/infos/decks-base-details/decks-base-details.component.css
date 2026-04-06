@@ -29,19 +29,12 @@ h1 {
   margin: 16px 0 8px;
 }
 
-.infos-detail-intro,
-.infos-detail-card-hint {
+.infos-detail-intro {
   max-width: 640px;
   margin: 0 auto 16px;
   line-height: 1.5;
   font-size: 15px;
   color: #d8d8d8;
-}
-
-.infos-detail-code {
-  font-family: ui-monospace, monospace;
-  font-size: 0.9em;
-  color: #aed6f1;
 }
 
 .infos-detail-loading {
@@ -114,21 +107,6 @@ li {
   max-width: 220px;
   display: flex;
   justify-content: center;
-}
-
-.infos-card-wrap {
-  cursor: pointer;
-  border-radius: 10px;
-  outline: none;
-  transition: box-shadow 0.2s ease;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.infos-card-wrap:hover,
-.infos-card-wrap:focus-visible {
-  box-shadow: 0 0 0 2px rgba(93, 173, 226, 0.65);
 }
 
 .button-grid {
