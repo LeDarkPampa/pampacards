@@ -12,6 +12,7 @@ export const TOURNOIS_MSG = {
   DESINSCRIPTION_OK: 'Désinscription enregistrée.',
   DESINSCRIPTION_ERR: 'Impossible de vous désinscrire.',
   LISTE_ERR: 'Impossible de charger les compétitions.',
+  DECKS_LOAD_ERR: 'Impossible de charger vos decks.',
 } as const;
 
 export const COMBAT_MSG = {

@@ -1,136 +1,207 @@
-<div class="container">
-  <h3>Tournois disponibles</h3>
-  <div class="details-statuts">
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Nombre de places</th>
-          <th>Format</th>
-          <th>Type de combat</th>
-          <th>Statut</th>
-          <th>Nombre d'inscrits</th>
-          <th>Inscrits</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let tournoi of tournoisOuverts()">
-          <td>{{ tournoi.nom }}</td>
-          <td>{{ tournoi.nombreDeJoueurs }}</td>
-          <td>{{ tournoi.format.nom }}</td>
-          <td>{{ tournoi.typeCombat.nom }}</td>
-          <td>{{ tournoi.statut }}</td>
-          <td>{{ tournoi.participants.length }}</td>
-          <td>
-            <div *ngFor="let participant of tournoi.participants">
-              {{ participant.utilisateur.pseudo }}
-            </div>
-          </td>
-          <td *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length && !isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
-            <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForTournament(tournoi)"></app-pampa-button-carre>
-          </td>
-          <td *ngIf="isUserInTournoiParticipants(tournoi) && inscriptionTournoiOuverte(tournoi)">
-            <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForTournament(tournoi)"></app-pampa-button-carre>
-          </td>
-          <td *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length">
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+<main class="container tournois-page">
+  <h1 class="tournois-page-title">Compétitions</h1>
+
+  <div *ngIf="listsLoading()" class="tournois-loading" role="status" aria-live="polite">
+    <div class="tournois-spinner" aria-hidden="true"></div>
+    <span>Chargement des tournois et ligues…</span>
   </div>
-  <h3>Ligues disponibles</h3>
-  <div class="details-statuts">
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Format</th>
-          <th>Type de combat</th>
-          <th>Statut</th>
-          <th>Nombre d'inscrits</th>
-          <th>Inscrits</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let ligue of liguesOuvertes()">
-          <td>{{ ligue.nom }}</td>
-          <td>{{ ligue.format.nom }}</td>
-          <td>{{ ligue.typeCombat.nom }}</td>
-          <td>{{ ligue.statut }}</td>
-          <td>{{ ligue.participants.length }}</td>
-          <td>
-            <div *ngFor="let participant of ligue.participants">
-              <div *ngIf="participant && participant.utilisateur">
-                {{ participant.utilisateur.pseudo }}
-              </div>
-            </div>
-          </td>
-          <td *ngIf="!isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
-            <app-pampa-button-carre [texte]="'S\'inscrire'" [couleur]="'bleu'" [taille]="'mini'" (click)="registerForLigue(ligue)"></app-pampa-button-carre>
-          </td>
-          <td *ngIf="isUserInLigueParticipants(ligue) && inscriptionLigueOuverte(ligue)">
-            <app-pampa-button-carre [texte]="'Quitter'" [couleur]="'rouge'" [taille]="'mini'" (click)="unregisterForLigue(ligue)"></app-pampa-button-carre>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+  <ng-container *ngIf="!listsLoading()">
+    <h2 class="tournois-section-title">Tournois disponibles</h2>
+    <div class="tournois-section-panel">
+      <div class="table-container">
+        <table class="custom-table">
+          <caption class="tournois-table-caption">
+            Tournois ouverts aux inscriptions ou à venir
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Remplissage</th>
+              <th scope="col">Format</th>
+              <th scope="col">Type de combat</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Inscrits</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="tournoisOuverts().length === 0">
+              <td colspan="7" class="tournois-empty-cell">Aucun tournoi disponible pour le moment.</td>
+            </tr>
+            <tr *ngFor="let tournoi of tournoisOuverts(); trackBy: trackByTournoiId">
+              <th scope="row" class="tournois-row-name">{{ tournoi.nom }}</th>
+              <td>{{ tournoi.participants.length }} / {{ tournoi.nombreDeJoueurs }}</td>
+              <td>{{ tournoi.format.nom }}</td>
+              <td>{{ tournoi.typeCombat.nom }}</td>
+              <td>
+                <span class="tournois-statut" [ngClass]="getStatutNgClass(tournoi.statut)">{{ tournoi.statut }}</span>
+              </td>
+              <td class="tournois-inscrits-cell">
+                <div *ngFor="let participant of tournoi.participants; trackBy: trackByParticipantId">
+                  <span *ngIf="participant.utilisateur as u">{{ u.pseudo }}</span>
+                </div>
+              </td>
+              <td class="tournois-actions-cell">
+                <ng-container *ngIf="tournoi.nombreDeJoueurs <= tournoi.participants.length">
+                  <span class="tournois-actions-muted">Complet</span>
+                </ng-container>
+                <ng-container *ngIf="tournoi.nombreDeJoueurs > tournoi.participants.length">
+                  <ng-container *ngIf="inscriptionTournoiOuverte(tournoi)">
+                    <app-pampa-button-carre
+                      *ngIf="!isUserInTournoiParticipants(tournoi)"
+                      [texte]="'S\'inscrire'"
+                      [couleur]="'bleu'"
+                      [taille]="'mini'"
+                      (clickBouton)="registerForTournament(tournoi)"
+                    ></app-pampa-button-carre>
+                    <app-pampa-button-carre
+                      *ngIf="isUserInTournoiParticipants(tournoi)"
+                      [texte]="'Quitter'"
+                      [couleur]="'rouge'"
+                      [taille]="'mini'"
+                      (clickBouton)="unregisterForTournament(tournoi)"
+                    ></app-pampa-button-carre>
+                  </ng-container>
+                  <span *ngIf="!inscriptionTournoiOuverte(tournoi)" class="tournois-actions-muted">Inscriptions fermées</span>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <h3>Vos tournois</h3>
-  <div class="details-statuts">
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Statut</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let tournoi of registeredTournaments()">
-          <td>{{ tournoi.nom }}</td>
-          <td><span [ngClass]="{'status-active': tournoi.statut === 'En cours',
-          'status-pending': tournoi.statut === 'En attente',
-          'status-ended': tournoi.statut === 'Terminé'}">{{ tournoi.statut }}</span>
-          </td>
-          <td class="ligne-centree" *ngIf="isUserInTournoiParticipants(tournoi) && isTournoiEnCours(tournoi) || isTournoiTermine(tournoi)">
-            <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirTournoi(tournoi)"></app-pampa-button-carre>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+    <h2 class="tournois-section-title">Ligues disponibles</h2>
+    <div class="tournois-section-panel">
+      <div class="table-container">
+        <table class="custom-table">
+          <caption class="tournois-table-caption">
+            Ligues ouvertes aux inscriptions ou à venir
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Format</th>
+              <th scope="col">Type de combat</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Inscrits</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="liguesOuvertes().length === 0">
+              <td colspan="6" class="tournois-empty-cell">Aucune ligue disponible pour le moment.</td>
+            </tr>
+            <tr *ngFor="let ligue of liguesOuvertes(); trackBy: trackByLigueId">
+              <th scope="row" class="tournois-row-name">{{ ligue.nom }}</th>
+              <td>{{ ligue.format.nom }}</td>
+              <td>{{ ligue.typeCombat.nom }}</td>
+              <td>
+                <span class="tournois-statut" [ngClass]="getStatutNgClass(ligue.statut)">{{ ligue.statut }}</span>
+              </td>
+              <td class="tournois-inscrits-cell">
+                <div *ngFor="let participant of ligue.participants; trackBy: trackByParticipantId">
+                  <span *ngIf="participant.utilisateur as u">{{ u.pseudo }}</span>
+                </div>
+              </td>
+              <td class="tournois-actions-cell">
+                <ng-container *ngIf="inscriptionLigueOuverte(ligue)">
+                  <app-pampa-button-carre
+                    *ngIf="!isUserInLigueParticipants(ligue)"
+                    [texte]="'S\'inscrire'"
+                    [couleur]="'bleu'"
+                    [taille]="'mini'"
+                    (clickBouton)="registerForLigue(ligue)"
+                  ></app-pampa-button-carre>
+                  <app-pampa-button-carre
+                    *ngIf="isUserInLigueParticipants(ligue)"
+                    [texte]="'Quitter'"
+                    [couleur]="'rouge'"
+                    [taille]="'mini'"
+                    (clickBouton)="unregisterForLigue(ligue)"
+                  ></app-pampa-button-carre>
+                </ng-container>
+                <span *ngIf="!inscriptionLigueOuverte(ligue)" class="tournois-actions-muted">Inscriptions fermées</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <h3>Vos ligues</h3>
-  <div class="details-statuts">
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Statut</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let ligue of registeredLigues()">
-          <td>{{ ligue.nom }}</td>
-          <td><span [ngClass]="{'status-active': ligue.statut === 'En cours',
-          'status-pending': ligue.statut === 'En attente',
-          'status-ended': ligue.statut === 'Terminé'}">{{ ligue.statut }}</span>
-          </td>
-          <td class="ligne-centree" *ngIf="isUserInLigueParticipants(ligue) && (isLigueEnCours(ligue) || isLigueTermine(ligue))">
-            <app-pampa-button-carre [texte]="'Voir'" [couleur]="'bleu'" [taille]="'mini'" (click)="voirLigue(ligue)"></app-pampa-button-carre>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+    <h2 class="tournois-section-title">Vos tournois</h2>
+    <div class="tournois-section-panel">
+      <div class="table-container">
+        <table class="custom-table">
+          <caption class="tournois-table-caption">Tournois auxquels vous êtes inscrit ou associé</caption>
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="registeredTournaments().length === 0">
+              <td colspan="3" class="tournois-empty-cell">Aucun tournoi inscrit pour le moment.</td>
+            </tr>
+            <tr *ngFor="let tournoi of registeredTournaments(); trackBy: trackByTournoiId">
+              <th scope="row" class="tournois-row-name">{{ tournoi.nom }}</th>
+              <td>
+                <span class="tournois-statut" [ngClass]="getStatutNgClass(tournoi.statut)">{{ tournoi.statut }}</span>
+              </td>
+              <td class="ligne-centree tournois-actions-cell">
+                <app-pampa-button-carre
+                  *ngIf="canVoirTournoiInscrit(tournoi)"
+                  [texte]="'Voir'"
+                  [couleur]="'bleu'"
+                  [taille]="'mini'"
+                  (clickBouton)="voirTournoi(tournoi)"
+                ></app-pampa-button-carre>
+                <span *ngIf="!canVoirTournoiInscrit(tournoi)" class="tournois-actions-muted">—</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</div>
+
+    <h2 class="tournois-section-title">Vos ligues</h2>
+    <div class="tournois-section-panel">
+      <div class="table-container">
+        <table class="custom-table">
+          <caption class="tournois-table-caption">Ligues auxquelles vous êtes inscrit ou associé</caption>
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="registeredLigues().length === 0">
+              <td colspan="3" class="tournois-empty-cell">Aucune ligue inscrite pour le moment.</td>
+            </tr>
+            <tr *ngFor="let ligue of registeredLigues(); trackBy: trackByLigueId">
+              <th scope="row" class="tournois-row-name">{{ ligue.nom }}</th>
+              <td>
+                <span class="tournois-statut" [ngClass]="getStatutNgClass(ligue.statut)">{{ ligue.statut }}</span>
+              </td>
+              <td class="ligne-centree tournois-actions-cell">
+                <app-pampa-button-carre
+                  *ngIf="canVoirLigueInscrit(ligue)"
+                  [texte]="'Voir'"
+                  [couleur]="'bleu'"
+                  [taille]="'mini'"
+                  (clickBouton)="voirLigue(ligue)"
+                ></app-pampa-button-carre>
+                <span *ngIf="!canVoirLigueInscrit(ligue)" class="tournois-actions-muted">—</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</main>
