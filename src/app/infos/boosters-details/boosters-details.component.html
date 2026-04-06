@@ -1,30 +1,83 @@
-<div class="background">
+<main class="background infos-detail-main">
+  <nav class="tutoriel-back-nav" aria-label="Navigation infos">
+    <a routerLink="/infos" class="tutoriel-back-link">← Retour aux infos</a>
+  </nav>
+
   <h1>Détail des boosters</h1>
 
-  <div class="colonne-centree margin-bot width-total">
-    <div>Taux d'obtension des cartes selon leurs raretés :</div>
-    <div class="taux">
-      <div class="case-taux">1* : 50%</div>
-      <div class="case-taux">2* : 30%</div>
-      <div class="case-taux">3* : 15%</div>
-      <div class="case-taux">4* : 5%</div>
+  <div class="rarity-block">
+    <p class="rarity-intro">Taux d’obtention des cartes selon leur rareté&nbsp;:</p>
+    <div class="rarity-table-wrap">
+      <table class="rarity-table">
+        <caption class="rarity-caption">
+          Probabilités par nombre d’étoiles dans un booster
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Rareté</th>
+            <th scope="col">Probabilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rarityRates">
+            <th scope="row">
+              <span aria-hidden="true">{{ row.label }}</span>
+              <span class="rarity-sr-only">{{ row.legend }}</span>
+            </th>
+            <td>{{ row.percent }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  Cliquez sur un booster pour voir les cartes que vous avez une chance de trouver dedans
+  <p class="infos-detail-intro">
+    Cliquez sur un booster pour voir les cartes que vous avez une chance d’y trouver. L’URL peut inclure le paramètre
+    <span class="infos-detail-code">booster</span> pour partager un booster précis.
+  </p>
 
-  <div class="button-grid">
-    <div *ngFor="let booster of boosters">
-      <app-pampa-button-carre [texte]="booster.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerBooster(booster)"></app-pampa-button-carre>
+  <div *ngIf="loading" class="infos-detail-loading" role="status" aria-live="polite">
+    <div class="infos-detail-spinner" aria-hidden="true"></div>
+    <span>Chargement des boosters…</span>
+  </div>
+
+  <p *ngIf="loadError && !loading" class="infos-detail-error" role="alert">
+    Les boosters n’ont pas pu être chargés. Vérifie ta connexion ou réessaie plus tard.
+  </p>
+
+  <p *ngIf="!loading && !loadError && boosters.length === 0" class="infos-detail-empty" role="status">
+    Aucun booster n’est disponible pour le moment.
+  </p>
+
+  <div *ngIf="!loading && !loadError && boosters.length > 0" class="button-grid" role="group" aria-label="Choix du booster">
+    <div *ngFor="let booster of boosters; trackBy: trackByBoosterId">
+      <app-pampa-button-carre
+        [texte]="booster.nom"
+        [couleur]="'rouge'"
+        [taille]="'petit'"
+        [selected]="boosterSelectionne?.id === booster.id"
+        (clickBouton)="selectionnerBooster(booster)"
+      ></app-pampa-button-carre>
     </div>
   </div>
 
-  <div class="ligne-centree" *ngIf="boosterSelectionne">
-    <h3>{{ boosterSelectionne.nom }}</h3>
+  <section *ngIf="boosterSelectionne as sel" class="infos-detail-selection" aria-labelledby="booster-detail-title">
+    <h2 id="booster-detail-title" class="booster-detail-heading">{{ sel.nom }}</h2>
+    <p class="infos-detail-card-hint">Clique sur une carte pour ouvrir sa fiche.</p>
     <ul class="carte-grid">
-      <li *ngFor="let carte of boosterSelectionne.cartes">
-        <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
+      <li *ngFor="let carte of sel.cartes; trackBy: trackByCarteId">
+        <div
+          class="infos-card-wrap"
+          role="link"
+          tabindex="0"
+          [attr.aria-label]="'Voir la fiche : ' + carte.nom"
+          (click)="openCardDetail(carte, $event)"
+          (keydown.enter)="openCardDetail(carte, $event)"
+          (keydown.space)="openCardDetail(carte, $event)"
+        >
+          <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
+        </div>
       </li>
     </ul>
-  </div>
-</div>
+  </section>
+</main>

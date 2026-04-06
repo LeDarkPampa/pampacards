@@ -1,21 +1,57 @@
-<div class="background">
+<main class="background infos-detail-main">
+  <nav class="tutoriel-back-nav" aria-label="Navigation infos">
+    <a routerLink="/infos" class="tutoriel-back-link">← Retour aux infos</a>
+  </nav>
+
   <h1>Détail des decks de base</h1>
 
-  Cliquez sur un deck de base pour voir les cartes qui le composent
+  <p class="infos-detail-intro">
+    Cliquez sur un deck de base pour voir les cartes qui le composent. Tu peux partager un deck avec l’adresse de la page
+    (le paramètre <span class="infos-detail-code">deck</span> dans l’URL).
+  </p>
 
-  <div class="button-grid">
-    <div *ngFor="let deck of decksDeBase">
-      <app-pampa-button-carre [texte]="deck.nom" [couleur]="'rouge'" [taille]="'petit'" (clickBouton)="selectionnerDeck(deck)"></app-pampa-button-carre>
+  <div *ngIf="loading" class="infos-detail-loading" role="status" aria-live="polite">
+    <div class="infos-detail-spinner" aria-hidden="true"></div>
+    <span>Chargement des decks…</span>
+  </div>
+
+  <p *ngIf="loadError && !loading" class="infos-detail-error" role="alert">
+    Les decks n’ont pas pu être chargés. Vérifie ta connexion ou réessaie plus tard.
+  </p>
+
+  <p *ngIf="!loading && !loadError && decksDeBase.length === 0" class="infos-detail-empty" role="status">
+    Aucun deck de base n’est disponible pour le moment.
+  </p>
+
+  <div *ngIf="!loading && !loadError && decksDeBase.length > 0" class="button-grid" role="group" aria-label="Choix du deck de base">
+    <div *ngFor="let deck of decksDeBase; trackBy: trackByDeckId">
+      <app-pampa-button-carre
+        [texte]="deck.nom"
+        [couleur]="'rouge'"
+        [taille]="'petit'"
+        [selected]="deckSelectionne?.id === deck.id"
+        (clickBouton)="selectionnerDeck(deck)"
+      ></app-pampa-button-carre>
     </div>
   </div>
 
-  <div class="ligne-centree" *ngIf="deckSelectionne">
-    <h3>{{ deckSelectionne.nom }}</h3>
-
+  <section *ngIf="deckSelectionne as sel" class="infos-detail-selection" aria-labelledby="deck-detail-title">
+    <h2 id="deck-detail-title" class="deck-detail-heading">{{ sel.nom }}</h2>
+    <p class="infos-detail-card-hint">Clique sur une carte pour ouvrir sa fiche.</p>
     <ul class="carte-grid">
-      <li *ngFor="let carte of deckSelectionne.cartes">
-        <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
+      <li *ngFor="let carte of sel.cartes; trackBy: trackByCarteId">
+        <div
+          class="infos-card-wrap"
+          role="link"
+          tabindex="0"
+          [attr.aria-label]="'Voir la fiche : ' + carte.nom"
+          (click)="openCardDetail(carte, $event)"
+          (keydown.enter)="openCardDetail(carte, $event)"
+          (keydown.space)="openCardDetail(carte, $event)"
+        >
+          <app-carte [taille]="'booster'" [carte]="carte"></app-carte>
+        </div>
       </li>
     </ul>
-  </div>
-</div>
+  </section>
+</main>

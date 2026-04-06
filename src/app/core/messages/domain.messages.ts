@@ -48,6 +48,7 @@ export const ADMIN_MSG = {
 export const INFOS_MSG = {
   USERS_ERR: ADMIN_MSG.USERS_ERR,
   DECKS_ERR: ADMIN_MSG.DECKS_ERR,
+  BOOSTERS_ERR: 'Impossible de charger les boosters.',
 } as const;
 
 export const CARTE_VIEW_MSG = {
